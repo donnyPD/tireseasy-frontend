@@ -1,0 +1,414 @@
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.mainNavBar {
+    background-color: #1a2c5b;
+    color: #ffffff;
+    padding: 0;
+}
+
+.navContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoSection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+}
+
+.logoSection img {
+    max-height: 40px;
+    width: auto;
+}
+
+.logoIcon {
+    width: 24px;
+    height: 24px;
+    background-color: #ff6b35;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 14px;
+}
+
+.logoText {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logoText:hover {
+    color: #ffffff;
+}
+
+.mainNavigation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navList {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.navItem {
+    position: relative;
+}
+
+.navLink {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.navLink:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navActions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cartIcon {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+}
+
+.cartIcon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.userInfoBar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 8px 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.userInfoContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userInfoLeft {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userInfoRight {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userStatus {
+    color: #666;
+}
+
+.locationInfo {
+    color: #666;
+}
+
+.accountLink {
+    color: #1a2c5b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.accountLink:hover {
+    text-decoration: underline;
+}
+
+/* Dropdown menus */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.navItem:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdownList {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.dropdownItem {
+    padding: 0;
+}
+
+.dropdownLink {
+    display: block;
+    padding: 8px 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: normal;
+    transition: background-color 0.2s ease;
+}
+
+.dropdownLink:hover {
+    background-color: #f5f5f5;
+    color: #1a2c5b;
+}
+
+/* Mobile responsive */
+.mobileMenuButton {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.mobileMenuButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .navContainer {
+        padding: 0 15px;
+    }
+    
+    .mobileMenuButton {
+        display: block;
+    }
+    
+    .mainNavigation {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #2c4a80;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 1002;
+    }
+    
+    .navigationOpen {
+        display: block;
+    }
+    
+    .navList {
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 0;
+    }
+    
+    .navLink {
+        padding: 12px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .navItem:last-child .navLink {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .userInfoContainer {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+    
+    .logoText {
+        font-size: 16px;
+    }
+    
+    .navLink {
+        font-size: 13px;
+        padding: 10px 15px;
+    }
+}
+
+
+
+/* Dropdown menus */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.navItem:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdownList {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.dropdownItem {
+    padding: 0;
+}
+
+.dropdownLink {
+    display: block;
+    padding: 8px 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: normal;
+    transition: background-color 0.2s ease;
+}
+
+.dropdownLink:hover {
+    background-color: #f5f5f5;
+    color: #1a2c5b;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+    .headerContainer {
+        grid-template-columns: auto auto 1fr auto;
+        gap: 15px;
+    }
+    
+    .mobileMenuButton {
+        display: block;
+    }
+    
+    .navigation {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border-top: 1px solid #e0e0e0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 1002;
+    }
+    
+    .navigationOpen {
+        display: block;
+    }
+    
+    .navList {
+        flex-direction: column;
+        gap: 0;
+        padding: 20px;
+    }
+    
+    .navItem {
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .navItem:last-child {
+        border-bottom: none;
+    }
+    
+    .navLink {
+        padding: 15px 0;
+        border-bottom: none;
+    }
+    
+    .searchBox {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .topBarContainer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .topBarLeft,
+    .topBarRight {
+        gap: 15px;
+    }
+    
+    .headerContainer {
+        grid-template-columns: auto 1fr auto;
+        gap: 10px;
+    }
+    
+    .searchBox {
+        min-width: 150px;
+    }
+    
+    .navActions {
+        gap: 10px;
+    }
+    
+    .accountInfo {
+        flex-direction: column;
+        gap: 5px;
+        font-size: 12px;
+    }
+}
