@@ -1,126 +1,125 @@
-import React, { Fragment } from 'react';
-import { Facebook, Instagram, Twitter } from 'react-feather';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
-import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
-import Logo from '@magento/venia-ui/lib/components/Logo';
-import Newsletter from '@magento/venia-ui/lib/components/Newsletter';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './footer.module.css';
-import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
-import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import { useCustomFooter } from './useCustomFooter';
 
 const Footer = props => {
-    const { links } = props;
     const classes = useStyle(defaultClasses, props.classes);
-    const talonProps = useFooter();
-
-    const { copyrightText } = talonProps;
-    const { formatMessage } = useIntl();
-    const title = formatMessage({ id: 'logo.title', defaultMessage: 'Venia' });
-
-    const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
-        const linkElements = Array.from(linkProps, ([text, pathInfo]) => {
-            let path = pathInfo;
-            let Component = Fragment;
-            if (pathInfo && typeof pathInfo === 'object') {
-                path = pathInfo.path;
-                Component = pathInfo.Component;
-            }
-
-            const itemKey = `text: ${text} path:${path}`;
-            const child = path ? (
-                <Link data-cy="Footer-link" className={classes.link} to={path}>
-                    <FormattedMessage id={text} defaultMessage={text} />
-                </Link>
-            ) : (
-                <span data-cy="Footer-label" className={classes.label}>
-                    <FormattedMessage id={text} defaultMessage={text} />
-                </span>
-            );
-
-            return (
-                <Component key={itemKey}>
-                    <li className={classes.linkItem}>{child}</li>
-                </Component>
-            );
-        });
-
-        return (
-            <ul key={groupKey} className={classes.linkGroup}>
-                {linkElements}
-            </ul>
-        );
-    });
+    const { 
+        categories, 
+        categoriesLoading,
+        companyInfo,
+        quickLinks 
+    } = useCustomFooter();
 
     return (
-        <footer data-cy="Footer-root" className={classes.root}>
-            <div className={classes.links}>
-                <div className={classes.link}>
-                    <Link to="/foo">
-                        <span className={classes.label}>Foo Demo Page</span>
-                    </Link>
+        <footer className={classes.root}>
+            <div className={classes.container}>
+                <div className={classes.sections}>
+                    {/* Company Info Section */}
+                    <div className={classes.section}>
+                        <h3 className={classes.sectionTitle}>
+                            <FormattedMessage 
+                                id="footer.companyInfo"
+                                defaultMessage="Company Info"
+                            />
+                        </h3>
+                        <p className={classes.description}>
+                            {companyInfo.description}
+                        </p>
+                    </div>
+
+                    {/* Quick Links Section */}
+                    <div className={classes.section}>
+                        <h3 className={classes.sectionTitle}>
+                            <FormattedMessage 
+                                id="footer.quickLinks"
+                                defaultMessage="Quick Links"
+                            />
+                        </h3>
+                        <ul className={classes.linksList}>
+                            {!categoriesLoading && categories.map(category => (
+                                <li key={category.uid || category.id} className={classes.linkItem}>
+                                    <Link to={category.path} className={classes.link}>
+                                        {category.name}
+                                    </Link>
+                                </li>
+                            ))}
+                            <li className={classes.linkItem}>
+                                <Link to="/customer/account" className={classes.link}>
+                                    <FormattedMessage 
+                                        id="footer.accountSettings"
+                                        defaultMessage="Account Settings"
+                                    />
+                                </Link>
+                            </li>
+                            <li className={classes.linkItem}>
+                                <Link to="/sales/order/history" className={classes.link}>
+                                    <FormattedMessage 
+                                        id="footer.orderHistory"
+                                        defaultMessage="Order History"
+                                    />
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Contact Us Section */}
+                    <div className={classes.section}>
+                        <h3 className={classes.sectionTitle}>
+                            <FormattedMessage 
+                                id="footer.contactUs"
+                                defaultMessage="Contact Us"
+                            />
+                        </h3>
+                        <div className={classes.contactInfo}>
+                            <p className={classes.contactItem}>
+                                <span className={classes.contactLabel}>
+                                    <FormattedMessage 
+                                        id="footer.email"
+                                        defaultMessage="Email:"
+                                    />
+                                </span>
+                                <a href={`mailto:${companyInfo.email}`} className={classes.contactLink}>
+                                    {companyInfo.email}
+                                </a>
+                            </p>
+                            <p className={classes.contactItem}>
+                                <span className={classes.contactLabel}>
+                                    <FormattedMessage 
+                                        id="footer.phone"
+                                        defaultMessage="Phone:"
+                                    />
+                                </span>
+                                <a href={`tel:${companyInfo.phone}`} className={classes.contactLink}>
+                                    {companyInfo.phone}
+                                </a>
+                            </p>
+                            <p className={classes.contactItem}>
+                                <span className={classes.contactLabel}>
+                                    <FormattedMessage 
+                                        id="footer.address"
+                                        defaultMessage="Address:"
+                                    />
+                                </span>
+                                <span className={classes.address}>
+                                    {companyInfo.address}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                {linkGroups}
-                <div className={classes.callout}>
-                    <span
-                        data-cy="Footer-calloutHeading"
-                        className={classes.calloutHeading}
-                    >
-                        <FormattedMessage
-                            id={'footer.followText'}
-                            defaultMessage={'Follow Us!'}
-                        />
-                    </span>
-                    <p
-                        data-cy="Footer-calloutText"
-                        className={classes.calloutBody}
-                    >
-                        <FormattedMessage
-                            id={'footer.calloutText'}
-                            defaultMessage={LOREM_IPSUM}
-                        />
+                {/* Copyright Section */}
+                <div className={classes.copyright}>
+                    <p>
+                        © 2025 DriveLine. All rights reserved.
                     </p>
-                    <ul className={classes.socialLinks}>
-                        <li>
-                            <Instagram size={20} />
-                        </li>
-                        <li>
-                            <Facebook size={20} />
-                        </li>
-                        <li>
-                            <Twitter size={20} />
-                        </li>
-                    </ul>
                 </div>
-                <Newsletter />
-            </div>
-            <div className={classes.branding}>
-                <ul className={classes.legal}>
-                    <li data-cy="Footer-terms" className={classes.terms}>
-                        <FormattedMessage
-                            id={'footer.termsText'}
-                            defaultMessage={'Terms of Use'}
-                        />
-                    </li>
-                    <li data-cy="Footer-privacy" className={classes.privacy}>
-                        <FormattedMessage
-                            id={'footer.privacyText'}
-                            defaultMessage={'Privacy Policy'}
-                        />
-                    </li>
-                </ul>
-                <p className={classes.copyright}>{copyrightText || null}</p>
-                <Link
-                    to={resourceUrl('/')}
-                    aria-label={title}
-                    className={classes.logoContainer}
-                >
-                    <Logo classes={{ logo: classes.logo }} />
-                </Link>
             </div>
         </footer>
     );
@@ -128,12 +127,10 @@ const Footer = props => {
 
 export default Footer;
 
-Footer.defaultProps = {
-    links: DEFAULT_LINKS
-};
-
 Footer.propTypes = {
     classes: shape({
         root: string
     })
 };
+// Force recompilation
+// Fixed Apollo Client error
