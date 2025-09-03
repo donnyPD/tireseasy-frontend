@@ -1,0 +1,226 @@
+/* Common container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Hero Section */
+.heroSection {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.heroTitle {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.heroDescription {
+    font-size: 1.2rem;
+    color: var(--color-text-primary, #333333);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heroButtons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.heroButton {
+    background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.heroButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
+}
+
+.vehicleLookupButton {
+    background: linear-gradient(135deg, var(--color-primary-deep, #1A2C5B), var(--color-primary-navy, #003366));
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 12px rgba(26, 44, 91, 0.3);
+    transition: all 0.3s ease;
+}
+
+.vehicleLookupButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(26, 44, 91, 0.4);
+}
+
+/* Features Section */
+.featuresSection {
+    padding: 4rem 0;
+}
+
+.featuresTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.featureCard {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featureCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.featureIcon {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.featureTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    margin-bottom: 1rem;
+}
+
+.featureDescription {
+    font-size: 1rem;
+    color: var(--color-text-secondary, #666666);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* CTA Section */
+.ctaSection {
+    background-color: var(--color-primary-deep, #1A2C5B);
+    padding: 4rem 0;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.ctaTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.ctaDescription {
+    font-size: 1.2rem;
+    color: white;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ctaButton {
+    background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 2.2rem;
+    }
+
+    .heroDescription {
+        font-size: 1.1rem;
+    }
+
+    .featuresTitle,
+    .ctaTitle {
+        font-size: 2rem;
+    }
+
+    .featuresGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .featureCard {
+        padding: 1.5rem;
+    }
+
+    .heroSection,
+    .featuresSection,
+    .ctaSection {
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .heroTitle {
+        font-size: 1.8rem;
+    }
+
+    .heroDescription,
+    .ctaDescription {
+        font-size: 1rem;
+    }
+
+    .featuresTitle,
+    .ctaTitle {
+        font-size: 1.6rem;
+    }
+
+    .heroButton,
+    .vehicleLookupButton,
+    .ctaButton {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .heroButtons {
+        flex-direction: column;
+        align-items: center;
+    }
+}

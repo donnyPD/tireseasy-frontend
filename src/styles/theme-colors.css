@@ -1,0 +1,83 @@
+/**
+ * Color scheme for tire store
+ * Based on professional B2B palette with emphasis on trust and reliability
+ */
+
+:root {
+    /* Primary Colors (Dominant) */
+    --color-primary-navy: #003366;      /* Navy Blue - for especially important elements */
+    --color-primary-deep: #1A2C5B;     /* Deep Blue - main color for navigation and headers */
+    --color-primary-charcoal: #333333; /* Charcoal Gray - main text and structural elements */
+    --color-primary-dark-gray: #4A4A4A; /* Dark Gray - secondary elements */
+    
+    /* Secondary/Accent Colors */
+    --color-accent-green: #4CAF50;      /* Standard Green - for general actions */
+    --color-accent-success: #28A745;    /* Success Green - for confirmations and "fast delivery" */
+    --color-accent-soft-green: #66CC66; /* Soft Green - for less important green elements */
+    --color-accent-orange: #FF8C00;     /* Dark Orange - main CTA and "low prices" */
+    --color-accent-bright-orange: #FF9933; /* Bright Orange - for highlighting */
+    --color-accent-amber: #FFA500;      /* Amber - alternative orange */
+    
+    /* Neutral/Background Colors */
+    --color-neutral-light: #F8F8F8;     /* Off-White - main content background */
+    --color-neutral-lighter: #EEEEEE;   /* Light Gray - borders and dividers */
+    --color-neutral-bg: #FAFAFA;        /* Background - lightest background */
+    
+    /* Text Colors */
+    --color-text-primary: #333333;      /* Primary text - main text */
+    --color-text-secondary: #666666;    /* Secondary text - secondary text */
+    --color-text-muted: #999999;        /* Muted text - muted text */
+    
+    /* Semantic Colors */
+    --color-success: var(--color-accent-success);
+    --color-warning: var(--color-accent-amber);
+    --color-error: #DC3545;
+    --color-info: var(--color-primary-deep);
+    
+    /* Interactive Elements */
+    --color-link: var(--color-primary-deep);
+    --color-link-hover: var(--color-accent-success);
+    --color-button-primary: var(--color-accent-orange);
+    --color-button-primary-hover: #E67E00;
+    --color-button-secondary: var(--color-primary-charcoal);
+    --color-button-secondary-hover: var(--color-primary-dark-gray);
+    
+    /* Venia UI Brand Colors Override (full set) */
+    --color-brand: 26, 44, 91; /* RGB for #1A2C5B (main brand color) */
+    --color-brand-base: 26, 44, 91; /* RGB for #1A2C5B (Brand base for stroke and elements) */
+    --color-brand-100: 248, 248, 248; /* RGB for #F8F8F8 (Neutral Light) */
+    --color-brand-700: 26, 44, 91; /* RGB for #1A2C5B (Primary Deep Blue) */
+    --color-brand-dark: 26, 44, 91; /* RGB values for #1A2C5B (Primary Deep Blue) */
+    --color-brand-darkest: 0, 51, 102; /* RGB for #003366 (Navy Blue for active states) */
+}
+
+/* Dark theme (optional for future use) */
+[data-theme="dark"] {
+    --color-primary-deep: #4A90E2;
+    --color-primary-charcoal: #FFFFFF;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #CCCCCC;
+    --color-text-muted: #999999;
+    --color-neutral-light: #2C2C2C;
+    --color-neutral-lighter: #404040;
+    --color-neutral-bg: #1A1A1A;
+}
+
+/* Utility classes for quick color application */
+.text-primary-deep { color: var(--color-primary-deep) !important; }
+.text-primary-charcoal { color: var(--color-primary-charcoal) !important; }
+.text-secondary { color: var(--color-text-secondary) !important; }
+.text-muted { color: var(--color-text-muted) !important; }
+
+.bg-primary-deep { background-color: var(--color-primary-deep) !important; }
+.bg-accent-orange { background-color: var(--color-accent-orange) !important; }
+.bg-accent-success { background-color: var(--color-accent-success) !important; }
+.bg-neutral-light { background-color: var(--color-neutral-light) !important; }
+
+.border-neutral-lighter { border-color: var(--color-neutral-lighter) !important; }
+
+/* Special classes for business logic */
+.fast-shipping { color: var(--color-accent-success) !important; }
+.low-cost { color: var(--color-accent-orange) !important; }
+.view-brands { background-color: var(--color-accent-orange) !important; color: white; }
+.confirm-action { background-color: var(--color-accent-success) !important; color: white; }

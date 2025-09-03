@@ -19,7 +19,7 @@
     "prettier:fix": "yarn run -s prettier -- --write",
     "start": "buildpack serve .",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.mode development",
-    "watch": "webpack-dev-server --progress --color --env.mode development",
+    "watch": "export NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server --progress --color --env.mode development",
     "storybook": "start-storybook -p 9001 -c src/.storybook",
     "storybook:build": "build-storybook -c src/.storybook -o storybook-dist"
   },

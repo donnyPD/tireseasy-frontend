@@ -84,7 +84,40 @@ const config = {
                 max: '1920px'
             }
         },
-        extend: {}
+        extend: {
+            colors: {
+                // Primary Colors (Dominant)
+                'primary-navy': '#003366',      // Navy Blue
+                'primary-deep': '#1A2C5B',     // Deep Blue
+                'primary-charcoal': '#333333', // Charcoal Gray
+                'primary-dark-gray': '#4A4A4A', // Dark Gray
+
+                // Secondary/Accent Colors
+                'accent-green': '#4CAF50',      // Standard Green
+                'accent-success': '#28A745',    // Bootstrap Success Green
+                'accent-soft-green': '#66CC66', // Softer Green
+                'accent-orange': '#FF8C00',     // Dark Orange
+                'accent-bright-orange': '#FF9933', // Brighter Orange
+                'accent-amber': '#FFA500',      // Orange/Amber
+
+                // Neutral/Background Colors
+                'neutral-light': '#F8F8F8',     // Off-White
+                'neutral-lighter': '#EEEEEE',   // Light Gray
+                'neutral-bg': '#FAFAFA',        // Background
+
+                'text-primary': '#333333',      // Primary text
+                'text-secondary': '#666666',    // Secondary text
+                'text-muted': '#999999',        // Muted text
+
+                // Venia UI Brand Colors Override (complete set)
+                'brand': '#1A2C5B',             // Main brand color
+                'brand-base': '#1A2C5B',        // Brand base
+                'brand-100': '#F8F8F8',         // Light brand variant
+                'brand-700': '#1A2C5B',         // Dark brand variant
+                'brand-dark': '#1A2C5B',        // Brand dark
+                'brand-darkest': '#003366'      // Brand darkest
+            }
+        }
     }
 };
 

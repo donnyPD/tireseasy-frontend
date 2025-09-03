@@ -1,0 +1,268 @@
+/* Vehicle Lookup Trims Component Styles */
+.container {
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background-color: white;
+    min-height: 100vh;
+}
+
+/* Header Section */
+.header {
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    margin: 0;
+    text-align: center;
+}
+
+/* Vehicle Information Section */
+.vehicleSection {
+    margin-bottom: 2.5rem;
+}
+
+.vehicleInfo {
+    text-align: center;
+}
+
+.vehicleTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    margin: 0 0 1rem 0;
+}
+
+.vehicleDescription {
+    font-size: 1rem;
+    color: var(--color-text-secondary, #666666);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Tire Size Section */
+.tireSizeSection {
+    margin-bottom: 2.5rem;
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.tireSizeGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tireSizeButton {
+    background-color: white;
+    border: 2px solid var(--color-neutral-lighter, #EEEEEE);
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary, #333333);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styles for link version of tire size button */
+.tireSizeLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.tireSizeLink:visited {
+    color: inherit;
+}
+
+.tireSizeLink:hover {
+    text-decoration: none;
+}
+
+.tireSizeContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.tireSize {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.tireTrim {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--color-text-secondary, #666666);
+    font-style: italic;
+}
+
+.tireSizeButton:hover {
+    border-color: var(--color-accent-orange, #FF8C00);
+    background-color: rgba(255, 140, 0, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tireSizeButton:focus {
+    outline: none;
+    border-color: var(--color-accent-orange, #FF8C00);
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+}
+
+.tireSizeButton.selected {
+    background-color: var(--color-accent-orange, #FF8C00);
+    border-color: var(--color-accent-orange, #FF8C00);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+}
+
+.tireSizeButton.selected .tireTrim {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.tireSizeButton.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Information Section */
+.infoSection {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--color-neutral-bg, #FAFAFA);
+    border-radius: 8px;
+    border: 1px solid var(--color-neutral-lighter, #EEEEEE);
+}
+
+.infoText {
+    color: var(--color-text-secondary, #666666);
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .vehicleTitle {
+        font-size: 1.3rem;
+    }
+
+    .vehicleDescription {
+        font-size: 0.9rem;
+    }
+
+    .tireSizeGrid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .tireSizeButton {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .infoSection {
+        padding: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .infoText {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 0.75rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .vehicleTitle {
+        font-size: 1.2rem;
+    }
+
+    .tireSizeGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .tireSizeButton {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    .infoSection {
+        padding: 0.75rem;
+        margin-top: 1rem;
+    }
+    
+    .infoText {
+        font-size: 0.85rem;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .tireSizeButton,
+    .viewTiresButton {
+        transition: none;
+    }
+
+    .tireSizeButton:hover,
+    .viewTiresButton:hover:not(:disabled) {
+        transform: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tireSizeButton {
+        border-width: 3px;
+    }
+
+    .tireSizeButton.selected {
+        border-width: 3px;
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}

@@ -1,0 +1,321 @@
+/* Quick Lookups Section */
+.quickLookupsSection {
+    background-color: transparent;
+    padding: 0;
+}
+
+.container {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sectionTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    margin-bottom: 2rem;
+}
+
+.formsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.formCard {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.formTitle {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-primary-deep, #1A2C5B);
+    margin-bottom: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fieldGroup {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.optionalLabel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary, #666666);
+    font-weight: normal;
+}
+
+.hintText {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #666666);
+    margin: 0.5rem 0 1rem 0;
+    font-style: italic;
+}
+
+.submitButton {
+    background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.submitButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
+}
+
+.submitButton:active {
+    transform: translateY(0);
+}
+
+.submitButton:disabled {
+    background: var(--color-neutral-dark, #666666);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+.submitButton:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Custom styles for TextInput components */
+.fieldGroup :global(.venia-input) {
+    border: 1px solid var(--color-neutral-dark, #333333);
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fieldGroup :global(.venia-input):focus {
+    outline: none;
+    border-color: var(--color-accent-orange, #FF8C00);
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.2);
+}
+
+.fieldGroup :global(.venia-input)::placeholder {
+    color: var(--color-text-secondary, #999999);
+}
+
+.fieldGroup :global(.venia-input):disabled {
+    background-color: var(--color-neutral-light, #f5f5f5);
+    color: var(--color-text-secondary, #999999);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.fieldGroup :global(.venia-label) {
+    font-weight: bold;
+    color: var(--color-text-primary, #333333);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Custom styles for YearSelect component */
+.selectContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.yearSelect {
+    border: 1px solid var(--color-neutral-dark, #333333);
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: white;
+    color: var(--color-text-primary, #333333);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
+.yearSelect:focus {
+    outline: none;
+    border-color: var(--color-accent-orange, #FF8C00);
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.2);
+}
+
+.yearSelect:disabled {
+    background-color: var(--color-neutral-light, #f5f5f5);
+    color: var(--color-text-secondary, #999999);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.yearSelect option {
+    padding: 0.5rem;
+    color: var(--color-text-primary, #333333);
+}
+
+.yearSelect option:disabled {
+    color: var(--color-text-secondary, #999999);
+    font-style: italic;
+}
+
+.errorMessage {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+/* Custom styles for MakeSelect component */
+.makeSelect {
+    border: 1px solid var(--color-neutral-dark, #333333);
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: white;
+    color: var(--color-text-primary, #333333);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
+.makeSelect:focus {
+    outline: none;
+    border-color: var(--color-accent-orange, #FF8C00);
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.2);
+}
+
+.makeSelect:disabled {
+    background-color: var(--color-neutral-light, #f5f5f5);
+    color: var(--color-text-secondary, #999999);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.makeSelect option {
+    padding: 0.5rem;
+    color: var(--color-text-primary, #333333);
+}
+
+.makeSelect option:disabled {
+    color: var(--color-text-secondary, #999999);
+    font-style: italic;
+}
+
+/* Custom styles for ModelSelect component */
+.modelSelect {
+    border: 1px solid var(--color-neutral-dark, #333333);
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: white;
+    color: var(--color-text-primary, #333333);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
+.modelSelect:focus {
+    outline: none;
+    border-color: var(--color-accent-orange, #FF8C00);
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.2);
+}
+
+.modelSelect:disabled {
+    background-color: var(--color-neutral-light, #f5f5f5);
+    color: var(--color-text-secondary, #999999);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.modelSelect option {
+    padding: 0.5rem;
+    color: var(--color-text-primary, #333333);
+}
+
+.modelSelect option:disabled {
+    color: var(--color-text-secondary, #999999);
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .sectionTitle {
+        font-size: 1.6rem;
+    }
+
+    .formTitle {
+        font-size: 1.2rem;
+    }
+
+    .formCard {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sectionTitle {
+        font-size: 1.5rem;
+    }
+
+    .formTitle {
+        font-size: 1.1rem;
+    }
+
+    .formCard {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sectionTitle {
+        font-size: 1.4rem;
+    }
+
+    .formTitle {
+        font-size: 1rem;
+    }
+
+    .formCard {
+        padding: 0.75rem;
+    }
+
+    .submitButton {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
