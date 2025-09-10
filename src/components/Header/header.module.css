@@ -17,6 +17,7 @@
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 }
@@ -58,10 +59,9 @@
 }
 
 .mainNavigation {
-    flex: 1;
     display: flex;
-    justify-content: center;
     padding: 10px 0;
+    width: 100%;
 }
 
 .navList {
@@ -93,10 +93,80 @@
     text-decoration: none;
 }
 
+.searchContainer {
+    flex: 1;
+    max-width: 990px;
+    margin: 0 20px;
+    display: flex;
+    align-items: center;
+}
+
+.searchForm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.searchInputWrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+.searchInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.searchInput::placeholder {
+    color: gray;
+}
+
+.searchButton {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+
 .navActions {
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+.orderHistoryIcon {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+}
+
+.orderHistoryIcon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .cartIcon {
@@ -233,6 +303,20 @@
         display: block;
     }
 
+    .searchContainer {
+        margin: 0 15px;
+        max-width: 400px;
+    }
+
+    .searchInput {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .searchButton {
+        padding: 8px 12px;
+    }
+
     .mainNavigation {
         display: none;
         position: absolute;
@@ -274,6 +358,20 @@
 
     .logoText {
         font-size: 16px;
+    }
+
+    .searchContainer {
+        margin: 0 10px;
+        max-width: 250px;
+    }
+
+    .searchInput {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .searchButton {
+        padding: 8px 10px;
     }
 
     .navLink {

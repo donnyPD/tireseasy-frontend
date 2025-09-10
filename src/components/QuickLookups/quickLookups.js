@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Form, Text } from 'informed';
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -9,6 +9,7 @@ import Field from '@magento/venia-ui/lib/components/Field';
 import YearSelect from './YearSelect';
 import MakeSelect from './MakeSelect';
 import ModelSelect from './ModelSelect';
+import TrimsSelect from './TrimsSelect';
 import { useOptions } from './useOptions';
 import { useVinLookup, validateVin } from './useVinLookup';
 import defaultClasses from './quickLookups.module.css';
@@ -17,14 +18,18 @@ import defaultClasses from './quickLookups.module.css';
  * QuickLookups component with Vehicle Lookup and VIN Lookup forms
  * @param {Object} props - Component props
  * @param {Object} props.classes - CSS classes
+ * @param {string} props.initialVin - Initial VIN value to populate in the form
  * @returns {JSX.Element} QuickLookups component
  */
 const QuickLookups = props => {
+    const { initialVin } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const history = useHistory();
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedMake, setSelectedMake] = useState('');
     const [selectedModel, setSelectedModel] = useState('');
+    const [selectedTrim, setSelectedTrim] = useState('');
+    const [availableTrims, setAvailableTrims] = useState([]);
     const [vinError, setVinError] = useState('');
     const { getOptions, data: optionsData, loading: optionsLoading, error: optionsError, options } = useOptions();
     const { getOptionsByVin, loading: vinLoading, error: vinQueryError } = useVinLookup();
@@ -35,9 +40,11 @@ const QuickLookups = props => {
      */
     const handleYearChange = (event) => {
         setSelectedYear(event.target.value);
-        // Reset make and model selection when year changes
+        // Reset make, model and trim selection when year changes
         setSelectedMake('');
         setSelectedModel('');
+        setSelectedTrim('');
+        setAvailableTrims([]);
     };
 
     /**
@@ -46,8 +53,10 @@ const QuickLookups = props => {
      */
     const handleMakeChange = (event) => {
         setSelectedMake(event.target.value);
-        // Reset model selection when make changes
+        // Reset model and trim selection when make changes
         setSelectedModel('');
+        setSelectedTrim('');
+        setAvailableTrims([]);
     };
 
     /**
@@ -56,7 +65,32 @@ const QuickLookups = props => {
      */
     const handleModelChange = (event) => {
         setSelectedModel(event.target.value);
+        // Reset trim selection when model changes
+        setSelectedTrim('');
+        setAvailableTrims([]);
     };
+
+    /**
+     * Handle trim selection change
+     * @param {Event} event - Change event
+     */
+    const handleTrimChange = useCallback((event) => {
+        setSelectedTrim(event.target.value);
+    }, []);
+
+    /**
+     * Handle trims loaded callback
+     * @param {Array} trims - Array of available trims
+     */
+    const handleTrimsLoaded = useCallback((trims) => {
+        setAvailableTrims(trims);
+        // If only one trim available, select it automatically
+        if (trims.length === 1) {
+            setSelectedTrim(trims[0]);
+        } else {
+            setSelectedTrim('');
+        }
+    }, []);
 
     /**
      * Handle Vehicle Lookup form submission
@@ -70,8 +104,8 @@ const QuickLookups = props => {
         console.log('Vehicle Lookup Form Data:', values);
 
         try {
-            // Get options using selected year, make and model
-            const result = await getOptions(selectedYear, selectedMake, selectedModel);
+            // Get options using selected year, make, model and optionally trim
+            const result = await getOptions(selectedYear, selectedMake, selectedModel, selectedTrim || null);
 
             // Check if we have multiple tire size options
             const tireOptions = result?.data?.getOptions?.items || [];
@@ -90,7 +124,8 @@ const QuickLookups = props => {
                 const vehicleInfo = {
                     year: selectedYear,
                     make: selectedMake,
-                    model: selectedModel
+                    model: selectedModel,
+                    trim: selectedTrim
                 };
 
                 // Convert tire options to the format expected by VehicleLookupTrims
@@ -106,11 +141,15 @@ const QuickLookups = props => {
                     tireSizes
                 });
 
-                // Navigate with state
-                history.push('/vehicle-lookup-trims', {
+                // Navigate with state using URL parameters and session storage
+                // Store data in session storage to avoid routing issues
+                sessionStorage.setItem('vehicleLookupData', JSON.stringify({
                     vehicleInfo,
                     tireSizes
-                });
+                }));
+                
+                // Navigate to home page with query parameter to show vehicle lookup results
+                history.push('/?showVehicleLookupTrims=true');
             }
 
         } catch (err) {
@@ -120,6 +159,10 @@ const QuickLookups = props => {
 
     /**
      * Handle VIN Lookup form submission
+     * Behavior based on number of results:
+     * - 0 results: Show "No results" error message
+     * - 1 result: Navigate directly to tire listing URL
+     * - Multiple results: Navigate to vehicle-lookup-trims page
      * @param {Object} values - Form values
      */
     const handleVinSubmit = async (values) => {
@@ -143,7 +186,57 @@ const QuickLookups = props => {
 
         try {
             // Send GraphQL request
-            await getOptionsByVin(vin);
+            const result = await getOptionsByVin(vin);
+
+            // Check if we have tire size options
+            const vinOptions = result?.data?.getOptionsByVin?.items || [];
+
+            if (vinOptions.length === 0) {
+                // No results found
+                setVinError('No tire options found for this VIN. Please try again or use Vehicle Lookup.');
+                
+            } else if (vinOptions.length === 1) {
+                // Single result: navigate directly to the tire listing page
+                const singleOption = vinOptions[0];
+                console.log('Single VIN option found, navigating directly to:', singleOption.url);
+                console.log('Single VIN option details:', singleOption);
+
+                // Navigate directly to the tire listing page
+                history.push(singleOption.url);
+
+            } else {
+                // Multiple results: navigate to vehicle-lookup-trims page with VIN options
+                console.log('Multiple VIN options found, navigating to vehicle-lookup-trims with data:', vinOptions);
+
+                // Convert VIN options to the format expected by VehicleLookupTrims
+                const tireSizes = vinOptions.map((option, index) => ({
+                    size: option.size,
+                    trim: option.trim,
+                    url: option.url,
+                    selected: index === 0 // Select first option by default
+                }));
+
+                // Create vehicle info from VIN (we don't have specific vehicle details from VIN lookup)
+                const vehicleInfo = {
+                    vin: vin,
+                    // We could extract some info from VIN or leave these empty
+                    year: '',
+                    make: '',
+                    model: ''
+                };
+
+                // Navigate with state using URL parameters and session storage
+                // Store data in session storage to avoid routing issues
+                sessionStorage.setItem('vehicleLookupData', JSON.stringify({
+                    vehicleInfo,
+                    tireSizes,
+                    isVinLookup: true // Flag to indicate this came from VIN lookup
+                }));
+                
+                // Navigate to home page with query parameter to show vehicle lookup results
+                history.push('/?showVehicleLookupTrims=true');
+            }
+
         } catch (err) {
             console.error('Error submitting VIN Lookup:', err);
             setVinError('Error looking up VIN. Please try again.');
@@ -213,6 +306,22 @@ const QuickLookups = props => {
                                 </Field>
                             </div>
 
+                            <div className={classes.fieldGroup}>
+                                <Field label="Trim (Optional)" id="trim">
+                                    <TrimsSelect
+                                        field="trim"
+                                        placeholder="Select trim"
+                                        required={false}
+                                        year={selectedYear}
+                                        make={selectedMake}
+                                        model={selectedModel}
+                                        onChange={handleTrimChange}
+                                        onTrimsLoaded={handleTrimsLoaded}
+                                        value={selectedTrim}
+                                    />
+                                </Field>
+                            </div>
+
 
 
                             <Button
@@ -254,7 +363,11 @@ const QuickLookups = props => {
                             />
                         </h3>
 
-                        <Form onSubmit={handleVinSubmit} className={classes.form}>
+                        <Form 
+                            onSubmit={handleVinSubmit} 
+                            className={classes.form}
+                            initialValues={{ vin: initialVin || '' }}
+                        >
                             <div className={classes.fieldGroup}>
                                 <Field label="Enter VIN" id="vin">
                                     <TextInput

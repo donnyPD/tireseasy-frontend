@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { ShoppingCart, Menu, X } from 'react-feather';
+import { ShoppingCart, Menu, X, Clock, Search } from 'react-feather';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useCustomHeader } from './useCustomHeader';
@@ -10,7 +10,8 @@ import defaultClasses from './header.module.css';
 const Header = (props) => {
     const classes = useStyle(defaultClasses, props.classes);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    
+    const [searchQuery, setSearchQuery] = useState('');
+
     const {
         isSignedIn,
         currentUser,
@@ -25,11 +26,22 @@ const Header = (props) => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            window.location.href = resourceUrl(`/search.html?query=${encodeURIComponent(searchQuery.trim())}`);
+        }
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
     const renderLogo = () => {
         if (storeConfig?.header_logo_src) {
             // Construct full URL for the logo based on your Magento setup
             let logoSrc;
-            
+
             if (storeConfig.header_logo_src.startsWith('http')) {
                 logoSrc = storeConfig.header_logo_src;
             } else {
@@ -38,19 +50,13 @@ const Header = (props) => {
                 const logoPath = storeConfig.header_logo_src.replace(/^\/+/, '');
                 logoSrc = `${baseUrl}/media/logo/${logoPath}`;
             }
-            
-            console.log('Logo Debug:', {
-                header_logo_src: storeConfig.header_logo_src,
-                logoSrc,
-                storeConfig
-            });
-                
+
             return (
                 <div className={classes.logoSection}>
-                    <img 
-                        src={logoSrc} 
+                    <img
+                        src={logoSrc}
                         alt={storeConfig.logo_alt || 'DriveLine'}
-                        style={{ 
+                        style={{
                             height: storeConfig.logo_height ? `${storeConfig.logo_height}px` : '32px',
                             width: storeConfig.logo_width ? `${storeConfig.logo_width}px` : 'auto'
                         }}
@@ -59,9 +65,6 @@ const Header = (props) => {
                             console.log('Trying fallback...');
                         }}
                     />
-                    <Link to={resourceUrl('/')} className={classes.logoText}>
-                        DriveLine
-                    </Link>
                 </div>
             );
         }
@@ -69,9 +72,8 @@ const Header = (props) => {
         // Fallback to text logo with icon
         return (
             <div className={classes.logoSection}>
-                <div className={classes.logoIcon}>D</div>
                 <Link to={resourceUrl('/')} className={classes.logoText}>
-                    DriveLine
+                <div className={classes.logoIcon}>D</div>
                 </Link>
             </div>
         );
@@ -138,7 +140,7 @@ const Header = (props) => {
             <div className={classes.mainNavBar}>
                 <div className={classes.navContainer}>
                     {/* Mobile Menu Button */}
-                    <button 
+                    <button
                         className={classes.mobileMenuButton}
                         onClick={toggleMobileMenu}
                         aria-label="Toggle mobile menu"
@@ -148,6 +150,39 @@ const Header = (props) => {
 
                     {/* Logo */}
                     {renderLogo()}
+
+                    {/* Search Bar */}
+                    <div className={classes.searchContainer}>
+                        <form onSubmit={handleSearchSubmit} className={classes.searchForm}>
+                            <div className={classes.searchInputWrapper}>
+                                <input
+                                    type="text"
+                                    placeholder="Search all Products"
+                                    value={searchQuery}
+                                    onChange={handleSearchChange}
+                                    className={classes.searchInput}
+                                    aria-label="Search products"
+                                />
+                                <button
+                                    type="submit"
+                                    className={classes.searchButton}
+                                    aria-label="Search"
+                                >
+                                    <Search size={18} />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    {/* Order History and Cart Icons */}
+                    <div className={classes.navActions}>
+                        <Link to={resourceUrl('/order-history')} className={classes.orderHistoryIcon} aria-label="Order History">
+                            <Clock size={20} />
+                        </Link>
+                        <Link to={resourceUrl('/cart')} className={classes.cartIcon} aria-label="Shopping cart">
+                            <ShoppingCart size={20} />
+                        </Link>
+                    </div>
 
                     {/* Main Navigation */}
                     <nav className={`${classes.mainNavigation} ${isMobileMenuOpen ? classes.navigationOpen : ''}`}>
@@ -173,8 +208,8 @@ const Header = (props) => {
                                 ))
                             )}
                             <li className={classes.navItem}>
-                                <Link 
-                                    to={resourceUrl('/wheels')} 
+                                <Link
+                                    to={resourceUrl('/wheels')}
                                     className={classes.navLink}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -182,8 +217,8 @@ const Header = (props) => {
                                 </Link>
                             </li>
                             <li className={classes.navItem}>
-                                <Link 
-                                    to={resourceUrl('/auto-parts')} 
+                                <Link
+                                    to={resourceUrl('/auto-parts')}
                                     className={classes.navLink}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -191,8 +226,8 @@ const Header = (props) => {
                                 </Link>
                             </li>
                             <li className={classes.navItem}>
-                                <Link 
-                                    to={resourceUrl('/tools-supplies')} 
+                                <Link
+                                    to={resourceUrl('/tools-supplies')}
                                     className={classes.navLink}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -200,8 +235,8 @@ const Header = (props) => {
                                 </Link>
                             </li>
                             <li className={classes.navItem}>
-                                <Link 
-                                    to={resourceUrl('/fluids')} 
+                                <Link
+                                    to={resourceUrl('/fluids')}
                                     className={classes.navLink}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -209,8 +244,8 @@ const Header = (props) => {
                                 </Link>
             </li>
                             <li className={classes.navItem}>
-                                <Link 
-                                    to={resourceUrl('/order-history')} 
+                                <Link
+                                    to={resourceUrl('/order-history')}
                                     className={classes.navLink}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -218,8 +253,8 @@ const Header = (props) => {
                                 </Link>
                             </li>
                             <li className={classes.navItem}>
-                                <Link 
-                                    to={resourceUrl('/account-information')} 
+                                <Link
+                                    to={resourceUrl('/account-information')}
                                     className={classes.navLink}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -228,13 +263,6 @@ const Header = (props) => {
                             </li>
                         </ul>
                     </nav>
-
-                    {/* Cart Icon */}
-                    <div className={classes.navActions}>
-                        <Link to={resourceUrl('/cart')} className={classes.cartIcon} aria-label="Shopping cart">
-                            <ShoppingCart size={20} />
-                        </Link>
-                    </div>
                 </div>
             </div>
 

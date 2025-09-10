@@ -13,7 +13,9 @@ import defaultClasses from './vehicleLookupTrims.module.css';
  * @param {string} props.vehicleInfo.year - Vehicle year
  * @param {string} props.vehicleInfo.make - Vehicle make
  * @param {string} props.vehicleInfo.model - Vehicle model
+ * @param {string} props.vehicleInfo.vin - VIN number (for VIN lookup)
  * @param {Array} props.tireSizes - Array of available tire sizes
+ * @param {boolean} props.isVinLookup - Flag indicating if this is from VIN lookup
  * @param {Function} props.onTireSizeSelect - Callback for tire size selection
  * @returns {JSX.Element} VehicleLookupTrims component
  */
@@ -27,6 +29,7 @@ const VehicleLookupTrims = props => {
             { size: '285/45R22', selected: false },
             { size: '245/75R16', selected: false }
         ],
+        isVinLookup = false,
         onTireSizeSelect = () => {}
     } = props;
 
@@ -61,15 +64,37 @@ const VehicleLookupTrims = props => {
             {/* Vehicle Information */}
             <section className={classes.vehicleSection}>
                 <div className={classes.vehicleInfo}>
-                    <h2 className={classes.vehicleTitle}>
-                        {`${vehicleInfo.year} ${vehicleInfo.make} ${vehicleInfo.model}`}
-                    </h2>
-                    <p className={classes.vehicleDescription}>
-                        <FormattedMessage
-                            id="vehicleLookupTrims.description"
-                            defaultMessage="Please select the OE (Original Equipment) tire size that matches your vehicle's specifications to view compatible tires."
-                        />
-                    </p>
+                    {isVinLookup ? (
+                        <>
+                            <h2 className={classes.vehicleTitle}>
+                                <FormattedMessage
+                                    id="vehicleLookupTrims.vinTitle"
+                                    defaultMessage="VIN Lookup Results"
+                                />
+                            </h2>
+                            <p className={classes.vinNumber}>
+                                <strong>VIN: </strong>{vehicleInfo.vin}
+                            </p>
+                            <p className={classes.vehicleDescription}>
+                                <FormattedMessage
+                                    id="vehicleLookupTrims.vinDescription"
+                                    defaultMessage="Please select the tire size that matches your vehicle's specifications to view compatible tires."
+                                />
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <h2 className={classes.vehicleTitle}>
+                                {`${vehicleInfo.year} ${vehicleInfo.make} ${vehicleInfo.model}`}
+                            </h2>
+                            <p className={classes.vehicleDescription}>
+                                <FormattedMessage
+                                    id="vehicleLookupTrims.description"
+                                    defaultMessage="Please select the OE (Original Equipment) tire size that matches your vehicle's specifications to view compatible tires."
+                                />
+                            </p>
+                        </>
+                    )}
                 </div>
             </section>
 

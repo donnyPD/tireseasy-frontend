@@ -34,11 +34,22 @@ export const GET_MODEL_LIST = gql`
 `;
 
 /**
+ * GraphQL query to get the list of trims for a specific year, make and model
+ */
+export const GET_TRIMS = gql`
+    query GetTrims($year: Int!, $make: String!, $model: String!) {
+        getTrims(year: $year, make: $make, model: $model) {
+            items
+        }
+    }
+`;
+
+/**
  * GraphQL query to get options for a specific year, make and model
  */
 export const GET_OPTIONS = gql`
-    query GetOptions($year: Int!, $make: String!, $model: String!) {
-        getOptions(year: $year, make: $make, model: $model) {
+    query GetOptions($year: Int!, $make: String!, $model: String!, $trim: String) {
+        getOptions(year: $year, make: $make, model: $model, trim: $trim) {
              items {
                  trim
                  size
@@ -54,7 +65,11 @@ export const GET_OPTIONS = gql`
 export const GET_OPTIONS_BY_VIN = gql`
     query GetOptionsByVin($vin: String!) {
         getOptionsByVin(vin: $vin) {
-            options
+            items {
+                trim
+                size
+                url
+            }
         }
     }
 `;

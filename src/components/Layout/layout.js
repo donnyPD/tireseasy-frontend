@@ -8,17 +8,18 @@ import defaultClasses from './layout.module.css';
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Main content to display
  * @param {Object} props.classes - CSS classes
+ * @param {string} props.initialVin - Initial VIN value to populate in QuickLookups form
  * @returns {JSX.Element} Layout component
  */
 const Layout = props => {
-    const { children } = props;
+    const { children, initialVin } = props;
     const classes = useStyle(defaultClasses, props.classes);
 
     return (
         <div className={classes.layoutContainer}>
             {/* Sidebar with QuickLookups */}
             <aside className={classes.sidebar}>
-                <QuickLookups />
+                <QuickLookups initialVin={initialVin} />
             </aside>
             
             {/* Main content area */}

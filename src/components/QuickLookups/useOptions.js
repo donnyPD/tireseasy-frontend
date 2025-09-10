@@ -17,32 +17,30 @@ export const useOptions = () => {
      * @param {number} year - Selected year
      * @param {string} make - Selected make
      * @param {string} model - Selected model
+     * @param {string} [trim] - Selected trim (optional)
      * @returns {Promise} Query promise
      */
-    const getOptions = useCallback(async (year, make, model) => {
+    const getOptions = useCallback(async (year, make, model, trim = null) => {
         try {
-            console.log('getOptions called with:', { 
-                year: parseInt(year), 
-                make, 
-                model 
-            });
+            const variables = {
+                year: parseInt(year),
+                make: make,
+                model: model,
+                trim: trim || null
+            };
 
             const result = await getOptionsQuery({
-                variables: {
-                    year: parseInt(year),
-                    make: make,
-                    model: model
-                }
+                variables
             });
-            
+
             // Log the response to console as requested
             if (result.data?.getOptions?.items) {
                 console.log('Vehicle Options:', result.data.getOptions.items);
-                console.log('Query executed with:', { year: parseInt(year), make, model });
+                console.log('Query executed with:', { year: parseInt(year), make, model, trim });
             }
-            
+
             return result;
-            
+
         } catch (err) {
             console.error('Error fetching options:', err);
             throw err;
