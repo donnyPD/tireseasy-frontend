@@ -1,0 +1,12 @@
+.list {
+    padding: 0;
+}
+
+.list li > div:first-child:after{
+    content: ': ';
+    display: inline-block;
+}
+
+.list li::marker {
+    content: "";
+}

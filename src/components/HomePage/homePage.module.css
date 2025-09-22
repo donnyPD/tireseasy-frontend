@@ -39,7 +39,7 @@
 .heroButton {
     background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
     border: none;
-    border-radius: 8px;
+    border-radius: 33px;
     padding: 1rem 2rem;
     font-size: 1.1rem;
     font-weight: bold;
@@ -56,7 +56,7 @@
 .vehicleLookupButton {
     background: linear-gradient(135deg, var(--color-primary-deep, #1A2C5B), var(--color-primary-navy, #003366));
     border: none;
-    border-radius: 8px;
+    border-radius: 33px;
     padding: 1rem 2rem;
     font-size: 1.1rem;
     font-weight: bold;
@@ -86,7 +86,7 @@
 .featuresGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    gap: 20px;
     margin-top: 2rem;
 }
 
@@ -218,7 +218,7 @@
         padding: 0.8rem 1.5rem;
         font-size: 1rem;
     }
-    
+
     .heroButtons {
         flex-direction: column;
         align-items: center;

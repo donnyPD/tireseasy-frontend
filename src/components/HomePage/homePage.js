@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import { useLocation, useHistory } from 'react-router-dom';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 import Button from '@magento/venia-ui/lib/components/Button';
 import { Link } from 'react-router-dom';
 import Layout from '../Layout';
@@ -37,6 +38,7 @@ const HomePage = props => {
     const location = useLocation();
     const history = useHistory();
     const { getOptionsByVin } = useVinLookup();
+    const [{ isSignedIn }, { setToken, getUserDetails }] = useUserContext();
     const [showVehicleLookupTrims, setShowVehicleLookupTrims] = useState(false);
     const [lookupData, setLookupData] = useState({
         vehicleInfo: null,
@@ -44,6 +46,48 @@ const HomePage = props => {
         isVinLookup: false
     });
     const [vinProcessing, setVinProcessing] = useState(false);
+    const [authProcessing, setAuthProcessing] = useState(false);
+
+    /**
+     * Handle JWT token authentication from URL parameter
+     * @param {string} token - JWT token from URL parameter
+     * @returns {Promise<boolean>} Returns true if authentication was successful
+     */
+    const handleJwtAuth = async (token) => {
+        if (!token || typeof token !== 'string') {
+            console.error('Invalid JWT token from URL:', token);
+            return false;
+        }
+
+        console.log('JWT Authentication triggered with token:', token);
+        setAuthProcessing(true);
+
+        try {
+            // Validate JWT token format (basic check)
+            const tokenParts = token.split('.');
+            if (tokenParts.length !== 3) {
+                console.error('Invalid JWT token format');
+                return false;
+            }
+
+            // Set the token using PWA Studio's authentication system
+            await setToken(token);
+            
+            // Fetch user details after setting the token
+            if (getUserDetails) {
+                await getUserDetails();
+            }
+            
+            console.log('JWT authentication successful');
+            return true;
+
+        } catch (error) {
+            console.error('Error in JWT authentication:', error);
+            return false;
+        } finally {
+            setAuthProcessing(false);
+        }
+    };
 
     /**
      * Handle automatic VIN lookup from URL parameter
@@ -113,10 +157,33 @@ const HomePage = props => {
     useEffect(() => {
         // Check URL parameters
         const urlParams = new URLSearchParams(location.search);
-        const shouldShowTrims = urlParams.get('showVehicleLookupTrims') === 'true';
+        const shouldShowTrims = urlParams.get('showVehicleLookupTrims') === '1' || urlParams.get('showVehicleLookupTrims') === 'true';
         const vinParam = urlParams.get('vin');
+        const tokenParam = urlParams.get('token');
+        const punchoutParam = urlParams.get('punchout') === '1';
         
-        // Handle VIN parameter first (if present and showVehicleLookupTrims is true)
+        // Handle JWT authentication first if token and punchout parameters are present
+        if (tokenParam && punchoutParam && !isSignedIn) {
+            console.log('Punchout mode detected, attempting JWT authentication');
+            handleJwtAuth(tokenParam).then(success => {
+                if (success) {
+                    console.log('JWT authentication successful, user should be signed in');
+                    // Continue with VIN lookup if needed
+                    if (shouldShowTrims && vinParam) {
+                        handleAutoVinLookup(vinParam);
+                    }
+                } else {
+                    console.error('JWT authentication failed');
+                    // Still continue with VIN lookup if needed (without authentication)
+                    if (shouldShowTrims && vinParam) {
+                        handleAutoVinLookup(vinParam);
+                    }
+                }
+            });
+            return;
+        }
+        
+        // Handle VIN parameter (if present and showVehicleLookupTrims is true)
         if (shouldShowTrims && vinParam) {
             handleAutoVinLookup(vinParam);
             return;
@@ -139,15 +206,33 @@ const HomePage = props => {
                 }
             }
         }
-    }, [location]);
+    }, [location, isSignedIn]);
 
     // Get VIN parameter for QuickLookups form auto-fill (when not doing auto-lookup)
     const urlParams = new URLSearchParams(location.search);
     const vinParam = urlParams.get('vin');
-    const shouldShowTrims = urlParams.get('showVehicleLookupTrims') === 'true';
+    const shouldShowTrims = urlParams.get('showVehicleLookupTrims') === '1' || urlParams.get('showVehicleLookupTrims') === 'true';
     const initialVin = (!shouldShowTrims && vinParam) ? vinParam : undefined;
 
-    // Show loading indicator while processing VIN from URL
+    // Show loading indicator while processing authentication or VIN from URL
+    if (authProcessing) {
+        return (
+            <>
+                <StoreTitle>Authenticating...</StoreTitle>
+                <Layout>
+                    <div className={classes.loadingContainer}>
+                        <div className={classes.loadingSpinner}>
+                            <FormattedMessage
+                                id="homePage.authProcessing"
+                                defaultMessage="Authenticating user, please wait..."
+                            />
+                        </div>
+                    </div>
+                </Layout>
+            </>
+        );
+    }
+
     if (vinProcessing) {
         return (
             <>

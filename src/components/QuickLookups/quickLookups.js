@@ -147,7 +147,7 @@ const QuickLookups = props => {
                     vehicleInfo,
                     tireSizes
                 }));
-                
+
                 // Navigate to home page with query parameter to show vehicle lookup results
                 history.push('/?showVehicleLookupTrims=true');
             }
@@ -194,7 +194,7 @@ const QuickLookups = props => {
             if (vinOptions.length === 0) {
                 // No results found
                 setVinError('No tire options found for this VIN. Please try again or use Vehicle Lookup.');
-                
+
             } else if (vinOptions.length === 1) {
                 // Single result: navigate directly to the tire listing page
                 const singleOption = vinOptions[0];
@@ -232,7 +232,7 @@ const QuickLookups = props => {
                     tireSizes,
                     isVinLookup: true // Flag to indicate this came from VIN lookup
                 }));
-                
+
                 // Navigate to home page with query parameter to show vehicle lookup results
                 history.push('/?showVehicleLookupTrims=true');
             }
@@ -252,13 +252,12 @@ const QuickLookups = props => {
     return (
         <section className={classes.quickLookupsSection}>
             <div className={classes.container}>
-                <h2 className={classes.sectionTitle}>
-                    <FormattedMessage
-                        id="quickLookups.title"
-                        defaultMessage="Quick Lookups"
-                    />
-                </h2>
-
+                {/*<h2 className={classes.sectionTitle}>*/}
+                {/*    <FormattedMessage*/}
+                {/*        id="quickLookups.title"*/}
+                {/*        defaultMessage="Quick Lookups"*/}
+                {/*    />*/}
+                {/*</h2>*/}
                 <div className={classes.formsContainer}>
                     {/* Vehicle Lookup Form */}
                     <div className={classes.formCard}>
@@ -363,8 +362,8 @@ const QuickLookups = props => {
                             />
                         </h3>
 
-                        <Form 
-                            onSubmit={handleVinSubmit} 
+                        <Form
+                            onSubmit={handleVinSubmit}
                             className={classes.form}
                             initialValues={{ vin: initialVin || '' }}
                         >

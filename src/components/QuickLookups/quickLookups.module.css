@@ -2,6 +2,7 @@
 .quickLookupsSection {
     background-color: transparent;
     padding: 0;
+    margin-bottom: 20px;
 }
 
 .container {
@@ -11,10 +12,10 @@
 }
 
 .sectionTitle {
-    font-size: 1.8rem;
+    font-size: 24px;
     font-weight: bold;
     color: var(--color-primary-deep, #1A2C5B);
-    margin-bottom: 2rem;
+    margin-bottom: 25px;
 }
 
 .formsContainer {
@@ -70,7 +71,7 @@
 .submitButton {
     background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
     border: none;
-    border-radius: 8px;
+    border-radius: 33px;
     padding: 10px;
     font-size: 1rem;
     font-weight: bold;

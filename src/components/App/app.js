@@ -14,6 +14,7 @@ import Navigation from '@magento/venia-ui/lib/components/Navigation';
 import Routes from '@magento/venia-ui/lib/components/Routes';
 import ToastContainer from '@magento/venia-ui/lib/components/ToastContainer';
 import Icon from '@magento/venia-ui/lib/components/Icon';
+import AuthGuard from '../AuthGuard';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -104,16 +105,18 @@ const App = props => {
     return (
         <HeadProvider>
             <StoreTitle />
-            <Main isMasked={hasOverlay}>
-                <Routes />
-            </Main>
-            <Mask
-                isActive={hasOverlay}
-                dismiss={handleCloseDrawer}
-                data-cy="App-Mask-button"
-            />
-            <Navigation />
-            <ToastContainer />
+            <AuthGuard>
+                <Main isMasked={hasOverlay}>
+                    <Routes />
+                </Main>
+                <Mask
+                    isActive={hasOverlay}
+                    dismiss={handleCloseDrawer}
+                    data-cy="App-Mask-button"
+                />
+                <Navigation />
+                <ToastContainer />
+            </AuthGuard>
         </HeadProvider>
     );
 };

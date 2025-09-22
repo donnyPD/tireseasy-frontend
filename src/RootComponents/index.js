@@ -1,4 +1,8 @@
 import { lazy } from 'react';
 
-// Lazy load the HomePage component
-export const HomePage = lazy(() => import('../components/HomePage'));
+export const Product = lazy(() => import('./Product'));
+
+export const Category = lazy(() => import('./Category'));
+
+export const Search = lazy(() => import('./Search'));
+

@@ -1,0 +1,76 @@
+/* Override the default grid layout to always show thumbnails below main image */
+.root {
+    display: grid;
+    gap: 1rem;
+    grid-template-areas:
+        'main'
+        'thumbs';
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+}
+
+/* Remove the large screen layout that puts thumbnails on the left */
+@media screen and (min-width: 1024px) {
+    .root {
+        grid-template-areas:
+            'main'
+            'thumbs';
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+.currentImage {
+    --width: 100% !important;
+    --height: auto !important;
+    width: var(--width);
+    height: var(--height);
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Ensure main image container takes full width */
+.carouselContainer {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer{
+    width: 100%;
+}
+
+/* Adjust thumbnail list for horizontal layout */
+.thumbnailList {
+    grid-area: thumbs;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    img {
+        width: 100%;
+        min-width: 135px;
+    }
+}
+
+/* Optional: Add scrollbar styling for thumbnail list */
+.thumbnailList::-webkit-scrollbar {
+    height: 4px;
+}
+
+.thumbnailList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.thumbnailList::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+}
+
+.thumbnailList::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

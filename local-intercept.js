@@ -17,6 +17,46 @@
  * or modify functionality from its dependencies.
  */
 
-function localIntercept() {}
+function localIntercept(targets) {
+    // Configure buildpack to work with our RootComponents
+    const builtins = targets.of('@magento/pwa-buildpack');
+
+    // Specify that our component uses ES modules
+    builtins.specialFeatures.tap(featuresByModule => {
+        featuresByModule['src/RootComponents/Product'] = {
+            esModules: true
+        };
+        featuresByModule['src/RootComponents/Category'] = {
+            esModules: true
+        };
+        featuresByModule['src/RootComponents/Search'] = {
+            esModules: true
+        };
+    });
+
+    // Override components to fix Wishlist errors
+    const veniaTargets = targets.of('@magento/venia-ui');
+
+    // Override Gallery component to use our custom version
+    veniaTargets.routes.tap(routes => {
+        // This helps ensure our custom components are used
+        return routes;
+    });
+
+    // Disable EE features that might cause issues
+    builtins.envVarDefinitions.tap(defs => {
+        defs.sections.push({
+            name: 'Custom Features',
+            variables: [
+                {
+                    name: 'DISABLE_EE_FEATURES',
+                    type: 'bool',
+                    desc: 'Disable Enterprise Edition features',
+                    default: true
+                }
+            ]
+        });
+    });
+}
 
 module.exports = localIntercept;

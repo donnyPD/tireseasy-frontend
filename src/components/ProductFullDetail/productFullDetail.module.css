@@ -1,0 +1,188 @@
+.root{
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 900px) {
+        flex-wrap: wrap;
+    }
+}
+
+.title {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 1.5rem;
+
+}
+
+.description,
+.details {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-top: 20px;
+}
+
+.productName {
+    width: 100%;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-primary-deep, #1A2C5B);
+}
+
+.productPrice {
+    font-size: 24px;
+    color: var(--color-accent-orange);
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.productInfo {
+    width: 100%;
+}
+
+.imageCarousel {
+    width: 100%;
+    max-width: 500px;
+    padding-top: 10px;
+}
+
+.actions {
+    margin-top: 10px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+
+    @media (max-width: 900px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.actButton button {
+    background: var(--color-accent-orange) !important;
+    border: 1px solid var(--color-accent-orange) !important;
+    color: white !important;
+    font-weight: bold !important;
+    padding: 12px 24px !important;
+    border-radius: 33px !important;
+    transition: all 0.3s ease !important;
+}
+
+.actButton button:hover {
+    background: var(--color-button-primary-hover, #E67E00) !important;
+    border-color: var(--color-button-primary-hover, #E67E00) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3) !important;
+}
+
+.actButton button:active {
+    transform: translateY(0) !important;
+}
+
+.actButton button:disabled {
+    background: var(--color-neutral-dark, #666666) !important;
+    border-color: var(--color-neutral-dark, #666666) !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+    opacity: 0.6 !important;
+}
+
+.quantity {
+    border: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+
+    @media (max-width: 900px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+
+/* Expandable description styles */
+.expandableDescription {
+    position: relative;
+}
+
+.descriptionContent {
+    transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+    overflow: hidden;
+}
+
+.descriptionContent.collapsed {
+    max-height: 6rem; /* Approximately 4 lines */
+    position: relative;
+}
+
+.descriptionContent.collapsed::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    background: linear-gradient(transparent, white);
+    pointer-events: none;
+}
+
+.descriptionContent.expanded {
+    max-height: none;
+}
+
+.toggleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.toggleButton:hover {
+    background-color: rgba(255, 140, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.toggleButton:active {
+    transform: translateY(0);
+}
+
+.toggleText {
+    user-select: none;
+}
+
+.toggleArrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    user-select: none;
+}
+
+.toggleArrow.arrowDown {
+    transform: rotate(0deg);
+}
+
+.toggleArrow.arrowUp {
+    transform: rotate(180deg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .descriptionContent.collapsed {
+        max-height: 5rem; /* Slightly less on mobile */
+    }
+
+    .toggleButton {
+        font-size: 13px;
+    }
+}

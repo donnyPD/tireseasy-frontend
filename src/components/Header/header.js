@@ -53,18 +53,20 @@ const Header = (props) => {
 
             return (
                 <div className={classes.logoSection}>
-                    <img
-                        src={logoSrc}
-                        alt={storeConfig.logo_alt || 'DriveLine'}
-                        style={{
-                            height: storeConfig.logo_height ? `${storeConfig.logo_height}px` : '32px',
-                            width: storeConfig.logo_width ? `${storeConfig.logo_width}px` : 'auto'
-                        }}
-                        onError={(e) => {
-                            console.error('Logo failed to load:', logoSrc);
-                            console.log('Trying fallback...');
-                        }}
-                    />
+                    <Link to={resourceUrl('/')} className={classes.logoText}>
+                        <img
+                            src={logoSrc}
+                            alt={storeConfig.logo_alt || 'DriveLine'}
+                            style={{
+                                height: storeConfig.logo_height ? `${storeConfig.logo_height}px` : '32px',
+                                width: storeConfig.logo_width ? `${storeConfig.logo_width}px` : 'auto'
+                            }}
+                            onError={(e) => {
+                                console.error('Logo failed to load:', logoSrc);
+                                console.log('Trying fallback...');
+                            }}
+                        />
+                    </Link>
                 </div>
             );
         }

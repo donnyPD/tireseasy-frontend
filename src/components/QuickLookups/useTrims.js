@@ -21,10 +21,10 @@ export const useTrims = () => {
      */
     const getTrims = useCallback(async (year, make, model) => {
         try {
-            console.log('getTrims called with:', { 
-                year: parseInt(year), 
-                make, 
-                model 
+            console.log('getTrims called with:', {
+                year: parseInt(year),
+                make,
+                model
             });
 
             const result = await getTrimsQuery({
@@ -34,15 +34,15 @@ export const useTrims = () => {
                     model: model
                 }
             });
-            
+
             // Log the response to console
             if (result.data?.getTrims?.items) {
                 console.log('Trims:', result.data.getTrims.items);
                 console.log('Query executed with:', { year: parseInt(year), make, model });
             }
-            
+
             return result;
-            
+
         } catch (err) {
             console.error('Error fetching trims:', err);
             throw err;
