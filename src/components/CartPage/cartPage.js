@@ -10,9 +10,10 @@ import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import StockStatusMessage from '@magento/venia-ui/lib/components/StockStatusMessage';
 import PriceAdjustments from '@magento/venia-ui/lib/components/CartPage/PriceAdjustments';
-import PriceSummary from '@magento/venia-ui/lib/components/CartPage/PriceSummary';
-import ProductListing from '@magento/venia-ui/lib/components/CartPage/ProductListing';
+import PriceSummary from './PriceSummary';
+import ProductListing from './ProductListing';
 import defaultClasses from './cartPage.module.css';
+import QuickLookups from '../QuickLookups';
 
 const CheckIcon = <Icon size={20} src={Check} />;
 
@@ -92,36 +93,40 @@ const CartPage = props => {
 
     return (
         <div className={classes.root} data-cy="CartPage-root">
-            <StoreTitle>
-                {formatMessage({
-                    id: 'cartPage.title',
-                    defaultMessage: 'Cart'
-                })}
-            </StoreTitle>
-            <div className={classes.heading_container}>
-                <h1
-                    aria-live="polite"
-                    data-cy="CartPage-heading"
-                    className={classes.heading}
-                >
-                    <FormattedMessage
-                        id={'cartPage.heading'}
-                        defaultMessage={'Cart'}
-                    />
-                </h1>
-                <div className={classes.stockStatusMessageContainer}>
-                    <StockStatusMessage cartItems={cartItems} />
+            <div className={classes.cartContainer}>
+                <div className={classes.sidebar}>
+                    <QuickLookups />
                 </div>
-            </div>
-            <div className={classes.body}>
-                <div className={classes.items_container}>{productListing}</div>
-                <div className={classes.summary_container}>
-                    <div className={classes.summary_contents}>
-                        {priceSummary}
+                <div className={classes.cartContent}>
+                    <StoreTitle>
+                        {formatMessage({
+                            id: 'cartPage.title',
+                            defaultMessage: 'Cart'
+                        })}
+                    </StoreTitle>
+                    <div className={classes.heading_container}>
+                        <h1
+                            aria-live="polite"
+                            data-cy="CartPage-heading"
+                            className={classes.heading}
+                        >
+                            {'Your Shopping Cart'}
+                        </h1>
+                        <div className={classes.stockStatusMessageContainer}>
+                            <StockStatusMessage cartItems={cartItems} />
+                        </div>
                     </div>
-                </div>
-                <div className={classes.price_adjustments_container}>
-                    {priceAdjustments}
+                    <div className={classes.body}>
+                        <div className={classes.items_container}>{productListing}</div>
+                        <div className={classes.summary_container}>
+                            <div className={classes.summary_contents}>
+                                {priceSummary}
+                            </div>
+                        </div>
+                        <div className={classes.price_adjustments_container}>
+                            {priceAdjustments}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
