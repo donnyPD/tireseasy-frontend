@@ -58,7 +58,7 @@
 
     composes: lg_flex from global;
     composes: lg_self-start from global;
-    composes: lg_pt-16 from global;
+    composes: lg_pt-[76px] from global;
     composes: lg_w-filterSidebarWidth from global;
 
     @apply flex-col lg_mr-4;

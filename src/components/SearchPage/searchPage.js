@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, useMemo } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
-import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
+import { useSearchPage } from '../../talons/SearchPage/useSearchPage';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Pagination from '@magento/venia-ui/lib/components/Pagination';
@@ -38,12 +38,11 @@ const SearchPage = props => {
         sortProps,
         currentStoreName
     } = talonProps;
-    console.log('5555555555555555')
 
     const { formatMessage } = useIntl();
 
     const [currentSort] = sortProps;
-    const metaTitle = `${currentStoreName}'s Search Result 55555 for term ${searchTerm}`;
+    const metaTitle = `${currentStoreName}'s Search Result for term ${searchTerm}`;
     const content = useMemo(() => {
         if (!data && loading) {
             return (

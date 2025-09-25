@@ -49,7 +49,6 @@ const ProductFullDetail = props => {
             .replace(/\s+label$/i, '');
     }
 
-    console.log('111',product)
     const {
         size_label,
         load_index_label,
