@@ -56,7 +56,8 @@ const GalleryItem = props => {
         speed_index_label,
         load_range_ply_rating_label,
         brand_name_label,
-        mileage_warranty_label } = item;
+        mileage_warranty_label,
+        available_quantity_label} = item;
 
 
     function convertSnakeCaseToTitle(str) {
@@ -72,7 +73,8 @@ const GalleryItem = props => {
         {speed_index_label},
         {load_range_ply_rating_label},
         {brand_name_label},
-        {mileage_warranty_label}]
+        {mileage_warranty_label},
+        {available_quantity_label}]
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
 

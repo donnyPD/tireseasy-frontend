@@ -41,6 +41,7 @@ export const ProductDetailsFragment = gql`
             load_range_ply_rating_label
             brand_name_label
             mileage_warranty_label
+            available_quantity_label
         }
         meta_description
         name
