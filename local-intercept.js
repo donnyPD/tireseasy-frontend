@@ -16,6 +16,7 @@
  * with many customizations, this function would tap those targets and add
  * or modify functionality from its dependencies.
  */
+const moduleOverridePlugin = require('./src/plugins/moduleOverrideWebPack');
 
 function localIntercept(targets) {
     // Configure buildpack to work with our RootComponents
@@ -41,6 +42,23 @@ function localIntercept(targets) {
     veniaTargets.routes.tap(routes => {
         // This helps ensure our custom components are used
         return routes;
+    });
+
+
+    const componentOverrideMapping = {
+        '@magento/venia-ui/lib/components/CartPage/cartPage.js': './src/components/CartPage/cartPage.js',
+        '@magento/venia-ui/lib/components/SearchPage/searchPage.js': './src/components/SearchPage/searchPage.js',
+        '@magento/venia-ui/lib/components/CheckoutPage/checkoutPage.js': './src/components/CheckoutPage/checkoutPage.js',
+        '@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js': './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js',
+    };
+
+    targets.of('@magento/pwa-buildpack').transformUpward.tap(def => {
+        def.staticFromRoot.inline.body.file.template.inline =
+            './public/{{ filename }}';
+    });
+
+    targets.of('@magento/pwa-buildpack').webpackCompiler.tap(compiler => {
+        new moduleOverridePlugin(componentOverrideMapping).apply(compiler);
     });
 
     // Disable EE features that might cause issues

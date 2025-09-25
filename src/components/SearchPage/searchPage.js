@@ -18,6 +18,7 @@ import FilterModalOpenButton, {
 import { FilterSidebarShimmer } from '@magento/venia-ui/lib/components/FilterSidebar';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 import { Meta, Title } from '@magento/venia-ui/lib/components/Head';
+import QuickLookups from '../QuickLookups';
 
 const FilterModal = React.lazy(() => import('@magento/venia-ui/lib/components/FilterModal'));
 const FilterSidebar = React.lazy(() => import('@magento/venia-ui/lib/components/FilterSidebar'));
@@ -37,11 +38,12 @@ const SearchPage = props => {
         sortProps,
         currentStoreName
     } = talonProps;
+    console.log('5555555555555555')
 
     const { formatMessage } = useIntl();
 
     const [currentSort] = sortProps;
-    const metaTitle = `${currentStoreName}'s Search Result for term ${searchTerm}`;
+    const metaTitle = `${currentStoreName}'s Search Result 55555 for term ${searchTerm}`;
     const content = useMemo(() => {
         if (!data && loading) {
             return (
@@ -196,6 +198,7 @@ const SearchPage = props => {
     return (
         <article className={classes.root} data-cy="SearchPage-root">
             <div className={classes.sidebar}>
+                <QuickLookups />
                 <Suspense fallback={<FilterSidebarShimmer />}>
                     {maybeSidebar}
                 </Suspense>
