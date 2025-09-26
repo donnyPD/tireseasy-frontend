@@ -19,5 +19,5 @@
     composes: lg_pb-md from global;
     composes: lg_rounded-box from global;
 
-    @apply bg-white shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+    @apply bg-white rounded-xl border-0 shadow-[0_2px_8px_rgba(0,0,0,0.1)];
 }

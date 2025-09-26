@@ -27,7 +27,7 @@ import TaxSummary from './taxSummary';
  * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
-    const { isUpdating } = props;
+    const { isUpdating, isCheckoutPage } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = usePriceSummary();
 
@@ -109,39 +109,74 @@ const PriceSummary = props => {
     return (
         <div className={classes.root} data-cy="PriceSummary-root">
             <div>
-                <ul>
-                    <li className={classes.lineItems}>
-                        <span
-                            data-cy="PriceSummary-lineItemLabel"
-                            className={classes.lineItemLabel}
-                        >
-                            <FormattedMessage
-                                id={'priceSummary.lineItemLabel.new'}
-                                defaultMessage={'Subtotal: '}
-                            />
-                        </span>
-                        <span
-                            data-cy="PriceSummary-subtotalValue"
-                            className={priceClass}
-                        >
-                            <Price
-                                value={subtotal.value}
-                                currencyCode={subtotal.currency}
-                            />
-                        </span>
-                    </li>
-                    <li className={classes.lineItems}>
-                        <span
-                            className={labelSubClass}
-                        >
-                            <FormattedMessage
-                                id={'priceSummary.lineItemLabel.shipping'}
-                                defaultMessage={'Shipping calculated at checkout.'}
-                            />
-                        </span>
+                {isCheckoutPage ? (
+                    <ul>
+                        <li className={classes.lineItems}>
+                            <span
+                                data-cy="PriceSummary-totalLabel"
+                                className={classes.lineItemLabel}
+                            >
+                                <FormattedMessage
+                                    id={'priceSummary.lineItemLabel.total.new'}
+                                    defaultMessage={'Order Total: '}
+                                />
+                            </span>
+                            <span
+                                data-cy="PriceSummary-totalValue"
+                                className={totalPriceClass}
+                            >
+                                <Price
+                                    value={total.value}
+                                    currencyCode={total.currency}
+                                />
+                            </span>
+                        </li>
+                        <li className={classes.lineItems}>
+                            <span
+                                className={labelSubClass}
+                            >
+                                <FormattedMessage
+                                    id={'priceSummary.lineItemLabel.checkout'}
+                                    defaultMessage={'Includes estimated shipping & taxes.'}
+                                />
+                            </span>
+                        </li>
+                    </ul>
+                ) : (
+                    <ul>
+                        <li className={classes.lineItems}>
+                            <span
+                                data-cy="PriceSummary-lineItemLabel"
+                                className={classes.lineItemLabel}
+                            >
+                                <FormattedMessage
+                                    id={'priceSummary.lineItemLabel.new'}
+                                    defaultMessage={'Subtotal: '}
+                                />
+                            </span>
+                            <span
+                                data-cy="PriceSummary-subtotalValue"
+                                className={priceClass}
+                            >
+                                <Price
+                                    value={subtotal.value}
+                                    currencyCode={subtotal.currency}
+                                />
+                            </span>
+                        </li>
+                        <li className={classes.lineItems}>
+                            <span
+                                className={labelSubClass}
+                            >
+                                <FormattedMessage
+                                    id={'priceSummary.lineItemLabel.shipping'}
+                                    defaultMessage={'Shipping calculated at checkout.'}
+                                />
+                            </span>
+                        </li>
+                    </ul>
+                )}
 
-                    </li>
-                </ul>
             </div>
             {proceedToCheckoutButton}
         </div>

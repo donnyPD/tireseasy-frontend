@@ -2,7 +2,7 @@
     composes: max-w-site from global;
     composes: mx-auto from global;
     composes: my-0 from global;
-    composes: px-sm from global;
+    composes: px-xs from global;
     composes: py-sm from global;
 }
 
@@ -45,6 +45,7 @@
 
 .cartContainer {
     composes: lg_flex from global;
+    composes: lg_px-xs from global;
 }
 
 .stockStatusMessageContainer {

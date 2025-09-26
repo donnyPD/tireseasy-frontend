@@ -51,6 +51,7 @@ function localIntercept(targets) {
         '@magento/venia-ui/lib/components/CheckoutPage/checkoutPage.js': './src/components/CheckoutPage/checkoutPage.js',
         '@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js': './src/components/CheckoutPage/OrderConfirmationPage/orderConfirmationPage.js',
         '@magento/venia-ui/lib/components/SignInPage/signInPage.js': './src/components/SignInPage/signInPage.js',
+        '@magento/venia-ui/lib/components/OrderHistoryPage/orderHistoryPage.js': './src/components/OrderHistoryPage/orderHistoryPage.js',
     };
 
     targets.of('@magento/pwa-buildpack').transformUpward.tap(def => {

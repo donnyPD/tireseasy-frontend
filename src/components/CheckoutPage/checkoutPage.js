@@ -18,18 +18,19 @@ import StockStatusMessage from '@magento/venia-ui/lib/components/StockStatusMess
 import FormError from '@magento/venia-ui/lib/components/FormError';
 import AddressBook from '@magento/venia-ui/lib/components/CheckoutPage/AddressBook';
 import GuestSignIn from '@magento/venia-ui/lib/components/CheckoutPage/GuestSignIn';
-import OrderSummary from '@magento/venia-ui/lib/components/CheckoutPage/OrderSummary';
+import OrderSummary from './OrderSummary';
 import PaymentInformation from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation';
 import payments from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from '@magento/venia-ui/lib/components/CheckoutPage/PriceAdjustments';
 import ShippingMethod from '@magento/venia-ui/lib/components/CheckoutPage/ShippingMethod';
 import ShippingInformation from '@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation';
-import ItemsReview from '@magento/venia-ui/lib/components/CheckoutPage/ItemsReview';
+import ItemsReview from './ItemsReview';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import GoogleReCaptcha from '@magento/venia-ui/lib/components/GoogleReCaptcha';
 
 import defaultClasses from './checkoutPage.module.css';
 import ScrollAnchor from '@magento/venia-ui/lib/components/ScrollAnchor/scrollAnchor';
+import QuickLookups from '../QuickLookups';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -273,7 +274,7 @@ const CheckoutPage = props => {
             ) : null;
 
         const itemsReview =
-            checkoutStep === CHECKOUT_STEP.REVIEW ? (
+            cartItems ? (
                 <div className={classes.items_review_container}>
                     <ItemsReview items={cartItems} />
                 </div>
@@ -307,7 +308,7 @@ const CheckoutPage = props => {
             isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
         );
 
-        const orderSummary = shouldRenderPriceSummary ? (
+        const orderSummary = (
             <div
                 className={
                     classes.summaryContainer +
@@ -319,21 +320,21 @@ const CheckoutPage = props => {
                         : '')
                 }
             >
-                <OrderSummary isUpdating={isUpdating} />
+                <OrderSummary isUpdating={isUpdating} isCheckoutPage={true} />
             </div>
-        ) : null;
+        );
 
         let headerText;
 
         if (isGuestCheckout) {
             headerText = formatMessage({
-                id: 'checkoutPage.guestCheckout',
-                defaultMessage: 'Guest Checkout'
+                id: 'checkoutPage.guestCheckout.new',
+                defaultMessage: 'Checkout'
             });
         } else if (customer.default_shipping) {
             headerText = formatMessage({
-                id: 'checkoutPage.reviewAndPlaceOrder',
-                defaultMessage: 'Review and Place Order'
+                id: 'checkoutPage.reviewAndPlaceOrder.new',
+                defaultMessage: 'Checkout'
             });
         } else {
             headerText = formatMessage(
@@ -386,32 +387,38 @@ const CheckoutPage = props => {
                         {headerText}
                     </h1>
                 </div>
-                {signInContainerElement}
-                <div className={classes.shipping_information_container}>
-                    <ScrollAnchor ref={shippingInformationRef}>
-                        <ShippingInformation
-                            onSave={setShippingInformationDone}
-                            onSuccess={scrollShippingInformationIntoView}
-                            toggleActiveContent={toggleAddressBookContent}
-                            toggleSignInContent={toggleSignInContent}
-                            setGuestSignInUsername={setGuestSignInUsername}
-                        />
-                    </ScrollAnchor>
+                <div className={classes.checkout_container}>
+                    {itemsReview}
+                    {signInContainerElement}
+                    <div className={classes.shipping_information_container}>
+                        <ScrollAnchor ref={shippingInformationRef}>
+                            <ShippingInformation
+                                onSave={setShippingInformationDone}
+                                onSuccess={scrollShippingInformationIntoView}
+                                toggleActiveContent={toggleAddressBookContent}
+                                toggleSignInContent={toggleSignInContent}
+                                setGuestSignInUsername={setGuestSignInUsername}
+                            />
+                        </ScrollAnchor>
+                    </div>
+                    <div className={classes.shipping_method_container}>
+                        <ScrollAnchor ref={shippingMethodRef}>
+                            {shippingMethodSection}
+                        </ScrollAnchor>
+                    </div>
+                    <div className={classes.payment_information_container}>
+                        {paymentInformationSection}
+                    </div>
+                    {priceAdjustmentsSection}
+                    <div className={classes.summary_content}>
+                        {orderSummary}
+                        <div className={classes.summary_button}>
+                            {reviewOrderButton}
+                            {placeOrderButton}
+                        </div>
+                    </div>
+                    <GoogleReCaptcha {...recaptchaWidgetProps} />
                 </div>
-                <div className={classes.shipping_method_container}>
-                    <ScrollAnchor ref={shippingMethodRef}>
-                        {shippingMethodSection}
-                    </ScrollAnchor>
-                </div>
-                <div className={classes.payment_information_container}>
-                    {paymentInformationSection}
-                </div>
-                {priceAdjustmentsSection}
-                {reviewOrderButton}
-                {itemsReview}
-                {orderSummary}
-                {placeOrderButton}
-                <GoogleReCaptcha {...recaptchaWidgetProps} />
             </div>
         );
     }
@@ -435,15 +442,20 @@ const CheckoutPage = props => {
 
     return (
         <div className={classes.root} data-cy="CheckoutPage-root">
-            <StoreTitle>
-                {formatMessage({
-                    id: 'checkoutPage.titleCheckout',
-                    defaultMessage: 'Checkout'
-                })}
-            </StoreTitle>
-            {checkoutContent}
-            {addressBookElement}
-            {signInElement}
+            <div className={classes.sidebar}>
+                <QuickLookups />
+            </div>
+            <div className={classes.content}>
+                <StoreTitle>
+                    {formatMessage({
+                        id: 'checkoutPage.titleCheckout.new',
+                        defaultMessage: 'Checkout'
+                    })}
+                </StoreTitle>
+                {checkoutContent}
+                {addressBookElement}
+                {signInElement}
+            </div>
         </div>
     );
 };
@@ -456,6 +468,9 @@ CheckoutPage.propTypes = {
         checkoutContent: string,
         checkoutContent_hidden: string,
         heading_container: string,
+        checkout_container: string,
+        summary_content: string,
+        summary_button: string,
         heading: string,
         cartLink: string,
         stepper_heading: string,

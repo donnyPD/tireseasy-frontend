@@ -104,6 +104,11 @@
     }
 }
 
+.price,
+.total {
+    @apply -md_pt-2;
+}
+
 .action {
     li {
         @apply border-0;

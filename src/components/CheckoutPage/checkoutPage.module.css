@@ -1,20 +1,29 @@
 .root {
-    composes: max-w-screen-lg from global;
+    composes: max-w-site from global;
     composes: mx-auto from global;
     composes: my-0 from global;
     composes: px-sm from global;
     composes: py-md from global;
 
-    composes: lg_px-lg from global;
+    composes: lg_flex from global;
+    composes: lg_px-md from global;
+}
+
+.sidebar {
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+    composes: lg_w-filterSidebarWidth from global;
+    flex: 0 0 280px;
+
+    @apply flex-col lg_mr-8;
+}
+
+.content {
+    composes: lg_flex-grow from global;
 }
 
 .checkoutContent {
-    composes: gap-xs from global;
-    composes: grid from global;
-    composes: grid-cols-1 from global;
 
-    composes: lg_gap-md from global;
-    composes: lg_grid-cols-[2fr_1fr] from global;
 }
 
 .checkoutContent_hidden {
@@ -28,10 +37,27 @@
     composes: col-start-1 from global;
     composes: gap-y-xs from global;
     composes: grid from global;
+    composes: mb-xs from global;
 }
 
 .heading {
     composes: leading-tight from global;
+
+    @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
+}
+
+.checkout_container {
+    @apply bg-white p-6 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+
+    > div > div,
+    > div > div > div,
+    form > div {
+        @apply border-0 p-0;
+    }
+
+    > div {
+        @apply mb-4;
+    }
 }
 
 .cartLink {
@@ -100,6 +126,12 @@
     composes: mb-sm from global;
 }
 
+.shipping_information_container,
+.shipping_method_container,
+.price_adjustments_container {
+    @apply sr-only;
+}
+
 .shipping_information_container {
     grid-column: 1 / span 1;
     composes: relative from global;
@@ -129,6 +161,26 @@
     composes: lg_sticky from global;
     /* TODO @TW: review. Magic number. Slightly bigger than sticky header. */
     composes: lg_top-[6rem] from global;
+}
+
+.summary_content {
+    @apply flex flex-col items-center md_flex-row md_items-start md_justify-end;
+
+    .summary_button {
+        @apply mt-4 md_mt-0 md_ml-4;
+
+        > button {
+            @apply border-0 text-white rounded-[33px] py-3 px-[25px] text-base font-bold shadow-[0_4px_12px_rgba(74,74,74,0.2)] transition-all
+            md_text-lg md_px-10 md_py-3;
+            @apply normal-case !important;
+            background: linear-gradient(135deg, var(--color-accent-green, #4CAF50), var(--color-accent-soft-green, #66CC66));
+
+            &:hover {
+                 transform: translateY(-2px);
+                 box-shadow: 0 6px 14px rgba(74,74,74, 0.3);
+            }
+        }
+    }
 }
 
 @media screen(lg) {
