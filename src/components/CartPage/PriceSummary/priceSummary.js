@@ -74,6 +74,9 @@ const PriceSummary = props => {
     const totalPriceClass = isPriceUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
+    const labelSubClass = isPriceUpdating
+        ? classes.labelSubUpdating
+        : classes.lineItemLabelSub;
 
     const totalPriceLabel = isCheckout
         ? formatMessage({
@@ -113,8 +116,8 @@ const PriceSummary = props => {
                             className={classes.lineItemLabel}
                         >
                             <FormattedMessage
-                                id={'priceSummary.lineItemLabel'}
-                                defaultMessage={'Subtotal'}
+                                id={'priceSummary.lineItemLabel.new'}
+                                defaultMessage={'Subtotal: '}
                             />
                         </span>
                         <span
@@ -127,68 +130,16 @@ const PriceSummary = props => {
                             />
                         </span>
                     </li>
-                    <DiscountSummary
-                        classes={{
-                            lineItems: classes.lineItems,
-                            lineItemLabel: classes.lineItemLabel,
-                            price: priceClass
-                        }}
-                        data={discounts}
-                    />
-                    <li className={classes.lineItems}>
-                        <GiftCardSummary
-                            classes={{
-                                lineItemLabel: classes.lineItemLabel,
-                                price: priceClass
-                            }}
-                            data={giftCards}
-                        />
-                    </li>
-                    <li className={classes.lineItems}>
-                        <GiftOptionsSummary
-                            classes={{
-                                lineItemLabel: classes.lineItemLabel,
-                                price: priceClass
-                            }}
-                            data={giftOptions}
-                        />
-                    </li>
-                    <li className={classes.lineItems}>
-                        <TaxSummary
-                            classes={{
-                                lineItemLabel: classes.lineItemLabel,
-                                price: priceClass
-                            }}
-                            data={taxes}
-                            isCheckout={isCheckout}
-                        />
-                    </li>
-                    <li className={classes.lineItems}>
-                        <ShippingSummary
-                            classes={{
-                                lineItemLabel: classes.lineItemLabel,
-                                price: priceClass
-                            }}
-                            data={shipping}
-                            isCheckout={isCheckout}
-                        />
-                    </li>
                     <li className={classes.lineItems}>
                         <span
-                            data-cy="PriceSummary-totalLabel"
-                            className={classes.totalLabel}
+                            className={labelSubClass}
                         >
-                            {totalPriceLabel}
-                        </span>
-                        <span
-                            data-cy="PriceSummary-totalValue"
-                            className={totalPriceClass}
-                        >
-                            <Price
-                                value={total.value}
-                                currencyCode={total.currency}
+                            <FormattedMessage
+                                id={'priceSummary.lineItemLabel.shipping'}
+                                defaultMessage={'Shipping calculated at checkout.'}
                             />
                         </span>
+
                     </li>
                 </ul>
             </div>

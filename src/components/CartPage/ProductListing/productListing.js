@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
+import { useProductListing } from '../../../talons/CartPage/ProductListing/useProductListing';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
@@ -72,6 +72,38 @@ const ProductListing = props => {
             <Fragment>
                 <ErrorMessage error={error} />
                 <ul className={classes.root} data-cy="ProductListing-root">
+                    <li className={classes.th}>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.title.product'}
+                                defaultMessage={'Product'}
+                            />
+                        </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.title.price'}
+                                defaultMessage={'Price'}
+                            />
+                        </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.title.qty'}
+                                defaultMessage={'Qty'}
+                            />
+                        </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.title.total'}
+                                defaultMessage={'Total'}
+                            />
+                        </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.title.actions'}
+                                defaultMessage={'Actions'}
+                            />
+                        </div>
+                    </li>
                     {productComponents}
                 </ul>
                 <Suspense fallback={null}>

@@ -2,6 +2,36 @@
     composes: gap-x-md from global;
     composes: gap-y-xs from global;
     composes: grid from global;
+
+    @apply table w-full;
+
+    > li {
+        @apply table-row;
+
+        > div {
+            @apply table-cell w-[15%] text-center align-middle py-4;
+
+            &:first-child {
+                 @apply w-[40%] text-left;
+            }
+        }
+
+        &:not(:last-child)  > div {
+             @apply border-b border-neutral-lighter;
+        }
+    }
+}
+
+.th {
+    > div {
+        @apply bg-neutral-light text-sm uppercase;
+            &:first-child {
+                 @apply pl-4 rounded-tl-md;
+            }
+            &:last-child {
+                 @apply rounded-tr-md;
+            }
+    }
 }
 
 .errorText {

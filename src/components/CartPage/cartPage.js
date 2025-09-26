@@ -110,7 +110,10 @@ const CartPage = props => {
                             data-cy="CartPage-heading"
                             className={classes.heading}
                         >
-                            {'Your Shopping Cart'}
+                            <FormattedMessage
+                                id={'cartPage.heading.new'}
+                                defaultMessage={'Your Shopping Cart'}
+                            />
                         </h1>
                         <div className={classes.stockStatusMessageContainer}>
                             <StockStatusMessage cartItems={cartItems} />

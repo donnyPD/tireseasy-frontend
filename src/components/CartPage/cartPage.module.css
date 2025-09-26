@@ -53,6 +53,7 @@
 
 .items_container {
     grid-area: items;
+    @apply mb-8;
 }
 
 .price_adjustments_container {
@@ -74,10 +75,6 @@
      *  - 2rem = padding-top of the cart page.
      */
     composes: top-[5.5rem] from global; /* TODO @TW: review */
-}
-
-main {
-    @apply bg-neutral-light !important;
 }
 
 @media screen(-lg) {

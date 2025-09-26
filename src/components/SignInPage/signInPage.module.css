@@ -1,0 +1,23 @@
+.root {
+    composes: gap-y-md from global;
+    composes: grid from global;
+    composes: justify-center from global;
+    composes: px-0 from global;
+    composes: py-lg from global;
+    composes: text-center from global;
+    grid-template-columns: minmax(auto, 512px);
+}
+
+.header {
+    composes: font-serif from global;
+}
+
+.contentContainer {
+    composes: lg_border-2 from global;
+    composes: lg_border-solid from global;
+    composes: lg_border-subtle from global;
+    composes: lg_pb-md from global;
+    composes: lg_rounded-box from global;
+
+    @apply bg-white shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+}

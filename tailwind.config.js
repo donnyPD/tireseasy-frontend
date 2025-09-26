@@ -43,9 +43,9 @@ const config = {
             '-hsm': {
                 raw: '(max-height: 639px)'
             },
-            md: '800px',
+            md: '768px',
             '-md': {
-                max: '799px'
+                max: '767px'
             },
             hmd: {
                 raw: '(min-height: 800px)'
@@ -115,7 +115,9 @@ const config = {
                 'brand-100': '#F8F8F8',         // Light brand variant
                 'brand-700': '#1A2C5B',         // Dark brand variant
                 'brand-dark': '#1A2C5B',        // Brand dark
-                'brand-darkest': '#003366'      // Brand darkest
+                'brand-darkest': '#003366',      // Brand darkest
+
+                'primary-red': '#e12528',
             }
         }
     }

@@ -4,16 +4,17 @@
 }
 
 .item {
-    composes: gap-x-2xs from global;
+    composes: gap-x-xs from global;
     composes: gap-y-xs from global;
-    composes: grid from global;
-    composes: items-start from global;
+    composes: items-center from global;
     grid-template-areas: 'image details kebab';
-    grid-template-columns: 100px 1fr min-content;
+    grid-template-columns: 80px 1fr min-content;
+
+    @apply flex text-start;
 }
 
-.item_disabled {
-    composes: item;
+.root_disabled {
+    composes: root;
     composes: opacity-50 from global;
 }
 
@@ -32,7 +33,7 @@
 }
 
 .image {
-    composes: bg-subtle from global;
+    composes: bg-transparent from global;
     composes: border from global;
     composes: border-solid from global;
     composes: border-subtle from global;
@@ -40,13 +41,16 @@
     composes: object-contain from global;
     composes: object-center from global;
     composes: rounded-sm from global;
+
+    @apply min-w-[80px];
 }
 
 .details {
     composes: gap-2xs from global;
     composes: leading-normal from global;
-
     composes: sm_grid from global;
+
+    @apply block;
 }
 
 @media screen(sm) {
@@ -66,6 +70,14 @@
     grid-area: name;
 }
 
+.attr {
+    @apply text-sm text-text-secondary;
+
+    span {
+        @apply mr-2;
+    }
+}
+
 .price {
     composes: text-sm from global;
     grid-area: price;
@@ -81,6 +93,32 @@
 
     button {
         @apply hidden;
+    }
+
+    form > div {
+        @apply block;
+
+        input[aria-label="Item Quantity"] {
+            @apply w-20;
+        }
+    }
+}
+
+.action {
+    li {
+        @apply border-0;
+
+        svg {
+            @apply hidden;
+        }
+
+        button {
+            @apply p-0 inline-block text-center text-primary-red hover_bg-white hover_underline;
+
+            span {
+                @apply p-0 text-primary-red;
+            }
+        }
     }
 }
 
