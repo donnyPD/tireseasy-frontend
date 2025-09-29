@@ -29,12 +29,21 @@
     composes: opacity-0 from global;
 }
 
+.imageRoot {
+    composes: h-full from global;
+}
+
 .thumbnail {
+    composes: bg-transparent from global;
     composes: border from global;
     composes: border-solid from global;
     composes: border-subtle from global;
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 3;
+    composes: h-full from global;
+    composes: object-contain from global;
+    composes: object-center from global;
+    composes: rounded-sm from global;
+
+    @apply min-w-[80px];
 }
 
 .name {
@@ -44,10 +53,12 @@
 }
 
 .quantity {
-    composes: mt-xs from global;
+    composes: md_mt-xs from global;
     composes: text-sm from global;
     grid-column: 2 / span 1;
     grid-row: 3 / span 1;
+
+    @apply -md_pt-[2px];
 }
 
 .options {
@@ -57,4 +68,23 @@
     composes: text-sm from global;
     grid-column: 2 / span 1;
     grid-row: 2 / span 1;
+}
+
+.item {
+    @apply flex items-center gap-x-xs;
+}
+
+.attr {
+    @apply text-sm text-text-secondary;
+
+    span {
+        @apply mr-2;
+    }
+}
+
+.price,
+.total {
+    span {
+        @apply text-sm;
+    }
 }

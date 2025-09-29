@@ -18,3 +18,54 @@
 .total_quantity_amount {
     composes: font-semibold from global;
 }
+
+.items_title {
+    @apply text-lg lg_text-xl font-bold text-text-primary mb-3;
+}
+
+.list {
+    @apply md_table w-full;
+
+    > li {
+        @apply md_table-row md_items-center
+        -md_flex -md_flex-wrap -md_pb-3 -md_justify-end;
+
+        > div {
+            @apply md_table-cell md_w-[15%] md_text-center md_align-middle md_py-4
+            -md_w-full;
+
+            &:first-child {
+                 @apply md_w-[40%] text-left;
+            }
+
+            &:nth-child(2),
+            &:nth-child(3),
+            &:nth-child(4) {
+                 @apply -md_w-max -md_mr-4;
+            }
+        }
+
+        &:not(:last-child) {
+             @apply -md_border-b -md_border-neutral-lighter;
+
+            > div {
+                @apply md_border-b md_border-neutral-lighter;
+            }
+        }
+    }
+}
+
+.th {
+    @apply -md_hidden !important;
+
+    > div {
+        @apply bg-neutral-light text-sm uppercase;
+
+        &:first-child {
+             @apply pl-4 rounded-tl-md;
+        }
+        &:last-child {
+             @apply rounded-tr-md;
+        }
+    }
+}

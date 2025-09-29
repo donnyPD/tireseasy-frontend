@@ -124,8 +124,8 @@ const Product = props => {
                             }}
                         />
                         <span className={classes.stockStatusMessage}>
-                        {stockStatusMessage}
-                    </span>
+                            {stockStatusMessage}
+                        </span>
                         <div>
                             <span className={classes.errorText}>{errorMessage}</span>
                         </div>

@@ -1,10 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useItemsReview } from '@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/useItemsReview';
+import { useItemsReview } from '../../../talons/CheckoutPage/ItemsReview/useItemsReview';
 
 import Item from './item';
-import ShowAllButton from '@magento/venia-ui/lib/components/CheckoutPage/ItemsReview/showAllButton';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import defaultClasses from './itemsReview.module.css';
@@ -22,15 +21,13 @@ const ItemsReview = props => {
 
     const {
         items: itemsInCart,
-        totalQuantity,
-        showAllItems,
-        setShowAllItems,
         configurableThumbnailSource
     } = talonProps;
 
     const items = itemsInCart.map((item, index) => (
         <Item
             key={item.uid}
+            item={item}
             {...item}
             configurableThumbnailSource={configurableThumbnailSource}
         />
@@ -42,19 +39,45 @@ const ItemsReview = props => {
             data-cy="ItemsReview-container"
         >
             <div className={classes.items_container}>
-                <div
+                <h2
                     data-cy="ItemsReview-totalQuantity"
-                    className={classes.total_quantity}
+                    className={classes.items_title}
                 >
-                    <span className={classes.total_quantity_amount}>
-                        {totalQuantity}
-                    </span>
                     <FormattedMessage
                         id={'checkoutPage.itemsInYourOrder.new'}
-                        defaultMessage={' items in your order'}
+                        defaultMessage={'Order details'}
                     />
-                </div>
-                {items}
+                </h2>
+                <ul className={classes.list}>
+                    <li className={classes.th}>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.checkout.product'}
+                                defaultMessage={'Product'}
+                            />
+                        </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.checkout.price'}
+                                defaultMessage={'Price'}
+                            />
+                        </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.checkout.qty'}
+                                defaultMessage={'Qty'}
+                            />
+                        </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.checkout.total'}
+                                defaultMessage={'Total'}
+                            />
+                        </div>
+                    </li>
+                    {items}
+                </ul>
+
             </div>
         </div>
     );

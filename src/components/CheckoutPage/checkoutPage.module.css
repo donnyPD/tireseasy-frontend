@@ -222,4 +222,6 @@
 
     grid-column: 1 / span 1;
     composes: m-auto from global;
+
+    @apply sr-only;
 }

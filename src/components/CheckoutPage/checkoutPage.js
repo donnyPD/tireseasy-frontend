@@ -8,7 +8,7 @@ import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
     useCheckoutPage
-} from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
+} from '../../talons/CheckoutPage/useCheckoutPage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
@@ -19,7 +19,7 @@ import FormError from '@magento/venia-ui/lib/components/FormError';
 import AddressBook from '@magento/venia-ui/lib/components/CheckoutPage/AddressBook';
 import GuestSignIn from '@magento/venia-ui/lib/components/CheckoutPage/GuestSignIn';
 import OrderSummary from './OrderSummary';
-import PaymentInformation from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation';
+import PaymentInformation from './PaymentInformation';
 import payments from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from '@magento/venia-ui/lib/components/CheckoutPage/PriceAdjustments';
 import ShippingMethod from '@magento/venia-ui/lib/components/CheckoutPage/ShippingMethod';
@@ -116,6 +116,11 @@ const CheckoutPage = props => {
             }
         }
     }, [addToast, error, formatMessage, hasError]);
+    useEffect(() => {
+        if (checkoutStep === CHECKOUT_STEP.REVIEW) {
+            handlePlaceOrder();
+        }
+    }, [checkoutStep]);
 
     const classes = useStyle(defaultClasses, propClasses);
 
@@ -236,10 +241,10 @@ const CheckoutPage = props => {
                     shouldSubmit={reviewOrderButtonClicked}
                 />
             ) : (
-                <h3 className={classes.payment_information_heading}>
+                <h3 className={classes.payment_information_text}>
                     <FormattedMessage
-                        id={'checkoutPage.paymentInformationStep'}
-                        defaultMessage={'3. Payment Information'}
+                        id={'checkoutPage.paymentInformationStep.new'}
+                        defaultMessage={'Please add shipping delivery address to your Address List'}
                     />
                 </h3>
             );
@@ -252,7 +257,7 @@ const CheckoutPage = props => {
             ) : null;
 
         const reviewOrderButton =
-            checkoutStep === CHECKOUT_STEP.PAYMENT ? (
+            checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <Button
                     onClick={handleReviewOrder}
                     onTouchStart={handleReviewOrder}
@@ -267,8 +272,8 @@ const CheckoutPage = props => {
                     }
                 >
                     <FormattedMessage
-                        id={'checkoutPage.reviewOrder'}
-                        defaultMessage={'Review Order'}
+                        id={'checkoutPage.reviewOrder.new'}
+                        defaultMessage={'Place Order'}
                     />
                 </Button>
             ) : null;
@@ -302,11 +307,6 @@ const CheckoutPage = props => {
                     />
                 </Button>
             ) : null;
-
-        // If we're on mobile we should only render price summary in/after review.
-        const shouldRenderPriceSummary = !(
-            isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
-        );
 
         const orderSummary = (
             <div
