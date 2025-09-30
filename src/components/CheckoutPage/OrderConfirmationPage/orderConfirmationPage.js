@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { object, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import CreateAccount from '@magento/venia-ui/lib/components/CheckoutPage/OrderConfirmationPage/createAccount';
-import ItemsReview from '@magento/venia-ui/lib/components/CheckoutPage/ItemsReview';
+import ItemsReview from '../ItemsReview';
 import defaultClasses from './orderConfirmationPage.module.css';
+import QuickLookups from '../../QuickLookups';
+import resourceUrl from "@magento/peregrine/lib/util/makeUrl";
 
 const OrderConfirmationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -17,8 +18,6 @@ const OrderConfirmationPage = props => {
     const data = props.data;
     const orderNumber = props.orderNumber || location.state.orderNumber;
     const cartItems = data ? data.cart.items : location.state.items;
-
-    const { formatMessage } = useIntl();
 
     const talonProps = useOrderConfirmationPage({
         data,
@@ -49,18 +48,8 @@ const OrderConfirmationPage = props => {
             firstname,
             lastname,
             postcode,
-            region,
-            shippingMethod,
-            street
+            region
         } = flatData;
-
-        const streetRows = street.map((row, index) => {
-            return (
-                <span key={index} className={classes.addressStreet}>
-                    {row}
-                </span>
-            );
-        });
 
         const createAccountForm = !isSignedIn ? (
             <CreateAccount
@@ -70,83 +59,74 @@ const OrderConfirmationPage = props => {
             />
         ) : null;
 
-        const nameString = `${firstname} ${lastname}`;
-        const additionalAddressString = `${city}, ${region} ${postcode} ${country}`;
-
         return (
             <div className={classes.root} data-cy="OrderConfirmationPage-root">
-                <StoreTitle>
-                    {formatMessage({
-                        id: 'checkoutPage.titleReceipt',
-                        defaultMessage: 'Receipt'
-                    })}
-                </StoreTitle>
-                <div className={classes.mainContainer}>
-                    <h2
-                        data-cy="OrderConfirmationPage-header"
+                <div className={classes.sidebar}>
+                    <QuickLookups />
+                </div>
+                <div className={classes.content}>
+                    <h1
                         className={classes.heading}
+                        data-cy="SuccessPage-headerText"
                     >
                         <FormattedMessage
-                            id={'checkoutPage.thankYou'}
-                            defaultMessage={'Thank you for your order!'}
+                            id={'checkoutSuccessPage.heading'}
+                            defaultMessage={'Order Confirmation'}
                         />
-                    </h2>
-                    <div
-                        data-cy="OrderConfirmationPage-orderNumber"
-                        className={classes.orderNumber}
-                    >
-                        <FormattedMessage
-                            id={'checkoutPage.orderNumber'}
-                            defaultMessage={'Order Number: {orderNumber}'}
-                            values={{ orderNumber }}
-                        />
-                    </div>
-                    <div
-                        data-cy="OrderConfirmationPage-shippingInfoHeading"
-                        className={classes.shippingInfoHeading}
-                    >
-                        <FormattedMessage
-                            id={'global.shippingInformation'}
-                            defaultMessage={'Shipping Information'}
-                        />
-                    </div>
-                    <div className={classes.shippingInfo}>
-                        <span className={classes.email}>{email}</span>
-                        <span className={classes.name}>{nameString}</span>
-                        {streetRows}
-                        <span className={classes.addressAdditional}>
-                            {additionalAddressString}
+                    </h1>
+                    <div className={classes.mainContainer}>
+                        <h2
+                            data-cy="OrderConfirmationPage-header"
+                            className={classes.heading}
+                        >
+                            <FormattedMessage
+                                id={'checkoutPage.thankYou.new'}
+                                defaultMessage={'Thank You for Your Order!'}
+                            />
+                        </h2>
+                        <span className={classes.text}>
+                            <FormattedMessage
+                                id={'checkoutPage.thankYou.text'}
+                                defaultMessage={'Your order has been successfully and is now being processed.'}
+                            />
                         </span>
-                    </div>
-                    <div
-                        data-cy="OrderConfirmationPage-shippingMethodHeading"
-                        className={classes.shippingMethodHeading}
-                    >
-                        <FormattedMessage
-                            id={'global.shippingMethod'}
-                            defaultMessage={'Shipping Method'}
-                        />
-                    </div>
-                    <div className={classes.shippingMethod}>
-                        {shippingMethod}
+                        <div
+                            data-cy="OrderConfirmationPage-orderNumber"
+                            className={classes.orderNumber}
+                        >
+                            <FormattedMessage
+                                id={'checkoutPage.orderNumber.text'}
+                                defaultMessage={'Order Confirmation Number: '}
+                            />
+                            <span className={classes.order_number}>
+                                <FormattedMessage
+                                    id={'checkoutPage.orderNumber.number'}
+                                    defaultMessage={'{orderNumber}'}
+                                    values={{ orderNumber }}
+                                />
+                            </span>
+                        </div>
+                        <div
+                            data-cy="OrderConfirmationPage-additionalText"
+                            className={classes.additionalText}
+                        >
+                            <FormattedMessage
+                                id={'checkoutPage.additionalText.new'}
+                                defaultMessage={
+                                    'A detailed confirmation email with tracking information will be sent to your registered email address shortly.'
+                                }
+                            />
+                        </div>
+                        {createAccountForm}
                     </div>
                     <div className={classes.itemsReview}>
                         <ItemsReview items={cartItems} />
                     </div>
-                    <div
-                        data-cy="OrderConfirmationPage-additionalText"
-                        className={classes.additionalText}
-                    >
-                        <FormattedMessage
-                            id={'checkoutPage.additionalText'}
-                            defaultMessage={
-                                'You will also receive an email with the details and we will let you know when your order has shipped.'
-                            }
-                        />
+                    <div className={classes.button_container}>
+                        <Link to={resourceUrl('/')} className={classes.link}>
+                            <FormattedMessage id={'success.checkoutButton'} defaultMessage={'Continue Shopping'} />
+                        </Link>
                     </div>
-                </div>
-                <div className={classes.sidebarContainer}>
-                    {createAccountForm}
                 </div>
             </div>
         );
@@ -170,6 +150,7 @@ OrderConfirmationPage.propTypes = {
         shippingMethod: string,
         itemsReview: string,
         additionalText: string,
+        button_container: string,
         sidebarContainer: string
     }),
     data: object,

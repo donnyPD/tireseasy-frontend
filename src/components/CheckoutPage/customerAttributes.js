@@ -4,13 +4,10 @@ import { Form } from 'informed';
 import { shape, string, } from 'prop-types';
 
 import {
-    CHECKOUT_STEP,
     useCheckoutPage,
 } from '../../talons/CheckoutPage/useCheckoutPage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './checkoutPage.module.css';
-import TextInput from '@magento/venia-ui/lib/components/TextInput';
-import TextArea from "@magento/venia-ui/lib/components/TextArea";
 import Field from "@magento/venia-ui/lib/components/Field";
 
 

@@ -56,7 +56,7 @@
     }
 
     > div {
-        @apply mb-8;
+        @apply mb-6;
     }
 }
 
@@ -182,6 +182,7 @@
 
 .summary_content {
     @apply flex flex-col items-center md_flex-row md_items-start md_justify-end;
+    @apply mb-0 !important;
 
     .summary_button {
         @apply mt-4 md_mt-0 md_ml-4;
