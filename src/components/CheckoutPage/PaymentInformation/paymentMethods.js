@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { shape, string, bool, func } from 'prop-types';
 import { useIntl } from 'react-intl';
-import { useMutation } from '@apollo/client';
 import { usePaymentMethods } from '../../../talons/CheckoutPage/PaymentInformation/usePaymentMethods';
-import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/paymentMethods.gql';
-import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import RadioGroup from '@magento/venia-ui/lib/components/RadioGroup';
-import Radio from '@magento/venia-ui/lib/components/RadioGroup/radio';
+import RadioGroup from '../../RadioGroup';
+import Radio from '../../RadioGroup/radio';
 import defaultClasses from './paymentMethods.module.css';
 import payments from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -23,12 +20,8 @@ const PaymentMethods = props => {
 
     const { formatMessage } = useIntl();
 
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const {
-        setPaymentMethodOnCartMutation
-    } = operations;
-    const [setPaymentMethod] = useMutation(setPaymentMethodOnCartMutation);
     const [{ cartId }] = useCartContext();
+    const radioRef = useRef(null);
 
     const classes = useStyle(defaultClasses, propClasses);
 
@@ -39,31 +32,29 @@ const PaymentMethods = props => {
         currentSelectedPaymentMethod,
         handlePaymentMethodSelection,
         initialSelectedMethod,
-        isLoading,
-        dataCart
+        isLoading
     } = talonProps;
 
     useEffect(() => {
         if (!currentSelectedPaymentMethod && availablePaymentMethods?.length > 0) {
             const firstMethod = availablePaymentMethods[0];
-
-            setPaymentMethod({
-                variables: {
-                    cartId,
-                    paymentMethod: {
-                        code: firstMethod.code
-                    }
+            handlePaymentMethodSelection({
+                target: {
+                    value: firstMethod.code
                 }
             });
+            if (radioRef.current) {
+                radioRef.current.click();
+            }
         }
-    }, [availablePaymentMethods, currentSelectedPaymentMethod, setPaymentMethod, cartId]);
+    }, [availablePaymentMethods, currentSelectedPaymentMethod, cartId]);
 
     if (isLoading) {
         return null;
     }
 
     const radios = availablePaymentMethods
-        .map(({ code, title }) => {
+        .map(({ code, title }, i) => {
             // If we don't have an implementation for a method type, ignore it.
             if (!Object.keys(payments).includes(code)) {
                 return;
@@ -87,6 +78,7 @@ const PaymentMethods = props => {
                         id={id}
                         label={title}
                         value={code}
+                        labelRef={i === 0 ? radioRef : null}
                         classes={{
                             label: classes.radio_label
                         }}

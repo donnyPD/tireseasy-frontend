@@ -55,10 +55,60 @@ export const GET_CUSTOMER = gql`
     }
 `;
 
+export const GET_QUOTE_DETAILS = gql`
+    query {
+        getQuoteDetails {
+            po_number
+            customer_comment
+            items {
+                sku
+                name
+                price
+                price_formatted
+                qty
+                row_total
+                row_total_formatted
+                small_image
+                size
+            }
+        }
+    }
+`;
+
+export const SET_CHECKOUT_CUSTOM_FIELDS = gql`
+    mutation setCheckoutCustomFields($poNumber: String!, $customerComment: String!) {
+        setCheckoutCustomFields(
+            po_number: $poNumber,
+            customer_comment: $customerComment
+        ) {
+            success
+            message
+            quote {
+                po_number
+                estimated_delivery_date
+                customer_comment
+                items {
+                    sku
+                    name
+                    price
+                    price_formatted
+                    qty
+                    row_total
+                    row_total_formatted
+                    small_image
+                    size
+                }
+            }
+        }
+    }
+`;
+
 export default {
     createCartMutation: CREATE_CART,
     getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
     getCustomerQuery: GET_CUSTOMER,
     getOrderDetailsQuery: GET_ORDER_DETAILS,
-    placeOrderMutation: PLACE_ORDER
+    placeOrderMutation: PLACE_ORDER,
+    setCheckoutCustomFieldsMutation: SET_CHECKOUT_CUSTOM_FIELDS,
+    getQuoteDetails: GET_QUOTE_DETAILS
 };

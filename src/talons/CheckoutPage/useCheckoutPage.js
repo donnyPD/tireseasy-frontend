@@ -77,7 +77,9 @@ export const useCheckoutPage = (props = {}) => {
         getCheckoutDetailsQuery,
         getCustomerQuery,
         getOrderDetailsQuery,
-        placeOrderMutation
+        placeOrderMutation,
+        setCheckoutCustomFieldsMutation,
+        getQuoteDetails,
     } = operations;
 
     const { generateReCaptchaData, recaptchaWidgetProps } = useGoogleReCaptcha({
@@ -107,6 +109,7 @@ export const useCheckoutPage = (props = {}) => {
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+    const [setCheckoutFields] = useMutation(setCheckoutCustomFieldsMutation);
     const [
         placeOrder,
         {
@@ -261,6 +264,34 @@ export const useCheckoutPage = (props = {}) => {
             }
         };
     }, [handlePlaceOrder]);
+
+    const handleCustomAttributes = useCallback(
+        element => {
+            const number = element.po_number;
+            const comment = element.customer_comment;
+
+            setCheckoutFields({
+                variables: {
+                    poNumber: number,
+                    customerComment: comment
+                }
+            });
+        },
+        []
+    );
+
+    const {
+        data: attributesData,
+    } = useQuery(getQuoteDetails, {
+        variables: {
+            cartId
+        }
+    });
+    const customAttributes = {
+        poNumbers: attributesData && attributesData?.getQuoteDetails?.po_number || '',
+        customerComment:  attributesData && attributesData?.getQuoteDetails?.customer_comment || ''
+    }
+    // console.log(attributesData);
 
     const [, { dispatch }] = useEventingContext();
 
@@ -437,6 +468,8 @@ export const useCheckoutPage = (props = {}) => {
         reviewOrderButtonClicked,
         recaptchaWidgetProps,
         toggleAddressBookContent,
-        toggleSignInContent
+        toggleSignInContent,
+        handleCustomAttributes,
+        customAttributes
     };
 };

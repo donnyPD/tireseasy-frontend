@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { shape, string } from 'prop-types';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
@@ -27,6 +27,7 @@ import ShippingInformation from '@magento/venia-ui/lib/components/CheckoutPage/S
 import ItemsReview from './ItemsReview';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import GoogleReCaptcha from '@magento/venia-ui/lib/components/GoogleReCaptcha';
+import CustomerAttributes from './customerAttributes';
 
 import defaultClasses from './checkoutPage.module.css';
 import ScrollAnchor from '@magento/venia-ui/lib/components/ScrollAnchor/scrollAnchor';
@@ -39,6 +40,7 @@ const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const { formatMessage } = useIntl();
     const talonProps = useCheckoutPage();
+    const [addressFormActive, setAddressFormActive] = useState(false);
 
     const {
         /**
@@ -126,6 +128,9 @@ const CheckoutPage = props => {
 
     const windowSize = useWindowSize();
     const isMobile = windowSize.innerWidth <= 960;
+    const shippingInformationClasses = addressFormActive
+        ? classes.shipping_information_container_active
+        : classes.shipping_information_container;
 
     let checkoutContent;
 
@@ -244,8 +249,14 @@ const CheckoutPage = props => {
                 <h3 className={classes.payment_information_text}>
                     <FormattedMessage
                         id={'checkoutPage.paymentInformationStep.new'}
-                        defaultMessage={'Please add shipping delivery address to your Address List'}
+                        defaultMessage={'Please add Shipping Address to your '}
                     />
+                    <span className={classes.address_link} onClick={() => setAddressFormActive(true)}>
+                        <FormattedMessage
+                            id={'checkoutPage.paymentInformationStep.link'}
+                            defaultMessage={'Address List'}
+                        />
+                    </span>
                 </h3>
             );
 
@@ -390,7 +401,7 @@ const CheckoutPage = props => {
                 <div className={classes.checkout_container}>
                     {itemsReview}
                     {signInContainerElement}
-                    <div className={classes.shipping_information_container}>
+                    <div className={shippingInformationClasses}>
                         <ScrollAnchor ref={shippingInformationRef}>
                             <ShippingInformation
                                 onSave={setShippingInformationDone}
@@ -410,6 +421,7 @@ const CheckoutPage = props => {
                         {paymentInformationSection}
                     </div>
                     {priceAdjustmentsSection}
+                    <CustomerAttributes />
                     <div className={classes.summary_content}>
                         {orderSummary}
                         <div className={classes.summary_button}>

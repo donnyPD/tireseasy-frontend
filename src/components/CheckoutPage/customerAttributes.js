@@ -1,0 +1,111 @@
+import React, { useEffect, useState, useRef } from 'react';
+import { useIntl } from 'react-intl';
+import { Form } from 'informed';
+import { shape, string, } from 'prop-types';
+
+import {
+    CHECKOUT_STEP,
+    useCheckoutPage,
+} from '../../talons/CheckoutPage/useCheckoutPage';
+import { useStyle } from '@magento/venia-ui/lib/classify';
+import defaultClasses from './checkoutPage.module.css';
+import TextInput from '@magento/venia-ui/lib/components/TextInput';
+import TextArea from "@magento/venia-ui/lib/components/TextArea";
+import Field from "@magento/venia-ui/lib/components/Field";
+
+
+const CustomerAttributes = props => {
+    const {
+        classes: propClasses,
+    } = props;
+    const { formatMessage } = useIntl();
+    const classes = useStyle(defaultClasses, propClasses);
+    const talonProps = useCheckoutPage();
+    const { handleCustomAttributes, customAttributes } = talonProps;
+    const [inputValue, setInputValue] = useState(customAttributes.poNumbers);
+    const [textareaValue, setTextareaValue] = useState(customAttributes.customerComment);
+    const [focusInput, setFocusInput] = useState(false);
+    const [focusTextarea, setFocusTextarea] = useState(false);
+    const inputRef = useRef(null);
+    const textareaRef = useRef(null);
+    const blockRef = useRef(null);
+
+    useEffect(() => {
+        if (inputRef.current !== document.activeElement && textareaRef.current !== document.activeElement) {
+            if (inputValue !== customAttributes.poNumbers || textareaValue !== customAttributes.customerComment) {
+                // console.log('sending')
+                handleCustomAttributes(
+                    {
+                        po_number: inputValue,
+                        customer_comment: textareaValue,
+                    }
+                );
+            }
+        }
+    }, [inputValue, textareaValue, focusInput, focusTextarea]);
+
+    const customerInput = (
+        <div>
+            <Field
+                id="customer_po_number_field"
+                label={formatMessage({
+                    id: 'global.customer.number',
+                    defaultMessage: 'Customer PO Number (Optional)'
+                })}
+            >
+                <input
+                    className={classes.input_number}
+                    type="text"
+                    id="customer_po_number"
+                    ref={inputRef}
+                    onChange={(event) => setInputValue(event.target.value)}
+                    onFocus={() => setFocusInput(true)}
+                    onBlur={() => setFocusInput(false)}
+                />
+            </Field>
+        </div>
+    );
+
+    const customerTextarea = (
+        <div>
+            <Field
+                id="customer_comment_field"
+                label={formatMessage({
+                    id: 'global.customer.comment',
+                    defaultMessage: 'Order Comments'
+                })}
+            >
+                <textarea
+                    className={classes.textarea_comment}
+                    id="customer_comment"
+                    ref={textareaRef}
+                    rows={5}
+                    onChange={(event) => setTextareaValue(event.target.value)}
+                    onFocus={() => setFocusTextarea(true)}
+                    onBlur={() => setFocusTextarea(false)}
+                />
+            </Field>
+        </div>
+    );
+
+    return (
+        <div className={classes.root_attr} ref={blockRef}>
+            <Form>
+                {customerInput}
+                {customerTextarea}
+            </Form>
+        </div>
+    );
+};
+
+export default CustomerAttributes;
+
+CustomerAttributes.propTypes = {
+    classes: shape({
+        container: string,
+        root_attr: string,
+        input_number: string,
+        textarea_comment: string,
+        po_number: string
+    })
+};

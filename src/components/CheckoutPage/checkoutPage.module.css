@@ -56,7 +56,7 @@
     }
 
     > div {
-        @apply mb-4;
+        @apply mb-8;
     }
 }
 
@@ -137,6 +137,19 @@
     composes: relative from global;
 }
 
+.shipping_information_container_active {
+    grid-column: 1 / span 1;
+    composes: relative from global;
+}
+
+.input_number {
+    composes: input from '@magento/venia-ui/lib/components/TextInput/textInput.module.css';
+}
+
+.textarea_comment {
+    composes: input from '@magento/venia-ui/lib/components/TextArea/textArea.module.css';
+}
+
 .shipping_method_container {
     grid-column: 1 / span 1;
     composes: relative from global;
@@ -152,6 +165,10 @@
 
 .items_review_container {
     grid-column: 1 / span 1;
+}
+
+.address_link {
+    @apply text-primary-navy underline cursor-pointer;
 }
 
 .summaryContainer {
@@ -224,4 +241,13 @@
     composes: m-auto from global;
 
     @apply sr-only;
+}
+
+.root_attr {
+    @apply mb-4;
+
+    input,
+    textarea {
+        @apply border;
+    }
 }
