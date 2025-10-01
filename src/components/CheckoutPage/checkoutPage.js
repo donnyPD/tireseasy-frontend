@@ -14,6 +14,7 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
+import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import StockStatusMessage from '@magento/venia-ui/lib/components/StockStatusMessage';
 import FormError from '@magento/venia-ui/lib/components/FormError';
 import AddressBook from '@magento/venia-ui/lib/components/CheckoutPage/AddressBook';
@@ -41,6 +42,7 @@ const CheckoutPage = props => {
     const { formatMessage } = useIntl();
     const talonProps = useCheckoutPage();
     const [addressFormActive, setAddressFormActive] = useState(false);
+    const [placeLoading, setPlaceLoading] = useState(false);
 
     const {
         /**
@@ -123,6 +125,11 @@ const CheckoutPage = props => {
             handlePlaceOrder();
         }
     }, [checkoutStep]);
+    useEffect(() => {
+        if (reviewOrderButtonClicked) {
+            setPlaceLoading(true);
+        }
+    }, [reviewOrderButtonClicked]);
 
     const classes = useStyle(defaultClasses, propClasses);
 
@@ -279,7 +286,8 @@ const CheckoutPage = props => {
                     disabled={
                         reviewOrderButtonClicked ||
                         isUpdating ||
-                        !isPaymentAvailable
+                        !isPaymentAvailable ||
+                        placeLoading
                     }
                 >
                     <FormattedMessage
@@ -421,7 +429,9 @@ const CheckoutPage = props => {
                         {paymentInformationSection}
                     </div>
                     {priceAdjustmentsSection}
-                    <CustomerAttributes />
+                    {placeLoading
+                        ? <LoadingIndicator />
+                        : !isLoading && <CustomerAttributes />}
                     <div className={classes.summary_content}>
                         {orderSummary}
                         <div className={classes.summary_button}>
