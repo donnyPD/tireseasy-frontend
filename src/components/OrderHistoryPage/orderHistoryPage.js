@@ -23,6 +23,7 @@ import defaultClasses from './orderHistoryPage.module.css';
 import OrderRow from '@magento/venia-ui/lib/components/OrderHistoryPage/orderRow';
 import ResetButton from '@magento/venia-ui/lib/components/OrderHistoryPage/resetButton';
 import QuickLookups from "../QuickLookups";
+import Field from "@magento/venia-ui/lib/components/Field";
 
 const errorIcon = (
     <Icon
@@ -100,12 +101,23 @@ const OrderHistoryPage = props => {
             );
         } else {
             return (
-                <ul
-                    className={classes.orderHistoryTable}
-                    data-cy="OrderHistoryPage-orderHistoryTable"
-                >
-                    {orderRows}
-                </ul>
+                <div className={classes.orders_content}>
+                    <h2
+                        data-cy="CartPage-heading"
+                        className={classes.title}
+                    >
+                        <FormattedMessage
+                            id={'order.history.block'}
+                            defaultMessage={'Recent Orders'}
+                        />
+                    </h2>
+                    <ul
+                        className={classes.orderHistoryTable}
+                        data-cy="OrderHistoryPage-orderHistoryTable"
+                    >
+                        {orderRows}
+                    </ul>
+                </div>
             );
         }
     }, [
@@ -189,15 +201,32 @@ const OrderHistoryPage = props => {
                     </div>
 
                     <div className={classes.filterRow}>
-                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
-                        <Form className={classes.search} onSubmit={handleSubmit}>
-                            <TextInput
-                                after={resetButtonElement}
-                                before={searchIcon}
-                                field="search"
-                                id={classes.search}
-                                placeholder={SEARCH_PLACE_HOLDER}
+                        <h2
+                            aria-live="polite"
+                            data-cy="CartPage-heading"
+                            className={classes.title}
+                        >
+                            <FormattedMessage
+                                id={'order.history.block.new'}
+                                defaultMessage={'Search Orders'}
                             />
+                        </h2>
+                        <Form className={classes.search} onSubmit={handleSubmit}>
+                            <Field
+                                id={classes.search_field}
+                                label={formatMessage({
+                                    id: 'search.history.number',
+                                    defaultMessage: 'Order Number'
+                                })}
+                            >
+                                <TextInput
+                                    after={resetButtonElement}
+                                    before={searchIcon}
+                                    field="search"
+                                    id={classes.search}
+                                    placeholder={'e.g. DRIVELINE-2025'}
+                                />
+                            </Field>
                             <Button
                                 className={classes.searchButton}
                                 disabled={
@@ -207,11 +236,17 @@ const OrderHistoryPage = props => {
                                 type="submit"
                                 aria-label="submit"
                             >
-                                {submitIcon}
+                                <FormattedMessage
+                                    id={'order.history.search.btn'}
+                                    defaultMessage={'Search'}
+                                />
                             </Button>
                         </Form>
                     </div>
                     {pageContents}
+                    <div className={classes.pageInfo_container}>
+                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                    </div>
                     {loadMoreButton}
                 </div>
             </div>
@@ -226,6 +261,8 @@ OrderHistoryPage.propTypes = {
         root: string,
         heading: string,
         head_title: string,
+        pageInfo_container: string,
+        orders_content: string,
         emptyHistoryMessage: string,
         orderHistoryTable: string,
         search: string,

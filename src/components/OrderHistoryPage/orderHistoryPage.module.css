@@ -40,12 +40,14 @@
 .orderHistoryTable {
     composes: grid from global;
     composes: gap-y-xs from global;
+}
 
+.orders_content {
     @apply bg-white rounded-xl p-4 lg_p-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)] mb-6;
 }
 
 .filterRow {
-    composes: flex from global;
+    composes: block from global;
     composes: flex-col from global;
     composes: gap-y-xs from global;
     composes: items-start from global;
@@ -62,6 +64,14 @@
     composes: text-sm from global;
 }
 
+.pageInfo_container {
+    @apply flex justify-end pb-2;
+}
+
+.title {
+    @apply text-lg lg_text-xl font-bold text-text-primary mb-3;
+}
+
 .search {
     composes: gap-2xs from global;
     composes: grid from global;
@@ -71,15 +81,15 @@
 
     composes: lg_gap-xs from global;
     composes: lg_justify-self-left from global;
-    composes: lg_w-[22rem] from global;
+
+    @apply items-end;
 }
 
 .searchButton {
     composes: root_highPriority from '@magento/venia-ui/lib/components/Button/button.module.css';
 
     composes: h-[2rem] from global;
-    @apply min-w-[5rem];
-    composes: w-[5rem] from global;
+    @apply w-full max-w-[5rem] normal-case;
 }
 
 .submitIcon {
