@@ -118,6 +118,7 @@ const config = {
                 'brand-darkest': '#003366',      // Brand darkest
 
                 'primary-red': '#e12528',
+                'primary-dark': '#111827',
             }
         }
     }

@@ -280,13 +280,7 @@ export const useCheckoutPage = (props = {}) => {
         []
     );
 
-    const {
-        data: attributesData,
-    } = useQuery(getQuoteDetails, {
-        variables: {
-            cartId
-        }
-    });
+    const { data: attributesData } = useQuery(getQuoteDetails);
     const customAttributes = {
         poNumbers: attributesData && attributesData?.getQuoteDetails?.po_number || '',
         customerComment:  attributesData && attributesData?.getQuoteDetails?.customer_comment || ''

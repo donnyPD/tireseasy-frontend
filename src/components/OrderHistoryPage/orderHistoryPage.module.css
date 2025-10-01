@@ -1,10 +1,23 @@
 .root {
-    composes: grid from global;
-    composes: gap-y-md from global;
+    composes: max-w-site from global;
+    composes: mx-auto from global;
+    composes: my-0 from global;
     composes: px-sm from global;
     composes: py-md from global;
 
-    composes: lg_px-lg from global;
+    composes: lg_flex from global;
+    composes: lg_px-md from global;
+}
+.sidebar {
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+    flex: 0 0 280px;
+
+    @apply flex-col lg_mr-8;
+}
+
+.content {
+    composes: lg_flex-grow from global;
 }
 
 .heading {
@@ -12,6 +25,12 @@
     composes: font-serif from global;
     composes: justify-self-center from global;
     composes: capitalize from global;
+
+    @apply block w-full;
+}
+
+.head_title {
+    @apply font-bold text-left text-primary-deep text-xl lg_text-2xl mb-4;
 }
 
 .emptyHistoryMessage {
@@ -22,7 +41,7 @@
     composes: grid from global;
     composes: gap-y-xs from global;
 
-    @apply bg-white rounded-xl p-4 lg_p-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+    @apply bg-white rounded-xl p-4 lg_p-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)] mb-6;
 }
 
 .filterRow {
@@ -35,6 +54,8 @@
     composes: lg_flex-row from global;
     composes: lg_gap-y-0 from global;
     composes: lg_items-center from global;
+
+    @apply bg-white rounded-xl p-4 lg_p-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)] mb-6;
 }
 
 .pageInfo {

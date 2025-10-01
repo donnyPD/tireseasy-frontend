@@ -10,7 +10,7 @@ import { Form } from 'informed';
 
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
-import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
+import { useOrderHistoryPage } from '../../talons/OrderHistoryPage/useOrderHistoryPage';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
@@ -22,6 +22,7 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import defaultClasses from './orderHistoryPage.module.css';
 import OrderRow from '@magento/venia-ui/lib/components/OrderHistoryPage/orderRow';
 import ResetButton from '@magento/venia-ui/lib/components/OrderHistoryPage/resetButton';
+import QuickLookups from "../QuickLookups";
 
 const errorIcon = (
     <Icon
@@ -168,37 +169,51 @@ const OrderHistoryPage = props => {
     return (
         <OrderHistoryContextProvider>
             <div className={classes.root}>
-                <StoreTitle>{PAGE_TITLE}</StoreTitle>
-                <div aria-live="polite" className={classes.heading}>
-                    {PAGE_TITLE}
-                    <div aria-live="polite" aria-label={ordersCountMessage} />
+                <div className={classes.sidebar}>
+                    <QuickLookups />
                 </div>
-
-                <div className={classes.filterRow}>
-                    <span className={classes.pageInfo}>{pageInfoLabel}</span>
-                    <Form className={classes.search} onSubmit={handleSubmit}>
-                        <TextInput
-                            after={resetButtonElement}
-                            before={searchIcon}
-                            field="search"
-                            id={classes.search}
-                            placeholder={SEARCH_PLACE_HOLDER}
-                        />
-                        <Button
-                            className={classes.searchButton}
-                            disabled={
-                                isBackgroundLoading || isLoadingWithoutData
-                            }
-                            priority={'high'}
-                            type="submit"
-                            aria-label="submit"
+                <div className={classes.content}>
+                    <StoreTitle>{PAGE_TITLE}</StoreTitle>
+                    <div aria-live="polite" className={classes.heading}>
+                        <h1
+                            aria-live="polite"
+                            data-cy="CartPage-heading"
+                            className={classes.head_title}
                         >
-                            {submitIcon}
-                        </Button>
-                    </Form>
+                            <FormattedMessage
+                                id={'order.heading.new'}
+                                defaultMessage={'Your Order History'}
+                            />
+                        </h1>
+                        <div aria-live="polite" aria-label={ordersCountMessage} />
+                    </div>
+
+                    <div className={classes.filterRow}>
+                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                        <Form className={classes.search} onSubmit={handleSubmit}>
+                            <TextInput
+                                after={resetButtonElement}
+                                before={searchIcon}
+                                field="search"
+                                id={classes.search}
+                                placeholder={SEARCH_PLACE_HOLDER}
+                            />
+                            <Button
+                                className={classes.searchButton}
+                                disabled={
+                                    isBackgroundLoading || isLoadingWithoutData
+                                }
+                                priority={'high'}
+                                type="submit"
+                                aria-label="submit"
+                            >
+                                {submitIcon}
+                            </Button>
+                        </Form>
+                    </div>
+                    {pageContents}
+                    {loadMoreButton}
                 </div>
-                {pageContents}
-                {loadMoreButton}
             </div>
         </OrderHistoryContextProvider>
     );
@@ -210,6 +225,7 @@ OrderHistoryPage.propTypes = {
     classes: shape({
         root: string,
         heading: string,
+        head_title: string,
         emptyHistoryMessage: string,
         orderHistoryTable: string,
         search: string,

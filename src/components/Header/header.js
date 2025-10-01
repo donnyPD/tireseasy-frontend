@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { ShoppingCart, Menu, X, Clock, Search } from 'react-feather';
+import { Menu, X, Clock, Search } from 'react-feather';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useCustomHeader } from './useCustomHeader';
 import defaultClasses from './header.module.css';
+import CartTrigger from './cartTrigger';
 
 const Header = (props) => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -181,9 +182,7 @@ const Header = (props) => {
                         <Link to={resourceUrl('/order-history')} className={classes.orderHistoryIcon} aria-label="Order History">
                             <Clock size={20} />
                         </Link>
-                        <Link to={resourceUrl('/cart')} className={classes.cartIcon} aria-label="Shopping cart">
-                            <ShoppingCart size={20} />
-                        </Link>
+                        <CartTrigger />
                     </div>
 
                     {/* Main Navigation */}
