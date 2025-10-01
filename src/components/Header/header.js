@@ -7,6 +7,7 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useCustomHeader } from './useCustomHeader';
 import defaultClasses from './header.module.css';
 import CartTrigger from './cartTrigger';
+import Logo from '../../assets/images/Logo-Negative.svg';
 
 const Header = (props) => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -56,7 +57,7 @@ const Header = (props) => {
                 <div className={classes.logoSection}>
                     <Link to={resourceUrl('/')} className={classes.logoText}>
                         <img
-                            src={logoSrc}
+                            src={Logo}
                             alt={storeConfig.logo_alt || 'DriveLine'}
                             style={{
                                 height: storeConfig.logo_height ? `${storeConfig.logo_height}px` : '32px',

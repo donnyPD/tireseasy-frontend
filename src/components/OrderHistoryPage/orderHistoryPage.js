@@ -20,8 +20,8 @@ import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 
 import defaultClasses from './orderHistoryPage.module.css';
-import OrderRow from '@magento/venia-ui/lib/components/OrderHistoryPage/orderRow';
-import ResetButton from '@magento/venia-ui/lib/components/OrderHistoryPage/resetButton';
+import OrderRow from './orderRow';
+import ResetButton from './resetButton';
 import QuickLookups from "../QuickLookups";
 import Field from "@magento/venia-ui/lib/components/Field";
 
@@ -115,6 +115,41 @@ const OrderHistoryPage = props => {
                         className={classes.orderHistoryTable}
                         data-cy="OrderHistoryPage-orderHistoryTable"
                     >
+                        <li className={classes.th}>
+                            <div>
+                                <span className={classes.orderDateLabel}>
+                                    <FormattedMessage
+                                        id={'orderRow.orderDateText'}
+                                        defaultMessage={'Order Date'}
+                                    />
+                                </span>
+                            </div>
+                            <div>
+                                 <span className={classes.orderNumberLabel}>
+                                    <FormattedMessage
+                                        id={'orderRow.orderNumberText.new'}
+                                        defaultMessage={'Confirmation #'}
+                                    />
+                                </span>
+                            </div>
+                            <div>
+                                <span className={classes.orderTotalLabel}>
+                                    <FormattedMessage
+                                        id={'orderRow.orderTotalText'}
+                                        defaultMessage={'Order Total'}
+                                    />
+                                </span>
+                            </div>
+                            <div>
+                                <span className={classes.orderStatusLabel}>
+                                    <FormattedMessage
+                                        id={'orderRow.orderStatusText'}
+                                        defaultMessage={'Status'}
+                                    />
+                                </span>
+                            </div>
+                            <div></div>
+                        </li>
                         {orderRows}
                     </ul>
                 </div>
