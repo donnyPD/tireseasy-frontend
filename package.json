@@ -28,6 +28,7 @@
     "@magento/venia-drivers": "src/drivers"
   },
   "dependencies": {
+    "@amasty/shop-by-brand": "link:src/@amasty/shop-by-brand",
     "@magento/experience-platform-connector": "~1.0.10",
     "@magento/pwa-buildpack": "~11.5.3",
     "dompurify": "~3.2.4"
@@ -141,7 +142,8 @@
       "intercept": "./local-intercept.js"
     },
     "trusted-vendors": [
-      "@magento"
+      "@magento",
+      "@amasty"
     ]
   }
 }

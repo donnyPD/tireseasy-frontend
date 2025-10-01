@@ -1,0 +1,27 @@
+.root {
+  flex-basis: 15rem;
+  max-width: 15rem;
+  position: relative;
+}
+
+.autocomplete {
+  composes: root from '~@magento/venia-ui/lib/components/SearchBar/autocomplete.module.css';
+  gap: 0;
+}
+
+.autocomplete a {
+  text-decoration: none;
+}
+
+.suggestion {
+  display: block;
+  text-align: left;
+  text-decoration: none;
+  margin: 0;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.suggestion + .suggestion {
+  border-top: 1px solid rgb(var(--venia-global-color-border));
+}

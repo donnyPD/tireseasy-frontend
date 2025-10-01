@@ -1,0 +1,61 @@
+.root {
+  text-align: center;
+  position: relative;
+  flex: 1;
+  max-width: 100%;
+}
+
+.root a {
+  text-decoration: none;
+}
+
+.root img {
+  margin: 0;
+  padding: 0;
+  height: auto;
+}
+
+.img {
+  max-width: 100%;
+  margin: 0;
+  transition: transform 0.3s;
+}
+
+.imgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.noImage {
+  font-size: 4rem;
+  color: rgb(var(--venia-global-color-border));
+  transition: transform 0.3s;
+}
+.count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.66rem;
+  min-width: 1.66rem;
+  border-radius: 50%;
+  color: #fff;
+  background-color: rgb(var(--venia-global-color-teal));
+}
+
+.label {
+  display: block;
+  padding: 0.65rem 0 1.25rem 0;
+}
+
+.root:hover .label {
+  color: rgb(var(--venia-global-color-teal));
+}
+
+.root:hover .img,
+.root:hover .noImage {
+  transform: translateY(-0.3rem);
+}

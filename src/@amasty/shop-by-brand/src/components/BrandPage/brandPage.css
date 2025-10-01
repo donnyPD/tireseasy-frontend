@@ -1,0 +1,15 @@
+.categoryTitle {
+  composes: categoryTitle from '~@magento/venia-ui/lib/RootComponents/Category/category.module.css';
+  display: block;
+}
+
+.imageContainer {
+  margin-bottom: 1rem;
+}
+
+.image {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: 0;
+}

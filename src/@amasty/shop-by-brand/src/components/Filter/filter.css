@@ -1,0 +1,28 @@
+.root {
+  padding: 0.5rem 0;
+}
+
+.btn {
+  padding: 0.2rem;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+}
+.btn + .btn {
+  margin-left: 0.2rem;
+}
+
+.btn:not(.btnActive):hover {
+  color: rgb(var(--venia-global-color-teal));
+}
+
+.btn:disabled {
+  pointer-events: none;
+  color: rgb(var(--venia-global-color-border));
+}
+
+.btnActive {
+  color: #fff;
+  background-color: rgb(var(--venia-global-color-teal));
+  pointer-events: none;
+}
