@@ -55,6 +55,7 @@ const CustomerAttributes = props => {
                     type="text"
                     id="customer_po_number"
                     ref={inputRef}
+                    value={inputValue}
                     onChange={(event) => setInputValue(event.target.value)}
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => setFocusInput(false)}
@@ -77,6 +78,7 @@ const CustomerAttributes = props => {
                     id="customer_comment"
                     ref={textareaRef}
                     rows={5}
+                    value={textareaValue}
                     onChange={(event) => setTextareaValue(event.target.value)}
                     onFocus={() => setFocusTextarea(true)}
                     onBlur={() => setFocusTextarea(false)}
