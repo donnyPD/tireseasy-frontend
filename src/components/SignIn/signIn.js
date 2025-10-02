@@ -54,8 +54,8 @@ const SignIn = props => {
         <div data-cy="SignIn-root" className={classes.root}>
             <span data-cy="SignIn-title" className={classes.title}>
                 <FormattedMessage
-                    id={'signIn.titleText'}
-                    defaultMessage={'Sign-in to Your Account'}
+                    id={'signIn.titleText.new'}
+                    defaultMessage={'Login to Your Account'}
                 />
             </span>
             <FormError errors={Array.from(errors.values())} />
@@ -103,6 +103,21 @@ const SignIn = props => {
                         defaultMessage: 'Password Required'
                     })}
                 />
+                <GoogleRecaptcha {...recaptchaWidgetProps} />
+                <div className={classes.buttonsContainer}>
+                    <Button
+                        priority="high"
+                        type="submit"
+                        onKeyDown={signinHandleEnterKeyPress}
+                        data-cy="SignInButton-root_highPriority"
+                        disabled={Boolean(isBusy)}
+                    >
+                        <FormattedMessage
+                            id={'signIn.signInText.new'}
+                            defaultMessage={'Login'}
+                        />
+                    </Button>
+                </div>
                 <div className={classes.forgotPasswordButtonContainer}>
                     <LinkButton
                         classes={forgotPasswordClasses}
@@ -116,21 +131,6 @@ const SignIn = props => {
                             defaultMessage={'Forgot Password?'}
                         />
                     </LinkButton>
-                </div>
-                <GoogleRecaptcha {...recaptchaWidgetProps} />
-                <div className={classes.buttonsContainer}>
-                    <Button
-                        priority="high"
-                        type="submit"
-                        onKeyDown={signinHandleEnterKeyPress}
-                        data-cy="SignInButton-root_highPriority"
-                        disabled={Boolean(isBusy)}
-                    >
-                        <FormattedMessage
-                            id={'signIn.signInText'}
-                            defaultMessage={'Sign In'}
-                        />
-                    </Button>
                 </div>
             </Form>
         </div>

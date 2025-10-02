@@ -6,7 +6,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  * Custom hook for authentication guard functionality
  * Redirects unauthenticated users to /sign-in page
  * Skips authentication check for specific routes
- * 
+ *
  * @returns {Object} Authentication state and utilities
  */
 export const useAuthGuard = () => {
@@ -16,7 +16,7 @@ export const useAuthGuard = () => {
     /**
      * Routes that don't require authentication
      */
-    const publicRoutes = ['/sign-in', '/create-account'];
+    const publicRoutes = ['/sign-in', '/create-account', '/forgot-password'];
 
     /**
      * Check if current route is public (doesn't require auth)
@@ -30,7 +30,7 @@ export const useAuthGuard = () => {
      */
     const isValidToken = useMemo(() => {
         if (!token) return false;
-        
+
         try {
             // Basic JWT token format validation
             const tokenParts = token.split('.');

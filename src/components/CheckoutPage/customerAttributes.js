@@ -30,7 +30,6 @@ const CustomerAttributes = props => {
     useEffect(() => {
         if (inputRef.current !== document.activeElement && textareaRef.current !== document.activeElement) {
             if (inputValue !== customAttributes.poNumbers || textareaValue !== customAttributes.customerComment) {
-                // console.log('sending')
                 handleCustomAttributes(
                     {
                         po_number: inputValue,

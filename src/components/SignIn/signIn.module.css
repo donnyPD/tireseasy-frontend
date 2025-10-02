@@ -15,7 +15,8 @@
 
 .form {
     composes: grid from global;
-    composes: gap-y-xs from global;
+
+    @apply gap-y-2;
 }
 
 .modal {
@@ -36,29 +37,31 @@
 
 .buttonsContainer {
     composes: gap-sm from global;
-    composes: grid from global;
+    composes: block from global;
     composes: grid-flow-row from global;
     composes: justify-center from global;
-    composes: mt-xs from global;
+    composes: my-xs from global;
     composes: w-full from global;
+
+    button {
+        @apply block w-full rounded-input normal-case text-base p-[10px];
+    }
 }
 
 .forgotPasswordButtonContainer {
-    composes: flex from global;
-    composes: items-center from global;
-    composes: justify-center from global;
-    composes: justify-self-start from global;
-    composes: text-center from global;
+    @apply block text-center w-full;
 }
 
 .forgotPasswordButton {
     composes: root from '@magento/venia-ui/lib/components/LinkButton/linkButton.module.css';
-
     composes: p-0 from global;
+
+    @apply text-accent-orange hover_no-underline transition-all;
 }
 
 .title {
-    composes: capitalize from global;
     composes: pt-2xs from global;
     composes: text-lg from global;
+
+    @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
 }
