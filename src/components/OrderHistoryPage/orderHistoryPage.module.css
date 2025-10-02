@@ -39,7 +39,7 @@
 
 .orderHistoryTable {
     composes: grid from global;
-    composes: gap-y-xs from global;
+    @apply gap-0;
 }
 
 .orders_content {
