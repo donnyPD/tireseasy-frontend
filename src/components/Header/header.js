@@ -125,17 +125,7 @@ const Header = (props) => {
             );
         }
 
-        return (
-            <span className={classes.userStatus}>
-                <Link to={resourceUrl('/sign-in')} className={classes.accountLink}>
-                    <FormattedMessage id="header.signIn" defaultMessage="Sign In" />
-                </Link>
-                {' / '}
-                <Link to={resourceUrl('/create-account')} className={classes.accountLink}>
-                    <FormattedMessage id="header.createAccount" defaultMessage="Create Account" />
-                </Link>
-            </span>
-        );
+        return null;
     };
 
     return (
