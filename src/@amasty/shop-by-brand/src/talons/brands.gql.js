@@ -3,7 +3,7 @@ import {
   GET_FILTER_INPUTS,
   PRODUCT_SEARCH,
   GET_PAGE_SIZE
-} from '@magento/peregrine/lib/talons/SearchPage/searchPage.gql';
+} from '../../../../talons/SearchPage/searchPage.gql';
 import { GET_PRODUCT_FILTERS_BY_BRAND } from './productFilters.gql';
 
 export const GET_BRAND_LIST = gql`

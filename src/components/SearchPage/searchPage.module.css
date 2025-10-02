@@ -57,9 +57,8 @@
     composes: lg_flex from global;
     composes: lg_self-start from global;
     composes: lg_pt-[76px] from global;
-    composes: lg_w-filterSidebarWidth from global;
 
-    @apply flex-col lg_mr-4;
+    @apply flex-col lg_mr-6 lg_min-w-[280px];
 
     > aside {
         @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];

@@ -14,6 +14,10 @@ const Breadcrumbs = props => {
         {'Home'}
       </Link>
       <span className={classes.divider}>/</span>
+      <Link className={classes.link} to="/brands">
+        {'Brands'}
+      </Link>
+    <span className={classes.divider}>/</span>
       <span className={classes.text}>{currentBrand}</span>
     </div>
   );

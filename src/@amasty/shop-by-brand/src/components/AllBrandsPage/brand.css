@@ -1,7 +1,6 @@
 .root {
   text-align: center;
   position: relative;
-  flex: 1;
   max-width: 100%;
 }
 
@@ -49,13 +48,23 @@
 .label {
   display: block;
   padding: 0.65rem 0 1.25rem 0;
+  transition: color 0.3s;
 }
 
 .root:hover .label {
-  color: rgb(var(--venia-global-color-teal));
+  color: #FF8C00;
 }
 
 .root:hover .img,
 .root:hover .noImage {
   transform: translateY(-0.3rem);
+}
+
+@media (max-width: 767px) {
+    .root {
+        flex-basis: 85px !important;
+    }
+    .label {
+        overflow-wrap: anywhere;
+    }
 }

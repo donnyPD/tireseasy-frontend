@@ -2,7 +2,7 @@ import React, { Fragment, Suspense, useMemo } from 'react';
 import { string } from 'prop-types';
 import { useBrandPage } from '../../talons/useBrandPage';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
-import Gallery from '@magento/venia-ui/lib/components/Gallery';
+import Gallery from '../../../../../components/Gallery';
 import Pagination from '@magento/venia-ui/lib/components/Pagination';
 import NoProductsFound from '@magento/venia-ui/lib/RootComponents/Category/NoProductsFound';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -15,6 +15,7 @@ import brandPageClasses from './brandPage.css';
 import { FormattedMessage } from 'react-intl';
 import FilterModalOpenButton from '@magento/venia-ui/lib/components/FilterModalOpenButton';
 import SortedByContainer from '@magento/venia-ui/lib/components/SortedByContainer';
+import QuickLookups from "../../../../../components/QuickLookups";
 
 const FilterModal = React.lazy(() =>
   import('@magento/venia-ui/lib/components/FilterModal')
@@ -117,23 +118,24 @@ const BrandPage = props => {
   ) : null;
 
   return (
-    <Fragment>
+    <div className={classes.root_container}>
       <Breadcrumbs currentBrand={pageTitle} />
       <Title>{pageTitle}</Title>
       <Meta name="title" content={pageTitle} />
       <article className={classes.root}>
-        <div className={classes.categoryHeader}>
-          <h1 className={classes.title}>
-            <div className={classes.categoryTitle}>{pageTitle || '...'}</div>
-          </h1>
-          {imageBlock}
-          {brandDescriptionBlock}
-        </div>
         <div className={classes.contentWrapper}>
           <div className={classes.sidebar}>
+            <QuickLookups />
             <Suspense fallback={null}>{sidebar}</Suspense>
           </div>
           <div className={classes.categoryContent}>
+              <div className={classes.categoryHeader}>
+                  <h1 className={classes.categoryTitle}>
+                      {pageTitle || '...'}
+                  </h1>
+                  {imageBlock}
+                  {brandDescriptionBlock}
+              </div>
             <div className={classes.heading}>
               <div className={classes.categoryInfo}>
                 {categoryResultsHeading}
@@ -149,7 +151,7 @@ const BrandPage = props => {
           </div>
         </div>
       </article>
-    </Fragment>
+    </div>
   );
 };
 

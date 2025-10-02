@@ -1,15 +1,34 @@
 .categoryTitle {
   composes: categoryTitle from '~@magento/venia-ui/lib/RootComponents/Category/category.module.css';
   display: block;
+
+    @apply font-bold text-left text-primary-deep text-xl lg_text-2xl mb-0;
 }
 
 .imageContainer {
-  margin-bottom: 1rem;
+  @apply mb-4 max-w-[250px] max-h-[100px];
 }
 
 .image {
-  display: block;
-  height: auto;
-  max-width: 100%;
-  margin: 0;
+    @apply block w-auto h-auto max-w-[250px] max-h-[100px] m-0;
+}
+
+.categoryContent {
+    composes: lg_flex-grow from global;
+    composes: box-border from global;
+}
+
+.sidebar {
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+
+    @apply flex-col box-border lg_mr-6 lg_min-w-[280px] lg_max-w-[280px];
+
+    > aside {
+        @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+    }
+}
+
+.root_container {
+    @apply lg_px-xs;
 }

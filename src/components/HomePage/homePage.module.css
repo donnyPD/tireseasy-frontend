@@ -152,7 +152,7 @@
 .ctaButton {
     background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
     border: none;
-    border-radius: 8px;
+    border-radius: 33px;
     padding: 1rem 2rem;
     font-size: 1.1rem;
     font-weight: bold;

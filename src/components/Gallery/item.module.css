@@ -56,7 +56,7 @@
 
 .actionsContainer button {
     min-width: 160px !important;
-    padding: 10px !important;
+    padding: 11px 10px 10px !important;
 
     background: var(--color-accent-orange) !important;
     border-color: var(--color-accent-orange) !important;

@@ -10,6 +10,7 @@ import Layout from '../Layout';
 import VehicleLookupTrims from '../VehicleLookupTrims/vehicleLookupTrims';
 import { useVinLookup, validateVin } from '../QuickLookups/useVinLookup';
 import defaultClasses from './homePage.module.css';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 // Simple SVG icons for the features
 const FastShippingIcon = () => (
@@ -72,12 +73,12 @@ const HomePage = props => {
 
             // Set the token using PWA Studio's authentication system
             await setToken(token);
-            
+
             // Fetch user details after setting the token
             if (getUserDetails) {
                 await getUserDetails();
             }
-            
+
             console.log('JWT authentication successful');
             return true;
 
@@ -110,7 +111,7 @@ const HomePage = props => {
             if (vinOptions.length === 0) {
                 // No results found - just log, don't show error to user for auto-lookup
                 console.warn('No tire options found for VIN from URL:', vin);
-                
+
             } else if (vinOptions.length === 1) {
                 // Single result: navigate directly to the tire listing page
                 const singleOption = vinOptions[0];
@@ -161,7 +162,7 @@ const HomePage = props => {
         const vinParam = urlParams.get('vin');
         const tokenParam = urlParams.get('token');
         const punchoutParam = urlParams.get('punchout') === '1';
-        
+
         // Handle JWT authentication first if token and punchout parameters are present
         if (tokenParam && punchoutParam && !isSignedIn) {
             console.log('Punchout mode detected, attempting JWT authentication');
@@ -182,18 +183,18 @@ const HomePage = props => {
             });
             return;
         }
-        
+
         // Handle VIN parameter (if present and showVehicleLookupTrims is true)
         if (shouldShowTrims && vinParam) {
             handleAutoVinLookup(vinParam);
             return;
         }
-        
+
         // Handle regular showVehicleLookupTrims logic
         if (shouldShowTrims) {
             // Get data from session storage
             const sessionData = sessionStorage.getItem('vehicleLookupData');
-            
+
             if (sessionData) {
                 try {
                     const parsedData = JSON.parse(sessionData);
@@ -387,8 +388,10 @@ const HomePage = props => {
                                 defaultMessage="Browse top brands and find the perfect parts for your vehicle. Quality and reliability guaranteed."
                             />
                         </p>
-                        <Button
+                        <Link
                             className={classes.ctaButton}
+                            to={resourceUrl('/brands')}
+                            title={'View Our Brands'}
                             priority="high"
                             type="button"
                         >
@@ -396,7 +399,7 @@ const HomePage = props => {
                                 id="homePage.ctaButton"
                                 defaultMessage="View Our Brands"
                             />
-                        </Button>
+                        </Link>
                     </div>
                 </section>
             </Layout>

@@ -1,5 +1,5 @@
 .root {
-  padding: 1rem;
+  padding: 1rem 0;
   margin-bottom: 2rem;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .letters {
-  display: grid;
+  display: block;
   grid-template-columns: 1fr;
   grid-gap: 2rem;
   grid-auto-rows: auto;
@@ -62,12 +62,13 @@
 }
 
 .brandList {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 @media (min-width: 1400px) {
   .brandList {
-    grid-template-columns: repeat(3, 1fr);
+    /*grid-template-columns: repeat(3, 1fr);*/
   }
 }

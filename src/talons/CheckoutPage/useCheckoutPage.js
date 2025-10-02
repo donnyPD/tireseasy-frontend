@@ -280,12 +280,14 @@ export const useCheckoutPage = (props = {}) => {
         []
     );
 
-    const { data: attributesData } = useQuery(getQuoteDetails);
+    const { data: attributesData } = useQuery(getQuoteDetails, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const customAttributes = {
         poNumbers: attributesData && attributesData?.getQuoteDetails?.po_number || '',
         customerComment:  attributesData && attributesData?.getQuoteDetails?.customer_comment || ''
     }
-    // console.log(attributesData);
 
     const [, { dispatch }] = useEventingContext();
 

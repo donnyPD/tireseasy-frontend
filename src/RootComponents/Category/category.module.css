@@ -28,6 +28,10 @@
     min-width: 0; /* Prevents flex item from overflowing */
 }
 
+.categoryTitle {
+    @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .layoutContainer {
