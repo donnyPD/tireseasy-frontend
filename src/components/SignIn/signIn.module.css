@@ -1,5 +1,5 @@
 .root {
-    composes: gap-sm from global;
+    composes: gap-0 from global;
     composes: grid from global;
     composes: justify-items-stretch from global;
     composes: px-sm from global;
@@ -59,9 +59,40 @@
     @apply text-accent-orange hover_no-underline transition-all;
 }
 
+.logo {
+    @apply my-2 lg_my-4;
+}
+
 .title {
     composes: pt-2xs from global;
-    composes: text-lg from global;
 
     @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
+}
+
+.title_small {
+    @apply font-bold text-primary-deep;
+}
+
+.root_container {
+    @apply lg_flex items-center;
+
+    > div {
+        @apply lg_w-1/2;
+    }
+}
+
+.info {
+    @apply px-4 pt-4 lg_px-6 lg_pt-6;
+}
+
+.info_block {
+    @apply p-4 lg_px-6 rounded-lg border bg-neutral-light mb-4 lg_mb-1;
+}
+
+.text_block {
+    @apply mt-4 mb-2 p-4 lg_px-6 rounded-lg bg-white shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+
+    h6, p {
+        @apply text-sm;
+    }
 }

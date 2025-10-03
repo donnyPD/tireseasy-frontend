@@ -15,6 +15,7 @@ import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 import Password from '@magento/venia-ui/lib/components/Password';
 import FormError from '@magento/venia-ui/lib/components/FormError/formError';
 import GoogleRecaptcha from '@magento/venia-ui/lib/components/GoogleReCaptcha';
+import Logo from "../../assets/images/Logo_-_Color.png";
 
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -51,88 +52,155 @@ const SignIn = props => {
     };
 
     return (
-        <div data-cy="SignIn-root" className={classes.root}>
-            <span data-cy="SignIn-title" className={classes.title}>
-                <FormattedMessage
-                    id={'signIn.titleText.new'}
-                    defaultMessage={'Login to Your Account'}
-                />
-            </span>
-            <FormError errors={Array.from(errors.values())} />
-            <Form
-                getApi={setFormApi}
-                className={classes.form}
-                onSubmit={handleSubmit}
-                data-cy="SignIn-form"
-                initialValues={initialValues && initialValues}
-            >
-                <Field
-                    id="emailSignIn"
-                    label={formatMessage({
-                        id: 'signIn.emailAddressText',
-                        defaultMessage: 'Email address'
-                    })}
+        <div className={classes.root_container}>
+            <div data-cy="SignIn-root" className={classes.root}>
+                <div className={classes.logo}>
+                    <img
+                        style={{
+                            width: '110px'
+                        }}
+                        src={Logo}
+                        alt={'DriveLine'}
+                    />
+                </div>
+                <h1 data-cy="SignIn-title" className={classes.title}>
+                    <FormattedMessage
+                        id={'signIn.titleText.new'}
+                        defaultMessage={'Login to Your Account'}
+                    />
+                </h1>
+                <FormError errors={Array.from(errors.values())} />
+                <Form
+                    getApi={setFormApi}
+                    className={classes.form}
+                    onSubmit={handleSubmit}
+                    data-cy="SignIn-form"
+                    initialValues={initialValues && initialValues}
                 >
-                    <TextInput
+                    <Field
                         id="emailSignIn"
-                        data-cy="SignIn-email"
-                        autoComplete="email"
-                        field="email"
+                        label={formatMessage({
+                            id: 'signIn.emailAddressText',
+                            defaultMessage: 'Email address'
+                        })}
+                    >
+                        <TextInput
+                            id="emailSignIn"
+                            data-cy="SignIn-email"
+                            autoComplete="email"
+                            field="email"
+                            validate={isRequired}
+                            data-cy="email"
+                            aria-label={formatMessage({
+                                id: 'global.emailRequired',
+                                defaultMessage: 'Email Required'
+                            })}
+                        />
+                    </Field>
+                    <Password
+                        data-cy="SignIn-password"
+                        fieldName="password"
+                        id="Password"
+                        label={formatMessage({
+                            id: 'signIn.passwordText',
+                            defaultMessage: 'Password'
+                        })}
                         validate={isRequired}
-                        data-cy="email"
+                        autoComplete="current-password"
+                        isToggleButtonHidden={false}
+                        data-cy="password"
                         aria-label={formatMessage({
-                            id: 'global.emailRequired',
-                            defaultMessage: 'Email Required'
+                            id: 'global.passwordRequired',
+                            defaultMessage: 'Password Required'
                         })}
                     />
-                </Field>
-                <Password
-                    data-cy="SignIn-password"
-                    fieldName="password"
-                    id="Password"
-                    label={formatMessage({
-                        id: 'signIn.passwordText',
-                        defaultMessage: 'Password'
-                    })}
-                    validate={isRequired}
-                    autoComplete="current-password"
-                    isToggleButtonHidden={false}
-                    data-cy="password"
-                    aria-label={formatMessage({
-                        id: 'global.passwordRequired',
-                        defaultMessage: 'Password Required'
-                    })}
-                />
-                <GoogleRecaptcha {...recaptchaWidgetProps} />
-                <div className={classes.buttonsContainer}>
-                    <Button
-                        priority="high"
-                        type="submit"
-                        onKeyDown={signinHandleEnterKeyPress}
-                        data-cy="SignInButton-root_highPriority"
-                        disabled={Boolean(isBusy)}
-                    >
+                    <GoogleRecaptcha {...recaptchaWidgetProps} />
+                    <div className={classes.buttonsContainer}>
+                        <Button
+                            priority="high"
+                            type="submit"
+                            onKeyDown={signinHandleEnterKeyPress}
+                            data-cy="SignInButton-root_highPriority"
+                            disabled={Boolean(isBusy)}
+                        >
+                            <FormattedMessage
+                                id={'signIn.signInText.new'}
+                                defaultMessage={'Login'}
+                            />
+                        </Button>
+                    </div>
+                    <div className={classes.forgotPasswordButtonContainer}>
+                        <LinkButton
+                            classes={forgotPasswordClasses}
+                            type="button"
+                            onClick={handleForgotPassword}
+                            onKeyDown={forgotPasswordHandleEnterKeyPress}
+                            data-cy="SignIn-forgotPasswordButton"
+                        >
+                            <FormattedMessage
+                                id={'signIn.forgotPasswordText'}
+                                defaultMessage={'Forgot Password?'}
+                            />
+                        </LinkButton>
+                    </div>
+                </Form>
+            </div>
+            <div className={classes.info}>
+                <div className={classes.info_block}>
+                    <h2 data-cy="SignIn-title" className={classes.title}>
                         <FormattedMessage
-                            id={'signIn.signInText.new'}
-                            defaultMessage={'Login'}
+                            id={'signIn.infoText'}
+                            defaultMessage={'Welcome to DriveLine!'}
                         />
-                    </Button>
-                </div>
-                <div className={classes.forgotPasswordButtonContainer}>
-                    <LinkButton
-                        classes={forgotPasswordClasses}
-                        type="button"
-                        onClick={handleForgotPassword}
-                        onKeyDown={forgotPasswordHandleEnterKeyPress}
-                        data-cy="SignIn-forgotPasswordButton"
-                    >
+                    </h2>
+                    <p className={classes.text}>
                         <FormattedMessage
-                            id={'signIn.forgotPasswordText'}
-                            defaultMessage={'Forgot Password?'}
+                            id={'signIn.infoText.info'}
+                            defaultMessage={'Your one-stop shop for all automotive parts. Login to manage your orders, track shipments, and access exclusive deals.'}
                         />
-                    </LinkButton>
+                    </p>
+                    <div className={classes.text_block}>
+                        <strong>
+                            <FormattedMessage
+                                id={'signIn.infoText.info'}
+                                defaultMessage={'Having Trouble logging in?'}
+                            />
+                        </strong>
+                        <h3 data-cy="SignIn-title" className={classes.title}>
+                            <a href={'tel:1-888-888-8888'}>
+                                <FormattedMessage
+                                    id={'signIn.infoText'}
+                                    defaultMessage={'1-888-888-8888'}
+                                />
+                            </a>
+                        </h3>
+                        <h6 data-cy="SignIn-title" className={classes.title_small}>
+                            <FormattedMessage
+                                id={'signIn.infoText'}
+                                defaultMessage={'Customer Service Hours:'}
+                            />
+                        </h6>
+                        <p>
+                            <FormattedMessage
+                                id={'signIn.infoText.info'}
+                                defaultMessage={'Monday - Friday: 8:00 AM - 6:00 PM PST'}
+                            />
+                        </p>
+                        <p>
+                            <FormattedMessage
+                                id={'signIn.infoText.info'}
+                                defaultMessage={'Saturday: 9:00 AM - 3:00 PM PST'}
+                            />
+                        </p>
+                        <p>
+                            <FormattedMessage
+                                id={'signIn.infoText.info'}
+                                defaultMessage={'Sunday: Closed'}
+                            />
+                        </p>
+                    </div>
                 </div>
-            </Form>
+            </div>
         </div>
     );
 };
@@ -145,6 +213,12 @@ SignIn.propTypes = {
         forgotPasswordButton: string,
         forgotPasswordButtonContainer: string,
         root: string,
+        root_container: string,
+        info: string,
+        info_block: string,
+        text_block: string,
+        title_small: string,
+        text: string,
         title: string
     }),
     setDefaultUsername: func,
