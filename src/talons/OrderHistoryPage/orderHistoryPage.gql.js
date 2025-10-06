@@ -14,12 +14,16 @@ const CustomerOrdersFragment = gql`
                 telephone
             }
             id
+            po_number
             invoices {
                 id
+                number
             }
             items {
                 id
                 product_name
+                brand_name
+                primary_mfg_code
                 product_sale_price {
                     currency
                     value
@@ -60,6 +64,7 @@ const CustomerOrdersFragment = gql`
             }
             shipping_method
             status
+            external_order_status
             state
             total {
                 discounts {

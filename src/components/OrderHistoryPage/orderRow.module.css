@@ -12,7 +12,7 @@
 @media screen(lg) {
     .root {
         grid-template-columns:
-            minmax(25%, 1fr) minmax(25%, 1fr) minmax(25%, 1fr)
+            minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr)
             9rem 2fr 3rem;
     }
 
@@ -90,7 +90,7 @@
     composes: py-0 from global;
     composes: row-start-1 from global;
 
-    composes: lg_col-start-6 from global;
+    composes: lg_col-start-7 from global;
     composes: lg_px-xs from global;
     composes: lg_row-start-1 from global;
 

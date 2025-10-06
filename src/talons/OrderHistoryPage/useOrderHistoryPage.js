@@ -22,6 +22,10 @@ export const useOrderHistoryPage = (props = {}) => {
 
     const [pageSize, setPageSize] = useState(PAGE_SIZE);
     const [searchText, setSearchText] = useState('');
+    const [brandText, setBrandText] = useState('');
+    const [codeText, setCodeText] = useState('');
+    const [dateText, setDateText] = useState('');
+    const [invoiceText, setInvoiceText] = useState('');
 
     const {
         data: orderData,
@@ -33,6 +37,19 @@ export const useOrderHistoryPage = (props = {}) => {
             filter: {
                 number: {
                     match: searchText
+                },
+                created_at: {
+                    from: dateText,
+                    to: dateText
+                },
+                invoice_number: {
+                    like: invoiceText
+                },
+                brand_name: {
+                    like: brandText
+                },
+                primary_mfg_code: {
+                    like: codeText
                 }
             },
             pageSize
@@ -64,10 +81,18 @@ export const useOrderHistoryPage = (props = {}) => {
 
     const handleReset = useCallback(() => {
         setSearchText('');
-    }, []);
+        setBrandText('');
+        setCodeText('');
+        setDateText('');
+        setInvoiceText('');
+    }, [searchText]);
 
-    const handleSubmit = useCallback(({ search = '' }) => {
-        setSearchText(search);
+    const handleSubmit = useCallback((value) => {
+        setBrandText(value?.brand || '');
+        setSearchText(value?.search || '');
+        setCodeText(value?.mfg_code || '');
+        setDateText(value?.date || '');
+        setInvoiceText(value?.invoice || '');
     }, []);
 
     const loadMoreOrders = useMemo(() => {
@@ -97,6 +122,10 @@ export const useOrderHistoryPage = (props = {}) => {
         loadMoreOrders,
         orders,
         pageInfo,
-        searchText
+        searchText,
+        brandText,
+        codeText,
+        dateText,
+        invoiceText
     };
 };

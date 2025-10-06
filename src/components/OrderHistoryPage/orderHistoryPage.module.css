@@ -73,23 +73,21 @@
 }
 
 .search {
-    composes: gap-2xs from global;
-    composes: grid from global;
-    composes: grid-flow-col from global;
-    composes: justify-self-center from global;
     composes: w-full from global;
 
-    composes: lg_gap-xs from global;
-    composes: lg_justify-self-left from global;
+    @apply items-end md_flex flex-wrap justify-start gap-xs;
 
-    @apply items-end;
+    > * {
+        @apply w-full md_w-[calc((100%-16px)/2)] lg_w-[calc((100%-32px)/3)]
+    }
 }
 
-.searchButton {
+.searchButton,
+.resetButton {
     composes: root_highPriority from '@magento/venia-ui/lib/components/Button/button.module.css';
 
     composes: h-[2rem] from global;
-    @apply w-full max-w-[5rem] normal-case rounded-input;
+    @apply w-full normal-case rounded-input;
 }
 
 .submitIcon {
@@ -102,11 +100,30 @@
     @apply normal-case mb-6;
 }
 
+.btnContainer {
+    @apply flex -md_mt-4;
+}
+
+.resetButton {
+    @apply ml-2 bg-white text-primary-deep;
+
+    svg {
+        @apply hidden;
+    }
+}
+
+input[type="date"] {
+    @apply w-full;
+    &::-webkit-datetime-edit {
+         @apply w-full 3xl_min-w-[280px];
+    }
+}
+
 @media screen(lg) {
     .th {
         @apply grid border-b;
         grid-template-columns:
-            minmax(25%, 1fr) minmax(25%, 1fr) minmax(25%, 1fr)
+            minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr)
             9rem 1fr;
 
     > div {

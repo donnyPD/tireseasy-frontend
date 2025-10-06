@@ -20,10 +20,14 @@ const OrderRow = props => {
         order_date: orderDate,
         status,
         state,
-        total
+        total,
+        po_number,
+        invoices
     } = order;
     const { grand_total: grandTotal } = total;
     const { currency, value: orderTotal } = grandTotal;
+    const invoiceNumber = invoices.length && invoices[0].number || '';
+    const poNumber = po_number || '';
 
     // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = orderDate.replace(' ', 'T').split('T')[0];
@@ -83,6 +87,24 @@ const OrderRow = props => {
                     />
                 </span>
                 <span className={classes.orderNumber}>{orderNumber}</span>
+            </div>
+            <div className={classes.orderDateContainer}>
+                <span className={classes.orderDateLabel}>
+                    <FormattedMessage
+                        id={'orderRow.poNumberText'}
+                        defaultMessage={'PO Number #'}
+                    />
+                </span>
+                <span className={classes.orderDate}>{poNumber}</span>
+            </div>
+            <div className={classes.orderDateContainer}>
+                <span className={classes.orderDateLabel}>
+                    <FormattedMessage
+                        id={'orderRow.invoiceNumberText'}
+                        defaultMessage={'Invoice #'}
+                    />
+                </span>
+                <span className={classes.orderDate}>{invoiceNumber}</span>
             </div>
             <div className={classes.orderTotalContainer}>
                 <span className={classes.orderTotalLabel}>

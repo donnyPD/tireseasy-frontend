@@ -46,7 +46,11 @@ const OrderHistoryPage = props => {
         isLoadingWithoutData,
         orders,
         pageInfo,
-        searchText
+        searchText,
+        brandText,
+        codeText,
+        dateText,
+        invoiceText
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
@@ -82,8 +86,8 @@ const OrderHistoryPage = props => {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
-                        id={'orderHistoryPage.invalidOrderNumber'}
-                        defaultMessage={`Order "${searchText}" was not found.`}
+                        id={'orderHistoryPage.invalidOrderNumber.new'}
+                        defaultMessage={`Order was not found.`}
                         values={{
                             number: searchText
                         }}
@@ -129,6 +133,22 @@ const OrderHistoryPage = props => {
                                     <FormattedMessage
                                         id={'orderRow.orderNumberText.new'}
                                         defaultMessage={'Confirmation #'}
+                                    />
+                                </span>
+                            </div>
+                            <div>
+                                <span className={classes.orderTotalLabel}>
+                                    <FormattedMessage
+                                        id={'orderRow.poText'}
+                                        defaultMessage={'Customer PO #'}
+                                    />
+                                </span>
+                            </div>
+                            <div>
+                                <span className={classes.orderTotalLabel}>
+                                    <FormattedMessage
+                                        id={'orderRow.invoiceText'}
+                                        defaultMessage={'Invoice #'}
                                     />
                                 </span>
                             </div>
@@ -255,27 +275,82 @@ const OrderHistoryPage = props => {
                                 })}
                             >
                                 <TextInput
-                                    after={resetButtonElement}
-                                    before={searchIcon}
                                     field="search"
                                     id={classes.search}
-                                    placeholder={'e.g. DRIVELINE-2025'}
+                                    placeholder={'e.g., 003'}
                                 />
                             </Field>
-                            <Button
-                                className={classes.searchButton}
-                                disabled={
-                                    isBackgroundLoading || isLoadingWithoutData
-                                }
-                                priority={'high'}
-                                type="submit"
-                                aria-label="submit"
+                            <Field
+                                id={classes.brand_name}
+                                label={formatMessage({
+                                    id: 'history.brand.name',
+                                    defaultMessage: 'Brand'
+                                })}
                             >
-                                <FormattedMessage
-                                    id={'order.history.search.btn'}
-                                    defaultMessage={'Search'}
+                                <TextInput
+                                    field="brand"
+                                    id={classes.brand}
+                                    placeholder={'e.g., Michelin'}
                                 />
-                            </Button>
+                            </Field>
+                            <Field
+                                id={classes.invoice_field}
+                                label={formatMessage({
+                                    id: 'history.invoice',
+                                    defaultMessage: 'Invoice Number'
+                                })}
+                            >
+                                <TextInput
+                                    field="invoice"
+                                    id={classes.invoice}
+                                    placeholder={'e.g., 001'}
+                                />
+                            </Field>
+                            <Field
+                                id={classes.mfg_code}
+                                label={formatMessage({
+                                    id: 'history.mfg.code',
+                                    defaultMessage: 'Product Number'
+                                })}
+                            >
+                                <TextInput
+                                    field="mfg_code"
+                                    id={classes.code}
+                                    placeholder={'e.g., 0123456'}
+                                />
+                            </Field>
+                            <Field
+                                className={classes.date}
+                                id={classes.date}
+                                label={formatMessage({
+                                    id: 'history.date.field',
+                                    defaultMessage: 'Date'
+                                })}
+                            >
+                                <TextInput
+                                    type="date"
+                                    field="date"
+                                    name="calendar"
+                                    id={classes.calendar}
+                                />
+                            </Field>
+                            <div className={classes.btnContainer}>
+                                <Button
+                                    className={classes.searchButton}
+                                    disabled={
+                                        isBackgroundLoading || isLoadingWithoutData
+                                    }
+                                    priority={'high'}
+                                    type="submit"
+                                    aria-label="submit"
+                                >
+                                    <FormattedMessage
+                                        id={'order.history.search.btn'}
+                                        defaultMessage={'Search'}
+                                    />
+                                </Button>
+                                {searchText || brandText || codeText || dateText || invoiceText ? <ResetButton onReset={handleReset} /> : null}
+                            </div>
                         </Form>
                     </div>
                     {pageContents}
