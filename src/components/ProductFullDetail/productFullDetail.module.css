@@ -21,6 +21,14 @@
     margin-top: 20px;
 }
 
+.details {
+    @apply mb-6;
+}
+
+.descriptionTitle {
+    @apply font-bold text-lg mb-4 block;
+}
+
 .productName {
     width: 100%;
     font-size: 28px;
@@ -174,6 +182,10 @@
 
 .toggleArrow.arrowUp {
     transform: rotate(180deg);
+}
+
+.attrs__item {
+    @apply mb-2;
 }
 
 /* Responsive adjustments */

@@ -88,6 +88,7 @@ const ProductImageCarousel = props => {
                     image: classes.currentImage_placeholder,
                     root: classes.imageContainer
                 }}
+                width={IMAGE_WIDTH}
                 src={transparentPlaceholder}
             />
         );

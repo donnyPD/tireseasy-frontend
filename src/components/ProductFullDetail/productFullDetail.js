@@ -48,8 +48,16 @@ const ProductFullDetail = props => {
             .replace(/\b\w/g, char => char.toUpperCase())
             .replace(/\s+label$/i, '');
     }
+    const labelAttrList = {
+        sku: 'Product ID',
+        brand_name_label: 'Brand',
+        speed_index_label: 'Speed Rating',
+        load_range_ply_rating_label: 'Ply',
+        available_quantity_label: 'Available Inventory',
+    };
 
     const {
+        sku,
         size_label,
         load_index_label,
         speed_index_label,
@@ -60,12 +68,13 @@ const ProductFullDetail = props => {
     } = product;
 
     const attrs= [
+        {sku},
+        {brand_name_label},
         {size_label},
         {load_index_label},
         {speed_index_label},
-        {load_range_ply_rating_label},
-        {brand_name_label},
         {mileage_warranty_label},
+        {load_range_ply_rating_label},
         {available_quantity_label}]
 
     const renderAttr = () => {
@@ -80,7 +89,7 @@ const ProductFullDetail = props => {
                     .map((attr, index) => {
                         const key = Object.keys(attr)[0];
                         const value = attr[key];
-                        const displayKey = convertSnakeCaseToTitle(key);
+                        const displayKey = labelAttrList[key] ? labelAttrList[key] : convertSnakeCaseToTitle(key);
 
                         return (
                             <div className={classes.attrs__item} key={index}>
@@ -380,20 +389,7 @@ const ProductFullDetail = props => {
                         {shortDescription}
                     </section>
                     <section className={classes.details}>
-                        <span
-                            data-cy="ProductFullDetail-detailsTitle"
-                            className={classes.detailsTitle}
-                        >
-                            <FormattedMessage
-                                id={'productFullDetail.details'}
-                                defaultMessage={'Details'}
-                            />
-                        </span>
                         {renderAttr()}
-                        <CustomAttributes
-                            customAttributes={customAttributesDetails.list}
-                        />
-
                     </section>
                     <FormError
                         classes={{

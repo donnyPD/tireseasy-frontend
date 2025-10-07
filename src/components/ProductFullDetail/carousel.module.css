@@ -36,6 +36,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @apply overflow-hidden;
+
+    img {
+        @apply max-h-full;
+    }
 }
 
 .imageContainer{
