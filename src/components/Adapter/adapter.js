@@ -7,6 +7,7 @@ import { useAdapter } from '@magento/peregrine/lib/talons/Adapter/useAdapter';
 import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 import App from '../App';
 import StoreCodeRoute from '@magento/venia-ui/lib/components/StoreCodeRoute';
+import { MiniCartProvider } from '../../context/MiniCartContext';
 
 const Adapter = props => {
     const talonProps = useAdapter(props);
@@ -31,7 +32,9 @@ const Adapter = props => {
             <ReduxProvider {...reduxProps}>
                 <BrowserRouter {...routerProps}>
                     {storeCodeRouteHandler}
-                    <AppContextProvider>{children}</AppContextProvider>
+                    <MiniCartProvider>
+                        <AppContextProvider>{children}</AppContextProvider>
+                    </MiniCartProvider>
                 </BrowserRouter>
             </ReduxProvider>
         </ApolloProvider>

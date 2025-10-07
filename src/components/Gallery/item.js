@@ -16,7 +16,7 @@ import defaultClasses from '@magento/venia-ui/lib/components/Gallery/item.module
 import customClasses from './item.module.css';
 // import WishlistGalleryButton from '@magento/venia-ui/lib/components/Wishlist/AddToListButton';
 
-import AddToCartButton from '@magento/venia-ui/lib/components/Gallery/addToCartButton';
+import AddToCartButton from './addToCartButton';
 // eslint-disable-next-line no-unused-vars
 // import Rating from '../Rating';
 

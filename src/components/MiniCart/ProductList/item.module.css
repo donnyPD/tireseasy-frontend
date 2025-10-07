@@ -1,6 +1,6 @@
 .root {
     composes: gap-x-xs from global;
-    composes: gap-y-2xs from global;
+    composes: gap-y-0 from global;
     composes: grid from global;
     composes: opacity-100 from global;
     composes: text-sm from global;
@@ -21,12 +21,15 @@
 .thumbnailContainer {
     grid-column: 1 / span 1;
     grid-row: 1 / span 6;
+    @apply max-h-[82px];
+
+    img {
+        @apply max-h-[80px] object-contain;
+    }
 }
 
 .thumbnail {
-    composes: border from global;
-    composes: border-solid from global;
-    composes: border-subtle from global;
+    @apply border-0;
 }
 
 .name {

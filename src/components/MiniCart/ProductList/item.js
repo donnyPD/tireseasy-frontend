@@ -81,7 +81,7 @@ const Item = props => {
                     classes={{
                         root: classes.thumbnail
                     }}
-                    width={100}
+                    width={80}
                     resource={
                         configurableThumbnailSource === 'itself' &&
                         configured_variant

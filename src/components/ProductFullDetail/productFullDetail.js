@@ -5,7 +5,7 @@ import { Form } from 'informed';
 import { Info } from 'react-feather';
 
 import Price from '@magento/venia-ui/lib/components/Price';
-import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { useProductFullDetail } from '../../talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';

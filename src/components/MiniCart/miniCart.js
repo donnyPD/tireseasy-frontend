@@ -9,6 +9,7 @@ import { bool, shape, string } from 'prop-types';
 import { useScrollLock, Price, useToasts } from '@magento/peregrine';
 import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
 import { useStyle } from '@magento/venia-ui/lib/classify';
+import { useMiniCustomCart } from '../../context/MiniCartContext';
 
 import Button from '@magento/venia-ui/lib/components/Button';
 import Icon from '@magento/venia-ui/lib/components/Icon';
@@ -65,7 +66,18 @@ const MiniCart = React.forwardRef((props, ref) => {
     const [, { addToast }] = useToasts();
 
     const announceMiniCartCount = 'There are no items in your cart.';
+    const { isOpenMiniCart, closeCustomMiniCart } = useMiniCustomCart();
 
+    useEffect(() => {
+        if (!isOpen && isOpenMiniCart) {
+            closeCustomMiniCart();
+        }
+    }, [isOpen]);
+    useEffect(() => {
+        if (isOpenMiniCart) {
+            setIsOpen(true);
+        }
+    }, [isOpenMiniCart]);
     useEffect(() => {
         if (errorMessage) {
             addToast({
