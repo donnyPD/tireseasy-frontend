@@ -2,16 +2,19 @@ import React from 'react';
 import { bool, number, shape, string } from 'prop-types';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Link } from 'react-router-dom';
-import { getBrandUrl } from '../../utils';
+import { getBrandUrl, getBrandLogoUrl } from '../../utils';
 import defaultClasses from './brand.css';
+import { useCustomHeader } from '../../../../../components/Header/useCustomHeader';
 
 const IMG_DEFAULT_WIDTH = 100;
 
 const BrandItem = props => {
   const { label, url, img, alt, letter, cnt, settings } = props;
+  const { storeConfig } = useCustomHeader();
 
   const classes = mergeClasses(defaultClasses, props.classes);
   const link = getBrandUrl(url);
+  const logoUrl = storeConfig.base_media_url && img ? getBrandLogoUrl(storeConfig.base_media_url, img) : img;
 
   const {
     show_images: showImages,
@@ -28,12 +31,12 @@ const BrandItem = props => {
   const imgContainerHeight = Math.max(imageWidth, imageHeight || 0);
 
   const image =
-    img && showImages ? (
+      logoUrl ? (
       <img
         className={classes.img}
         width={imageWidth}
         height={imageHeight}
-        src={img}
+        src={logoUrl}
         alt={alt}
       />
     ) : (

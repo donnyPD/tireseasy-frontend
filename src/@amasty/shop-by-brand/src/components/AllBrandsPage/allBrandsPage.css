@@ -1,6 +1,8 @@
 .root {
   padding: 1rem 0;
   margin-bottom: 2rem;
+
+    @apply lg_px-6;
 }
 
 .toolbar {
@@ -19,6 +21,8 @@
   grid-template-columns: 1fr;
   grid-gap: 2rem;
   grid-auto-rows: auto;
+
+    @apply bg-white p-4 lg_p-6 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)];
 }
 
 @media (min-width: 400px) {

@@ -6,6 +6,10 @@ export const getBrandUrl = url => {
   return `/${BRANDS_URL_KEY}/${urlKey}`;
 };
 
+export const getBrandLogoUrl = (baseMedia, url) => {
+    return baseMedia + url.replace('media/', '');
+};
+
 export const getUrlKey = url => {
   const segments = url.replace('.html', '').split('/');
   const lastSegment = segments.pop();
