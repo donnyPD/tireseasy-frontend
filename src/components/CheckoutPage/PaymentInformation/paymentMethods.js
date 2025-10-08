@@ -6,8 +6,9 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import RadioGroup from '../../RadioGroup';
 import Radio from '../../RadioGroup/radio';
 import defaultClasses from './paymentMethods.module.css';
-import payments from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection';
+import payments from './paymentMethodCollection';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+const DEFAULT_METHOD = 'invoice';
 
 const PaymentMethods = props => {
     const {
@@ -37,12 +38,14 @@ const PaymentMethods = props => {
 
     useEffect(() => {
         if (!currentSelectedPaymentMethod && availablePaymentMethods?.length > 0) {
-            const firstMethod = availablePaymentMethods[0];
-            handlePaymentMethodSelection({
-                target: {
-                    value: firstMethod.code
-                }
-            });
+            const invoiceMethod = availablePaymentMethods.filter(el => el.code === DEFAULT_METHOD)[0];
+            if (invoiceMethod) {
+                handlePaymentMethodSelection({
+                    target: {
+                        value: invoiceMethod.code
+                    }
+                });
+            }
             if (radioRef.current) {
                 radioRef.current.click();
             }
@@ -54,15 +57,15 @@ const PaymentMethods = props => {
     }
 
     const radios = availablePaymentMethods
-        .map(({ code, title }, i) => {
+        .map(({ code, title }) => {
             // If we don't have an implementation for a method type, ignore it.
-            if (!Object.keys(payments).includes(code)) {
+            // Set invoice payment Method as the only one
+            if (!Object.keys(payments).includes(code) || code !== DEFAULT_METHOD) {
                 return;
             }
-
             const id = `paymentMethod--${code}`;
             const isSelected = currentSelectedPaymentMethod === code;
-            const PaymentMethodComponent = payments[code];
+            const PaymentMethodComponent = code === DEFAULT_METHOD ? payments[code].component : payments[code];
             const renderedComponent = isSelected ? (
                 <PaymentMethodComponent
                     onPaymentSuccess={onPaymentSuccess}
@@ -78,7 +81,7 @@ const PaymentMethods = props => {
                         id={id}
                         label={title}
                         value={code}
-                        labelRef={i === 0 ? radioRef : null}
+                        labelRef={code === DEFAULT_METHOD ? radioRef : null}
                         classes={{
                             label: classes.radio_label
                         }}

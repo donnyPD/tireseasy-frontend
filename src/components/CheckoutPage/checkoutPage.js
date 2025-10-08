@@ -21,7 +21,7 @@ import AddressBook from '@magento/venia-ui/lib/components/CheckoutPage/AddressBo
 import GuestSignIn from '@magento/venia-ui/lib/components/CheckoutPage/GuestSignIn';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
-import payments from '@magento/venia-ui/lib/components/CheckoutPage/PaymentInformation/paymentMethodCollection';
+import payments from './PaymentInformation/paymentMethodCollection';
 import PriceAdjustments from '@magento/venia-ui/lib/components/CheckoutPage/PriceAdjustments';
 import ShippingMethod from '@magento/venia-ui/lib/components/CheckoutPage/ShippingMethod';
 import ShippingInformation from '@magento/venia-ui/lib/components/CheckoutPage/ShippingInformation';
