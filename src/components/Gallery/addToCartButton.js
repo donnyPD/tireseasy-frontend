@@ -9,7 +9,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './addToCartButton.module.css';
 
 const AddToCartButton = props => {
-    const { item, urlSuffix } = props;
+    const { item, urlSuffix, qty } = props;
     const talonProps = useAddToCartButton({
         item,
         urlSuffix
@@ -44,7 +44,7 @@ const AddToCartButton = props => {
             })}
             className={classes.root}
             disabled={isDisabled}
-            onPress={handleAddToCart}
+            onPress={() => handleAddToCart(qty)}
             priority="high"
             type="button"
         >
@@ -67,7 +67,7 @@ const AddToCartButton = props => {
             })}
             className={classes.root}
             disabled={isDisabled}
-            onPress={handleAddToCart}
+            onPress={() => handleAddToCart(qty)}
             priority="high"
             type="button"
         >

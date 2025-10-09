@@ -59,12 +59,12 @@ export const useAddToCartButton = props => {
 
     const [addToCart] = useMutation(operations.ADD_ITEM);
 
-    const handleAddToCart = useCallback(async () => {
+    const handleAddToCart = useCallback(async (qty) => {
         try {
             if (productType === 'SimpleProduct' || productType === 'simple') {
                 setIsLoading(true);
 
-                const quantity = 1;
+                const quantity = qty || 1;
 
                 if (item.uid) {
                     await addToCart({

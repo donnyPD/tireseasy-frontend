@@ -1,6 +1,6 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Info } from 'react-feather';
+import React, { useState } from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
+import { Info, Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { string, number, shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ import customClasses from './item.module.css';
 // import WishlistGalleryButton from '@magento/venia-ui/lib/components/Wishlist/AddToListButton';
 
 import AddToCartButton from './addToCartButton';
+import Icon from '@magento/venia-ui/lib/components/Icon';
 // eslint-disable-next-line no-unused-vars
 // import Rating from '../Rating';
 
@@ -38,11 +39,15 @@ const GalleryItem = props => {
         isSupportedProductType
     } = useGalleryItem(props);
 
+    const [itemQty, setItemQty] = useState(1);
+
     const { storeConfig } = props;
 
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
 
     const classes = useStyle(defaultClasses, props.classes, customClasses);
+
+    const { formatMessage } = useIntl();
 
     if (!item) {
         return <GalleryItemShimmer classes={classes} />;
@@ -56,8 +61,7 @@ const GalleryItem = props => {
         speed_index_label,
         load_range_ply_rating_label,
         brand_name_label,
-        mileage_warranty_label,
-        available_quantity_label} = item;
+        mileage_warranty_label} = item;
 
 
     function convertSnakeCaseToTitle(str) {
@@ -67,14 +71,20 @@ const GalleryItem = props => {
             .replace(/\s+label$/i, '');
     }
 
+    const handleChange = (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (!isNaN(value) && value > 0) {
+            setItemQty(value);
+        }
+    }
+
     const attrs= [
         {size_label},
         {load_index_label},
         {speed_index_label},
         {load_range_ply_rating_label},
         {brand_name_label},
-        {mileage_warranty_label},
-        {available_quantity_label}]
+        {mileage_warranty_label}]
     const { url: smallImageURL } = small_image;
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix || ''}`);
 
@@ -106,7 +116,7 @@ const GalleryItem = props => {
     // ) : null;
 
     const addButton = isSupportedProductType ? (
-        <AddToCartButton item={item} urlSuffix={productUrlSuffix} />
+        <AddToCartButton item={item} urlSuffix={productUrlSuffix} qty={itemQty} />
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />
@@ -171,7 +181,44 @@ const GalleryItem = props => {
                 <span>{name}</span>
                 {renderAttr()}
             </Link>
-
+            <div className={classes.attributes}>
+                {item?.available_quantity_label && <div className={classes.attrs__item}><b>{'Local Inv:'}</b> <span>{item?.available_quantity_label}</span></div>}
+                {item?.available_national_label && <div className={classes.attrs__item}><b>{'National Inv:'}</b> <span>{item?.available_national_label}</span></div>}
+                <div className={classes.qty_block}>
+                    <button
+                        aria-label={formatMessage({
+                            id: 'quantity.buttonDecrement',
+                            defaultMessage: 'Decrease Quantity'
+                        })}
+                        className={classes.button_decrement}
+                        disabled={itemQty < 2}
+                        onClick={() => setItemQty(itemQty - 1)}
+                        type="button"
+                    >
+                        <Icon classes={classes.icon} src={MinusIcon} size={22} />
+                    </button>
+                    <input
+                        className={classes.quantity}
+                        id={`qty-${item.id}`}
+                        type="number"
+                        min={1}
+                        value={itemQty}
+                        onChange={handleChange}
+                    />
+                    <button
+                        aria-label={formatMessage({
+                            id: 'quantity.buttonIncrement',
+                            defaultMessage: 'Increase Quantity'
+                        })}
+                        className={classes.button_increment}
+                        // disabled={}
+                        onClick={() => setItemQty(itemQty + 1)}
+                        type="button"
+                    >
+                        <Icon classes={classes.icon} src={PlusIcon} size={20} />
+                    </button>
+                </div>
+            </div>
             <div className={classes.actions}>
                 <div data-cy="GalleryItem-price" className={classes.price}>
                     <Price
