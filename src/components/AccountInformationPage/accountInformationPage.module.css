@@ -1,0 +1,76 @@
+.root {
+    composes: grid from global;
+    composes: gap-y-md from global;
+    composes: px-lg from global;
+    composes: py-md from global;
+
+    composes: lg_flex from global;
+    composes: lg_px-md from global;
+}
+
+.sidebar {
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+    flex: 0 0 280px;
+
+    @apply flex-col lg_mr-8;
+}
+
+.content {
+    composes: lg_flex-grow from global;
+}
+
+.account_content {
+    @apply bg-white rounded-xl p-4 lg_p-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)] mb-6;
+}
+
+.title {
+    composes: font-bold from global;
+    composes: font-serif from global;
+    composes: justify-self-center from global;
+
+    @apply w-full font-bold text-left text-primary-deep text-xl lg_text-2xl mb-4;
+}
+
+.accountDetails {
+    composes: gap-y-md from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+
+    composes: lg_grid-cols-3 from global;
+}
+
+.lineItemsContainer {
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: grid-cols-1 from global;
+    composes: leading-normal from global;
+    grid-column: 1 / span 1;
+
+    composes: lg_gap-xs from global;
+    composes: lg_grid-cols-2 from global;
+}
+
+.lineItemLabel {
+    composes: font-bold from global;
+}
+
+.nameLabel,
+.emailLabel,
+.passwordLabel {
+    composes: font-bold from global;
+}
+
+.nameValue,
+.emailValue,
+.passwordValue {
+}
+
+.editButtonContainer {
+    grid-column: 1 / span 1;
+    composes: text-center from global;
+}
+
+.editInformationButton {
+    composes: root_normalPriority from '@magento/venia-ui/lib/components/Button/button.module.css';
+}
