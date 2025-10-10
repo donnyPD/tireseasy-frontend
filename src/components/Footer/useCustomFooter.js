@@ -17,9 +17,9 @@ export const useCustomFooter = () => {
             console.log('No root category children available');
             return [];
         }
-        
+
         console.log('Root category children:', categoriesData.category.children);
-        
+
         // Use children from root category
         const filteredCategories = categoriesData.category.children
             .filter(category => {
@@ -27,14 +27,14 @@ export const useCustomFooter = () => {
                 if (!category || !category.name || !category.url_key) {
                     return false;
                 }
-                
+
                 console.log('Checking category:', {
                     name: category.name,
                     url_key: category.url_key,
                     level: category.level,
                     include_in_menu: category.include_in_menu
                 });
-                
+
                 // Only include categories that should be in menu
                 return category.include_in_menu;
             })
@@ -45,16 +45,16 @@ export const useCustomFooter = () => {
                 urlKey: category.url_key,
                 path: `/${category.url_path || category.url_key}.html`
             }));
-            
+
         console.log('Filtered categories:', filteredCategories);
         return filteredCategories;
     }, [categoriesData]);
 
     const companyInfo = {
         description: "DriveLine is a leading provider of high-quality automotive parts, committed to delivering exceptional products and services to our customers.",
-        email: "info@driveline.com",
-        phone: "1-888-888-8888",
-        address: "123 Auto Lane, Gear City, CA 90210"
+        email: "support@driveline-auto.com",
+        phone: "571-310-8075",
+        address: "101 Continental Blvd. Suite 860 El Segundo, CA 90245"
     };
 
     const quickLinks = [

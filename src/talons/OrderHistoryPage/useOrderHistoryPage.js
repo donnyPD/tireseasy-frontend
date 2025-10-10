@@ -24,7 +24,8 @@ export const useOrderHistoryPage = (props = {}) => {
     const [searchText, setSearchText] = useState('');
     const [brandText, setBrandText] = useState('');
     const [codeText, setCodeText] = useState('');
-    const [dateText, setDateText] = useState('');
+    const [dateFromText, setDateFromText] = useState('');
+    const [dateToText, setDateToText] = useState('');
     const [invoiceText, setInvoiceText] = useState('');
 
     const {
@@ -39,8 +40,8 @@ export const useOrderHistoryPage = (props = {}) => {
                     match: searchText
                 },
                 created_at: {
-                    from: dateText,
-                    to: dateText
+                    from: dateFromText,
+                    to: dateToText
                 },
                 invoice_number: {
                     like: invoiceText
@@ -83,7 +84,8 @@ export const useOrderHistoryPage = (props = {}) => {
         setSearchText('');
         setBrandText('');
         setCodeText('');
-        setDateText('');
+        setDateFromText('');
+        setDateToText('');
         setInvoiceText('');
     }, [searchText]);
 
@@ -91,7 +93,8 @@ export const useOrderHistoryPage = (props = {}) => {
         setBrandText(value?.brand || '');
         setSearchText(value?.search || '');
         setCodeText(value?.mfg_code || '');
-        setDateText(value?.date || '');
+        setDateFromText(value?.date_from || '');
+        setDateToText(value?.date_to || '');
         setInvoiceText(value?.invoice || '');
     }, []);
 
@@ -125,7 +128,8 @@ export const useOrderHistoryPage = (props = {}) => {
         searchText,
         brandText,
         codeText,
-        dateText,
+        dateFromText,
+        dateToText,
         invoiceText
     };
 };

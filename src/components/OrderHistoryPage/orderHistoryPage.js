@@ -49,7 +49,8 @@ const OrderHistoryPage = props => {
         searchText,
         brandText,
         codeText,
-        dateText,
+        dateFromText,
+        dateToText,
         invoiceText
     } = talonProps;
     const [, { addToast }] = useToasts();
@@ -74,7 +75,8 @@ const OrderHistoryPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const orderRows = useMemo(() => {
-        return orders.map(order => {
+        console.log(orders)
+        return orders.slice().sort((a, b) => Date.parse(b.order_date) - Date.parse(a.order_date)).map(order => {
             return <OrderRow key={order.id} order={order} />;
         });
     }, [orders]);
@@ -319,21 +321,38 @@ const OrderHistoryPage = props => {
                                     placeholder={'e.g., 0123456'}
                                 />
                             </Field>
-                            <Field
-                                className={classes.date}
-                                id={classes.date}
-                                label={formatMessage({
-                                    id: 'history.date.field',
-                                    defaultMessage: 'Date'
-                                })}
-                            >
-                                <TextInput
-                                    type="date"
-                                    field="date"
-                                    name="calendar"
-                                    id={classes.calendar}
-                                />
-                            </Field>
+                            <div className={classes.date_container}>
+                                <Field
+                                    className={classes.date}
+                                    id={classes.date_from}
+                                    label={formatMessage({
+                                        id: 'history.date.field',
+                                        defaultMessage: 'Date From'
+                                    })}
+                                >
+                                    <TextInput
+                                        type="date"
+                                        field="date_from"
+                                        name="calendar"
+                                        id={classes.calendar}
+                                    />
+                                </Field>
+                                <Field
+                                    className={classes.date}
+                                    id={classes.date_to}
+                                    label={formatMessage({
+                                        id: 'history.date.field',
+                                        defaultMessage: 'Date To'
+                                    })}
+                                >
+                                    <TextInput
+                                        type="date"
+                                        field="date_to"
+                                        name="calendar"
+                                        id={classes.calendar}
+                                    />
+                                </Field>
+                            </div>
                             <div className={classes.btnContainer}>
                                 <Button
                                     className={classes.searchButton}
@@ -349,7 +368,7 @@ const OrderHistoryPage = props => {
                                         defaultMessage={'Search'}
                                     />
                                 </Button>
-                                {searchText || brandText || codeText || dateText || invoiceText ? <ResetButton onReset={handleReset} /> : null}
+                                {searchText || brandText || codeText || dateFromText || dateToText || invoiceText ? <ResetButton onReset={handleReset} /> : null}
                             </div>
                         </Form>
                     </div>

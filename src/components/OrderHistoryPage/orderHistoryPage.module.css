@@ -115,8 +115,12 @@
 input[type="date"] {
     @apply w-full;
     &::-webkit-datetime-edit {
-         @apply w-full 3xl_min-w-[280px];
+         @apply w-full;
     }
+}
+
+.date_container {
+    @apply md_flex md_justify-between md_gap-x-2;
 }
 
 @media screen(lg) {

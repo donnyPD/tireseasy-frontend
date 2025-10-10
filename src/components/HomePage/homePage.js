@@ -11,6 +11,7 @@ import VehicleLookupTrims from '../VehicleLookupTrims/vehicleLookupTrims';
 import { useVinLookup, validateVin } from '../QuickLookups/useVinLookup';
 import defaultClasses from './homePage.module.css';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
+import CmsBlockGroup from '@magento/venia-ui/lib/components/CmsBlock';
 
 // Simple SVG icons for the features
 const FastShippingIcon = () => (
@@ -292,16 +293,16 @@ const HomePage = props => {
                             />
                         </p>
                         <div className={classes.heroButtons}>
-                            <Button
-                                className={classes.heroButton}
-                                priority="high"
-                                type="button"
-                            >
-                                <FormattedMessage
-                                    id="homePage.heroButton"
-                                    defaultMessage="Get Started Today"
-                                />
-                            </Button>
+                            {/*<Button*/}
+                            {/*    className={classes.heroButton}*/}
+                            {/*    priority="high"*/}
+                            {/*    type="button"*/}
+                            {/*>*/}
+                            {/*    <FormattedMessage*/}
+                            {/*        id="homePage.heroButton"*/}
+                            {/*        defaultMessage="Get Started Today"*/}
+                            {/*    />*/}
+                            {/*</Button>*/}
                         </div>
                     </div>
                 </section>
@@ -402,6 +403,7 @@ const HomePage = props => {
                         </Link>
                     </div>
                 </section>
+                {/*<CmsBlockGroup identifiers={'explore_our_extensive_catalog_block'}/>*/}
             </Layout>
         </>
     );
