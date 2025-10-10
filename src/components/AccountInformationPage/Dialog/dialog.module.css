@@ -52,9 +52,6 @@
  */
 
 .header {
-    composes: border-b from global;
-    composes: border-solid from global;
-    composes: border-subtle from global;
     composes: p-0 from global;
 
     /* The Header is itself a grid container for its children. */
@@ -63,15 +60,11 @@
     composes: grid-cols-autoLast from global;
     composes: grid-flow-col from global;
     composes: items-center from global;
+    @apply text-lg lg_text-xl font-bold text-text-primary mb-3;
 }
 
 .headerText {
-    composes: capitalize from global;
-    composes: leading-tight from global;
-    composes: text-ellipsis from global;
-    composes: overflow-hidden from global;
-    composes: text-subtle from global;
-    composes: whitespace-nowrap from global;
+
 }
 
 .headerButton {
@@ -100,9 +93,11 @@
     composes: grid from global;
     composes: grid-flow-row from global;
     composes: justify-center from global;
-    composes: p-md from global;
+    composes: pt-md from global;
 
     composes: lg_grid-flow-col from global;
+
+    @apply xl_justify-end;
 }
 
 .confirmButton {
@@ -112,10 +107,16 @@
     composes: order-first from global;
 
     composes: lg_order-unset from global;
+
+    @apply rounded-md bg-accent-green border-accent-green normal-case text-base p-[10px] transition-all
+        hover_bg-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
 }
 
 .cancelButton {
     composes: root_lowPriority from '@magento/venia-ui/lib/components/Button/button.module.css';
+
+    @apply rounded-md bg-white text-accent-green border-accent-green normal-case text-base p-[10px] transition-all
+        hover_bg-white hover_text-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
 }
 
 /*

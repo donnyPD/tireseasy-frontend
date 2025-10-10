@@ -32,7 +32,7 @@ const SignInPage = props => {
 SignInPage.defaultProps = {
     createAccountPageUrl: '/create-account',
     forgotPasswordPageUrl: '/forgot-password',
-    signedInRedirectUrl: '/order-history'
+    signedInRedirectUrl: '/'
 };
 
 SignInPage.propTypes = {

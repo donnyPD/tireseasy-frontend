@@ -199,42 +199,42 @@ const Header = (props) => {
                                     </li>
                                 ))
                             )}
-                            <li className={classes.navItem}>
-                                <Link
-                                    to={resourceUrl('/wheels')}
-                                    className={classes.navLink}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    <FormattedMessage id="header.wheels" defaultMessage="Wheels" />
-                                </Link>
-                            </li>
-                            <li className={classes.navItem}>
-                                <Link
-                                    to={resourceUrl('/auto-parts')}
-                                    className={classes.navLink}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    <FormattedMessage id="header.autoParts" defaultMessage="Auto Parts" />
-                                </Link>
-                            </li>
-                            <li className={classes.navItem}>
-                                <Link
-                                    to={resourceUrl('/tools-supplies')}
-                                    className={classes.navLink}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    <FormattedMessage id="header.toolsSupplies" defaultMessage="Tools & Supplies" />
-                                </Link>
-                            </li>
-                            <li className={classes.navItem}>
-                                <Link
-                                    to={resourceUrl('/fluids')}
-                                    className={classes.navLink}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    <FormattedMessage id="header.fluids" defaultMessage="Fluids" />
-                                </Link>
-            </li>
+                            {/*<li className={classes.navItem}>*/}
+                            {/*    <Link*/}
+                            {/*        to={resourceUrl('/wheels')}*/}
+                            {/*        className={classes.navLink}*/}
+                            {/*        onClick={() => setIsMobileMenuOpen(false)}*/}
+                            {/*    >*/}
+                            {/*        <FormattedMessage id="header.wheels" defaultMessage="Wheels" />*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
+                            {/*<li className={classes.navItem}>*/}
+                            {/*    <Link*/}
+                            {/*        to={resourceUrl('/auto-parts')}*/}
+                            {/*        className={classes.navLink}*/}
+                            {/*        onClick={() => setIsMobileMenuOpen(false)}*/}
+                            {/*    >*/}
+                            {/*        <FormattedMessage id="header.autoParts" defaultMessage="Auto Parts" />*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
+                            {/*<li className={classes.navItem}>*/}
+                            {/*    <Link*/}
+                            {/*        to={resourceUrl('/tools-supplies')}*/}
+                            {/*        className={classes.navLink}*/}
+                            {/*        onClick={() => setIsMobileMenuOpen(false)}*/}
+                            {/*    >*/}
+                            {/*        <FormattedMessage id="header.toolsSupplies" defaultMessage="Tools & Supplies" />*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
+                            {/*<li className={classes.navItem}>*/}
+                            {/*    <Link*/}
+                            {/*        to={resourceUrl('/fluids')}*/}
+                            {/*        className={classes.navLink}*/}
+                            {/*        onClick={() => setIsMobileMenuOpen(false)}*/}
+                            {/*    >*/}
+                            {/*        <FormattedMessage id="header.fluids" defaultMessage="Fluids" />*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
                             <li className={classes.navItem}>
                                 <Link
                                     to={resourceUrl('/order-history')}

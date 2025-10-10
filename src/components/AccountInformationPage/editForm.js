@@ -123,7 +123,18 @@ const EditForm = props => {
                         />
                     </Field>
                 </div>
+            </div>
+            <span
+                className={classes.headerText}
+            >
+                <FormattedMessage
+                    id={'accountInformationPage.title.new'}
+                    defaultMessage={'Password Information'}
+                />
+            </span>
+            <div className={classes.root}>
                 <div className={classes.password}>
+
                     <Password
                         fieldName="password"
                         label={passwordLabel}

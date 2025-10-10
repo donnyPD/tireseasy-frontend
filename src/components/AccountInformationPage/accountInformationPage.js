@@ -58,34 +58,50 @@ const AccountInformationPage = props => {
         pageContent = (
             <Fragment>
                 {!isUpdateMode && <div className={classes.accountDetails}>
+                    <div className={classes.header}>
+                        <span
+                            className={classes.headerText}
+                        >
+                            <FormattedMessage
+                                id={'accountInformationPage.title.new'}
+                                defaultMessage={'Profile Information'}
+                            />
+                        </span>
+                    </div>
                     <div className={classes.lineItemsContainer}>
-                        <span className={classes.nameLabel}>
-                            <FormattedMessage
-                                id={'global.name'}
-                                defaultMessage={'Name'}
-                            />
-                        </span>
-                        <span className={classes.nameValue}>
-                            {customerName}
-                        </span>
-                        <span className={classes.emailLabel}>
-                            <FormattedMessage
-                                id={'global.email'}
-                                defaultMessage={'Email'}
-                            />
-                        </span>
-                        <span className={classes.emailValue}>
-                            {customer.email}
-                        </span>
-                        <span className={classes.passwordLabel}>
-                            <FormattedMessage
-                                id={'global.password'}
-                                defaultMessage={'Password'}
-                            />
-                        </span>
-                        <span className={classes.passwordValue}>
-                            {passwordValue}
-                        </span>
+                        <div>
+                            <span className={classes.nameLabel}>
+                                <FormattedMessage
+                                    id={'global.name'}
+                                    defaultMessage={'Name'}
+                                />
+                            </span>
+                                <span className={classes.nameValue}>
+                                {customerName}
+                            </span>
+                        </div>
+                        <div>
+                            <span className={classes.emailLabel}>
+                                <FormattedMessage
+                                    id={'global.email'}
+                                    defaultMessage={'Email'}
+                                />
+                            </span>
+                                <span className={classes.emailValue}>
+                                {customer.email}
+                            </span>
+                        </div>
+                        <div>
+                             <span className={classes.passwordLabel}>
+                                <FormattedMessage
+                                    id={'global.password'}
+                                    defaultMessage={'Password'}
+                                />
+                            </span>
+                                <span className={classes.passwordValue}>
+                                {passwordValue}
+                            </span>
+                        </div>
                     </div>
                     <div className={classes.editButtonContainer}>
                         <Button
@@ -96,8 +112,8 @@ const AccountInformationPage = props => {
                             data-cy="AccountInformationPage-editInformationButton"
                         >
                             <FormattedMessage
-                                id={'global.editButton'}
-                                defaultMessage={'Edit'}
+                                id={'global.editButton.new'}
+                                defaultMessage={'Edit Profile'}
                             />
                         </Button>
                     </div>
