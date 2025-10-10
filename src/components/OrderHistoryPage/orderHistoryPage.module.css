@@ -113,9 +113,10 @@
 }
 
 input[type="date"] {
-    @apply w-full;
-    &::-webkit-datetime-edit {
-         @apply w-full;
+    @apply w-full relative pr-6;
+
+    &::-webkit-calendar-picker-indicator {
+        @apply absolute right-0 bg-white pr-2 cursor-pointer;
     }
 }
 
