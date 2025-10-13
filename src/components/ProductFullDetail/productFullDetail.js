@@ -53,7 +53,8 @@ const ProductFullDetail = props => {
         brand_name_label: 'Brand',
         speed_index_label: 'Speed Rating',
         load_range_ply_rating_label: 'Ply',
-        available_quantity_label: 'Available Inventory',
+        available_quantity_label: 'Local Inventory',
+        national_quantity_label: 'National Inventory',
     };
 
     const {

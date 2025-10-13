@@ -183,7 +183,7 @@ const GalleryItem = props => {
             </Link>
             <div className={classes.attributes}>
                 {item?.available_quantity_label && <div className={classes.attrs__item}><b>{'Local Inv:'}</b> <span>{item?.available_quantity_label}</span></div>}
-                {item?.available_national_label && <div className={classes.attrs__item}><b>{'National Inv:'}</b> <span>{item?.available_national_label}</span></div>}
+                {item?.national_quantity_label && <div className={classes.attrs__item}><b>{'National Inv:'}</b> <span>{item?.national_quantity_label}</span></div>}
                 <div className={classes.qty_block}>
                     <button
                         aria-label={formatMessage({
