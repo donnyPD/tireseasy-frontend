@@ -280,130 +280,23 @@ const HomePage = props => {
                 {/* Hero Section */}
                 <section className={classes.heroSection}>
                     <div className={classes.container}>
-                        <h1 className={classes.heroTitle}>
-                            <FormattedMessage
-                                id="homePage.heroTitle"
-                                defaultMessage="Your Ultimate Source for Automotive Parts"
-                            />
-                        </h1>
-                        <p className={classes.heroDescription}>
-                            <FormattedMessage
-                                id="homePage.heroDescription"
-                                defaultMessage="Discover a vast selection of high-quality tires, wheels, auto parts, and more. DriveLine offers competitive pricing, fast shipping, and unparalleled customer support."
-                            />
-                        </p>
-                        <div className={classes.heroButtons}>
-                            {/*<Button*/}
-                            {/*    className={classes.heroButton}*/}
-                            {/*    priority="high"*/}
-                            {/*    type="button"*/}
-                            {/*>*/}
-                            {/*    <FormattedMessage*/}
-                            {/*        id="homePage.heroButton"*/}
-                            {/*        defaultMessage="Get Started Today"*/}
-                            {/*    />*/}
-                            {/*</Button>*/}
-                        </div>
+                        <CmsBlockGroup identifiers={'home_hero_section'}/>
                     </div>
                 </section>
 
                 {/* Features Section */}
                 <section className={classes.featuresSection}>
                     <div className={classes.container}>
-                        <h2 className={classes.featuresTitle}>
-                            <FormattedMessage
-                                id="homePage.featuresTitle"
-                                defaultMessage="Why Choose DriveLine?"
-                            />
-                        </h2>
-                        <div className={classes.featuresGrid}>
-                            <div className={classes.featureCard}>
-                                <div className={classes.featureIcon}>
-                                    <FastShippingIcon />
-                                </div>
-                                <h3 className={classes.featureTitle}>
-                                    <FormattedMessage
-                                        id="homePage.fastShipping"
-                                        defaultMessage="Fast Shipping"
-                                    />
-                                </h3>
-                                <p className={classes.featureDescription}>
-                                    <FormattedMessage
-                                        id="homePage.fastShippingDesc"
-                                        defaultMessage="Get your parts quickly with our expedited shipping options. We ensure timely delivery to keep you on the road."
-                                    />
-                                </p>
-                            </div>
-
-                            <div className={classes.featureCard}>
-                                <div className={classes.featureIcon}>
-                                    <LowCostIcon />
-                                </div>
-                                <h3 className={classes.featureTitle}>
-                                    <FormattedMessage
-                                        id="homePage.lowCost"
-                                        defaultMessage="Low Cost Solutions"
-                                    />
-                                </h3>
-                                <p className={classes.featureDescription}>
-                                    <FormattedMessage
-                                        id="homePage.lowCostDesc"
-                                        defaultMessage="We offer competitive pricing without compromising on quality, ensuring you get the best value."
-                                    />
-                                </p>
-                            </div>
-
-                            <div className={classes.featureCard}>
-                                <div className={classes.featureIcon}>
-                                    <SupportIcon />
-                                </div>
-                                <h3 className={classes.featureTitle}>
-                                    <FormattedMessage
-                                        id="homePage.dedicatedSupport"
-                                        defaultMessage="Dedicated Support"
-                                    />
-                                </h3>
-                                <p className={classes.featureDescription}>
-                                    <FormattedMessage
-                                        id="homePage.dedicatedSupportDesc"
-                                        defaultMessage="Our expert team is ready to assist you with any questions or concerns, ensuring a smooth experience."
-                                    />
-                                </p>
-                            </div>
-                        </div>
+                        <CmsBlockGroup identifiers={'why_choose_driveLine'}/>
                     </div>
                 </section>
 
                 {/* CTA Section */}
                 <section className={classes.ctaSection}>
                     <div className={classes.container}>
-                        <h2 className={classes.ctaTitle}>
-                            <FormattedMessage
-                                id="homePage.ctaTitle"
-                                defaultMessage="Explore Our Extensive Catalog"
-                            />
-                        </h2>
-                        <p className={classes.ctaDescription}>
-                            <FormattedMessage
-                                id="homePage.ctaDescription"
-                                defaultMessage="Browse top brands and find the perfect parts for your vehicle. Quality and reliability guaranteed."
-                            />
-                        </p>
-                        <Link
-                            className={classes.ctaButton}
-                            to={resourceUrl('/brands')}
-                            title={'View Our Brands'}
-                            priority="high"
-                            type="button"
-                        >
-                            <FormattedMessage
-                                id="homePage.ctaButton"
-                                defaultMessage="View Our Brands"
-                            />
-                        </Link>
+                        <CmsBlockGroup identifiers={'explore_our_extensive_catalog_block'}/>
                     </div>
                 </section>
-                {/*<CmsBlockGroup identifiers={'explore_our_extensive_catalog_block'}/>*/}
             </Layout>
         </>
     );

@@ -20,9 +20,14 @@
 .section {
     display: flex;
     flex-direction: column;
+
+    > div {
+        @apply p-0 m-0;
+    }
 }
 
-.sectionTitle {
+.sectionTitle,
+.section [role="presentation"] h3 {
     font-size: 1.1rem;
     font-weight: 600;
     color: #1A2C5B; /* Primary Deep Blue */
@@ -30,67 +35,82 @@
     letter-spacing: 0.5px;
 }
 
-.description {
+.description,
+.section [role="presentation"] p {
     color: #666666; /* Text Secondary */
     line-height: 1.6;
     font-size: 0.9rem;
 }
 
-.linksList {
+.linksList,
+.section [role="presentation"] ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.linkItem {
+.linkItem,
+.section [role="presentation"] ul li {
     margin-bottom: 0.5rem;
 }
 
-.link {
+.link,
+.section [role="presentation"] ul li a {
     color: #333333; /* Primary Charcoal */
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s ease;
 }
 
-.link:hover {
+.link:hover,
+,
+.section [role="presentation"] ul li a:hover {
     color: #28A745; /* Accent Success Green  */
     text-decoration: underline;
 }
 
-.contactInfo {
+.contactInfo,
+.section [role="presentation"] > div {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
 
-.contactItem {
+.contactItem,
+.section [role="presentation"] div > p {
     display: flex;
     flex-direction: column;
     margin: 0;
 }
 
-.contactLabel {
+.contactLabel,
+.section [role="presentation"] div > p span {
     font-weight: 600;
     color: #333333; /* Primary Charcoal */
     font-size: 0.85rem;
     margin-bottom: 0.25rem;
 }
 
-.contactLink {
+.contactLink,
+.section [role="presentation"] div > p a {
     color: #FF8C00; /* Accent Orange */
     text-decoration: none;
     font-size: 0.9rem;
 }
 
-.contactLink:hover {
+.contactLink:hover,
+,
+.section [role="presentation"] div > p a:hover {
     text-decoration: underline;
 }
 
-.address {
+.address,
+.section [role="presentation"] div > p span[data-role="address"] {
     color: #666666; /* Text Secondary */
     font-size: 0.9rem;
+    font-weight: 400;
     line-height: 1.4;
+    margin-bottom: 0;
 }
 
 .copyright {
