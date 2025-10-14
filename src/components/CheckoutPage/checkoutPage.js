@@ -89,6 +89,7 @@ const CheckoutPage = props => {
 
     const [, { addToast }] = useToasts();
     const orderCount = localStorage.getItem('orderCount');
+    const [poAttributeError, setPoAttributeError] = useState(false);
     useEffect(() => {
         if (isGuestCheckout && !orderDetailsData) {
             if (orderCount === '1') {
@@ -140,6 +141,12 @@ const CheckoutPage = props => {
         : classes.shipping_information_container;
 
     let checkoutContent;
+
+    const checkPoAttributeError = () => {
+        if (!poAttributeError) {
+            handleReviewOrder();
+        }
+    }
 
     const heading = isGuestCheckout
         ? formatMessage({

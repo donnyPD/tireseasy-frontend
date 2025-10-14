@@ -8,7 +8,7 @@ import {
 } from '../../talons/CheckoutPage/useCheckoutPage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './checkoutPage.module.css';
-import Field from "@magento/venia-ui/lib/components/Field";
+import Field from '@magento/venia-ui/lib/components/Field';
 
 
 const CustomerAttributes = props => {
@@ -46,7 +46,7 @@ const CustomerAttributes = props => {
                 id="customer_po_number_field"
                 label={formatMessage({
                     id: 'global.customer.number',
-                    defaultMessage: 'Customer PO Number (Optional)'
+                    defaultMessage: 'Customer PO Number (Required)'
                 })}
             >
                 <input
