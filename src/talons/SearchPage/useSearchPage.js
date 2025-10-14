@@ -7,7 +7,7 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { usePagination } from '@magento/peregrine/lib/hooks/usePagination';
 import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 import { getSearchParam } from '@magento/peregrine/lib/hooks/useSearchParam';
-import { useSort } from '@magento/peregrine/lib/hooks/useSort';
+import { useSort } from '../../hooks/useSort';
 import { getFiltersFromSearch, getFilterInput } from '@magento/peregrine/lib/talons/FilterModal/helpers';
 
 import DEFAULT_OPERATIONS from './searchPage.gql';

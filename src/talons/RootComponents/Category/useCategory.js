@@ -6,7 +6,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { usePagination } from '@magento/peregrine/lib/hooks/usePagination';
 import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
-import { useSort } from '@magento/peregrine/lib/hooks/useSort';
+import { useSort } from '../../../hooks/useSort';
 import {
     getFiltersFromSearch,
     getFilterInput

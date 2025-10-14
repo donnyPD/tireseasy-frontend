@@ -20,6 +20,15 @@
     > aside {
         @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];
     }
+
+    div[class^="w-[300px]"] {
+        @apply lg_w-[240px] !important;
+
+        & + div,
+        & + div input {
+            @apply lg_w-[240px] !important;
+        }
+    }
 }
 
 /* Main Content */
@@ -33,7 +42,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 959px) {
     .layoutContainer {
         flex-direction: column;
         gap: 1.5rem;
