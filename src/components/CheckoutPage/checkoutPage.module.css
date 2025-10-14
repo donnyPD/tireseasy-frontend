@@ -142,8 +142,17 @@
     composes: relative from global;
 }
 
-.input_number {
+.input_number,
+.input_number_error {
     composes: input from '@magento/venia-ui/lib/components/TextInput/textInput.module.css';
+}
+
+.input_number_error {
+    @apply border-primary-red;
+}
+
+.message_error {
+    @apply text-primary-red text-xs;
 }
 
 .textarea_comment {
@@ -250,5 +259,14 @@
     input,
     textarea {
         @apply border;
+    }
+
+    label[for="customer_po_number"] {
+        @apply block;
+
+        &:after {
+            @apply text-primary-red;
+            content: ' *';
+        }
     }
 }

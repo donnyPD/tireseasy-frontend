@@ -89,7 +89,8 @@ const CheckoutPage = props => {
 
     const [, { addToast }] = useToasts();
     const orderCount = localStorage.getItem('orderCount');
-    const [poAttributeError, setPoAttributeError] = useState(false);
+    const [poAttributeValidation, setPoAttributeValidation] = useState(false);
+    const [poMessageError, setPoMessageError] = useState(false);
     useEffect(() => {
         if (isGuestCheckout && !orderDetailsData) {
             if (orderCount === '1') {
@@ -142,9 +143,11 @@ const CheckoutPage = props => {
 
     let checkoutContent;
 
-    const checkPoAttributeError = () => {
-        if (!poAttributeError) {
-            handleReviewOrder();
+    const checkPoAttributeError = (keyDown) => {
+        if (!poAttributeValidation) {
+            keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
+        } else {
+            setPoMessageError(true);
         }
     }
 
@@ -284,9 +287,9 @@ const CheckoutPage = props => {
         const reviewOrderButton =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <Button
-                    onClick={handleReviewOrder}
-                    onTouchStart={handleReviewOrder}
-                    onKeyDown={handleReviewOrderEnterKeyPress}
+                    onClick={() => checkPoAttributeError()}
+                    onTouchStart={() => checkPoAttributeError()}
+                    onKeyDown={() => checkPoAttributeError(true)}
                     priority="high"
                     className={classes.review_order_button}
                     data-cy="CheckoutPage-reviewOrderButton"
@@ -438,7 +441,11 @@ const CheckoutPage = props => {
                     {priceAdjustmentsSection}
                     {placeLoading
                         ? <LoadingIndicator />
-                        : !isLoading && <CustomerAttributes />}
+                        : !isLoading && <CustomerAttributes
+                            poMessageError={poMessageError}
+                            setPoMessageError={setPoMessageError}
+                            setPoAttributeValidation={setPoAttributeValidation}
+                    />}
                     <div className={classes.summary_content}>
                         {orderSummary}
                         <div className={classes.summary_button}>

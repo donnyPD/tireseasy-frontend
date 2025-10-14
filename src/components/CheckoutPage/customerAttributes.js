@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useIntl } from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import { Form } from 'informed';
 import { shape, string, } from 'prop-types';
 
@@ -14,6 +14,9 @@ import Field from '@magento/venia-ui/lib/components/Field';
 const CustomerAttributes = props => {
     const {
         classes: propClasses,
+        poMessageError,
+        setPoMessageError,
+        setPoAttributeValidation,
     } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, propClasses);
@@ -26,6 +29,7 @@ const CustomerAttributes = props => {
     const inputRef = useRef(null);
     const textareaRef = useRef(null);
     const blockRef = useRef(null);
+    const inputClasses = poMessageError ? classes.input_number_error : classes.input_number;
 
     useEffect(() => {
         if (inputRef.current !== document.activeElement && textareaRef.current !== document.activeElement) {
@@ -39,18 +43,26 @@ const CustomerAttributes = props => {
             }
         }
     }, [inputValue, textareaValue, focusInput, focusTextarea]);
+    useEffect(() => {
+        if (inputValue !== '') {
+            setPoAttributeValidation(false);
+            setPoMessageError(false);
+        } else {
+            setPoAttributeValidation(true);
+        }
+    }, [inputValue]);
 
     const customerInput = (
         <div>
             <Field
-                id="customer_po_number_field"
+                id="customer_po_number"
                 label={formatMessage({
                     id: 'global.customer.number',
-                    defaultMessage: 'Customer PO Number (Required)'
+                    defaultMessage: 'Customer PO Number'
                 })}
             >
                 <input
-                    className={classes.input_number}
+                    className={inputClasses}
                     type="text"
                     id="customer_po_number"
                     ref={inputRef}
@@ -59,6 +71,12 @@ const CustomerAttributes = props => {
                     onFocus={() => setFocusInput(true)}
                     onBlur={() => setFocusInput(false)}
                 />
+                {poMessageError && <div className={classes.message_error}>
+                    <FormattedMessage
+                        id={'checkoutPage.po.error.message'}
+                        defaultMessage={'* Required field'}
+                    />
+                </div>}
             </Field>
         </div>
     );
@@ -66,7 +84,7 @@ const CustomerAttributes = props => {
     const customerTextarea = (
         <div>
             <Field
-                id="customer_comment_field"
+                id="customer_comment"
                 label={formatMessage({
                     id: 'global.customer.comment',
                     defaultMessage: 'Order Comments'
