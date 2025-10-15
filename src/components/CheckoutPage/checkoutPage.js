@@ -143,7 +143,7 @@ const CheckoutPage = props => {
 
     let checkoutContent;
 
-    const checkPoAttributeError = (keyDown) => {
+    const checkPoAttribute = (keyDown) => {
         if (!poAttributeValidation) {
             keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
         } else {
@@ -287,9 +287,9 @@ const CheckoutPage = props => {
         const reviewOrderButton =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <Button
-                    onClick={() => checkPoAttributeError()}
-                    onTouchStart={() => checkPoAttributeError()}
-                    onKeyDown={() => checkPoAttributeError(true)}
+                    onClick={() => checkPoAttribute()}
+                    onTouchStart={() => checkPoAttribute()}
+                    onKeyDown={() => checkPoAttribute(true)}
                     priority="high"
                     className={classes.review_order_button}
                     data-cy="CheckoutPage-reviewOrderButton"

@@ -75,7 +75,6 @@ const OrderHistoryPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const orderRows = useMemo(() => {
-        console.log(orders)
         return orders.slice().sort((a, b) => Date.parse(b.order_date) - Date.parse(a.order_date)).map(order => {
             return <OrderRow key={order.id} order={order} />;
         });
