@@ -6,7 +6,7 @@ import headerQueries from './headerQueries';
 export const useCustomHeader = () => {
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
-    
+
     // Get customer data if user is signed in
     const { data: customerData, loading: customerLoading } = useQuery(
         headerQueries.getCustomerQuery,
@@ -46,13 +46,13 @@ export const useCustomHeader = () => {
     // Process categories to only include menu items
     const processCategories = (categories) => {
         if (!categories || !categories.length) return [];
-        
+
         return categories
             .filter(category => category.include_in_menu)
             .sort((a, b) => (a.position || 0) - (b.position || 0))
             .map(category => ({
                 ...category,
-                children: category.children 
+                children: category.children
                     ? category.children
                         .filter(child => child.include_in_menu)
                         .sort((a, b) => (a.position || 0) - (b.position || 0))
@@ -68,25 +68,12 @@ export const useCustomHeader = () => {
             }));
     };
 
-    const menuCategories = categoriesData?.categoryList 
+    const menuCategories = categoriesData?.categoryList
         ? processCategories(categoriesData.categoryList[0]?.children || [])
         : [];
 
     const currentUser = customerData?.customer || null;
     const storeConfig = storeConfigData?.storeConfig || null;
-
-    // Debug logging
-    console.log('Header Debug:', { 
-        isSignedIn, 
-        currentUser, 
-        menuCategories: menuCategories.length,
-        customerLoading,
-        categoriesLoading,
-        storeConfigLoading,
-        categoriesError: categoriesError?.message,
-        cartId,
-        storeConfig
-    });
 
     return {
         isSignedIn,
