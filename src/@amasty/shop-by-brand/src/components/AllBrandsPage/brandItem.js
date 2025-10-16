@@ -6,7 +6,7 @@ import { getBrandUrl, getBrandLogoUrl } from '../../utils';
 import defaultClasses from './brand.css';
 import { useCustomHeader } from '../../../../../components/Header/useCustomHeader';
 
-const IMG_DEFAULT_WIDTH = 100;
+const IMG_DEFAULT_WIDTH = 145;
 
 const BrandItem = props => {
   const { label, url, img, alt, letter, cnt, settings } = props;
@@ -28,7 +28,7 @@ const BrandItem = props => {
     return null;
   }
 
-  const imgContainerHeight = Math.max(imageWidth, imageHeight || 0);
+  const imgContainerHeight = Math.max(80 || 0);
 
   const image =
       logoUrl ? (

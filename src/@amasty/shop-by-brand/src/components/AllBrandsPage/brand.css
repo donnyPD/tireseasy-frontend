@@ -26,13 +26,16 @@
   align-items: center;
   justify-content: center;
 
-    @apply px-1;
+    @apply px-1 lg_px-2;
+    @apply -md_min-h-[60px] !important;
 }
 
 .noImage {
   font-size: 4rem;
   color: rgb(var(--venia-global-color-border));
   transition: transform 0.3s;
+
+    @apply -md_text-[40px] !important;
 }
 .count {
   position: absolute;
@@ -64,7 +67,7 @@
 
 @media (max-width: 767px) {
     .root {
-        flex-basis: 77px !important;
+        flex-basis: 103px !important;
     }
     .label {
         overflow-wrap: anywhere;
