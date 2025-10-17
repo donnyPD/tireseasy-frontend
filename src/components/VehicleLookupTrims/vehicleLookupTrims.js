@@ -37,20 +37,74 @@ const VehicleLookupTrims = props => {
     const [selectedTireSize, setSelectedTireSize] = useState(
         tireSizes.find(tire => tire.selected)?.size || ''
     );
+    const [selectedTireSizeUrl, setSelectedTireSizeUrl] = useState(
+        tireSizes.find(tire => tire.selected)?.url || ''
+    );
 
     /**
      * Handle tire size selection
      * @param {string} size - Selected tire size
      */
-    const handleTireSizeSelect = (size) => {
+    const handleTireSizeSelect = (size, url) => {
         setSelectedTireSize(size);
+        setSelectedTireSizeUrl(url);
         onTireSizeSelect(size);
+        console.log(selectedTireSizeUrl);
     };
+
+    const tireItem = (list) => {
+        return list.map((tire, index) => (
+            <button
+                key={index}
+                className={`${classes.tireSizeButton} ${
+                    tire.size_both
+                        ? selectedTireSize === `${tire.size_both.Front} / ${tire.size_both.Rear}`
+                            ? classes.selected
+                            : ''
+                        : selectedTireSize === tire.size
+                            ? classes.selected
+                            : ''
+                }`}
+                onClick={() => handleTireSizeSelect(tire.size_both ? `${tire.size_both.Front} / ${tire.size_both.Rear}` : tire.size, tire.url)}
+                type="button"
+            >
+                <div className={classes.tireSizeContent}>
+                    {tire.size && <div className={classes.tireSize}>{tire.size}</div>}
+                    {tire.size_both && <div className={classes.tireBoth}>
+                        <h4>
+                            <FormattedMessage
+                                id="size.both.Staggered.title"
+                                defaultMessage="Staggered Set (Both)"
+                            />
+                        </h4>
+                        <div>
+                            <span>
+                                <FormattedMessage
+                                    id="size.both.label"
+                                    defaultMessage="Front:"
+                                />
+                            </span>
+                            <span>{tire.size_both.Front}</span>
+                        </div>
+                        <div>
+                            <span>
+                                <FormattedMessage
+                                    id="size.both.label"
+                                    defaultMessage="Rear:"
+                                />
+                            </span>
+                            <span>{tire.size_both.Rear}</span>
+                        </div>
+                    </div>}
+                </div>
+            </button>)
+        )
+    }
 
     // Note: handleViewTires function removed as tire size buttons are now direct links
 
     return (
-        <div className={classes.container}>
+        <div>
             {/* Header */}
             <header className={classes.header}>
                 <h1 className={classes.title}>
@@ -60,99 +114,90 @@ const VehicleLookupTrims = props => {
                     />
                 </h1>
             </header>
-
-            {/* Vehicle Information */}
-            <section className={classes.vehicleSection}>
-                <div className={classes.vehicleInfo}>
-                    {isVinLookup ? (
-                        <>
-                            <h2 className={classes.vehicleTitle}>
-                                <FormattedMessage
-                                    id="vehicleLookupTrims.vinTitle"
-                                    defaultMessage="VIN Lookup Results"
-                                />
-                            </h2>
-                            <p className={classes.vinNumber}>
-                                <strong>VIN: </strong>{vehicleInfo.vin}
-                            </p>
-                            <p className={classes.vehicleDescription}>
-                                <FormattedMessage
-                                    id="vehicleLookupTrims.vinDescription"
-                                    defaultMessage="Please select the tire size that matches your vehicle's specifications to view compatible tires."
-                                />
-                            </p>
-                        </>
-                    ) : (
-                        <>
-                            <h2 className={classes.vehicleTitle}>
-                                {`${vehicleInfo.year} ${vehicleInfo.make} ${vehicleInfo.model}`}
-                            </h2>
-                            <p className={classes.vehicleDescription}>
-                                <FormattedMessage
-                                    id="vehicleLookupTrims.description"
-                                    defaultMessage="Please select the OE (Original Equipment) tire size that matches your vehicle's specifications to view compatible tires."
-                                />
-                            </p>
-                        </>
-                    )}
-                </div>
-            </section>
-
-            {/* Tire Size Options */}
-            <section className={classes.tireSizeSection}>
-                <h3 className={classes.sectionTitle}>
-                    <FormattedMessage
-                        id="vehicleLookupTrims.tireSizeOptions"
-                        defaultMessage="OE Tire Size Options"
-                    />
-                </h3>
-
-                <div className={classes.tireSizeGrid}>
-                    {tireSizes.map((tire, index) => (
-                        tire.url ? (
-                            <Link
-                                key={index}
-                                to={tire.url}
-                                className={`${classes.tireSizeButton} ${classes.tireSizeLink}`}
-                                onClick={() => handleTireSizeSelect(tire.size)}
-                            >
-                                <div className={classes.tireSizeContent}>
-                                    <div className={classes.tireSize}>{tire.size}</div>
-                                    {tire.trim && (
-                                        <div className={classes.tireTrim}>{tire.trim}</div>
-                                    )}
-                                </div>
-                            </Link>
+            <div className={classes.container}>
+                {/* Vehicle Information */}
+                <section className={classes.vehicleSection}>
+                    <div className={classes.vehicleInfo}>
+                        {isVinLookup ? (
+                            <>
+                                <h2 className={classes.vehicleTitle}>
+                                    <FormattedMessage
+                                        id="vehicleLookupTrims.vinTitle"
+                                        defaultMessage="VIN Lookup Results"
+                                    />
+                                </h2>
+                                <p className={classes.vinNumber}>
+                                    <strong>VIN: </strong>{vehicleInfo.vin}
+                                </p>
+                                <p className={classes.vehicleDescription}>
+                                    <FormattedMessage
+                                        id="vehicleLookupTrims.vinDescription"
+                                        defaultMessage="Please select the tire size that matches your vehicle's specifications to view compatible tires."
+                                    />
+                                </p>
+                            </>
                         ) : (
-                            <button
-                                key={index}
-                                className={`${classes.tireSizeButton} ${
-                                    selectedTireSize === tire.size ? classes.selected : ''
-                                }`}
-                                onClick={() => handleTireSizeSelect(tire.size)}
-                                type="button"
-                            >
-                                <div className={classes.tireSizeContent}>
-                                    <div className={classes.tireSize}>{tire.size}</div>
-                                    {tire.trim && (
-                                        <div className={classes.tireTrim}>{tire.trim}</div>
-                                    )}
-                                </div>
-                            </button>
-                        )
-                    ))}
-                </div>
-            </section>
+                            <>
+                                <h2 className={classes.vehicleTitle}>
+                                    {`${vehicleInfo.year} ${vehicleInfo.make} ${vehicleInfo.model}`}
+                                </h2>
+                                <p className={classes.vehicleDescription}>
+                                    <FormattedMessage
+                                        id="vehicleLookupTrims.description"
+                                        defaultMessage="Please select the OE (Original Equipment) tire size that matches your vehicle's specifications to view compatible tires."
+                                    />
+                                </p>
+                            </>
+                        )}
+                    </div>
+                </section>
 
-            {/* Information Section */}
-            <section className={classes.infoSection}>
-                <p className={classes.infoText}>
-                    <FormattedMessage
-                        id="vehicleLookupTrims.infoText"
-                        defaultMessage="Click on any tire size option above to view available tires for that specification."
-                    />
-                </p>
-            </section>
+                {/* Tire Size Options */}
+                <section className={classes.tireSizeSection}>
+                    <h3 className={classes.sectionTitle}>
+                        <FormattedMessage
+                            id="vehicleLookupTrims.tireSizeOptions"
+                            defaultMessage="OE Tire Size Options"
+                        />
+                    </h3>
+
+                    <div className={classes.tireContainer}>
+                        {tireSizes.filter(el => el.column === 'standard').length > 0 && <div>
+                            <h3>
+                                <FormattedMessage
+                                    id="vehicleLookupTrims.tire.Standard"
+                                    defaultMessage="Standard Set"
+                                />
+                            </h3>
+                            {tireItem(tireSizes.filter(el => el.column === 'standard'))}
+                        </div>}
+                        {tireSizes.filter(el => el.column === 'staggered').length > 0 && <div>
+                            <h3>
+                                <FormattedMessage
+                                    id="vehicleLookupTrims.tire.Staggered"
+                                    defaultMessage="Staggered Fitment Options"
+                                />
+                            </h3>
+                            {tireItem(tireSizes.filter(el => el.column === 'staggered'))}
+                        </div>}
+                    </div>
+                </section>
+
+                {/* Information Section */}
+                <section className={classes.infoSection}>
+                    <Link
+                        className={classes.selectedTiresBtn}
+                        disabled={selectedTireSizeUrl === ''}
+                        to={selectedTireSizeUrl}
+                        type="button"
+                    >
+                        <FormattedMessage
+                            id="vehicleLookupTrims.button.infoText"
+                            defaultMessage="View Tires for Selected Size"
+                        />
+                    </Link>
+                </section>
+            </div>
         </div>
     );
 };

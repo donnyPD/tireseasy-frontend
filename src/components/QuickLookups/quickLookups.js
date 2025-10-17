@@ -133,6 +133,8 @@ const QuickLookups = props => {
                     size: option.size,
                     trim: option.trim,
                     url: option.url,
+                    column: option.column,
+                    size_both: option.size_both.Front ? option.size_both : null,
                     selected: index === 0 // Select first option by default
                 }));
 
@@ -213,6 +215,8 @@ const QuickLookups = props => {
                     size: option.size,
                     trim: option.trim,
                     url: option.url,
+                    column: option.column,
+                    size_both: option.size_both.Front ? option.size_both : null,
                     selected: index === 0 // Select first option by default
                 }));
 

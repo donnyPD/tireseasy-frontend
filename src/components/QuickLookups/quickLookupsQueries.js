@@ -53,6 +53,11 @@ export const GET_OPTIONS = gql`
              items {
                  trim
                  size
+                 size_both {
+                    Front
+                    Rear
+                 }
+                 column
                  url
              }
         }
@@ -68,6 +73,11 @@ export const GET_OPTIONS_BY_VIN = gql`
             items {
                 trim
                 size
+                size_both {
+                    Front
+                    Rear
+                 }
+                column
                 url
             }
         }

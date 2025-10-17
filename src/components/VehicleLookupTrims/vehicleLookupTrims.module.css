@@ -1,9 +1,6 @@
 /* Vehicle Lookup Trims Component Styles */
 .container {
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    background-color: white;
-    min-height: 100vh;
+    @apply bg-white p-6 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)] mb-6;
 }
 
 /* Header Section */
@@ -16,16 +13,15 @@
     font-weight: bold;
     color: var(--color-primary-deep, #1A2C5B);
     margin: 0;
-    text-align: center;
 }
 
 /* Vehicle Information Section */
 .vehicleSection {
-    margin-bottom: 2.5rem;
+    @apply mb-6;
 }
 
 .vehicleInfo {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .vehicleTitle {
@@ -37,12 +33,9 @@
 
 .vehicleDescription {
     font-size: 1rem;
-    color: var(--color-text-secondary, #666666);
     line-height: 1.5;
     margin: 0;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 700px;
 }
 
 /* Tire Size Section */
@@ -53,24 +46,23 @@
 .sectionTitle {
     font-size: 1.25rem;
     font-weight: bold;
-    color: var(--color-primary-deep, #1A2C5B);
-    margin: 0 0 1.5rem 0;
-    text-align: center;
+    margin: 0 0 1rem;
 }
 
-.tireSizeGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
+.tireContainer {
+    @apply md_flex md_justify-between w-full;
+
+    > div {
+        @apply md_w-[calc(50%-10px)];
+    }
+
+    h3 {
+        @apply text-[18px] font-bold pb-2 border-b mb-4;
+    }
 }
 
 .tireSizeButton {
-    background-color: white;
-    border: 2px solid var(--color-neutral-lighter, #EEEEEE);
-    border-radius: 33px;
-    padding: 1rem;
+    border: 1px solid transparent;
     font-size: 1rem;
     font-weight: 600;
     color: var(--color-text-primary, #333333);
@@ -78,10 +70,11 @@
     transition: all 0.3s ease;
     text-align: center;
     position: relative;
-    min-height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @apply block w-full bg-brand-light rounded-md p-4 mb-4;
 }
 
 /* Styles for link version of tire size button */
@@ -103,6 +96,20 @@
     flex-direction: column;
     gap: 0.25rem;
     align-items: center;
+
+    @apply w-full;
+}
+
+.tireBoth {
+    @apply w-full;
+
+    h4 {
+        @apply text-primary-deep font-bold mb-2;
+    }
+
+    div {
+        @apply text-sm py-1 flex justify-between w-full last_border-t;
+    }
 }
 
 .tireSize {
@@ -118,25 +125,18 @@
     font-style: italic;
 }
 
-.tireSizeButton:hover {
+.tireSizeButton:hover,
+.tireSizeButton.selected {
     border-color: var(--color-accent-orange, #FF8C00);
-    background-color: rgba(255, 140, 0, 0.05);
+    background-color: rgba(255, 140, 0, 0.1);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    outline: none;
 }
 
 .tireSizeButton:focus {
     outline: none;
     border-color: var(--color-accent-orange, #FF8C00);
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
-}
-
-.tireSizeButton.selected {
-    background-color: var(--color-accent-orange, #FF8C00);
-    border-color: var(--color-accent-orange, #FF8C00);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
 }
 
 .tireSizeButton.selected .tireTrim {
@@ -150,16 +150,29 @@
     right: 0.5rem;
     font-size: 1.2rem;
     font-weight: bold;
+    color: var(--color-accent-orange, #FF8C00);
 }
 
 /* Information Section */
 .infoSection {
     text-align: center;
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: var(--color-neutral-bg, #FAFAFA);
-    border-radius: 33px;
-    border: 1px solid var(--color-neutral-lighter, #EEEEEE);
+}
+
+.selectedTiresBtn {
+    @apply border-0 text-white rounded-[33px] py-3 px-[25px] text-base font-bold shadow-[0_4px_12px_rgba(255,140,0,0.3)] transition-all
+    md_text-lg md_px-10 md_py-3;
+    @apply normal-case !important;
+    background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+
+    &:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
+    }
+
+    &:disabled {
+        @apply opacity-25 cursor-not-allowed transform-none;
+        background: #666666;
+     }
 }
 
 .infoText {

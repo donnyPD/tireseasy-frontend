@@ -116,6 +116,7 @@ const config = {
                 'brand-700': '#1A2C5B',         // Dark brand variant
                 'brand-dark': '#1A2C5B',        // Brand dark
                 'brand-darkest': '#003366',      // Brand darkest
+                'brand-light': '#f7fafc',      // Brand light
 
                 'primary-red': '#e12528',
                 'primary-dark': '#111827',
