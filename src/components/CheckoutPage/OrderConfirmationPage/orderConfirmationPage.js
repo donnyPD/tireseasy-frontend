@@ -40,9 +40,11 @@ const OrderConfirmationPage = props => {
         }
     }, []);
     if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
+        // console.log(formRef);
+        // console.log(formRef.current);
         if (formRef.current) {
             setTimeout(() => {
-                console.log('Success - punchoutSuccessData');
+                console.log('Success - Punchout Submit Success');
                 formRef.current.submit();
             }, 1000);
         }

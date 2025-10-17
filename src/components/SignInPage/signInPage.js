@@ -6,10 +6,17 @@ import { useSignInPage } from '@magento/peregrine/lib/talons/SignInPage/useSignI
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import SignIn from '../SignIn';
+const KEY = 'M2_VENIA_BROWSER_PERSISTENCE';
 
 import defaultClasses from './signInPage.module.css';
 
 const SignInPage = props => {
+    if (localStorage.getItem(KEY + '__cartId')) {
+        localStorage.setItem(KEY + '__cartId', '');
+    }
+    if (localStorage.getItem(KEY + '__magento_cache_id')) {
+        localStorage.setItem(KEY + '__magento_cache_id', '');
+    }
     const classes = useStyle(defaultClasses, props.classes);
     const { signInProps } = useSignInPage(props);
     const { formatMessage } = useIntl();
