@@ -38,18 +38,20 @@ const VehicleLookupTrims = props => {
         tireSizes.find(tire => tire.selected)?.size || ''
     );
     const [selectedTireSizeUrl, setSelectedTireSizeUrl] = useState(
-        tireSizes.find(tire => tire.selected)?.url || ''
+        tireSizes.find(tire => tire.selected)?.size
+            ? tireSizes.find(tire => tire.selected)?.url
+            : ''
     );
 
     /**
      * Handle tire size selection
      * @param {string} size - Selected tire size
+     * @param {string} url - Selected tire size
      */
     const handleTireSizeSelect = (size, url) => {
         setSelectedTireSize(size);
         setSelectedTireSizeUrl(url);
         onTireSizeSelect(size);
-        console.log(selectedTireSizeUrl);
     };
 
     const tireItem = (list) => {
