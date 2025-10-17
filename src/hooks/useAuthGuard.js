@@ -16,7 +16,7 @@ export const useAuthGuard = () => {
     /**
      * Routes that don't require authentication
      */
-    const publicRoutes = ['/sign-in', '/create-account', '/forgot-password'];
+    const publicRoutes = ['/sign-in', '/create-account', '/forgot-password', '/punchout/session'];
 
     /**
      * Check if current route is public (doesn't require auth)
