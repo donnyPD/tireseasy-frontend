@@ -104,6 +104,8 @@ export const useOrderConfirmationPage = props => {
 
     if (token) {
         const { data: data } = useQuery(getSuccessRedirectPunchoutUrlQuery, {
+            fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
             variables: {
                 token
             }

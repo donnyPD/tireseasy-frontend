@@ -26,7 +26,7 @@ const OrderConfirmationPage = props => {
 
     const { flatData, isSignedIn, loading, punchoutSuccessData } = talonProps;
     const formRef = useRef(null);
-    console.log('punchoutSuccessData ----- :', punchoutSuccessData);
+    console.log('punchoutSuccessData:', punchoutSuccessData);
 
     useEffect(() => {
         const { scrollTo } = globalThis;
@@ -42,6 +42,7 @@ const OrderConfirmationPage = props => {
     if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
         if (formRef.current) {
             setTimeout(() => {
+                console.log('Success - punchoutSuccessData');
                 formRef.current.submit();
             }, 1000);
         }
@@ -136,14 +137,24 @@ const OrderConfirmationPage = props => {
                             <FormattedMessage id={'success.checkoutButton'} defaultMessage={'Continue Shopping'} />
                         </Link>
                     </div>
-                    {punchoutSuccessData && punchoutSuccessData?.success_redirect_url && <div>
-                        <form ref={formRef} id="cxml_form" method="POST" action={punchoutSuccessData?.success_redirect_url}
-                              encType="application/x-www-form-urlencoded">
+                    <div>
+                        <form
+                            ref={formRef}
+                            id="cxml_form" method="POST"
+                            action={punchoutSuccessData && punchoutSuccessData?.success_redirect_url
+                                ? punchoutSuccessData?.success_redirect_url
+                                : ''}
+                            encType="application/x-www-form-urlencoded"
+                        >
 
-                            <input type="hidden" name="cXML-base64"
-                                   value={punchoutSuccessData?.base64_order_cxml} />
+                            <input
+                                type="hidden" name="cXML-base64"
+                                value={punchoutSuccessData && punchoutSuccessData?.base64_order_cxml
+                                    ? punchoutSuccessData?.base64_order_cxml
+                                    : ''}
+                            />
                         </form>
-                    </div>}
+                    </div>
                 </div>
             </div>
         );
