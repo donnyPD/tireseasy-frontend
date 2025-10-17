@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { object, shape, string } from 'prop-types';
-import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
+import { useOrderConfirmationPage } from '../../../talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 import { Link, useLocation } from 'react-router-dom';
 import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
@@ -24,7 +24,9 @@ const OrderConfirmationPage = props => {
         orderNumber
     });
 
-    const { flatData, isSignedIn, loading } = talonProps;
+    const { flatData, isSignedIn, loading, punchoutSuccessData } = talonProps;
+    const formRef = useRef(null);
+    console.log('punchoutSuccessData ----- :', punchoutSuccessData);
 
     useEffect(() => {
         const { scrollTo } = globalThis;
@@ -37,6 +39,13 @@ const OrderConfirmationPage = props => {
             });
         }
     }, []);
+    if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
+        if (formRef.current) {
+            setTimeout(() => {
+                formRef.current.submit();
+            }, 1000);
+        }
+    }
 
     if (!flatData || loading) {
         return fullPageLoadingIndicator;
@@ -127,6 +136,14 @@ const OrderConfirmationPage = props => {
                             <FormattedMessage id={'success.checkoutButton'} defaultMessage={'Continue Shopping'} />
                         </Link>
                     </div>
+                    {punchoutSuccessData && punchoutSuccessData?.success_redirect_url && <div>
+                        <form ref={formRef} id="cxml_form" method="POST" action={punchoutSuccessData?.success_redirect_url}
+                              encType="application/x-www-form-urlencoded">
+
+                            <input type="hidden" name="cXML-base64"
+                                   value={punchoutSuccessData?.base64_order_cxml} />
+                        </form>
+                    </div>}
                 </div>
             </div>
         );
