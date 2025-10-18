@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { object, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '../../../talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
@@ -26,7 +26,7 @@ const OrderConfirmationPage = props => {
 
     const { flatData, isSignedIn, loading, punchoutSuccessData } = talonProps;
     const formRef = useRef(null);
-    console.log('punchoutSuccessData:', punchoutSuccessData);
+    console.log('!!! punchoutSuccessData:', punchoutSuccessData);
 
     useEffect(() => {
         const { scrollTo } = globalThis;
@@ -39,12 +39,43 @@ const OrderConfirmationPage = props => {
             });
         }
     }, []);
+
+    // 222
+    // useEffect(() => {
+    //     if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
+    //         console.log('formRef 222:', formRef);
+    //         console.log('formRef.current 222:', formRef.current);
+    //         if (formRef.current) {
+    //             setTimeout(() => {
+    //                 console.log('Success - Punchout Submit Success 222');
+    //                 formRef.current.submit();
+    //             }, 1000);
+    //         }
+    //     }
+    // }, [punchoutSuccessData]);
+
+    // 333
+    // const [isPunchoutData, setIsPunchoutData] = useState(false);
+    // if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
+    //     setIsPunchoutData(true);
+    // }
+    // useEffect(() => {
+    //     if (isPunchoutData && punchoutSuccessData?.success_redirect_url) {
+    //         if (formRef.current) {
+    //             setTimeout(() => {
+    //                 console.log('Success - Punchout Submit Success 333');
+    //                 formRef.current.submit();
+    //             }, 1000);
+    //         }
+    //     }
+    // }, [isPunchoutData]);
+
     if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
-        // console.log(formRef);
-        // console.log(formRef.current);
+        console.log('formRef 111:', formRef);
+        console.log('formRef.current 111:', formRef.current);
         if (formRef.current) {
             setTimeout(() => {
-                console.log('Success - Punchout Submit Success');
+                console.log('Success - Punchout Submit Success 111');
                 formRef.current.submit();
             }, 1000);
         }
