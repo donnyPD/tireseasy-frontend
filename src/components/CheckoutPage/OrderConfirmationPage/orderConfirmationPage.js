@@ -26,7 +26,6 @@ const OrderConfirmationPage = props => {
 
     const { flatData, isSignedIn, loading, punchoutSuccessData } = talonProps;
     const formRef = useRef(null);
-    console.log('!!! punchoutSuccessData:', punchoutSuccessData);
 
     useEffect(() => {
         const { scrollTo } = globalThis;
@@ -48,12 +47,9 @@ const OrderConfirmationPage = props => {
     }, [punchoutSuccessData]);
     useEffect(() => {
         if (isPunchoutData && punchoutSuccessData?.success_redirect_url) {
-            console.log('formRef 333:', formRef);
-            console.log('formRef 333:', formRef.current);
             const timer = setTimeout(() => {
                 if (formRef.current) {
                     setTimeout(() => {
-                        console.log('Success - Punchout Submit Success 333');
                         formRef.current.submit();
                         setIsPunchoutData(false);
                     }, 1000);
