@@ -40,46 +40,28 @@ const OrderConfirmationPage = props => {
         }
     }, []);
 
-    // 222
-    // useEffect(() => {
-    //     if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
-    //         console.log('formRef 222:', formRef);
-    //         console.log('formRef.current 222:', formRef.current);
-    //         if (formRef.current) {
-    //             setTimeout(() => {
-    //                 console.log('Success - Punchout Submit Success 222');
-    //                 formRef.current.submit();
-    //             }, 1000);
-    //         }
-    //     }
-    // }, [punchoutSuccessData]);
-
-    // 333
-    // const [isPunchoutData, setIsPunchoutData] = useState(false);
-    // if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
-    //     setIsPunchoutData(true);
-    // }
-    // useEffect(() => {
-    //     if (isPunchoutData && punchoutSuccessData?.success_redirect_url) {
-    //         if (formRef.current) {
-    //             setTimeout(() => {
-    //                 console.log('Success - Punchout Submit Success 333');
-    //                 formRef.current.submit();
-    //             }, 1000);
-    //         }
-    //     }
-    // }, [isPunchoutData]);
-
-    if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
-        console.log('formRef 111:', formRef);
-        console.log('formRef.current 111:', formRef.current);
-        if (formRef.current) {
-            setTimeout(() => {
-                console.log('Success - Punchout Submit Success 111');
-                formRef.current.submit();
-            }, 1000);
+    const [isPunchoutData, setIsPunchoutData] = useState(false);
+    useEffect(() => {
+        if (punchoutSuccessData && punchoutSuccessData?.success_redirect_url) {
+            setIsPunchoutData(true);
         }
-    }
+    }, [punchoutSuccessData]);
+    useEffect(() => {
+        if (isPunchoutData && punchoutSuccessData?.success_redirect_url) {
+            console.log('formRef 333:', formRef);
+            console.log('formRef 333:', formRef.current);
+            const timer = setTimeout(() => {
+                if (formRef.current) {
+                    setTimeout(() => {
+                        console.log('Success - Punchout Submit Success 333');
+                        formRef.current.submit();
+                        setIsPunchoutData(false);
+                    }, 1000);
+                }
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [isPunchoutData, formRef.current]);
 
     if (!flatData || loading) {
         return fullPageLoadingIndicator;
