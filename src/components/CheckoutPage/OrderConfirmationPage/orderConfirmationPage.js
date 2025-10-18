@@ -47,7 +47,7 @@ const OrderConfirmationPage = props => {
     }, [punchoutSuccessData]);
     useEffect(() => {
         if (isPunchoutData && punchoutSuccessData?.success_redirect_url) {
-            const timer = setTimeout(() => {
+            const timer = setInterval(() => {
                 if (formRef.current) {
                     setTimeout(() => {
                         formRef.current.submit();
@@ -55,7 +55,7 @@ const OrderConfirmationPage = props => {
                     }, 1000);
                 }
             }, 100);
-            return () => clearTimeout(timer);
+            return () => clearInterval(timer);
         }
     }, [isPunchoutData, formRef.current]);
 
