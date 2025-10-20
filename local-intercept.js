@@ -41,6 +41,11 @@ function localIntercept(targets) {
     // Override Gallery component to use our custom version
     veniaTargets.routes.tap(routes => {
         // This helps ensure our custom components are used
+        routes.push({
+            name: 'Logout',
+            pattern: '/logout',
+            path: require.resolve('./src/components/LogoutPage/logoutPage.js')
+        });
         return routes;
     });
 
