@@ -29,7 +29,7 @@ export const GET_SUCCESS_REDIRECT_PUNCHOUT_URL = gql`
     query ($token: String!) {
         GetSuccessRedirectPunchoutUrl(token: $token) {
             success_redirect_url
-            base64_order_cxml
+            urlencoded_order_cxml
         }
     }
 `;
