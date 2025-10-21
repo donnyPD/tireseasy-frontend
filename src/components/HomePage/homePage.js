@@ -12,6 +12,10 @@ import { useVinLookup, validateVin } from '../QuickLookups/useVinLookup';
 import defaultClasses from './homePage.module.css';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import CmsBlockGroup from '@magento/venia-ui/lib/components/CmsBlock';
+import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/SignIn/signIn.gql';
+import { useApolloClient, useMutation } from '@apollo/client';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 // Simple SVG icons for the features
 const FastShippingIcon = () => (
@@ -49,6 +53,12 @@ const HomePage = props => {
     });
     const [vinProcessing, setVinProcessing] = useState(false);
     const [authProcessing, setAuthProcessing] = useState(false);
+    const operations = mergeOperations(DEFAULT_OPERATIONS);
+    const { createCartMutation } = operations;
+    const [fetchCartId] = useMutation(createCartMutation);
+    const cartContext = useCartContext();
+    const [{ cartId }, { createCart, removeCart }] = cartContext;
+    const apolloClient = useApolloClient();
 
     /**
      * Handle JWT token authentication from URL parameter
@@ -74,6 +84,15 @@ const HomePage = props => {
 
             // Set the token using PWA Studio's authentication system
             await setToken(token);
+
+            // Clear all cart/customer data from cache and redux.
+            await apolloClient.clearCacheData(apolloClient, 'cart');
+            await removeCart();
+
+            // Create and get the customer's cart id.
+            await createCart({
+                fetchCartId
+            });
 
             // Fetch user details after setting the token
             if (getUserDetails) {
