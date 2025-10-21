@@ -53,6 +53,7 @@ const OrderConfirmationPage = props => {
                         formRef.current.submit();
                         setIsPunchoutData(false);
                     }, 1000);
+                    clearInterval(timer);
                 }
             }, 100);
             return () => clearInterval(timer);
@@ -159,7 +160,7 @@ const OrderConfirmationPage = props => {
                         >
 
                             <input
-                                type="hidden" name="cXML-base64"
+                                type="hidden" name="сXML-urlencoded"
                                 value={punchoutSuccessData && punchoutSuccessData?.base64_order_cxml
                                     ? punchoutSuccessData?.base64_order_cxml
                                     : ''}
