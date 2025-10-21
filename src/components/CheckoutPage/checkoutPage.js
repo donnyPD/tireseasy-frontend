@@ -144,11 +144,12 @@ const CheckoutPage = props => {
     let checkoutContent;
 
     const checkPoAttribute = (keyDown) => {
-        if (!poAttributeValidation) {
-            keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
-        } else {
-            setPoMessageError(true);
-        }
+        // if (!poAttributeValidation) {
+        //     keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
+        // } else {
+        //     setPoMessageError(true);
+        // }
+        keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
     }
 
     const heading = isGuestCheckout
