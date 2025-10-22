@@ -8,6 +8,8 @@
 
     composes: lg_flex from global;
     composes: lg_px-md from global;
+
+    @apply flex -lg_flex-col-reverse;
 }
 
 .sidebar {
@@ -16,7 +18,7 @@
     composes: lg_w-filterSidebarWidth from global;
     flex: 0 0 280px;
 
-    @apply flex-col lg_mr-8;
+    @apply flex-col lg_mr-8 -lg_mt-8;
 }
 
 .content {

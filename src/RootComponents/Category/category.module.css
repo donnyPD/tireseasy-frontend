@@ -1,82 +1,86 @@
-/* Layout Container */
-.layoutContainer {
-    display: flex;
-    min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
-    gap: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+.root {
+    composes: p-xs from global;
 }
 
-/* Sidebar */
-.sidebar {
-    flex: 0 0 280px; /* Fixed width sidebar */
-    border-radius: 12px;
-    height: fit-content;
-    position: sticky;
-    top: 125px;
-    margin-right: 15px;
-
-    > aside {
-        @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];
-    }
-
-    div[class^="w-[300px]"] {
-        @apply lg_w-[240px] !important;
-
-        & + div,
-        & + div input {
-            @apply lg_w-[240px] !important;
-        }
-    }
+.title {
+    composes: font-normal from global;
+    composes: px-2xs from global;
+    composes: py-0 from global;
+    composes: text-xl from global;
 }
 
-/* Main Content */
-.mainContent {
-    flex: 1;
-    min-width: 0; /* Prevents flex item from overflowing */
+.pagination {
+    composes: relative from global;
+    composes: bottom-0 from global;
+}
+
+.placeholder {
+    composes: h-screen from global;
 }
 
 .categoryTitle {
-    @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
+    composes: font-light from global;
+    composes: leading-snug from global;
+    composes: pb-xs from global;
+    composes: text-colorDefault from global;
+    composes: text-center from global;
+    composes: text-xl from global;
 }
 
-/* Responsive Design */
-@media (max-width: 959px) {
-    .layoutContainer {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1.5rem 1rem;
-    }
+.heading {
+    composes: flex from global;
+    composes: flex-wrap from global;
+    composes: justify-center from global;
+    composes: pb-2xs from global;
 
-    .sidebar {
-        flex: none;
-        position: static;
-        order: 2; /* Move sidebar below main content on mobile */
-    }
-
-    .mainContent {
-        order: 1;
-    }
+    composes: lg_flex-nowrap from global;
+    composes: lg_items-center from global;
+    composes: lg_justify-between from global;
+    composes: lg_pb-sm from global;
+    composes: lg_w-full from global;
 }
 
-@media (max-width: 768px) {
-    .layoutContainer {
-        padding: 1rem 0.5rem;
-        gap: 1rem;
-    }
+.categoryContent {
+    composes: lg_flex-grow from global;
 
-    .sidebar {
-        padding: 1rem;
-    }
+    @apply -lg_px-0;
 }
 
-@media (max-width: 480px) {
-    .layoutContainer {
-        padding: 0.5rem;
-    }
+.categoryInfo {
+    composes: basis-full from global;
+    composes: leading-tight from global;
+    composes: max-w-[75vw] from global;
+    composes: mx-0 from global;
+    composes: my-xs from global;
+    composes: text-center from global;
 
-    .sidebar {
-        padding: 0.75rem;
-    }
+    composes: lg_m-0 from global;
+    composes: lg_text-left from global;
+}
+
+.headerButtons {
+    composes: flex from global;
+    composes: justify-center from global;
+    composes: pb-sm from global;
+    composes: basis-full from global;
+
+    composes: lg_justify-end from global;
+    composes: lg_pb-0 from global;
+}
+
+.contentWrapper {
+    composes: w-full from global;
+    composes: flex from global;
+
+    @apply flex -lg_flex-col-reverse;
+    @apply -lg_px-0 !important;
+}
+
+.sidebar {
+    composes: hidden from global;
+
+    composes: lg_flex from global;
+    composes: lg_self-start from global;
+    composes: lg_pt-16 from global;
+    composes: lg_w-filterSidebarWidth from global;
 }

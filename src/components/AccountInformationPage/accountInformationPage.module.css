@@ -4,8 +4,9 @@
     composes: px-sm from global;
     composes: py-md from global;
     composes: md_px-lg from global;
-    composes: lg_flex from global;
     composes: lg_px-md from global;
+
+    @apply flex -lg_flex-col-reverse;
 }
 
 .sidebar {

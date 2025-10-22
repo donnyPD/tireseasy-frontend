@@ -1,8 +1,9 @@
 .root {
     composes: p-xs from global;
+    composes: flex from global;
+    composes: flex-nowrap from global;
 
-    composes: lg_flex from global;
-    composes: lg_flex-nowrap from global;
+    @apply -lg_flex-col-reverse;
 }
 
 .noResult {
@@ -58,7 +59,7 @@
     composes: lg_self-start from global;
     composes: lg_pt-[76px] from global;
 
-    @apply flex-col lg_mr-6 lg_min-w-[280px];
+    @apply flex-col lg_mr-6 lg_min-w-[280px] -lg_mt-8;
 
     > aside {
         @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];

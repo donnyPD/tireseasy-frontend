@@ -4,8 +4,8 @@ import { useCategory } from '../../talons/RootComponents/Category';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 
 import CategoryContent from './categoryContent';
-import defaultClasses from '@magento/venia-ui/lib/RootComponents/Category/category.module.css';
-import customClasses from './category.module.css';
+import defaultClasses from './category.module.css';
+import customClasses from './categoryContent.module.css';
 import {Meta, StoreTitle} from '@magento/venia-ui/lib/components/Head';
 import { GET_PAGE_SIZE } from '@magento/venia-ui/lib/RootComponents/Category/category.gql';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';

@@ -12,6 +12,8 @@
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    @apply -md_mx-3;
 }
 
 .heroTitle,
@@ -145,7 +147,7 @@ div[data-role="featureCard"] p {
     text-align: center;
     margin-bottom: 40px;
 
-    @apply rounded-xl;
+    @apply rounded-xl -md_mx-3;
 
     .container {
         > div {

@@ -16,6 +16,8 @@
     position: sticky;
     top: 125px;
     margin-right: 15px;
+
+    @apply -lg_mr-0;
 }
 
 /* Main Content */
