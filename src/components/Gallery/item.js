@@ -10,7 +10,7 @@ import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGallery
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Image from '@magento/venia-ui/lib/components/Image';
-import GalleryItemShimmer from '@magento/venia-ui/lib/components/Gallery/item.shimmer';
+import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from '@magento/venia-ui/lib/components/Gallery/item.module.css';
 
 import customClasses from './item.module.css';
@@ -76,6 +76,13 @@ const GalleryItem = props => {
         if (!isNaN(value) && value > 0) {
             setItemQty(value);
         }
+    }
+
+    const isDisabledIncreaseBtn = (el) => {
+        const value = el && el.available_quantity_label
+            ? parseInt(el.available_quantity_label, 10)
+            : null;
+        return value && itemQty === value;
     }
 
     const attrs= [
@@ -211,7 +218,7 @@ const GalleryItem = props => {
                             defaultMessage: 'Increase Quantity'
                         })}
                         className={classes.button_increment}
-                        // disabled={}
+                        disabled={isDisabledIncreaseBtn(item)}
                         onClick={() => setItemQty(itemQty + 1)}
                         type="button"
                     >

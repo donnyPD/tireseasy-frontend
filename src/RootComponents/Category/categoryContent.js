@@ -28,7 +28,7 @@ const FilterSidebar = React.lazy(() =>
     import('@magento/venia-ui/lib/components/FilterSidebar')
 );
 
-import { GalleryShimmer } from '@magento/venia-ui/lib/components/Gallery';
+import { GalleryShimmer } from '../../components/Gallery';
 import Gallery from '../../components/Gallery';
 import QuickLookups from "../../components/QuickLookups";
 

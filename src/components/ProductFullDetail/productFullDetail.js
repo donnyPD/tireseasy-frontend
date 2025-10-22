@@ -13,7 +13,7 @@ import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
 import Button from '@magento/venia-ui/lib/components/Button';
 import Carousel from './ProductImageCarousel';
 import FormError from '@magento/venia-ui/lib/components/FormError';
-import QuantityStepper from '@magento/venia-ui/lib/components/QuantityStepper';
+import QuantityStepper from '../QuantityStepper';
 import RichContent from '@magento/venia-ui/lib/components/RichContent/richContent';
 import { ProductOptionsShimmer } from '@magento/venia-ui/lib/components/ProductOptions';
 import CustomAttributes from './CustomAttributes';
@@ -425,6 +425,7 @@ const ProductFullDetail = props => {
                             classes={{ root: classes.quantityRoot }}
                             min={1}
                             message={errors.get('quantity')}
+                            quantityAvailable={product && product?.available_quantity_label || null}
                         />
                     </section>
                     <section className={classes.actions}>

@@ -3,7 +3,7 @@ import { string, shape, array } from 'prop-types';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import GalleryItem from './item';
-import GalleryItemShimmer from '@magento/venia-ui/lib/components/Gallery/item.shimmer';
+import GalleryItemShimmer from './item.shimmer';
 import defaultClasses from '@magento/venia-ui/lib/components/Gallery/gallery.module.css';
 import customClasses from './gallery.module.css';
 import { useGallery } from '@magento/peregrine/lib/talons/Gallery/useGallery';

@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
 
+    @apply bg-white p-6 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+
     @media (max-width: 900px) {
         flex-wrap: wrap;
     }
@@ -40,7 +42,7 @@
     font-size: 24px;
     color: var(--color-accent-orange);
     margin-top: 10px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .productInfo {
