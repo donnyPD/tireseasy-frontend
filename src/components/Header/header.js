@@ -8,6 +8,7 @@ import { useCustomHeader } from './useCustomHeader';
 import defaultClasses from './header.module.css';
 import CartTrigger from './cartTrigger';
 import Logo from '../../assets/images/Logo-Negative.svg';
+import MobileSubmenu from './mobileSubmenu';
 
 const Header = (props) => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -195,6 +196,9 @@ const Header = (props) => {
                                         >
                                             {category.name}
                                         </Link>
+                                        <MobileSubmenu
+                                            subCategory={renderCategoryDropdown(category)}
+                                        />
                                         {renderCategoryDropdown(category)}
                                     </li>
                                 ))

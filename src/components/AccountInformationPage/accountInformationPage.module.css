@@ -58,9 +58,8 @@
     @apply block mb-1;
 }
 
-.nameValue,
-.emailValue,
-.passwordValue {
+.emailValue {
+    @apply break-words;
 }
 
 .editButtonContainer {

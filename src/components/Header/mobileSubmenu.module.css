@@ -1,0 +1,12 @@
+.container {
+    @apply xl_hidden;
+}
+
+.triggerBtn {
+    @apply text-white p-2 absolute right-0 top-[10px];
+    -webkit-tap-highlight-color: transparent;
+}
+
+.subMenuContainer {
+    @apply overflow-hidden;
+}
