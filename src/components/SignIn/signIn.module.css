@@ -69,7 +69,17 @@
     @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
 }
 
-.title_small {
+div[data-role="signInInfoBlock"] > h2,
+div[data-role="signInText"] h3 {
+    @apply font-bold text-primary-deep text-xl text-left lg_text-2xl pt-2xs mt-0 mb-4 normal-case;
+
+    a {
+        @apply no-underline;
+    }
+}
+
+.title_small,
+div[data-role="signInText"] h6 {
     @apply font-bold text-primary-deep;
 }
 
@@ -83,16 +93,22 @@
 
 .info {
     @apply px-4 pt-4 lg_px-6 lg_pt-6;
+
+    > div {
+        @apply p-0 m-0;
+    }
 }
 
-.info_block {
+.info_block,
+div[data-role="signInInfoBlock"] {
     @apply p-4 lg_px-6 rounded-lg border bg-neutral-light mb-4 lg_mb-1;
 }
 
-.text_block {
+.text_block,
+div[data-role="signInText"] {
     @apply mt-4 mb-2 p-4 lg_px-6 rounded-lg bg-white shadow-[0_2px_8px_rgba(0,0,0,0.1)];
 
     h6, p {
-        @apply text-sm;
+        @apply text-sm m-0;
     }
 }

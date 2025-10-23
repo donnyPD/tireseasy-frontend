@@ -20,21 +20,3 @@
 .page_masked {
     composes: page;
 }
-
-@media screen(hsm) {
-    .page {
-        min-height: 48rem;
-    }
-}
-
-@media screen(hmd) {
-    .page {
-        min-height: 60rem;
-    }
-}
-
-@media screen(hlg) {
-    .page {
-        min-height: 72rem;
-    }
-}

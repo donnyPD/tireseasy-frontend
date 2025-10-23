@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -16,6 +16,7 @@ import Password from '@magento/venia-ui/lib/components/Password';
 import FormError from '@magento/venia-ui/lib/components/FormError/formError';
 import GoogleRecaptcha from '@magento/venia-ui/lib/components/GoogleReCaptcha';
 import Logo from "../../assets/images/Logo_-_Color.png";
+const CmsBlock = React.lazy(() => import('@magento/venia-ui/lib/components/CmsBlock'));
 
 const SignIn = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -146,60 +147,9 @@ const SignIn = props => {
                 </Form>
             </div>
             <div className={classes.info}>
-                <div className={classes.info_block}>
-                    <h2 data-cy="SignIn-title" className={classes.title}>
-                        <FormattedMessage
-                            id={'signIn.infoText'}
-                            defaultMessage={'Welcome to DriveLine!'}
-                        />
-                    </h2>
-                    <p className={classes.text}>
-                        <FormattedMessage
-                            id={'signIn.infoText.info'}
-                            defaultMessage={'Your one-stop shop for all automotive parts. Login to manage your orders, track shipments, and access exclusive deals.'}
-                        />
-                    </p>
-                    <div className={classes.text_block}>
-                        <strong>
-                            <FormattedMessage
-                                id={'signIn.infoText.info'}
-                                defaultMessage={'Having Trouble logging in?'}
-                            />
-                        </strong>
-                        <h3 data-cy="SignIn-title" className={classes.title}>
-                            <a href={'tel:1-888-888-8888'}>
-                                <FormattedMessage
-                                    id={'signIn.infoText'}
-                                    defaultMessage={'1-888-888-8888'}
-                                />
-                            </a>
-                        </h3>
-                        <h6 data-cy="SignIn-title" className={classes.title_small}>
-                            <FormattedMessage
-                                id={'signIn.infoText'}
-                                defaultMessage={'Customer Service Hours:'}
-                            />
-                        </h6>
-                        <p>
-                            <FormattedMessage
-                                id={'signIn.infoText.info'}
-                                defaultMessage={'Monday - Friday: 8:00 AM - 6:00 PM PST'}
-                            />
-                        </p>
-                        <p>
-                            <FormattedMessage
-                                id={'signIn.infoText.info'}
-                                defaultMessage={'Saturday: 9:00 AM - 3:00 PM PST'}
-                            />
-                        </p>
-                        <p>
-                            <FormattedMessage
-                                id={'signIn.infoText.info'}
-                                defaultMessage={'Sunday: Closed'}
-                            />
-                        </p>
-                    </div>
-                </div>
+                <Suspense fallback={<div className="cms-block-loading" />}>
+                    <CmsBlock identifiers={'login_welcome_block'}/>
+                </Suspense>
             </div>
         </div>
     );

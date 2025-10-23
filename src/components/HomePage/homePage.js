@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
@@ -11,11 +11,12 @@ import VehicleLookupTrims from '../VehicleLookupTrims/vehicleLookupTrims';
 import { useVinLookup, validateVin } from '../QuickLookups/useVinLookup';
 import defaultClasses from './homePage.module.css';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
-import CmsBlockGroup from '@magento/venia-ui/lib/components/CmsBlock';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from '@magento/peregrine/lib/talons/SignIn/signIn.gql';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
+const CmsBlock = React.lazy(() => import('@magento/venia-ui/lib/components/CmsBlock'));
 
 // Simple SVG icons for the features
 const FastShippingIcon = () => (
@@ -301,21 +302,33 @@ const HomePage = props => {
                 {/* Hero Section */}
                 <section className={classes.heroSection}>
                     <div className={classes.container}>
-                        <CmsBlockGroup identifiers={'home_hero_section'}/>
+                        <div className={classes.section}>
+                            <Suspense fallback={<div className="cms-block-loading" />}>
+                                <CmsBlock identifiers={'home_hero_section'}/>
+                            </Suspense>
+                        </div>
                     </div>
                 </section>
 
                 {/* Features Section */}
                 <section className={classes.featuresSection}>
                     <div className={classes.container}>
-                        <CmsBlockGroup identifiers={'why_choose_driveLine'}/>
+                        <div className={classes.section}>
+                            <Suspense fallback={<div className="cms-block-loading" />}>
+                                <CmsBlock identifiers={'why_choose_driveLine'}/>
+                            </Suspense>
+                        </div>
                     </div>
                 </section>
 
                 {/* CTA Section */}
                 <section className={classes.ctaSection}>
                     <div className={classes.container}>
-                        <CmsBlockGroup identifiers={'explore_our_extensive_catalog_block'}/>
+                        <div className={classes.section}>
+                            <Suspense fallback={<div className="cms-block-loading" />}>
+                                <CmsBlock identifiers={'explore_our_extensive_catalog_block'}/>
+                            </Suspense>
+                        </div>
                     </div>
                 </section>
             </Layout>

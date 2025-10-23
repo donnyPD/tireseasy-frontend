@@ -1,6 +1,6 @@
 .root {
     composes: gap-y-md from global;
-    composes: grid from global;
+    composes: block from global;
     composes: justify-center from global;
     composes: text-left from global;
 
@@ -17,5 +17,5 @@
     composes: lg_border-subtle from global;
     composes: lg_rounded-box from global;
 
-    @apply bg-white lg_pb-4 max-w-[980px] rounded-xl border-0 shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+    @apply bg-white pb-2 lg_pb-4 w-full max-w-[980px] rounded-xl border-0 shadow-[0_2px_8px_rgba(0,0,0,0.1)] mx-auto;
 }
