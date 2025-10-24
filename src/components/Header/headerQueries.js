@@ -7,6 +7,7 @@ export const GET_CUSTOMER_HEADER = gql`
             email
             firstname
             lastname
+            location_name
         }
     }
 `;

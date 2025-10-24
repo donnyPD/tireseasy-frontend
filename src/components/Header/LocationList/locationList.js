@@ -4,13 +4,17 @@ import defaultClasses from './locationList.module.css';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { shape, string } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
-import {FormattedMessage} from "react-intl";
+import { FormattedMessage } from 'react-intl';
+import { useCustomHeader } from '../useCustomHeader';
 
 const LocationList = props => {
     const classes = useStyle(defaultClasses, props.classes);
     const talonProps = useLocationList();
+    const { currentUser } = useCustomHeader();
+    const currentLocation = currentUser?.location_name || null;
     const { locationList } = talonProps;
     const [query, setQuery] = useState('');
+
     const {
         elementRef,
         expanded,
@@ -59,7 +63,7 @@ const LocationList = props => {
                 <FormattedMessage
                     id={'locationInfoText.trigger'}
                     defaultMessage={
-                        'Location: Main Warehouse, Gear City'
+                        currentLocation ? 'Location: ' + currentLocation : 'Location: is not defined...'
                     }
                 />
             </span>

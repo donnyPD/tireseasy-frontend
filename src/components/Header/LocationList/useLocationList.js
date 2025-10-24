@@ -19,7 +19,6 @@ export const useLocationList = () => {
             return getLocationDataList?.locationDataList;
         }
     }, [getLocationDataList]);
-    console.log(getLocationDataList);
 
     return {
         locationList: locationList || []

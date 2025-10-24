@@ -18,8 +18,6 @@ export const useCustomFooter = () => {
             return [];
         }
 
-        console.log('Root category children:', categoriesData.category.children);
-
         // Use children from root category
         const filteredCategories = categoriesData.category.children
             .filter(category => {
@@ -46,7 +44,6 @@ export const useCustomFooter = () => {
                 path: `/${category.url_path || category.url_key}.html`
             }));
 
-        console.log('Filtered categories:', filteredCategories);
         return filteredCategories;
     }, [categoriesData]);
 
