@@ -18,6 +18,10 @@
     @apply cursor-pointer px-4;
 }
 
+.locationInfoText {
+    @apply px-4;
+}
+
 .item {
     @apply block py-2 px-4 cursor-pointer hover_bg-brand-light hover_text-brand transition-all;
 }

@@ -112,6 +112,10 @@ export const useSignIn = props => {
                 });
 
                 const token = signInResponse.data.generateCustomerToken.token;
+                if (signInResponse.data.generateCustomerToken.contact_hash) {
+                    localStorage.setItem('customerContactHash', signInResponse.data.generateCustomerToken.contact_hash);
+                }
+
                 await (customerAccessTokenLifetime
                     ? setToken(token, customerAccessTokenLifetime)
                     : setToken(token));

@@ -18,7 +18,7 @@ export const SIGN_IN = gql`
     mutation SignIn($email: String!, $password: String!) {
         generateCustomerToken(email: $email, password: $password) {
             token
-            contact_id
+            contact_hash
         }
     }
 `;
