@@ -1,0 +1,32 @@
+.container {
+    @apply relative;
+}
+
+.listContainer {
+    @apply hidden absolute top-[28px] left-2 border bg-white min-w-[290px] py-2;
+
+    &.open {
+        @apply block;
+    }
+
+    ul {
+        @apply max-h-[400px] overflow-y-auto;
+    }
+}
+
+.locationInfo {
+    @apply cursor-pointer px-4;
+}
+
+.item {
+    @apply block py-2 px-4 cursor-pointer hover_bg-brand-light hover_text-brand transition-all;
+}
+
+.searchContainer {
+    @apply px-4 mb-2;
+}
+
+.search {
+    composes: input from '@magento/venia-ui/lib/components/TextInput/textInput.module.css';
+    @apply block w-full;
+}

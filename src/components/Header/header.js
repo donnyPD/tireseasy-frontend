@@ -9,6 +9,7 @@ import defaultClasses from './header.module.css';
 import CartTrigger from './cartTrigger';
 import Logo from '../../assets/images/Logo-Negative.svg';
 import MobileSubmenu from './mobileSubmenu';
+import LocationList from './LocationList/locationList';
 
 const Header = (props) => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -215,7 +216,7 @@ const Header = (props) => {
                         {renderUserInfo()}
                     </div>
                     <div className={classes.userInfoRight}>
-                        <span className={classes.locationInfo}>Location: Main Warehouse, Gear City</span>
+                        <LocationList />
                     </div>
                 </div>
             </div>
