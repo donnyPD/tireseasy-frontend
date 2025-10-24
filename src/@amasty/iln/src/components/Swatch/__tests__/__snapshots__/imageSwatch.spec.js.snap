@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Swatch correctly 1`] = `
+<span
+  style={
+    Object {
+      "--venia-swatch-bg": "#ccc",
+    }
+  }
+>
+  <span>
+    <span
+      style={
+        Object {
+          "--venia-swatch-bg": "#ccc",
+        }
+      }
+    />
+    <span>
+      Test
+    </span>
+  </span>
+</span>
+`;
+
+exports[`renders a Swatch correctly image 1`] = `
+<span
+  style={
+    Object {
+      "--venia-swatch-bg": "url(\\"\\")",
+    }
+  }
+>
+  <span>
+    <span
+      style={
+        Object {
+          "--venia-swatch-bg": "url(\\"\\")",
+        }
+      }
+    />
+    <span>
+      Test
+    </span>
+  </span>
+</span>
+`;
+
+exports[`renders an icon if isSelected is true 1`] = `
+<span
+  style={
+    Object {
+      "--venia-swatch-bg": "#ccc",
+    }
+  }
+>
+  <Icon
+    src={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "propTypes": Object {
+          "color": [Function],
+          "size": [Function],
+        },
+        "render": [Function],
+      }
+    }
+  />
+  <span>
+    <span
+      style={
+        Object {
+          "--venia-swatch-bg": "#ccc",
+        }
+      }
+    />
+    <span>
+      Test
+    </span>
+  </span>
+</span>
+`;

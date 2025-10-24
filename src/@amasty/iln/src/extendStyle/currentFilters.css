@@ -1,0 +1,18 @@
+.root {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.itemHidden {
+  display: none;
+}
+
+li {
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.showMore {
+  padding: 0 1.25rem;
+}

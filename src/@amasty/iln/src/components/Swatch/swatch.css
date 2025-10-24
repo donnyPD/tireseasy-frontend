@@ -1,0 +1,78 @@
+.root {
+  padding: 0;
+  margin: 0;
+  min-width: 3rem;
+  height: 3rem;
+  position: relative;
+}
+
+.textSwatch {
+  composes: root from '~@magento/venia-ui/lib/components/ProductOptions/tile.module.css';
+}
+
+.textSwatch_selected {
+  composes: root_selected from '~@magento/venia-ui/lib/components/ProductOptions/tile.module.css';
+}
+
+.imageSwatch {
+  composes: root from '~@magento/venia-ui/lib/components/ProductOptions/swatch.module.css';
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 3rem;
+}
+
+.imageSwatch_selected {
+  composes: imageSwatch;
+  position: relative;
+}
+
+.imageSwatch_selected:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(-45deg, rgba(0, 0, 0, 0.2), transparent);
+}
+
+.tooltip {
+  composes: bg-white from global;
+  display: none;
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  min-width: 4rem;
+  max-width: 10rem;
+  text-align: center;
+  z-index: 1;
+  padding: 0.5rem;
+  color: rgb(var(--venia-global-color-text));
+  border-radius: 1px;
+  box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
+}
+
+.root:hover .tooltip {
+  display: block;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  min-width: 6rem;
+  height: 6rem;
+  background: var(--venia-swatch-bg);
+  margin-bottom: 0.5rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1rem;
+}

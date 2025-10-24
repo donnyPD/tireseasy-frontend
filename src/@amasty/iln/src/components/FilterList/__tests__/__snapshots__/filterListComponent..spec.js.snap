@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders default filter list 1`] = `
+<FilterList
+  filterBlockSettings={
+    Object {
+      "display_mode_label": undefined,
+    }
+  }
+/>
+`;
+
+exports[`renders from config 1`] = `
+<FilterList
+  filterBlockSettings={
+    Object {
+      "display_mode_label": "Slider",
+    }
+  }
+/>
+`;

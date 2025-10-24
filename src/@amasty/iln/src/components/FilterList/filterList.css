@@ -1,0 +1,51 @@
+.root {
+  padding-bottom: 2rem;
+}
+
+.items {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 100%;
+}
+
+.itemsEmpty {
+  composes: items;
+}
+
+.itemHidden {
+  display: none;
+}
+
+.showMoreLessButton {
+  margin-top: 1rem;
+  text-decoration: underline;
+}
+
+.showMoreLessButton:hover {
+  text-decoration: none;
+}
+
+.swatchList {
+  composes: items;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: -0.5rem;
+}
+
+.swatchList:empty {
+  margin: 0;
+}
+
+.swatchList .item {
+  margin: 0.5rem;
+}
+
+.fromTo {
+  composes: root from '../FromTo/fromTo.css';
+  padding: 1rem 0 0 0;
+}
+
+.itemsEmpty + .fromTo {
+  padding-top: 0;
+}

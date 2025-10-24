@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render correct list 1`] = `
+<div>
+  <ul>
+    <li>
+      <FilterItem
+        isExpanded={false}
+        item={
+          Object {
+            "title": "test1",
+            "value": "1",
+          }
+        }
+        onApply={null}
+      />
+    </li>
+    <li>
+      <FilterItem
+        isExpanded={false}
+        item={
+          Object {
+            "title": "test2",
+            "value": "2",
+          }
+        }
+        onApply={null}
+      />
+    </li>
+  </ul>
+  <ShowMoreLessButton
+    isListExpanded={true}
+    itemCountToShow={5}
+    itemsLength={2}
+  />
+</div>
+`;
+
+exports[`render correct list with search 1`] = `
+<div>
+  <SearchField
+    isShowSearchBox={true}
+  />
+  <ul>
+    <li>
+      <FilterItem
+        isExpanded={false}
+        item={
+          Object {
+            "title": "test1",
+            "value": "1",
+          }
+        }
+        onApply={null}
+      />
+    </li>
+    <li>
+      <FilterItem
+        isExpanded={false}
+        item={
+          Object {
+            "title": "test2",
+            "value": "2",
+          }
+        }
+        onApply={null}
+      />
+    </li>
+  </ul>
+  <ShowMoreLessButton
+    isListExpanded={true}
+    itemCountToShow={5}
+    itemsLength={2}
+  />
+</div>
+`;

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render correct label 1`] = `
+<button
+  title="test"
+  type="button"
+>
+  <span>
+    test
+  </span>
+  <Count
+    count={4}
+  />
+</button>
+`;
+
+exports[`render label with image 1`] = `
+<button
+  title="test"
+  type="button"
+>
+  <ImageSwatch
+    classes={
+      Object {
+        "imageSwatch": undefined,
+        "imageSwatch_selected": undefined,
+      }
+    }
+    swatchData="imgPatch"
+  />
+  <span>
+    test
+  </span>
+  <Count
+    count={4}
+  />
+</button>
+`;
+
+exports[`render label with multiselect icon 1`] = `
+<button
+  title="test"
+  type="button"
+>
+  <MultiSelectIcon />
+  <span>
+    test
+  </span>
+  <Count
+    count={4}
+  />
+</button>
+`;

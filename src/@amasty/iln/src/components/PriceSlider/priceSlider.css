@@ -1,0 +1,162 @@
+.range {
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+  --am-iln-slider-height: 4px;
+  --am-iln-slider-rail-bg: var(--venia-global-color-teal-light);
+  --am-iln-slider-track-bg: var(--venia-global-color-border);
+  --am-iln-slider-handle-border: var(--venia-global-color-teal);
+  --am-iln-slider-handle-bg: var(--venia-global-color-teal);
+  --am-iln-slider-handle-draging: var(--venia-global-color-teal);
+}
+
+.result {
+  display: block;
+  padding-bottom: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.range :global .rc-slider-rail {
+  height: var(--am-iln-slider-height);
+  background-color: rgb(var(--am-iln-slider-rail-bg));
+}
+
+.range :global .rc-slider-track {
+  height: var(--am-iln-slider-height);
+  background-color: rgb(var(--am-iln-slider-track-bg));
+}
+
+.range :global .rc-slider-handle {
+  border-color: rgb(var(--am-iln-slider-handle-border));
+  background-color: rgb(var(--am-iln-slider-handle-bg));
+}
+
+.range
+  :global
+  .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+  border-color: rgb(var(--am-iln-slider-handle-border));
+  box-shadow: none;
+}
+
+.range-default :global .rc-slider-tooltip {
+  display: none;
+}
+
+.range-improved {
+  --am-iln-slider-track-bg: var(--venia-global-color-teal);
+}
+
+.range-improved :global .rc-slider-tooltip-inner {
+  background-color: rgb(var(--venia-global-color-teal));
+}
+.range-improved :global .rc-slider-tooltip-arrow {
+  border-top-color: rgb(var(--venia-global-color-teal));
+}
+
+.range-light {
+  --am-iln-slider-track-bg: var(--venia-global-color-teal);
+  --am-iln-slider-height: 1px;
+}
+
+.range-light :global .rc-slider-handle {
+  border-width: 1px;
+  margin-top: -6px;
+  --am-iln-slider-handle-bg: 255, 255, 255;
+  --am-iln-slider-handle-border: var(--venia-global-color-border);
+}
+
+.range-light :global .rc-slider-tooltip-inner {
+  background: #fff;
+  color: rgb(var(--venia-global-color-teal));
+  border: 1px solid rgb(var(--venia-global-color-border));
+  box-shadow: none;
+}
+.range-light :global .rc-slider-tooltip-arrow {
+  border-top-color: rgb(var(--venia-global-color-border));
+}
+
+.range-light :global .rc-slider-tooltip-arrow:after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-color: transparent;
+  border-style: solid;
+  border-top-color: #fff;
+  border-width: 4px 4px 0;
+  bottom: 1px;
+  left: -4px;
+  z-index: 1;
+}
+
+.range-dark {
+  --am-iln-slider-rail-bg: 73, 73, 72;
+  --am-iln-slider-track-bg: var(--venia-global-color-teal);
+  --am-iln-slider-handle-bg: var(--am-iln-slider-handle-border);
+}
+
+.range-dark :global .rc-slider-handle {
+  --am-iln-slider-height: 3px;
+  border-radius: 2px;
+  width: 9px;
+}
+
+.range-dark :global .rc-slider-rail {
+  border-radius: 0;
+}
+
+.range-dark :global .rc-slider-tooltip-inner {
+  background-color: rgb(var(--venia-global-color-teal));
+}
+.range-dark :global .rc-slider-tooltip-arrow {
+  border-top-color: rgb(var(--venia-global-color-teal));
+}
+
+.range-volumetric :global .rc-slider-rail {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 25%);
+}
+
+.range-volumetric :global .rc-slider-track {
+  background: linear-gradient(
+    270deg,
+    rgb(var(--venia-global-color-teal)) 0%,
+    rgb(var(--venia-global-color-blue-100)) 100%
+  );
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 25%);
+}
+
+.range-volumetric {
+  margin-bottom: 1.5rem;
+}
+
+.range-volumetric :global .rc-slider-handle {
+  border-radius: 2px;
+  margin-top: 8px;
+  width: 8px;
+  box-shadow: 0 3px 4px rgb(var(--venia-global-color-teal) / 20%),
+    0 1px 2px rgb(var(--venia-global-color-teal) / 30%);
+}
+
+.range-volumetric :global .rc-slider-handle:before {
+  position: absolute;
+  bottom: calc(100% - 2px);
+  left: calc(50% - 3px);
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-bottom-right-radius: 2px;
+  background: rgb(var(--venia-global-color-teal));
+  content: '';
+  transform: rotate(-135deg);
+  clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+}
+
+.range-volumetric :global .rc-slider-tooltip-inner {
+  background: linear-gradient(
+    270deg,
+    rgb(var(--venia-global-color-blue-100)) 0%,
+    rgb(var(--venia-global-color-blue-400)) 100%
+  );
+}
+.range-volumetric :global .rc-slider-tooltip-arrow {
+  border-top-color: rgb(var(--venia-global-color-teal));
+}

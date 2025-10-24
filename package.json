@@ -28,6 +28,7 @@
     "@magento/venia-drivers": "src/drivers"
   },
   "dependencies": {
+    "@amasty/iln": "link:src/@amasty/iln",
     "@amasty/shop-by-brand": "link:src/@amasty/shop-by-brand",
     "@magento/experience-platform-connector": "~1.0.10",
     "@magento/pwa-buildpack": "~11.5.3",

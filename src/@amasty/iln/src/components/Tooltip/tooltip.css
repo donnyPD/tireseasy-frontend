@@ -1,0 +1,72 @@
+.root {
+  position: relative;
+  margin-left: 0.5rem;
+  font-size: 0.625rem;
+  display: inline-block;
+  vertical-align: text-top;
+  top: 2px;
+}
+
+.image {
+  width: 1rem;
+  height: auto;
+  max-height: 1rem;
+}
+
+.icon {
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  line-height: 1rem;
+  display: block;
+  width: 16.3px;
+  height: 1rem;
+  border-radius: 1rem;
+  background: rgb(var(--venia-global-color-teal));
+}
+
+.icon:after {
+  content: '?';
+}
+
+.text {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.25rem;
+  padding: 1rem;
+  width: max-content;
+  max-width: 15rem;
+  position: absolute;
+  left: -0.5rem;
+  bottom: 100%;
+  transform: translateY(-0.5rem);
+  z-index: 9999;
+}
+
+.text:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0.5rem;
+  border: 0.5rem solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+.inverse {
+  left: auto;
+  right: -0.5rem;
+}
+
+.inverse:after {
+  left: auto;
+  right: 0.5rem;
+}
+
+.root:hover .text {
+  display: block;
+}

@@ -1,0 +1,66 @@
+.root {
+  composes: font-normal from global;
+  display: grid;
+  gap: calc(0.5rem);
+  --stroke: var(--venia-global-color-gray-600);
+  align-items: center;
+  color: rgb(var(--venia-global-color-gray-900));
+  grid-template-columns: repeat(5, auto);
+  justify-items: center;
+  line-height: 1.5rem;
+  cursor: pointer;
+}
+
+.root:hover .label {
+  color: rgb(var(--venia-global-color-teal));
+}
+
+.root_selected {
+  composes: root;
+  color: rgb(var(--venia-brand-color-1-700));
+}
+
+.image {
+  composes: imageSwatch from '../Swatch/swatch.css';
+  min-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+}
+
+.image_selected {
+  composes: imageSwatch_selected from '../Swatch/swatch.css';
+  min-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.image_selected svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.checkbox {
+  height: 1.5rem;
+  pointer-events: none;
+  width: 1.5rem;
+  border-radius: 4px;
+}
+
+.checkbox svg {
+  stroke: rgb(var(--stroke));
+}
+
+.root_selected .checkbox {
+  --stroke: var(--venia-brand-color-1-700);
+}
+
+.checkbox ~ .label {
+  color: rgb(var(--venia-global-color-text));
+}
+
+.root:active:enabled .checkbox,
+.root:focus:enabled .checkbox {
+  box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
+  outline: none;
+}
