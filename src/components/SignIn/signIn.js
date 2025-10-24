@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
-import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
+import { useSignIn } from '../../talons/SignIn/useSignIn';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { isRequired } from '@magento/venia-ui/lib/util/formValidators';
