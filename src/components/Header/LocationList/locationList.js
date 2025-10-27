@@ -34,7 +34,7 @@ const LocationList = props => {
         ) || [];
     }, [query, locationList]);
 
-    if (!locationList.length) {
+    if (!currentLocation || !locationList.length) {
         return (
             <div className={classes.container} />
         )

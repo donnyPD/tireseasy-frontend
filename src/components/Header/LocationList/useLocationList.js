@@ -12,8 +12,6 @@ export const useLocationList = () => {
     } = operations;
     const customerContactHash = localStorage.getItem('customerContactHash') || '';
 
-    console.log(customerContactHash);
-
     const { data: getLocationDataList} = useQuery(getLocationDataListQuery, {
         variables: {
             contactHash: customerContactHash
@@ -44,8 +42,18 @@ export const useLocationList = () => {
         }
     }
 
+    if (locationList) {
+        localStorage.setItem('LocationDataList', JSON.stringify(
+            locationList
+        ));
+    }
+
     return {
         getRedirectUrl,
-        locationList: locationList || []
+        locationList: locationList
+            ? locationList
+            : localStorage.getItem('LocationDataList')
+                ? JSON.parse(localStorage.getItem('LocationDataList'))
+                : []
     };
 };

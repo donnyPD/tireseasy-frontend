@@ -1,5 +1,5 @@
 .container {
-    @apply relative;
+    @apply relative min-h-[19px];
 }
 
 .listContainer {
