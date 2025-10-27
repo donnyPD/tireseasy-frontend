@@ -14,6 +14,7 @@ const LocationList = props => {
     const currentLocation = currentUser?.location_name || null;
     const { locationList, getRedirectUrl } = talonProps;
     const [query, setQuery] = useState('');
+    console.log(currentUser);
 
     const {
         elementRef,
@@ -36,16 +37,7 @@ const LocationList = props => {
 
     if (!locationList.length) {
         return (
-            <div className={classes.container}>
-                <span className={classes.locationInfoText}>
-                    <FormattedMessage
-                        id={'locationInfoText'}
-                        defaultMessage={
-                            'Location: customer is not authorized...'
-                        }
-                    />
-                </span>
-            </div>
+            <div className={classes.container} />
         )
     }
 
@@ -65,6 +57,7 @@ const LocationList = props => {
                 onClick={handleTriggerClick}
                 ref={triggerRef}
             >
+                {console.log(currentUser)}
                 <FormattedMessage
                     id={'locationInfoText.trigger'}
                     defaultMessage={
