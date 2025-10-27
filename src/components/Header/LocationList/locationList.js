@@ -12,7 +12,7 @@ const LocationList = props => {
     const talonProps = useLocationList();
     const { currentUser } = useCustomHeader();
     const currentLocation = currentUser?.location_name || null;
-    const { locationList } = talonProps;
+    const { locationList, getRedirectUrl } = talonProps;
     const [query, setQuery] = useState('');
 
     const {
@@ -53,6 +53,11 @@ const LocationList = props => {
         setExpanded(isOpen => !isOpen);
     }
 
+    const handleLocationClick = (id) => {
+        getRedirectUrl(id);
+        handleTriggerClick();
+    }
+
     return (
         <div className={classes.container}>
             <span
@@ -86,7 +91,7 @@ const LocationList = props => {
                             <li
                                 key={child.id}
                                 className={classes.item}
-                                onClick={handleTriggerClick}
+                                onClick={() => handleLocationClick(child.id.toString())}
                             >
                                 {child.name}
                             </li>
