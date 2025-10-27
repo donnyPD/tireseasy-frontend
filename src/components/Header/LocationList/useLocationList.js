@@ -10,15 +10,8 @@ export const useLocationList = () => {
         getLocationDataListQuery,
         generateLocationChangeMutation,
     } = operations;
-    const [{ token }] = useUserContext();
-    // const customerContactHash = token && localStorage.getItem('customerContactHash')
-    //     ? localStorage.getItem('customerContactHash')
-    //     : '';
     const customerContactHash = localStorage.getItem('customerContactHash') || '';
 
-    // if (!token && localStorage.getItem('customerContactHash')) {
-    //     localStorage.removeItem('customerContactHash');
-    // }
     console.log(customerContactHash);
 
     const { data: getLocationDataList} = useQuery(getLocationDataListQuery, {

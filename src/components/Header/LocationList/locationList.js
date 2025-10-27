@@ -14,7 +14,6 @@ const LocationList = props => {
     const currentLocation = currentUser?.location_name || null;
     const { locationList, getRedirectUrl } = talonProps;
     const [query, setQuery] = useState('');
-    console.log(currentUser);
 
     const {
         elementRef,
@@ -57,7 +56,6 @@ const LocationList = props => {
                 onClick={handleTriggerClick}
                 ref={triggerRef}
             >
-                {console.log(currentUser)}
                 <FormattedMessage
                     id={'locationInfoText.trigger'}
                     defaultMessage={
