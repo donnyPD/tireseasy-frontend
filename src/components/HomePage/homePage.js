@@ -184,7 +184,7 @@ const HomePage = props => {
         const shouldShowTrims = urlParams.get('showVehicleLookupTrims') === '1' || urlParams.get('showVehicleLookupTrims') === 'true';
         const vinParam = urlParams.get('vin');
         const tokenParam = urlParams.get('token');
-        const punchoutParam = urlParams.get('punchout') === '1';
+        const punchoutParam = urlParams.get('punchout') === '1' || urlParams.get('newlocation') === '1';
 
         // Handle JWT authentication first if token and punchout parameters are present
         if (tokenParam && punchoutParam && !isSignedIn) {
