@@ -16,9 +16,9 @@ export const useLocationList = () => {
     //     : '';
     const customerContactHash = localStorage.getItem('customerContactHash') || '';
 
-    if (!token && localStorage.getItem('customerContactHash')) {
-        localStorage.removeItem('customerContactHash');
-    }
+    // if (!token && localStorage.getItem('customerContactHash')) {
+    //     localStorage.removeItem('customerContactHash');
+    // }
     console.log(customerContactHash);
 
     const { data: getLocationDataList} = useQuery(getLocationDataListQuery, {
