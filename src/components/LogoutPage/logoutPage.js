@@ -15,10 +15,6 @@ const LogoutPage = () => {
                 if (isSignedIn) {
                     await signOut();
                     await client.clearStore();
-
-                    if (localStorage.getItem('customerContactHash')) {
-                        localStorage.removeItem('customerContactHash');
-                    }
                 }
             } catch (err) {
                 console.error('Logout error:', err);
