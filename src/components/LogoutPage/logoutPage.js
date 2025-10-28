@@ -19,7 +19,6 @@ const LogoutPage = () => {
             } catch (err) {
                 console.error('Logout error:', err);
             } finally {
-                // history.replace(location.search ? '/' + location.search : '/');
                 history.push('/');
                 setTimeout(() => {
                     history.push(location.search ? '/' + location.search : '/');
