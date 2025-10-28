@@ -95,7 +95,7 @@ const InvoicePage = props => {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
-                        id={'orderHistoryPage.emptyDataMessage'}
+                        id={'orderHistoryPage.emptyDataMessage.new'}
                         defaultMessage={"You don't have any invoices yet."}
                     />
                 </h3>
