@@ -15,14 +15,15 @@ const LogoutPage = () => {
                 if (isSignedIn) {
                     await signOut();
                     await client.clearStore();
-                    await client.refetchQueries({
-                        include: ['GetCustomerForHeader']
-                    });
                 }
             } catch (err) {
                 console.error('Logout error:', err);
             } finally {
-                history.replace(location.search ? '/' + location.search : '/');
+                // history.replace(location.search ? '/' + location.search : '/');
+                history.push('/');
+                setTimeout(() => {
+                    history.push(location.search ? '/' + location.search : '/');
+                }, 300);
             }
         };
 

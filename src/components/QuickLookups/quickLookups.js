@@ -30,6 +30,7 @@ const QuickLookups = props => {
     const [selectedModel, setSelectedModel] = useState('');
     const [selectedTrim, setSelectedTrim] = useState('');
     const [availableTrims, setAvailableTrims] = useState([]);
+    const [vinChange, setVinChange] = useState('');
     const [vinError, setVinError] = useState('');
     const { getOptions, data: optionsData, loading: optionsLoading, error: optionsError, options } = useOptions();
     const { getOptionsByVin, loading: vinLoading, error: vinQueryError } = useVinLookup();
@@ -68,6 +69,14 @@ const QuickLookups = props => {
         // Reset trim selection when model changes
         setSelectedTrim('');
         setAvailableTrims([]);
+    };
+
+    /**
+     * Handle VIN selection change
+     * @param {Event} event - Change event
+     */
+    const handleVinChange = (event) => {
+        setVinChange(event.target.value);
     };
 
     /**
@@ -252,6 +261,7 @@ const QuickLookups = props => {
      * @returns {boolean} True if form can be submitted
      */
     const isVehicleFormReady = selectedYear && selectedMake && selectedModel;
+    const isVinFormReady = vinChange && vinChange.length > 16;
 
     return (
         <section className={classes.quickLookupsSection}>
@@ -379,6 +389,7 @@ const QuickLookups = props => {
                                         required
                                         maxLength={17}
                                         style={{ textTransform: 'uppercase' }}
+                                        onChange={handleVinChange}
                                     />
                                 </Field>
                             </div>
@@ -409,7 +420,7 @@ const QuickLookups = props => {
                                 type="submit"
                                 className={classes.submitButton}
                                 priority="high"
-                                disabled={vinLoading}
+                                disabled={!isVinFormReady || vinLoading}
                             >
                                 {vinLoading ? (
                                     <FormattedMessage
