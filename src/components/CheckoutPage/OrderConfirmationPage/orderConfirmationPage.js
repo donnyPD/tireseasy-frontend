@@ -160,7 +160,7 @@ const OrderConfirmationPage = props => {
                         >
 
                             <input
-                                type="hidden" name="сXML-urlencoded"
+                                type="hidden" name="cxml-urlencoded"
                                 value={punchoutSuccessData && punchoutSuccessData?.urlencoded_order_cxml
                                     ? punchoutSuccessData?.urlencoded_order_cxml
                                     : ''}
