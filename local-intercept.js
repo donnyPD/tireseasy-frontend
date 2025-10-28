@@ -46,6 +46,11 @@ function localIntercept(targets) {
             pattern: '/logout',
             path: require.resolve('./src/components/LogoutPage/logoutPage.js')
         });
+        routes.push({
+            name: 'InvoicePage',
+            pattern: '/invoice-page',
+            path: require.resolve('./src/components/InvoicesPage')
+        });
         return routes;
     });
 
