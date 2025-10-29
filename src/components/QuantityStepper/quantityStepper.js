@@ -10,7 +10,15 @@ import { Message } from '@magento/venia-ui/lib/components/Field';
 import defaultClasses from './quantityStepper.module.css';
 
 const QuantityStepper = props => {
-    const { initialValue, itemId, label, min, onChange, message, quantityAvailable } = props;
+    const {
+        initialValue,
+        itemId,
+        label,
+        min,
+        onChange,
+        message,
+        quantityAvailable,
+    } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };

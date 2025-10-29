@@ -47,6 +47,10 @@ const GalleryItem = props => {
 
     const classes = useStyle(defaultClasses, props.classes, customClasses);
 
+    const availableQuantity = item && item.available_quantity_label
+        ? parseInt(item.available_quantity_label, 10)
+        : null;
+
     const { formatMessage } = useIntl();
 
     if (!item) {
@@ -74,15 +78,20 @@ const GalleryItem = props => {
     const handleChange = (e) => {
         const value = parseInt(e.target.value, 10);
         if (!isNaN(value) && value > 0) {
-            setItemQty(value);
+            if (availableQuantity && value > availableQuantity) {
+                setItemQty(availableQuantity);
+            } else {
+                setItemQty(value);
+            }
+
         }
     }
 
-    const isDisabledIncreaseBtn = (el) => {
-        const value = el && el.available_quantity_label
-            ? parseInt(el.available_quantity_label, 10)
-            : null;
-        return value && itemQty === value;
+    const isDisabledIncreaseBtn = () => {
+        return availableQuantity && itemQty >= availableQuantity;
+    }
+    const isDisabledByQuantity = () => {
+        return availableQuantity && itemQty > availableQuantity;
     }
 
     const attrs= [
@@ -123,7 +132,12 @@ const GalleryItem = props => {
     // ) : null;
 
     const addButton = isSupportedProductType ? (
-        <AddToCartButton item={item} urlSuffix={productUrlSuffix} qty={itemQty} />
+        <AddToCartButton
+            item={item}
+            urlSuffix={productUrlSuffix}
+            qty={itemQty}
+            isDisabledByQty={isDisabledByQuantity()}
+        />
     ) : (
         <div className={classes.unavailableContainer}>
             <Info />
@@ -218,7 +232,7 @@ const GalleryItem = props => {
                             defaultMessage: 'Increase Quantity'
                         })}
                         className={classes.button_increment}
-                        disabled={isDisabledIncreaseBtn(item)}
+                        disabled={isDisabledIncreaseBtn()}
                         onClick={() => setItemQty(itemQty + 1)}
                         type="button"
                     >
