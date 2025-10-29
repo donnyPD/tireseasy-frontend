@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantityStepper } from '../../talons/QuantityStepper/useQuantityStepper';
 
@@ -89,6 +89,14 @@ const QuantityStepper = props => {
                     <Icon classes={iconClasses} src={PlusIcon} size={20} />
                 </button>
             </div>
+            {isIncrementDisabled && <div className={classes.maxMessage}>
+                <FormattedMessage
+                    id={'qty.error.message'}
+                    defaultMessage={
+                        'Max Local Inventory'
+                    }
+                />
+            </div>}
             {errorMessage}
         </Fragment>
     );

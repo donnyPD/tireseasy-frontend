@@ -239,6 +239,14 @@ const GalleryItem = props => {
                         <Icon classes={classes.icon} src={PlusIcon} size={20} />
                     </button>
                 </div>
+                {isDisabledIncreaseBtn() && <div className={classes.maxMessage}>
+                    <FormattedMessage
+                        id={'qty.error.message'}
+                        defaultMessage={
+                            'Max Local Inventory'
+                        }
+                    />
+                </div>}
             </div>
             <div className={classes.actions}>
                 <div data-cy="GalleryItem-price" className={classes.price}>
