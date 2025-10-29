@@ -58,6 +58,10 @@
     color: #ffffff;
 }
 
+.logout {
+    @apply ml-4 underline text-primary-navy;
+}
+
 .mainNavigation {
     display: flex;
     padding: 10px 0;
@@ -161,6 +165,10 @@
 
     a, button {
         -webkit-tap-highlight-color: transparent;
+    }
+
+    .logout {
+        color: #ffffff;
     }
 }
 
