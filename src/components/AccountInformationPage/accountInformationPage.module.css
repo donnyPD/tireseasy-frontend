@@ -27,7 +27,6 @@
 
 .title {
     composes: font-bold from global;
-    composes: font-serif from global;
     composes: justify-self-center from global;
 
     @apply w-full font-bold text-left text-primary-deep text-xl lg_text-2xl mb-4;

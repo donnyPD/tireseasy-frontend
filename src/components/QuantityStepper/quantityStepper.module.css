@@ -66,5 +66,5 @@
 }
 
 .maxMessage {
-    @apply text-xs text-text-secondary mt-1;
+    @apply text-xs text-text-secondary mt-1 lg_pl-4;
 }

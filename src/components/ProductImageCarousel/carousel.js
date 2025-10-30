@@ -13,9 +13,8 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import AriaButton from '@magento/venia-ui/lib/components/AriaButton';
 import Icon from '@magento/venia-ui/lib/components/Icon';
 import Image from '@magento/venia-ui/lib/components/Image';
-import defaultClasses from '@magento/venia-ui/lib/components/ProductImageCarousel/carousel.module.css';
-import customClasses from './carousel.module.css';
-import Thumbnail from '../ProductImageCarousel/thumbnail';
+import defaultClasses from './carousel.module.css';
+import Thumbnail from './thumbnail';
 
 const IMAGE_WIDTH = 640;
 
@@ -65,7 +64,7 @@ const ProductImageCarousel = props => {
         [activeItemIndex, handleThumbnailClick, sortedImages]
     );
 
-    const classes = useStyle(defaultClasses, props.classes, customClasses);
+    const classes = useStyle(defaultClasses, props.classes);
 
     let image;
     if (currentImage.file) {
@@ -88,7 +87,6 @@ const ProductImageCarousel = props => {
                     image: classes.currentImage_placeholder,
                     root: classes.imageContainer
                 }}
-                width={IMAGE_WIDTH}
                 src={transparentPlaceholder}
             />
         );
