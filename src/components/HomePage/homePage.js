@@ -8,6 +8,7 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import { Link } from 'react-router-dom';
 import Layout from '../Layout';
 import VehicleLookupTrims from '../VehicleLookupTrims/vehicleLookupTrims';
+import OrderHistorySection from '../OrderHistoryPage/orderHistorySection';
 import { useVinLookup, validateVin } from '../QuickLookups/useVinLookup';
 import defaultClasses from './homePage.module.css';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
@@ -303,6 +304,7 @@ const HomePage = props => {
                 <section className={classes.heroSection}>
                     <div className={classes.container}>
                         <div className={classes.section}>
+                            <OrderHistorySection isHomepage={true} />
                             <Suspense fallback={<div className="cms-block-loading" />}>
                                 <CmsBlock identifiers={'home_hero_section'}/>
                             </Suspense>
