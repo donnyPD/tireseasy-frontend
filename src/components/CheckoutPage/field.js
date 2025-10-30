@@ -19,9 +19,12 @@ const Field = props => {
 
     return (
         <div className={classes.root}>
-            <label className={classes.label} htmlFor={id} title={labelTitle || ''}>
+            <label className={classes.label} htmlFor={id}>
                 {label}
                 {optionalSymbol}
+                {labelTitle && <span data-role="tooltipContainer">
+                    {labelTitle}
+                </span>}
             </label>
             {children}
         </div>
