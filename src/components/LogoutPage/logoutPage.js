@@ -19,10 +19,15 @@ const LogoutPage = () => {
             } catch (err) {
                 console.error('Logout error:', err);
             } finally {
-                history.push('/');
-                setTimeout(() => {
-                    history.push(location.search ? '/' + location.search : '/');
-                }, 300);
+                if (location.search) {
+                    history.push('/');
+                    setTimeout(() => {
+                        history.push(location.search ? '/' + location.search : '/');
+                    }, 300);
+                } else {
+                    history.push('/');
+                }
+
             }
         };
 

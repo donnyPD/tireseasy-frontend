@@ -132,3 +132,7 @@
 .attrs__item:last-child:after{
     content: '';
 }
+
+.maxMessage {
+    @apply text-xs text-text-secondary mt-1;
+}

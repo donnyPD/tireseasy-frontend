@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-import { Menu, X, Clock, Search } from 'react-feather';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { Menu, X, Clock, Search, LogOut } from 'react-feather';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 import { useCustomHeader } from './useCustomHeader';
@@ -15,6 +15,7 @@ const Header = (props) => {
     const classes = useStyle(defaultClasses, props.classes);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const { formatMessage } = useIntl();
 
     const {
         isSignedIn,
@@ -123,6 +124,21 @@ const Header = (props) => {
                     <span className={classes.userStatus}>
                         Logged in as: <strong>{currentUser.firstname} {currentUser.lastname}</strong>
                     </span>
+                    {/*<Link*/}
+                    {/*    to={resourceUrl('/logout')}*/}
+                    {/*    className={classes.logout}*/}
+                    {/*    aria-label="logout button"*/}
+                    {/*    title={formatMessage({*/}
+                    {/*        id: 'header.logout.button',*/}
+                    {/*        defaultMessage: 'Logout'*/}
+                    {/*    })}*/}
+                    {/*>*/}
+                    {/*    <FormattedMessage*/}
+                    {/*        id={'header.logout.button'}*/}
+                    {/*        defaultMessage={'Logout'}*/}
+                    {/*    />*/}
+                    {/*    <LogOut size={20} />*/}
+                    {/*</Link>*/}
                 </>
             );
         }
@@ -176,6 +192,17 @@ const Header = (props) => {
                             <Clock size={20} />
                         </Link>
                         <CartTrigger />
+                        {isSignedIn && <Link
+                            to={resourceUrl('/logout')}
+                            className={classes.logout}
+                            aria-label="logout button"
+                            title={formatMessage({
+                                id: 'header.logout.button',
+                                defaultMessage: 'Logout'
+                            })}
+                        >
+                            <LogOut size={20} />
+                        </Link>}
                     </div>
 
                     {/* Main Navigation */}

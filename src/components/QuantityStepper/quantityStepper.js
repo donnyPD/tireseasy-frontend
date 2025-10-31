@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantityStepper } from '../../talons/QuantityStepper/useQuantityStepper';
 
@@ -10,7 +10,15 @@ import { Message } from '@magento/venia-ui/lib/components/Field';
 import defaultClasses from './quantityStepper.module.css';
 
 const QuantityStepper = props => {
-    const { initialValue, itemId, label, min, onChange, message, quantityAvailable } = props;
+    const {
+        initialValue,
+        itemId,
+        label,
+        min,
+        onChange,
+        message,
+        quantityAvailable,
+    } = props;
     const { formatMessage } = useIntl();
     const classes = useStyle(defaultClasses, props.classes);
     const iconClasses = { root: classes.icon };
@@ -81,6 +89,14 @@ const QuantityStepper = props => {
                     <Icon classes={iconClasses} src={PlusIcon} size={20} />
                 </button>
             </div>
+            {isIncrementDisabled && <div className={classes.maxMessage}>
+                <FormattedMessage
+                    id={'qty.error.message'}
+                    defaultMessage={
+                        'Max Local Inventory'
+                    }
+                />
+            </div>}
             {errorMessage}
         </Fragment>
     );

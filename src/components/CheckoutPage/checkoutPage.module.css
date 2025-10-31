@@ -271,4 +271,17 @@
             /*content: ' *';*/
         }
     }
+
+    label {
+        @apply relative;
+
+        [data-role="tooltipContainer"] {
+            @apply font-normal text-sm text-center normal-case absolute bottom-[28px] left-0 border rounded bg-white min-w-[180px] p-2 transition-all opacity-0 invisible;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        &:hover [data-role="tooltipContainer"] {
+             @apply opacity-100 visible bottom-[30px];
+        }
+    }
 }

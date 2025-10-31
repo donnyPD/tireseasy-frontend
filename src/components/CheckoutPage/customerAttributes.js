@@ -8,7 +8,7 @@ import {
 } from '../../talons/CheckoutPage/useCheckoutPage';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './checkoutPage.module.css';
-import Field from '@magento/venia-ui/lib/components/Field';
+import Field from './field';
 
 
 const CustomerAttributes = props => {
@@ -61,6 +61,10 @@ const CustomerAttributes = props => {
                     // defaultMessage: 'Customer PO Number (Required)'
                     defaultMessage: 'Customer PO Number'
                 })}
+                labelTitle={formatMessage({
+                    id: 'customLabel.title',
+                    defaultMessage: 'PO notes entered here are for your reference only. They will appear on your order documentation but will not be visible to our associates'
+                })}
             >
                 <input
                     className={inputClasses}
@@ -89,6 +93,10 @@ const CustomerAttributes = props => {
                 label={formatMessage({
                     id: 'global.customer.comment',
                     defaultMessage: 'Order Comments'
+                })}
+                labelTitle={formatMessage({
+                    id: 'customLabel.title',
+                    defaultMessage: 'Use this box to provide any special instructions or notes about your order - for example, delivery details, preferred contact times, or installation requests.'
                 })}
             >
                 <textarea

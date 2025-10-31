@@ -78,6 +78,10 @@ const ProductFullDetail = props => {
         {load_range_ply_rating_label},
         {available_quantity_label}]
 
+    const availableQuantity = product && product.available_quantity_label
+        ? parseInt(product.available_quantity_label, 10)
+        : null;
+
     const renderAttr = () => {
 
         return <div className={classes.attrs}>
@@ -425,7 +429,7 @@ const ProductFullDetail = props => {
                             classes={{ root: classes.quantityRoot }}
                             min={1}
                             message={errors.get('quantity')}
-                            quantityAvailable={product && product?.available_quantity_label || null}
+                            quantityAvailable={availableQuantity}
                         />
                     </section>
                     <section className={classes.actions}>

@@ -33,10 +33,7 @@ export const useQuantityStepper = props => {
     const { value: quantity } = useFieldState('quantity');
 
     const isDisabledIncreaseBtn = () => {
-        const value = quantity && quantityAvailable
-            ? parseInt(quantityAvailable, 10)
-            : null;
-        return value && quantity === value;
+        return quantityAvailable && quantity >= quantityAvailable;
     }
 
     const isIncrementDisabled = useMemo(() => isDisabledIncreaseBtn() || !quantity, [quantity]);
@@ -86,6 +83,7 @@ export const useQuantityStepper = props => {
                 if (value && isNaN(nextVal))
                     throw new Error(`${value} is not a number.`);
                 if (nextVal < min) return min;
+                if (quantityAvailable && nextVal > quantityAvailable) return quantityAvailable;
                 else return nextVal;
             } catch (err) {
                 console.error(err);

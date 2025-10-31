@@ -15,7 +15,29 @@
 }
 
 .locationInfo {
-    @apply cursor-pointer px-4;
+    @apply cursor-pointer px-4 flex relative;
+}
+
+.locationIcon {
+    @apply ml-2 text-primary-deep transition-all;
+}
+
+.tooltipContainer {
+    @apply text-center normal-case absolute bottom-[22px] right-[-20px] border rounded bg-white min-w-[180px] p-2 transition-all opacity-0 invisible;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.locationTooltip {
+    @apply relative;
+
+    &:hover {
+        .locationIcon {
+            @apply text-text-secondary;
+        }
+        .tooltipContainer {
+            @apply opacity-100 visible bottom-[24px];
+        }
+    }
 }
 
 .locationInfoText {
@@ -33,4 +55,10 @@
 .search {
     composes: input from '@magento/venia-ui/lib/components/TextInput/textInput.module.css';
     @apply block w-full;
+}
+
+@media (min-width: 1500px) {
+    .tooltipContainer {
+        @apply right-auto left-[50%] translate-x-[-50%];
+    }
 }

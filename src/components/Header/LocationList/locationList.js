@@ -6,6 +6,7 @@ import { shape, string } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { FormattedMessage } from 'react-intl';
 import { useCustomHeader } from '../useCustomHeader';
+import { Eye } from 'react-feather';
 
 const LocationList = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -62,6 +63,15 @@ const LocationList = props => {
                         currentLocation ? 'Location: ' + currentLocation : 'Location: is not defined...'
                     }
                 />
+                <span className={classes.locationTooltip}>
+                    <Eye size={20} className={classes.locationIcon} />
+                    <span className={classes.tooltipContainer}>
+                        <FormattedMessage
+                            id={'locationTooltip.text'}
+                            defaultMessage={'Click to change location'}
+                        />
+                    </span>
+                </span>
             </span>
             <div
                 className={`${classes.listContainer} ${expanded ? classes.open : ''}`}
@@ -98,6 +108,9 @@ export default LocationList;
 
 LocationList.propTypes = {
     classes: shape({
+        locationTooltip: string,
+        tooltipContainer: string,
+        locationIcon: string,
         locationInfo: string,
         locationInfoText: string,
         listContainer: string,
