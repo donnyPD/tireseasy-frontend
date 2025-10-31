@@ -22,7 +22,7 @@
 }
 
 .account_content {
-    @apply bg-white rounded-xl p-4 lg_p-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)] mb-6;
+    @apply bg-white rounded-xl p-4 lg_p-6 shadow-[0_2px_8px_rgba(0,0,0,0.1)] mb-10;
 }
 
 .title {

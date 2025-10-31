@@ -10,9 +10,11 @@ import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/Loadi
 
 import defaultClasses from './accountInformationPage.module.css';
 import AccountInformationPageOperations from './accountInformationPage.gql.js';
-import QuickLookups from "../QuickLookups";
+import QuickLookups from '../QuickLookups';
+import ManageUsers from './ManageUsers';
 
 const EditModal = React.lazy(() => import('./editModal'));
+
 
 const AccountInformationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -159,6 +161,19 @@ const AccountInformationPage = props => {
                 </h1>
                 <div className={classes.account_content}>
                     {errorMessage ? errorMessage : pageContent}
+                </div>
+                <div className={classes.account_content}>
+                    <div className={classes.header}>
+                        <span
+                            className={classes.headerText}
+                        >
+                            <FormattedMessage
+                                id={'accountInformationPage.title.new'}
+                                defaultMessage={'Manage Users'}
+                            />
+                        </span>
+                    </div>
+                    <ManageUsers />
                 </div>
             </div>
         </div>

@@ -1,0 +1,65 @@
+.buttonContainer {
+    @apply mt-2 md_text-right mb-6;
+}
+.submitButton {
+    @apply rounded-md bg-accent-green border-accent-green normal-case text-base font-bold text-white min-w-[160px] p-[10px] transition-all
+    hover_bg-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
+}
+
+.usersTable {
+    @apply grid gap-0 mb-6;
+}
+
+.th {
+    @apply grid border-b -lg_hidden;
+    grid-template-columns:
+            minmax(40%, 1fr) minmax(22%, 1fr) minmax(22%, 1fr) minmax(16%, 1fr);
+
+    > div {
+        @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
+
+        &:first-child {
+             @apply pl-4 rounded-tl-md;
+        }
+        &:last-child {
+             @apply rounded-tr-md;
+        }
+    }
+}
+
+.user {
+    composes: border from global;
+    composes: border-solid from global;
+    composes: border-subtle from global;
+    composes: grid from global;
+    composes: grid-cols-2 from global;
+    composes: rounded-none from global;
+
+    @apply border-0 border-b last_border-0;
+
+    > div {
+        @apply pl-4 py-4 pr-0;
+    }
+}
+
+.editBtn {
+    @apply text-sm underline mr-4;
+}
+
+.deleteBtn {
+    @apply text-sm underline text-primary-red;
+}
+
+.userEmail,
+.userFirstName,
+.userLastName {
+    @apply break-words;
+}
+
+@media screen(lg) {
+    .user {
+        grid-template-columns:
+            minmax(40%, 1fr) minmax(22%, 1fr) minmax(22%, 1fr) minmax(16%, 1fr);
+    }
+}
+
