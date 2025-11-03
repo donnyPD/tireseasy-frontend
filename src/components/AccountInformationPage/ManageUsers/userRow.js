@@ -6,7 +6,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './manageUsers.module.css';
 
 const userRow = props => {
-    const { user, openConfirmationModal, handleEditUser } = props;
+    const { user, openConfirmationModal, setIsOpenEdit } = props;
     const {
         email,
         firstname,
@@ -29,7 +29,7 @@ const userRow = props => {
             <div className={classes.action}>
                 <button
                     className={classes.editBtn}
-                    // onClick={() => handleEditUser(email)}
+                    onClick={() => setIsOpenEdit(user)}
                     type="button"
                 >
                     <FormattedMessage

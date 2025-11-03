@@ -42,10 +42,10 @@ export const EDIT_USER = gql`
     mutation updateContact(
         $firstname: String!
         $lastname: String!
-        $password: String!
-        $new_password: String!
+        #$password: String!
+        #$new_password: String!
         $email: String!
-        $id: String!
+        $id: Int!
     ) {
         updateContact(
             input: {
@@ -53,8 +53,8 @@ export const EDIT_USER = gql`
                 lastname: $lastname
                 email: $email
                 id: $id
-                new_password: $new_password
-                current_password: $password
+                #new_password: $new_password
+                #current_password: $password
             }
         ) {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
@@ -84,5 +84,6 @@ export const DELETE_USER = gql`
 export default {
     getUserListQuery: GET_USER_LIST,
     createUserMutation: CREATE_USER,
-    deleteUserMutation: DELETE_USER
+    deleteUserMutation: DELETE_USER,
+    editUserMutation: EDIT_USER
 };

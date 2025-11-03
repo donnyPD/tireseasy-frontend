@@ -57,7 +57,8 @@
 }
 
 [data-cy="Add New User"],
-[data-cy="Delete User"] {
+[data-cy="Delete User"],
+[data-cy="Edit User"] {
     > div {
         @apply overflow-x-hidden;
     }
@@ -86,6 +87,13 @@
                 @apply block mt-4 text-base font-normal text-text-primary break-words;
             }
         }
+    }
+}
+
+[data-cy="Edit User"] {
+    [for="id"],
+    [for="id"] + span {
+        @apply sr-only;
     }
 }
 

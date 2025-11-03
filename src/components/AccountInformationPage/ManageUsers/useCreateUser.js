@@ -3,7 +3,6 @@ import { useMutation, useQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './createUser.gql';
-import { useHistory, useLocation } from 'react-router-dom';
 
 export const useCreateUser = props => {
     const { initialValues = {}, onSubmit } = props;
@@ -15,8 +14,6 @@ export const useCreateUser = props => {
         editUserMutation
     } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const history = useHistory();
-    const location = useLocation();
 
     const [createUser, { error: createUserError }] = useMutation(
         createUserMutation,
@@ -32,12 +29,12 @@ export const useCreateUser = props => {
         }
     );
 
-    // const [editUser, { error: editUserError }] = useMutation(
-    //     editUserMutation,
-    //     {
-    //         fetchPolicy: 'no-cache'
-    //     }
-    // );
+    const [editUser, { error: editUserError }] = useMutation(
+        editUserMutation,
+        {
+            fetchPolicy: 'no-cache'
+        }
+    );
 
     const { data: userListData } = useQuery(getUserListQuery, {
         fetchPolicy: 'cache-and-network',
@@ -90,19 +87,29 @@ export const useCreateUser = props => {
         }
     }, []);
 
-    const handleEditUser = useCallback(async (email) => {
-        // try {
-        //     await editUser({
-        //         variables: { email },
-        //         refetchQueries: [{ query: getUserListQuery }],
-        //         awaitRefetchQueries: true
-        //     });
-        //
-        // } catch (error) {
-        //     if (process.env.NODE_ENV !== 'production') {
-        //         console.error(error);
-        //     }
-        // }
+    const handleEditUser = useCallback(
+        async formValues => {
+            setIsSubmitting(true);
+            console.log(formValues)
+            try {
+                await editUser({
+                    variables: {
+                        id: formValues.id,
+                        email: formValues.email,
+                        firstname: formValues.firstname || '',
+                        lastname: formValues.lastname || '',
+                        // password: formValues.password || '',
+                        // new_password: formValues.newPassword || ''
+                    },
+                    refetchQueries: [{ query: getUserListQuery }],
+                    awaitRefetchQueries: true
+                });
+            } catch (error) {
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error(error);
+                }
+            }
+            setIsSubmitting(false);
     }, []);
 
     const sanitizedInitialValues = useMemo(() => {
@@ -119,12 +126,12 @@ export const useCreateUser = props => {
             new Map([
                 ['createUserMutation', createUserError],
                 ['deleteUserMutation', deleteUserError],
-                // ['editUserMutation', editUserError]
+                ['editUserMutation', editUserError]
             ]),
         [
             createUserError,
             deleteUserError,
-            // editUserError,
+            editUserError,
         ]
     );
 

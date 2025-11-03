@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Form } from 'informed';
 import { shape, string } from 'prop-types';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -22,6 +21,7 @@ import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator'
 import UserRow from './userRow';
 import { Portal } from '@magento/venia-ui/lib/components/Portal';
 import Dialog from '@magento/venia-ui/lib/components/Dialog';
+import EditUserForm from './editUserForm';
 
 const ManageUsers = props => {
     const talonProps = useCreateUser({
@@ -41,7 +41,8 @@ const ManageUsers = props => {
     } = talonProps;
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenConfirmation, setIsOpenConfirmation] = useState('');
-    console.log(userList);
+    const [isOpenEdit, setIsOpenEdit] = useState(null);
+
     const classes = useStyle(defaultClasses, props.classes);
 
     const openModal = () => {
@@ -68,6 +69,12 @@ const ManageUsers = props => {
         }
     }
 
+    const closeEditModal = () => {
+        if (isOpenEdit) {
+            setIsOpenEdit(null);
+        }
+    }
+
     const deleteUser = () => {
         if (isOpenConfirmation) {
             handleDeleteUser(isOpenConfirmation)
@@ -78,6 +85,9 @@ const ManageUsers = props => {
     useEffect(() => {
         if (!isDisabled && isOpen) {
             closeModal();
+        }
+        if (!isDisabled && isOpenEdit) {
+            closeEditModal();
         }
     }, [isDisabled]);
 
@@ -91,6 +101,7 @@ const ManageUsers = props => {
                 user={user}
                 handleEditUser={handleEditUser}
                 openConfirmationModal={openConfirmationModal}
+                setIsOpenEdit={setIsOpenEdit}
             />;
         });
     }, [userList]);
@@ -254,9 +265,7 @@ const ManageUsers = props => {
                 </>
             );
         }
-    }, [
-        isDisabled
-    ]);
+    }, [isDisabled]);
 
     return (
         <Fragment>
@@ -297,6 +306,15 @@ const ManageUsers = props => {
                             {isOpenConfirmation}
                         </span>
                     </h3>
+                </Dialog>
+                <Dialog
+                    isOpen={!!isOpenEdit}
+                    onCancel={closeEditModal}
+                    title="Edit User"
+                    formProps={{ initialValues: isOpenEdit }}
+                    onConfirm={handleEditUser}
+                >
+                    <EditUserForm isDisabled={isDisabled} />
                 </Dialog>
             </Portal>
         </Fragment>
