@@ -20,7 +20,7 @@ import FormError from '@magento/venia-ui/lib/components/FormError';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import UserRow from './userRow';
 import { Portal } from '@magento/venia-ui/lib/components/Portal';
-import Dialog from '@magento/venia-ui/lib/components/Dialog';
+import Dialog from '../../Dialog';
 import EditUserForm from './editUserForm';
 
 const ManageUsers = props => {
@@ -292,6 +292,7 @@ const ManageUsers = props => {
                     title="Add New User"
                     onConfirm={handleSubmit}
                     formProps={initialValues}
+                    id={'add_new_user_modal'}
                 >
                     {newUserContent}
                 </Dialog>
@@ -300,6 +301,7 @@ const ManageUsers = props => {
                     onCancel={closeConfirmationModal}
                     title="Delete User"
                     onConfirm={() => deleteUser()}
+                    id={'delete_user_modal'}
                 >
                     <h3>
                         <FormattedMessage
@@ -317,6 +319,7 @@ const ManageUsers = props => {
                     title="Edit User"
                     formProps={{ initialValues: isOpenEdit }}
                     onConfirm={handleEditUser}
+                    id={'edit_user_modal'}
                 >
                     <EditUserForm isDisabled={isDisabled} />
                 </Dialog>
