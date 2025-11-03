@@ -68,8 +68,8 @@ export const useCreateUser = props => {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
-                setIsSubmitting(false);
             }
+            setIsSubmitting(false);
         },
 
         [onSubmit]

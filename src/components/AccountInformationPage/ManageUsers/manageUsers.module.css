@@ -56,6 +56,39 @@
     @apply break-words;
 }
 
+[data-cy="Add New User"],
+[data-cy="Delete User"] {
+    > div {
+        @apply overflow-x-hidden;
+    }
+
+    [data-cy="Dialog-headerText"] {
+        @apply text-lg lg_text-xl font-bold text-text-primary my-2 block;
+    }
+
+    [data-cy="Dialog-cancelButton"] {
+        @apply rounded-md bg-white text-accent-green border-accent-green normal-case text-base p-[10px] transition-all
+        hover_bg-white hover_text-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
+    }
+
+    [data-cy="Dialog-confirmButton"] {
+        @apply rounded-md bg-accent-green border-accent-green normal-case text-base p-[10px] transition-all
+        hover_bg-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
+    }
+}
+
+[data-cy="Delete User"] {
+    [class^="dialog-contents"] {
+        h3 {
+            @apply text-center text-lg lg_text-xl font-bold text-text-primary text-primary-navy mt-4;
+
+            span {
+                @apply block mt-4 text-base font-normal text-text-primary break-words;
+            }
+        }
+    }
+}
+
 @media screen(lg) {
     .user {
         grid-template-columns:

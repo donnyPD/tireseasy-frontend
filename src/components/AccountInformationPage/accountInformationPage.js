@@ -124,7 +124,7 @@ const AccountInformationPage = props => {
                     <EditModal
                         formErrors={formErrors}
                         initialValues={customer}
-                        isDisabled={isDisabled}
+                        isDisabled={!!isDisabled}
                         isOpen={isUpdateMode}
                         onCancel={handleCancel}
                         onChangePassword={handleChangePassword}

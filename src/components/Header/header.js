@@ -124,21 +124,21 @@ const Header = (props) => {
                     <span className={classes.userStatus}>
                         Logged in as: <strong>{currentUser.firstname} {currentUser.lastname}</strong>
                     </span>
-                    {/*<Link*/}
-                    {/*    to={resourceUrl('/logout')}*/}
-                    {/*    className={classes.logout}*/}
-                    {/*    aria-label="logout button"*/}
-                    {/*    title={formatMessage({*/}
-                    {/*        id: 'header.logout.button',*/}
-                    {/*        defaultMessage: 'Logout'*/}
-                    {/*    })}*/}
-                    {/*>*/}
-                    {/*    <FormattedMessage*/}
-                    {/*        id={'header.logout.button'}*/}
-                    {/*        defaultMessage={'Logout'}*/}
-                    {/*    />*/}
-                    {/*    <LogOut size={20} />*/}
-                    {/*</Link>*/}
+                    <Link
+                        to={resourceUrl('/logout')}
+                        className={classes.logout}
+                        aria-label="logout button"
+                        title={formatMessage({
+                            id: 'header.logout.button',
+                            defaultMessage: 'Logout'
+                        })}
+                    >
+                        {/*<FormattedMessage*/}
+                        {/*    id={'header.logout.button'}*/}
+                        {/*    defaultMessage={'Logout'}*/}
+                        {/*/>*/}
+                        <LogOut size={20} />
+                    </Link>
                 </>
             );
         }
@@ -192,17 +192,6 @@ const Header = (props) => {
                             <Clock size={20} />
                         </Link>
                         <CartTrigger />
-                        {isSignedIn && <Link
-                            to={resourceUrl('/logout')}
-                            className={classes.logout}
-                            aria-label="logout button"
-                            title={formatMessage({
-                                id: 'header.logout.button',
-                                defaultMessage: 'Logout'
-                            })}
-                        >
-                            <LogOut size={20} />
-                        </Link>}
                     </div>
 
                     {/* Main Navigation */}

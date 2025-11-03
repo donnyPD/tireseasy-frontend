@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Form } from 'informed';
 import { shape, string } from 'prop-types';
@@ -40,6 +40,7 @@ const ManageUsers = props => {
         handleEditUser
     } = talonProps;
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenConfirmation, setIsOpenConfirmation] = useState('');
     console.log(userList);
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -49,11 +50,36 @@ const ManageUsers = props => {
         }
     }
 
+    const openConfirmationModal = (email) => {
+        if (!isOpenConfirmation) {
+            setIsOpenConfirmation(email);
+        }
+    }
+
     const closeModal = () => {
         if (isOpen) {
             setIsOpen(!isOpen);
         }
     }
+
+    const closeConfirmationModal = () => {
+        if (isOpenConfirmation) {
+            setIsOpenConfirmation('');
+        }
+    }
+
+    const deleteUser = () => {
+        if (isOpenConfirmation) {
+            handleDeleteUser(isOpenConfirmation)
+        }
+        closeConfirmationModal();
+    }
+
+    useEffect(() => {
+        if (!isDisabled && isOpen) {
+            closeModal();
+        }
+    }, [isDisabled]);
 
     const userRows = useMemo(() => {
         if (!userList) {
@@ -63,8 +89,8 @@ const ManageUsers = props => {
             return <UserRow
                 key={user.id}
                 user={user}
-                handleDeleteUser={handleDeleteUser}
                 handleEditUser={handleEditUser}
+                openConfirmationModal={openConfirmationModal}
             />;
         });
     }, [userList]);
@@ -113,7 +139,7 @@ const ManageUsers = props => {
                                 <span>
                                     <FormattedMessage
                                         id={'user.Actions.text'}
-                                        defaultMessage={'Actions'}
+                                        defaultMessage={'Action'}
                                     />
                                 </span>
                             </div>
@@ -250,11 +276,27 @@ const ManageUsers = props => {
                 <Dialog
                     isOpen={isOpen}
                     onCancel={closeModal}
-                    title="Add New User Form"
+                    title="Add New User"
                     onConfirm={handleSubmit}
                     formProps={initialValues}
                 >
                     {newUserContent}
+                </Dialog>
+                <Dialog
+                    isOpen={!!isOpenConfirmation}
+                    onCancel={closeConfirmationModal}
+                    title="Delete User"
+                    onConfirm={() => deleteUser()}
+                >
+                    <h3>
+                        <FormattedMessage
+                            id={'createUser.btn.text'}
+                            defaultMessage={'Are you sure you want to delete next user:'}
+                        />
+                        <span>
+                            {isOpenConfirmation}
+                        </span>
+                    </h3>
                 </Dialog>
             </Portal>
         </Fragment>
@@ -271,6 +313,7 @@ ManageUsers.propTypes = {
         userFirstName: string,
         userLastName: string,
         form: string,
+        addNewUserForm: string,
         buttonContainer: string,
         submitButton: string,
     })
