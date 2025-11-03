@@ -65,6 +65,10 @@
 
 .section {
     @apply pb-6;
+
+    .filterRow {
+        @apply bg-white rounded-none p-0 shadow-none mb-10;
+    }
 }
 
 .filterRow {
@@ -91,7 +95,7 @@
 
 .title,
 .title_section {
-    @apply text-lg lg_text-xl font-bold text-text-primary mb-3;
+    @apply text-lg lg_text-xl text-left font-bold text-text-primary mb-3;
 }
 
 .title_section {
