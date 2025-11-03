@@ -6,7 +6,7 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from '@magento/venia-ui/lib/components/Field/field.module.css';
 
 const Field = props => {
-    const { children, id, label, optional, labelTitle } = props;
+    const { children, id, label, optional, labelTitle, icon } = props;
     const classes = useStyle(defaultClasses, props.classes);
     const optionalSymbol = optional ? (
         <span className={classes.optional}>
@@ -22,9 +22,12 @@ const Field = props => {
             <label className={classes.label} htmlFor={id}>
                 {label}
                 {optionalSymbol}
-                {labelTitle && <span data-role="tooltipContainer">
+                {labelTitle && <>
+                    {icon || null}
+                    <span data-role="tooltipContainer">
                     {labelTitle}
-                </span>}
+                </span>
+                </>}
             </label>
             {children}
         </div>

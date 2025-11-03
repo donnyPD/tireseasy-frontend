@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import { Form } from 'informed';
 import { shape, string, } from 'prop-types';
+import { Info } from 'react-feather';
 
 import {
     useCheckoutPage,
@@ -65,6 +66,7 @@ const CustomerAttributes = props => {
                     id: 'customLabel.title',
                     defaultMessage: 'PO notes entered here are for your reference only. They will appear on your order documentation but will not be visible to our associates'
                 })}
+                icon={<Info size={20} />}
             >
                 <input
                     className={inputClasses}
@@ -98,6 +100,7 @@ const CustomerAttributes = props => {
                     id: 'customLabel.title',
                     defaultMessage: 'Use this box to provide any special instructions or notes about your order - for example, delivery details, preferred contact times, or installation requests.'
                 })}
+                icon={<Info size={20} />}
             >
                 <textarea
                     className={classes.textarea_comment}
