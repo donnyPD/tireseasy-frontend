@@ -14,6 +14,7 @@ export const useCreateUser = props => {
         editUserMutation
     } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const [createUser, { error: createUserError }] = useMutation(
         createUserMutation,
@@ -61,6 +62,7 @@ export const useCreateUser = props => {
                     refetchQueries: [{ query: getUserListQuery }],
                     awaitRefetchQueries: true
                 });
+                setIsSuccess(true);
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -90,7 +92,6 @@ export const useCreateUser = props => {
     const handleEditUser = useCallback(
         async formValues => {
             setIsSubmitting(true);
-            console.log(formValues)
             try {
                 await editUser({
                     variables: {
@@ -104,6 +105,7 @@ export const useCreateUser = props => {
                     refetchQueries: [{ query: getUserListQuery }],
                     awaitRefetchQueries: true
                 });
+                setIsSuccess(true);
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
@@ -143,6 +145,8 @@ export const useCreateUser = props => {
         isDisabled: isSubmitting,
         minimumPasswordLength: 8,
         handleDeleteUser,
-        handleEditUser
+        handleEditUser,
+        isSuccess,
+        setIsSuccess
     };
 };

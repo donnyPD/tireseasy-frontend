@@ -37,7 +37,9 @@ const ManageUsers = props => {
         minimumPasswordLength,
         userList,
         handleDeleteUser,
-        handleEditUser
+        handleEditUser,
+        isSuccess,
+        setIsSuccess
     } = talonProps;
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenConfirmation, setIsOpenConfirmation] = useState('');
@@ -83,11 +85,13 @@ const ManageUsers = props => {
     }
 
     useEffect(() => {
-        if (!isDisabled && isOpen) {
+        if (isSuccess && isOpen) {
             closeModal();
+            setIsSuccess(false);
         }
-        if (!isDisabled && isOpenEdit) {
+        if (isSuccess && isOpenEdit) {
             closeEditModal();
+            setIsSuccess(false);
         }
     }, [isDisabled]);
 
