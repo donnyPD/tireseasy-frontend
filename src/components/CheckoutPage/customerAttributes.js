@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Suspense } from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import { Form } from 'informed';
 import { shape, string, } from 'prop-types';
@@ -10,6 +10,7 @@ import {
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './checkoutPage.module.css';
 import Field from './field';
+const CmsBlock = React.lazy(() => import('@magento/venia-ui/lib/components/CmsBlock'));
 
 
 const CustomerAttributes = props => {
@@ -53,6 +54,18 @@ const CustomerAttributes = props => {
         }
     }, [inputValue]);
 
+    const messageBlock = (
+        <Suspense fallback={<div className="cms-block-loading" />}>
+            <CmsBlock identifiers={'customer_po_number_tooltip'}/>
+        </Suspense>
+    );
+
+    const messageBlock2 = (
+        <Suspense fallback={<div className="cms-block-loading" />}>
+            <CmsBlock identifiers={'order_comments_tooltip'}/>
+        </Suspense>
+    );
+
     const customerInput = (
         <div>
             <Field
@@ -62,10 +75,7 @@ const CustomerAttributes = props => {
                     // defaultMessage: 'Customer PO Number (Required)'
                     defaultMessage: 'Customer PO Number'
                 })}
-                labelTitle={formatMessage({
-                    id: 'customLabel.title',
-                    defaultMessage: 'PO notes entered here are for your reference only. They will appear on your order documentation but will not be visible to our associates'
-                })}
+                labelTitle={messageBlock}
                 icon={<Info size={20} />}
             >
                 <input
@@ -96,10 +106,7 @@ const CustomerAttributes = props => {
                     id: 'global.customer.comment',
                     defaultMessage: 'Order Comments'
                 })}
-                labelTitle={formatMessage({
-                    id: 'customLabel.title',
-                    defaultMessage: 'Use this box to provide any special instructions or notes about your order - for example, delivery details, preferred contact times, or installation requests.'
-                })}
+                labelTitle={messageBlock2}
                 icon={<Info size={20} />}
             >
                 <textarea

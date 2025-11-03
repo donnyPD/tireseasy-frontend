@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { shape, string } from 'prop-types';
 
@@ -35,6 +35,12 @@ const EditUserForm = props => {
     } = talonProps;
 
     const classes = useStyle(defaultClasses, propClasses);
+    const [isOpenPassword, setIsOpenPassword] = useState(false);
+
+    const openPassword = (event) => {
+        event.preventDefault();
+        setIsOpenPassword(true);
+    }
 
     const editFormContent = useMemo(() => {
         if (isDisabled) {
@@ -96,35 +102,47 @@ const EditUserForm = props => {
                             data-cy="email"
                         />
                     </Field>
-                    {/*<Password*/}
-                    {/*    fieldName="password"*/}
-                    {/*    label="Current Password"*/}
-                    {/*    validate={isRequired}*/}
-                    {/*    autoComplete="current-password"*/}
-                    {/*    isToggleButtonHidden={false}*/}
-                    {/*    data-cy="password"*/}
-                    {/*/>*/}
-                    {/*<div className={classes.newPassword}>*/}
-                    {/*    <Password*/}
-                    {/*        fieldName="newPassword"*/}
-                    {/*        label={formatMessage({*/}
-                    {/*            id: 'global.newPassword',*/}
-                    {/*            defaultMessage: 'New Password'*/}
-                    {/*        })}*/}
-                    {/*        validate={combine([*/}
-                    {/*            isRequired,*/}
-                    {/*            [hasLengthAtLeast, 8],*/}
-                    {/*            validatePassword,*/}
-                    {/*            [isNotEqualToField, 'password']*/}
-                    {/*        ])}*/}
-                    {/*        isToggleButtonHidden={false}*/}
-                    {/*        data-cy="newPassword"*/}
-                    {/*    />*/}
-                    {/*</div>*/}
+                    {!isOpenPassword && <a
+                        href="#"
+                        onClick={openPassword}
+                        className={classes.changePassword}
+                    >
+                        <FormattedMessage
+                            id={'password.btn'}
+                            defaultMessage={'Change Password'}
+                        />
+                    </a>}
+                    {isOpenPassword && <div className={classes.changePasswordBlock}>
+                        <Password
+                            fieldName="password"
+                            label="Current Password"
+                            validate={isRequired}
+                            autoComplete="current-password"
+                            isToggleButtonHidden={false}
+                            data-cy="password"
+                        />
+                        <div className={classes.newPassword}>
+                            <Password
+                                fieldName="newPassword"
+                                label={formatMessage({
+                                    id: 'global.newPassword',
+                                    defaultMessage: 'New Password'
+                                })}
+                                validate={combine([
+                                    isRequired,
+                                    [hasLengthAtLeast, 8],
+                                    validatePassword,
+                                    [isNotEqualToField, 'password']
+                                ])}
+                                isToggleButtonHidden={false}
+                                data-cy="newPassword"
+                            />
+                        </div>
+                    </div>}
                 </Fragment>
             )
         }
-    }, [isDisabled]);
+    }, [isDisabled, isOpenPassword]);
 
     return (
         <>
@@ -137,8 +155,8 @@ export default EditUserForm;
 
 EditUserForm.propTypes = {
     classes: shape({
-        changePasswordButton: string,
-        changePasswordButtonContainer: string,
+        changePassword: string,
+        changePasswordBlock: string,
         root: string,
         field: string,
         email: string,

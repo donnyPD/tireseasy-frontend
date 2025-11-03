@@ -97,6 +97,14 @@
     }
 }
 
+.changePassword {
+    @apply inline-block mt-4 underline text-primary-navy transition-all hover_text-accent-orange;
+}
+
+.changePasswordBlock {
+    @apply mt-6;
+}
+
 @media screen(lg) {
     .user {
         grid-template-columns:
