@@ -57,7 +57,7 @@ export const useOrderHistoryPage = (props = {}) => {
         }
     });
 
-    const orders = orderData ? orderData.customer.orders.items : [];
+    const orders = orderData && orderData.customer && orderData.customer.orders ? orderData.customer.orders.items : [];
 
     const isLoadingWithoutData = !orderData && orderLoading;
     const isBackgroundLoading = !!orderData && orderLoading;
