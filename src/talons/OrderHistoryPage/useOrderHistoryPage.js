@@ -63,7 +63,7 @@ export const useOrderHistoryPage = (props = {}) => {
     const isBackgroundLoading = !!orderData && orderLoading;
 
     const pageInfo = useMemo(() => {
-        if (orderData) {
+        if (orderData && orderData.customer) {
             const { total_count } = orderData.customer.orders;
 
             return {
