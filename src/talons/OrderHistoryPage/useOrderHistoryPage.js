@@ -99,7 +99,7 @@ export const useOrderHistoryPage = (props = {}) => {
     }, []);
 
     const loadMoreOrders = useMemo(() => {
-        if (orderData && customer.orders) {
+        if (orderData && orderData.customer) {
             const { page_info } = orderData.customer.orders;
             const { current_page, total_pages } = page_info;
 
