@@ -31,6 +31,9 @@ const ManageUsers = props => {
     const { formatMessage } = useIntl();
     const {
         errors,
+        errorsEdit,
+        errorsDelete,
+        setDisplayError,
         handleSubmit,
         isDisabled,
         initialValues,
@@ -62,18 +65,24 @@ const ManageUsers = props => {
     const closeModal = () => {
         if (isOpen) {
             setIsOpen(!isOpen);
+            setIsSuccess(false);
+            setDisplayError(false);
         }
     }
 
     const closeConfirmationModal = () => {
         if (isOpenConfirmation) {
             setIsOpenConfirmation('');
+            setIsSuccess(false);
+            setDisplayError(false);
         }
     }
 
     const closeEditModal = () => {
         if (isOpenEdit) {
             setIsOpenEdit(null);
+            setIsSuccess(false);
+            setDisplayError(false);
         }
     }
 
@@ -81,17 +90,19 @@ const ManageUsers = props => {
         if (isOpenConfirmation) {
             handleDeleteUser(isOpenConfirmation)
         }
-        closeConfirmationModal();
     }
 
     useEffect(() => {
-        if (isSuccess && isOpen) {
-            closeModal();
-            setIsSuccess(false);
-        }
-        if (isSuccess && isOpenEdit) {
-            closeEditModal();
-            setIsSuccess(false);
+        if (isSuccess) {
+            if (isOpen) {
+                closeModal();
+            }
+            if (isOpenEdit) {
+                closeEditModal();
+            }
+            if (isOpenConfirmation) {
+                closeConfirmationModal();
+            }
         }
     }, [isDisabled]);
 
@@ -176,7 +187,6 @@ const ManageUsers = props => {
         } else {
             return (
                 <>
-                    <FormError errors={Array.from(errors.values())} />
                     <Field
                         id="firstName"
                         label={formatMessage({
@@ -294,6 +304,7 @@ const ManageUsers = props => {
                     formProps={initialValues}
                     id={'add_new_user_modal'}
                 >
+                    <FormError errors={errors} />
                     {newUserContent}
                 </Dialog>
                 <Dialog
@@ -303,7 +314,9 @@ const ManageUsers = props => {
                     onConfirm={() => deleteUser()}
                     id={'delete_user_modal'}
                 >
-                    <h3>
+                    <FormError errors={errorsDelete} />
+                    {isDisabled && <LoadingIndicator />}
+                    {!isDisabled && <h3>
                         <FormattedMessage
                             id={'createUser.btn.text'}
                             defaultMessage={'Are you sure you want to delete next user:'}
@@ -311,7 +324,7 @@ const ManageUsers = props => {
                         <span>
                             {isOpenConfirmation}
                         </span>
-                    </h3>
+                    </h3>}
                 </Dialog>
                 <Dialog
                     isOpen={!!isOpenEdit}
@@ -321,6 +334,7 @@ const ManageUsers = props => {
                     onConfirm={handleEditUser}
                     id={'edit_user_modal'}
                 >
+                    <FormError errors={errorsEdit} />
                     <EditUserForm isDisabled={isDisabled} />
                 </Dialog>
             </Portal>

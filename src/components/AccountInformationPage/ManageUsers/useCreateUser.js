@@ -15,6 +15,7 @@ export const useCreateUser = props => {
     } = operations;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [displayError, setDisplayError] = useState(false);
 
     const [createUser, { error: createUserError }] = useMutation(
         createUserMutation,
@@ -64,6 +65,7 @@ export const useCreateUser = props => {
                 });
                 setIsSuccess(true);
             } catch (error) {
+                setDisplayError(true);
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
@@ -75,18 +77,21 @@ export const useCreateUser = props => {
     );
 
     const handleDeleteUser = useCallback(async (email) => {
+        setIsSubmitting(true);
         try {
             await deleteUser({
                 variables: { email },
                 refetchQueries: [{ query: getUserListQuery }],
                 awaitRefetchQueries: true
             });
-
+            setIsSuccess(true);
         } catch (error) {
+            setDisplayError(true);
             if (process.env.NODE_ENV !== 'production') {
                 console.error(error);
             }
         }
+        setIsSubmitting(false);
     }, []);
 
     const handleEditUser = useCallback(
@@ -99,14 +104,15 @@ export const useCreateUser = props => {
                         email: formValues.email,
                         firstname: formValues.firstname || '',
                         lastname: formValues.lastname || '',
-                        // password: formValues.password || '',
-                        // new_password: formValues.newPassword || ''
+                        password: formValues.password || '',
+                        new_password: formValues.newPassword || ''
                     },
                     refetchQueries: [{ query: getUserListQuery }],
                     awaitRefetchQueries: true
                 });
                 setIsSuccess(true);
             } catch (error) {
+                setDisplayError(true);
                 if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
@@ -123,22 +129,20 @@ export const useCreateUser = props => {
         };
     }, [initialValues]);
 
-    const errors = useMemo(
-        () =>
-            new Map([
-                ['createUserMutation', createUserError],
-                ['deleteUserMutation', deleteUserError],
-                ['editUserMutation', editUserError]
-            ]),
-        [
-            createUserError,
-            deleteUserError,
-            editUserError,
-        ]
-    );
+    const errors = displayError
+        ? [createUserError]
+        : [];
+    const errorsEdit = displayError
+        ? [editUserError]
+        : [];
+    const errorsDelete = displayError
+        ? [deleteUserError]
+        : [];
 
     return {
         errors,
+        errorsEdit,
+        errorsDelete,
         handleSubmit,
         userList,
         initialValues: sanitizedInitialValues,
@@ -147,6 +151,7 @@ export const useCreateUser = props => {
         handleDeleteUser,
         handleEditUser,
         isSuccess,
-        setIsSuccess
+        setIsSuccess,
+        setDisplayError
     };
 };

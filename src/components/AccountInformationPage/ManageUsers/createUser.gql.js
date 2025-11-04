@@ -42,8 +42,8 @@ export const EDIT_USER = gql`
     mutation updateContact(
         $firstname: String!
         $lastname: String!
-        #$password: String!
-        #$new_password: String!
+        $password: String!
+        $new_password: String!
         $email: String!
         $id: Int!
     ) {
@@ -53,8 +53,8 @@ export const EDIT_USER = gql`
                 lastname: $lastname
                 email: $email
                 id: $id
-                #new_password: $new_password
-                #current_password: $password
+                new_password: $new_password
+                current_password: $password
             }
         ) {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
