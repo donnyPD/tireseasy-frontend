@@ -11,6 +11,7 @@ import {
     getFiltersFromSearch,
     getFilterInput
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
+import { getCustomFiltersFromSearch, getCustomFilterInput } from './helpers';
 
 import DEFAULT_OPERATIONS from './category.gql';
 
@@ -123,11 +124,15 @@ export const useCategory = props => {
         }
 
         const filters = getFiltersFromSearch(search);
+        const customFilters = getCustomFiltersFromSearch(search);
 
         // Construct the filter arg object.
         const newFilters = {};
         filters.forEach((values, key) => {
             newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
+        });
+        customFilters.forEach((values, key) => {
+            newFilters[key] = getCustomFilterInput(values);
         });
 
         // Use the category uid for the current category page regardless of the
