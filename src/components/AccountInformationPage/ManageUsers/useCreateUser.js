@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './createUser.gql';
+const PAGE_SIZE = 10;
 
 export const useCreateUser = props => {
     const { initialValues = {}, onSubmit } = props;
@@ -16,6 +17,7 @@ export const useCreateUser = props => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [displayError, setDisplayError] = useState(false);
+    const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
     const [createUser, { error: createUserError }] = useMutation(
         createUserMutation,
@@ -45,9 +47,11 @@ export const useCreateUser = props => {
 
     const userList = useMemo(() => {
         if (userListData) {
-            return userListData?.contactList;
+            return userListData?.contactList.slice(0, pageSize);
         }
-    }, [userListData]);
+    }, [userListData, pageSize]);
+
+    const isShowLoadMore = userListData && userListData?.contactList.length > pageSize;
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -139,6 +143,14 @@ export const useCreateUser = props => {
         ? [deleteUserError]
         : [];
 
+    const loadMoreUserList = useMemo(() => {
+        if (userList) {
+            return () => setPageSize(current => current + PAGE_SIZE);
+        }
+
+        return null;
+    }, [userList]);
+
     return {
         errors,
         errorsEdit,
@@ -152,6 +164,8 @@ export const useCreateUser = props => {
         handleEditUser,
         isSuccess,
         setIsSuccess,
-        setDisplayError
+        setDisplayError,
+        isShowLoadMore,
+        loadMoreUserList
     };
 };

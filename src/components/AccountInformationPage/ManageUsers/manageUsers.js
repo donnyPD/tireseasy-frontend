@@ -42,7 +42,9 @@ const ManageUsers = props => {
         handleDeleteUser,
         handleEditUser,
         isSuccess,
-        setIsSuccess
+        setIsSuccess,
+        isShowLoadMore,
+        loadMoreUserList
     } = talonProps;
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenConfirmation, setIsOpenConfirmation] = useState('');
@@ -172,6 +174,17 @@ const ManageUsers = props => {
                             {/*<div />*/}
                         </li>
                         {userRows}
+                        {isShowLoadMore && <div className={classes.loadMoreContainer}>
+                            <Button
+                                className={classes.loadMoreButton}
+                                onClick={loadMoreUserList}
+                            >
+                                <FormattedMessage
+                                    id={'load.btn.text'}
+                                    defaultMessage={'Load More'}
+                                />
+                            </Button>
+                        </div>}
                     </ul>
                 </div>
             );
@@ -355,5 +368,7 @@ ManageUsers.propTypes = {
         addNewUserForm: string,
         buttonContainer: string,
         submitButton: string,
+        loadMoreContainer: string,
+        loadMoreButton: string,
     })
 };
