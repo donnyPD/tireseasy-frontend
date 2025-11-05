@@ -76,15 +76,16 @@
 
 .attr {
     @apply text-sm text-text-secondary;
-
-    span {
-        @apply mr-2;
-    }
 }
 
-.price,
-.total {
-    span {
-        @apply text-sm;
-    }
+.attr span {
+    @apply mr-2;
+}
+
+.price span {
+    @apply text-sm;
+}
+
+.total span {
+    @apply text-sm;
 }

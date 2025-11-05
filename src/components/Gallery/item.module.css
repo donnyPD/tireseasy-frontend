@@ -58,18 +58,16 @@
 
 .actionsContainer button {
     padding: 11px 10px 10px !important;
-
     background: var(--color-accent-orange) !important;
     border-color: var(--color-accent-orange) !important;
-
-    &:hover {
-         background: var(--color-button-primary-hover) !important;
-         border-color: var(--color-button-primary-hover) !important;
-    }
 
     @apply min-w-[100px] md_min-w-[130px] m-0;
 }
 
+.actionsContainer button :hover {
+    background: var(--color-button-primary-hover) !important;
+    border-color: var(--color-button-primary-hover) !important;
+}
 
 .attrs {
     display: flex;
@@ -84,43 +82,40 @@
     padding-right: 5px;
 
     @apply text-sm font-normal text-black;
+}
 
-    b {
-        @apply font-normal;
-    }
+.attrs__item b {
+    @apply font-normal;
 }
 
 .attributes {
     @apply px-4 lg_min-w-[150px] -sm_w-full md_border-l;
-
-    .attrs__item {
-        @apply after_hidden;
-
-        span {
-            @apply font-bold text-primary-deep;
-        }
-    }
 }
 
+.attributes .attrs__item {
+    @apply after_hidden;
+}
+
+.attributes .attrs__item span {
+    @apply font-bold text-primary-deep;
+}
 
 .qty_block {
     @apply flex pt-2;
+}
 
-    button {
-        @apply flex disabled_opacity-[0.3];
-    }
-
-    input[type=number] {
-        @apply border-0 outline-none w-[60px] text-center text-sm;
-
-        &::-webkit-inner-spin-button,
-        &::-webkit-outer-spin-button {
-             -webkit-appearance: none;
-             -moz-appearance: none;
-             appearance: none;
-             margin: 0;
-         }
-    }
+.qty_block button {
+    @apply flex disabled_opacity-[0.3];
+}
+.qty_block input[type=number] {
+    @apply border-0 outline-none w-[60px] text-center text-sm;
+}
+.qty_block input[type=number]::-webkit-inner-spin-button,
+.qty_block input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 
 .attrs__item:after{

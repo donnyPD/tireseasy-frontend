@@ -18,19 +18,19 @@
     margin-right: 15px;
 
     @apply -lg_mr-0 -lg_px-0 -lg_mt-8;
+}
 
-    > aside {
-        @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];
-    }
+.sidebar > aside {
+    @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+}
 
-    div[class^="w-[300px]"] {
-        @apply lg_w-[240px] !important;
+.sidebar div[class^="w-[300px]"] {
+    @apply lg_w-[240px] !important;
+}
 
-        & + div,
-        & + div input {
-            @apply lg_w-[240px] !important;
-        }
-    }
+.sidebar div[class^="w-[300px]"] + div,
+.sidebar div[class^="w-[300px]"] + div input  {
+    @apply lg_w-[240px] !important;
 }
 
 /* Main Content */

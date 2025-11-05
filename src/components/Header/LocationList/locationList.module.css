@@ -4,14 +4,14 @@
 
 .listContainer {
     @apply hidden absolute top-[28px] left-2 border bg-white min-w-[290px] py-2;
+}
 
-    &.open {
-        @apply block;
-    }
+.listContainer.open {
+    @apply block;
+}
 
-    ul {
-        @apply max-h-[400px] overflow-y-auto;
-    }
+.listContainer ul {
+    @apply max-h-[400px] overflow-y-auto;
 }
 
 .locationInfo {
@@ -29,15 +29,14 @@
 
 .locationTooltip {
     @apply relative;
+}
 
-    &:hover {
-        .locationIcon {
-            @apply text-text-secondary;
-        }
-        .tooltipContainer {
-            @apply opacity-100 visible bottom-[24px];
-        }
-    }
+.locationTooltip:hover .locationIcon {
+    @apply text-text-secondary;
+}
+
+.locationTooltip:hover .tooltipContainer {
+    @apply opacity-100 visible bottom-[24px];
 }
 
 .locationInfoText {

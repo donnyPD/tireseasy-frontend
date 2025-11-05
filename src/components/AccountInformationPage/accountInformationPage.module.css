@@ -40,10 +40,10 @@
     composes: leading-normal from global;
 
     @apply block md_flex md_grid-cols-2 w-full md_flex-wrap;
+}
 
-    > div {
-        @apply md_w-1/2 mb-4;
-    }
+.lineItemsContainer > div {
+    @apply md_w-1/2 mb-4;
 }
 
 .lineItemLabel {

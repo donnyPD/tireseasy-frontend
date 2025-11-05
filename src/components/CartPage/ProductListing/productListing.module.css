@@ -4,48 +4,48 @@
     composes: grid from global;
 
     @apply md_table w-full;
+}
 
-    > li {
-        @apply md_table-row md_items-center
-            -md_flex -md_flex-wrap -md_pb-3 -md_justify-end;
+.root > li {
+    @apply md_table-row md_items-center
+    -md_flex -md_flex-wrap -md_pb-3 -md_justify-end;
+}
 
-        > div {
-            @apply md_table-cell md_w-[15%] md_text-center md_align-middle md_py-4
-                -md_w-full;
+.root > li > div {
+    @apply md_table-cell md_w-[15%] md_text-center md_align-middle md_py-4
+    -md_w-full;
+}
 
-            &:first-child {
-                 @apply md_w-[40%] text-left;
-            }
+.root > li > div:first-child {
+    @apply md_w-[40%] text-left;
+}
 
-            &:nth-child(2),
-            &:nth-child(3),
-            &:nth-child(4) {
-                 @apply -md_w-max -md_mr-4;
-            }
-        }
+.root > li > div:nth-child(2),
+.root > li > div:nth-child(3),
+.root > li > div:nth-child(4) {
+    @apply -md_w-max -md_mr-4;
+}
 
-        &:not(:last-child) {
-             @apply -md_border-b -md_border-neutral-lighter;
+.root > li > div:not(:last-child) {
+    @apply -md_border-b -md_border-neutral-lighter;
+}
 
-            > div {
-                @apply md_border-b md_border-neutral-lighter;
-            }
-        }
-    }
+.root > li > div:not(:last-child) > div {
+    @apply md_border-b md_border-neutral-lighter;
 }
 
 .th {
     @apply -md_hidden !important;
+}
 
-    > div {
-        @apply bg-neutral-light text-sm uppercase;
-            &:first-child {
-                 @apply pl-4 rounded-tl-md;
-            }
-            &:last-child {
-                 @apply rounded-tr-md;
-            }
-    }
+.th > div {
+    @apply bg-neutral-light text-sm uppercase;
+}
+.th > div:first-child {
+    @apply pl-4 rounded-tl-md;
+}
+.th > div:last-child {
+    @apply rounded-tr-md;
 }
 
 .errorText {

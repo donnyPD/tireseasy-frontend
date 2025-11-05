@@ -90,11 +90,9 @@ div[id="delete_user_modal"] {
     }
 }
 
-div[id="edit_user_modal"] {
-    [for="id"],
-    [for="id"] + span {
-        @apply sr-only;
-    }
+div[id="edit_user_modal"] [for="id"],
+div[id="edit_user_modal"] [for="id"] + span {
+    @apply sr-only;
 }
 
 .changePassword {

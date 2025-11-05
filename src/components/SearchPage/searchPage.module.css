@@ -60,17 +60,17 @@
     composes: lg_pt-[76px] from global;
 
     @apply flex-col lg_mr-6 lg_min-w-[280px] -lg_mt-8;
+}
 
-    > aside {
-        @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];
-    }
+.sidebar > aside {
+    @apply lg_bg-white lg_rounded-xl lg_px-2 lg_shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+}
 
-    div[class^="w-[300px]"] {
-        @apply lg_w-[240px] !important;
+.sidebar div[class^="w-[300px]"] {
+    @apply lg_w-[240px] !important;
+}
 
-        & + div,
-        & + div input {
-           @apply lg_w-[240px] !important;
-        }
-    }
+.sidebar div[class^="w-[300px]"] + div,
+.sidebar div[class^="w-[300px]"] + div input {
+    @apply lg_w-[240px] !important;
 }
