@@ -12,6 +12,7 @@ import {
     getFilterInput
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
 import { getCustomFiltersFromSearch, getCustomFilterInput } from './helpers';
+import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 import DEFAULT_OPERATIONS from './category.gql';
 
@@ -128,25 +129,32 @@ export const useCategory = props => {
 
         // Construct the filter arg object.
         const newFilters = {};
+        const staggeredFilters = {};
         filters.forEach((values, key) => {
             newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
         });
         customFilters.forEach((values, key) => {
-            newFilters[key] = getCustomFilterInput(values);
+            staggeredFilters[key] = getCustomFilterInput(values);
         });
 
         // Use the category uid for the current category page regardless of the
         // applied filters. Follow-up in PWA-404.
         newFilters['category_uid'] = { eq: id };
 
+        const variables = {
+            currentPage: Number(currentPage),
+            id: id,
+            filters: newFilters,
+            pageSize: Number(pageSize),
+            sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
+        };
+
+        if (!isObjectEmpty(staggeredFilters)) {
+            variables.staggeredRequest = staggeredFilters;
+        }
+
         runQuery({
-            variables: {
-                currentPage: Number(currentPage),
-                id: id,
-                filters: newFilters,
-                pageSize: Number(pageSize),
-                sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
-            }
+            variables: variables
         });
     }, [
         currentPage,

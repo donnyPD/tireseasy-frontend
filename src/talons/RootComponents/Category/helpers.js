@@ -34,5 +34,5 @@ export const getCustomFiltersFromSearch = initialValue => {
 };
 
 export const getCustomFilterInput = (value) => {
-    return { eq: value.values().next().value};
+    return value.values().next().value;
 };
