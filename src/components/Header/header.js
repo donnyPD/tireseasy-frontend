@@ -220,6 +220,14 @@ const Header = (props) => {
                                     </li>
                                 ))
                             )}
+                            <li className={classes.navItem}>
+                                <Link
+                                    to={resourceUrl('/invoice-page')}
+                                    className={classes.navLink}
+                                >
+                                    Invoices
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                 </div>

@@ -60,9 +60,17 @@ const LocationList = props => {
                 <FormattedMessage
                     id={'locationInfoText.trigger'}
                     defaultMessage={
-                        currentLocation ? 'Location: ' + currentLocation : 'Location: is not defined...'
+                        currentLocation ? 'Location:' : 'Location: is not defined...'
                     }
                 />
+                <strong>
+                    <FormattedMessage
+                        id={'locationInfoText.trigger'}
+                        defaultMessage={
+                            currentLocation || ''
+                        }
+                    />
+                </strong>
                 <span className={classes.locationTooltip}>
                     <Eye size={20} className={classes.locationIcon} />
                     <span className={classes.tooltipContainer}>

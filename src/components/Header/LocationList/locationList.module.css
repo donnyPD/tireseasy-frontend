@@ -18,6 +18,10 @@
     @apply cursor-pointer px-4 flex relative;
 }
 
+.locationInfo strong{
+    @apply ml-2;
+}
+
 .locationIcon {
     @apply ml-2 text-primary-deep transition-all;
 }

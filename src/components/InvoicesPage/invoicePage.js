@@ -1,7 +1,6 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 import {
-    Search as SearchIcon,
     AlertCircle as AlertCircleIcon,
     ArrowRight as SubmitIcon
 } from 'react-feather';
@@ -11,6 +10,7 @@ import { Form } from 'informed';
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
 import { useOrderHistoryPage } from '../../talons/OrderHistoryPage/useOrderHistoryPage';
+import { useInvoicePage } from '../../talons/InvoicePage/useInvoicePage';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';
@@ -22,8 +22,10 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import defaultClasses from './invoicePage.module.css';
 import InvoiceRow from './invoiceRow';
 import ResetButton from './resetButton';
-import QuickLookups from "../QuickLookups";
-import Field from "@magento/venia-ui/lib/components/Field";
+import QuickLookups from '../QuickLookups';
+import Field from '@magento/venia-ui/lib/components/Field';
+import Select from '@magento/venia-ui/lib/components/Select';
+import Checkbox from './checkbox';
 
 const errorIcon = (
     <Icon
@@ -33,65 +35,76 @@ const errorIcon = (
         }}
     />
 );
-const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const InvoicePage = props => {
-    const talonProps = useOrderHistoryPage();
-    const {
-        errorMessage,
-        loadMoreOrders,
-        handleReset,
-        handleSubmit,
-        isBackgroundLoading,
-        isLoadingWithoutData,
-        orders,
-        pageInfo,
-        searchText,
-        brandText,
-        codeText,
-        dateFromText,
-        dateToText,
-        invoiceText
-    } = talonProps;
+    const talonProps = useInvoicePage();
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
     const PAGE_TITLE = formatMessage({
         id: 'orderHistoryPage.pageTitleText',
         defaultMessage: 'Invoices'
     });
+    const {
+        errorMessage,
+        // loadMoreOrders,
+        handleReset,
+        handleSubmit,
+        isBackgroundLoading,
+        isLoadingWithoutData,
+        // pageInfo,
+        invoiceText,
+        orderText,
+        statusText,
+        dateFromText,
+        dateToText,
+        invoices
+    } = talonProps;
+
+    const [checkedAll, setCheckedAll] = useState(false);
+
+    const options = [
+        { value: '', label: 'Select status' },
+        { value: 'Open', label: 'Open' },
+        { value: 'Overdue', label: 'Overdue' },
+        { value: 'Paid', label: 'Paid' }
+    ];
 
     const ordersCountMessage = formatMessage(
         {
             id: 'orderHistoryPage.ordersCount',
             defaultMessage: 'You have {count} Invoices.'
         },
-        { count: orders.length }
+        { count: invoices.length }
     );
 
     const classes = useStyle(defaultClasses, props.classes);
 
     const invoiceRows = useMemo(() => {
-        return orders.slice().sort((a, b) => Date.parse(b.order_date) - Date.parse(a.order_date)).map(order => {
-            return <InvoiceRow key={order.id} order={order} />;
+        return invoices.slice().sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)).map(invoice => {
+            return <InvoiceRow key={invoice.invoice_number} invoice={invoice} checkedAll={checkedAll} />;
         });
-    }, [orders]);
+    }, [invoices, checkedAll]);
+
+    const handleChecked = () => {
+        setCheckedAll(!checkedAll)
+    }
 
     const pageContents = useMemo(() => {
         if (isLoadingWithoutData) {
             return <LoadingIndicator />;
-        } else if (!isBackgroundLoading && searchText && !orders.length) {
+        } else if (!isBackgroundLoading && invoiceText && !invoices.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
                         id={'orderHistoryPage.invalidOrderNumber.new'}
                         defaultMessage={`Order was not found.`}
                         values={{
-                            number: searchText
+                            number: invoiceText
                         }}
                     />
                 </h3>
             );
-        } else if (!isBackgroundLoading && !orders.length) {
+        } else if (!isBackgroundLoading && !invoices.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
@@ -108,55 +121,49 @@ const InvoicePage = props => {
                         data-cy="InvoicePage-orderHistoryTable"
                     >
                         <li className={classes.th}>
+                            <div className={classes.invoiceCheckbox}>
+                                <Checkbox checked={checkedAll} handleChange={handleChecked} />
+                            </div>
                             <div>
-                                <span className={classes.orderDateLabel}>
+                                <span className={classes.invoiceDateLabel}>
                                     <FormattedMessage
                                         id={'invoiceRow.orderDateText'}
-                                        defaultMessage={'Order Date'}
+                                        defaultMessage={'Invoice Date'}
                                     />
                                 </span>
                             </div>
                             <div>
-                                 <span className={classes.orderNumberLabel}>
+                                 <span className={classes.invoiceNumberLabel}>
                                     <FormattedMessage
                                         id={'invoiceRow.orderNumberText.new'}
-                                        defaultMessage={'Confirmation #'}
+                                        defaultMessage={'Invoice Number'}
                                     />
                                 </span>
                             </div>
                             <div>
-                                <span className={classes.orderTotalLabel}>
+                                <span className={classes.invoiceTotalLabel}>
                                     <FormattedMessage
                                         id={'invoiceRow.poText'}
-                                        defaultMessage={'Customer PO #'}
+                                        defaultMessage={'Payment Due Date'}
                                     />
                                 </span>
                             </div>
-                            <div>
-                                <span className={classes.orderTotalLabel}>
-                                    <FormattedMessage
-                                        id={'invoiceRow.invoiceText'}
-                                        defaultMessage={'Invoice #'}
-                                    />
-                                </span>
-                            </div>
-                            <div>
-                                <span className={classes.orderTotalLabel}>
+                            <div className={classes.invoiceTotalCell}>
+                                <span className={classes.invoiceTotalLabel}>
                                     <FormattedMessage
                                         id={'invoiceRow.orderTotalText'}
-                                        defaultMessage={'Order Total'}
+                                        defaultMessage={'Total Amount'}
                                     />
                                 </span>
                             </div>
                             <div>
-                                <span className={classes.orderStatusLabel}>
+                                <span className={classes.invoiceStatusLabel}>
                                     <FormattedMessage
                                         id={'invoiceRow.orderStatusText'}
                                         defaultMessage={'Status'}
                                     />
                                 </span>
                             </div>
-                            <div></div>
                         </li>
                         {invoiceRows}
                     </ul>
@@ -169,45 +176,31 @@ const InvoicePage = props => {
         isBackgroundLoading,
         isLoadingWithoutData,
         invoiceRows,
-        orders.length,
-        searchText
+        invoices.length,
+        invoiceText
     ]);
 
-    const resetButtonElement = searchText ? (
-        <ResetButton onReset={handleReset} />
-    ) : null;
+    // const pageInfoLabel = pageInfo ? (
+    //     <FormattedMessage
+    //         defaultMessage={'Showing {current} of {total}'}
+    //         id={'orderHistoryPage.pageInfo'}
+    //         values={pageInfo}
+    //     />
+    // ) : null;
 
-    const submitIcon = (
-        <Icon
-            src={SubmitIcon}
-            size={24}
-            classes={{
-                icon: classes.submitIcon
-            }}
-        />
-    );
-
-    const pageInfoLabel = pageInfo ? (
-        <FormattedMessage
-            defaultMessage={'Showing {current} of {total}'}
-            id={'orderHistoryPage.pageInfo'}
-            values={pageInfo}
-        />
-    ) : null;
-
-    const loadMoreButton = loadMoreOrders ? (
-        <Button
-            classes={{ root_lowPriority: classes.loadMoreButton }}
-            disabled={isBackgroundLoading || isLoadingWithoutData}
-            onClick={loadMoreOrders}
-            priority="low"
-        >
-            <FormattedMessage
-                id={'orderHistoryPage.loadMore'}
-                defaultMessage={'Load More'}
-            />
-        </Button>
-    ) : null;
+    // const loadMoreButton = loadMoreOrders ? (
+    //     <Button
+    //         classes={{ root_lowPriority: classes.loadMoreButton }}
+    //         disabled={isBackgroundLoading || isLoadingWithoutData}
+    //         onClick={loadMoreOrders}
+    //         priority="low"
+    //     >
+    //         <FormattedMessage
+    //             id={'orderHistoryPage.loadMore'}
+    //             defaultMessage={'Load More'}
+    //         />
+    //     </Button>
+    // ) : null;
 
     useEffect(() => {
         if (errorMessage) {
@@ -256,55 +249,29 @@ const InvoicePage = props => {
                         </h2>
                         <Form className={classes.search} onSubmit={handleSubmit}>
                             <Field
-                                id={classes.search_field}
-                                label={formatMessage({
-                                    id: 'search.history.number',
-                                    defaultMessage: 'Order Number'
-                                })}
-                            >
-                                <TextInput
-                                    field="search"
-                                    id={classes.search}
-                                    placeholder={'e.g., 003'}
-                                />
-                            </Field>
-                            <Field
-                                id={classes.brand_name}
-                                label={formatMessage({
-                                    id: 'history.brand.name',
-                                    defaultMessage: 'Brand'
-                                })}
-                            >
-                                <TextInput
-                                    field="brand"
-                                    id={classes.brand}
-                                    placeholder={'e.g., Michelin'}
-                                />
-                            </Field>
-                            <Field
                                 id={classes.invoice_field}
                                 label={formatMessage({
-                                    id: 'history.invoice',
+                                    id: 'invoice.invoice',
                                     defaultMessage: 'Invoice Number'
                                 })}
                             >
                                 <TextInput
                                     field="invoice"
                                     id={classes.invoice}
-                                    placeholder={'e.g., 001'}
+                                    placeholder={'e.g., 000000035'}
                                 />
                             </Field>
                             <Field
-                                id={classes.mfg_code}
+                                id={classes.search_field}
                                 label={formatMessage({
-                                    id: 'history.mfg.code',
-                                    defaultMessage: 'Product Number'
+                                    id: 'invoice.order.number',
+                                    defaultMessage: 'Order Number'
                                 })}
                             >
                                 <TextInput
-                                    field="mfg_code"
-                                    id={classes.code}
-                                    placeholder={'e.g., 0123456'}
+                                    field="order"
+                                    id={classes.search}
+                                    placeholder={'e.g., DL-000000003'}
                                 />
                             </Field>
                             <div className={classes.date_container}>
@@ -312,7 +279,7 @@ const InvoicePage = props => {
                                     className={classes.date}
                                     id={classes.date_from}
                                     label={formatMessage({
-                                        id: 'history.date.field',
+                                        id: 'invoice.date.field',
                                         defaultMessage: 'Date From'
                                     })}
                                 >
@@ -327,7 +294,7 @@ const InvoicePage = props => {
                                     className={classes.date}
                                     id={classes.date_to}
                                     label={formatMessage({
-                                        id: 'history.date.field',
+                                        id: 'invoice.date.field',
                                         defaultMessage: 'Date To'
                                     })}
                                 >
@@ -339,6 +306,19 @@ const InvoicePage = props => {
                                     />
                                 </Field>
                             </div>
+                            <Field
+                                id={classes.status}
+                                label={formatMessage({
+                                    id: 'status.code',
+                                    defaultMessage: 'Status'
+                                })}
+                            >
+                                <Select
+                                    field="status"
+                                    id={classes.select}
+                                    items={options}
+                                />
+                            </Field>
                             <div className={classes.btnContainer}>
                                 <Button
                                     className={classes.searchButton}
@@ -354,15 +334,15 @@ const InvoicePage = props => {
                                         defaultMessage={'Search'}
                                     />
                                 </Button>
-                                {searchText || brandText || codeText || dateFromText || dateToText || invoiceText ? <ResetButton onReset={handleReset} /> : null}
+                                {invoiceText || orderText || dateFromText || dateToText || statusText ? <ResetButton onReset={handleReset} /> : null}
                             </div>
                         </Form>
                     </div>
                     {pageContents}
-                    <div className={classes.pageInfo_container}>
-                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
-                    </div>
-                    {loadMoreButton}
+                    {/*<div className={classes.pageInfo_container}>*/}
+                    {/*    <span className={classes.pageInfo}>{pageInfoLabel}</span>*/}
+                    {/*</div>*/}
+                    {/*{loadMoreButton}*/}
                 </div>
             </div>
         </OrderHistoryContextProvider>
@@ -380,7 +360,13 @@ InvoicePage.propTypes = {
         orders_content: string,
         emptyHistoryMessage: string,
         orderHistoryTable: string,
+        invoiceDateLabel: string,
+        invoiceNumberLabel: string,
+        invoiceTotalCell: string,
+        invoiceTotalLabel: string,
+        invoiceStatusLabel: string,
         search: string,
+        invoiceCheckbox: string,
         searchButton: string,
         submitIcon: string,
         loadMoreButton: string

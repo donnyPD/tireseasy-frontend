@@ -24,7 +24,6 @@
 
 .heading {
     composes: font-bold from global;
-    composes: font-serif from global;
     composes: justify-self-center from global;
     composes: capitalize from global;
 
@@ -78,10 +77,10 @@
     composes: w-full from global;
 
     @apply items-end md_flex flex-wrap justify-start gap-xs;
+}
 
-    > * {
-        @apply w-full md_w-[calc((100%-16px)/2)] lg_w-[calc((100%-32px)/3)]
-    }
+.search > * {
+    @apply w-full md_w-[calc((100%-16px)/2)] lg_w-[calc((100%-32px)/3)]
 }
 
 .searchButton,
@@ -108,18 +107,18 @@
 
 .resetButton {
     @apply ml-2 bg-white text-primary-deep;
+}
 
-    svg {
-        @apply hidden;
-    }
+.resetButton svg {
+    @apply hidden;
 }
 
 input[type="date"] {
     @apply w-full relative pr-6;
+}
 
-    &::-webkit-calendar-picker-indicator {
-        @apply absolute right-0 bg-white pr-2 cursor-pointer;
-    }
+input[type="date"]::-webkit-calendar-picker-indicator {
+    @apply absolute right-0 bg-white pr-2 cursor-pointer;
 }
 
 .date_container {
@@ -130,19 +129,19 @@ input[type="date"] {
     .th {
         @apply grid border-b;
         grid-template-columns:
-            minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr)
-            9rem 1fr;
-
-    > div {
-           @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
-
-            &:first-child {
-                 @apply pl-4 rounded-tl-md;
-            }
-            &:last-child {
-                 @apply rounded-tr-md;
-            }
-        }
+            4rem 1fr minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr);
+    }
+    .th > div {
+        @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
+    }
+    .th > div:first-child {
+        @apply pl-3 rounded-tl-md;
+    }
+    .th > div:last-child {
+        @apply rounded-tr-md;
+    }
+    .th > .invoiceTotalCell {
+        @apply pl-1 pr-4 text-right;
     }
 }
 

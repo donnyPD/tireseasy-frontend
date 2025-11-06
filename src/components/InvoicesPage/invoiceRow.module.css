@@ -12,18 +12,17 @@
 @media screen(lg) {
     .root {
         grid-template-columns:
-            minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr)
-            9rem 2fr 3rem;
+            4rem 1fr minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr);
     }
 
-    .orderNumberLabel,
-    .orderDateLabel,
-    .orderTotalLabel {
+    .invoiceNumberLabel,
+    .invoiceDateLabel,
+    .invoiceTotalLabel {
         @apply hidden;
     }
 }
 
-.orderNumberContainer {
+.invoiceNumberContainer {
     composes: border-0 from global;
     composes: gap-x-2xs from global;
     composes: gap-y-1 from global;
@@ -39,7 +38,7 @@
     composes: lg_items-left from global;
 }
 
-.orderDateContainer {
+.invoiceDateContainer {
     composes: border-0 from global;
     composes: gap-y-1 from global;
     composes: grid from global;
@@ -47,7 +46,7 @@
     composes: p-sm from global;
 }
 
-.orderTotalContainer {
+.invoiceTotalContainer {
     composes: border-0 from global;
     composes: gap-y-1 from global;
     composes: grid from global;
@@ -55,7 +54,7 @@
     composes: p-sm from global;
 }
 
-.orderStatusContainer {
+.invoiceStatusContainer {
     composes: border-0 from global;
     composes: col-end-span2 from global;
     composes: gap-y-1 from global;
@@ -70,7 +69,7 @@
 
 }
 
-.orderItemsContainer {
+.invoiceItemsContainer {
     composes: border-0 from global;
     composes: col-end-span2 from global;
     composes: overflow-hidden from global;
@@ -81,31 +80,15 @@
     composes: lg_p-0 from global;
 }
 
-.contentToggleContainer {
-    composes: border-0 from global;
-    composes: col-start-2 from global;
-    composes: justify-self-end from global;
-    composes: overflow-hidden from global;
-    composes: px-xs from global;
-    composes: py-0 from global;
-    composes: row-start-1 from global;
-
-    composes: lg_col-start-7 from global;
-    composes: lg_px-xs from global;
-    composes: lg_row-start-1 from global;
-
-    -webkit-tap-highlight-color: transparent;
-}
-
-.orderNumberLabel,
-.orderDateLabel,
-.orderTotalLabel {
+.invoiceNumberLabel,
+.invoiceDateLabel,
+.invoiceTotalLabel {
     composes: text-2xs from global;
 }
 
-.orderNumber,
-.orderDate,
-.orderTotal {
+.invoiceNumber,
+.invoiceDate,
+.invoiceTotal {
     @apply text-text-primary text-sm;
 }
 
@@ -113,22 +96,26 @@
     @apply hidden;
 }
 
-.orderNumber {
+.invoiceNumber {
     @apply text-base font-bold text-primary-deep;
 }
 
-.orderStatusBadge {
-    composes: border from global;
-    composes: border-solid from global;
-    composes: border-subtle from global;
-    composes: font-bold from global;
-    composes: justify-self-start from global;
-    composes: px-xs from global;
-    composes: py-1 from global;
-    composes: rounded-badge from global;
-    composes: text-2xs from global;
+.invoiceStatusPaid,
+.invoiceStatusOpen,
+.invoiceStatusOverdue {
+    @apply text-sm font-bold;
+}
 
-    @apply block h-[26px];
+.invoiceStatusPaid {
+    @apply text-accent-green;
+}
+
+.invoiceStatusOpen {
+    @apply text-brand-base;
+}
+
+.invoiceStatusOverdue {
+    @apply text-primary-red;
 }
 
 .content {
@@ -143,23 +130,85 @@
     composes: hidden from global;
 }
 
-.orderNumberContainer,
-.orderDateContainer,
-.orderTotalContainer,
-.orderItemsContainer,
-.orderStatusContainer {
+.invoiceNumberContainer,
+.invoiceDateContainer,
+.invoiceTotalContainer,
+.invoiceItemsContainer,
+.invoiceStatusContainer {
     @apply pl-4 py-4 pr-0;
 }
 
-.orderNumberContainer,
-.orderDateContainer,
-.orderTotalContainer,
-.orderItemsContainer {
+.invoiceTotalContainer {
+    @apply lg_pl-1 lg_pr-4 text-right;
+}
+
+.invoiceNumberContainer,
+.invoiceDateContainer,
+.invoiceTotalContainer,
+.invoiceItemsContainer {
     @apply -lg_pb-0;
 }
 
+.invoiceCheckbox {
+    @apply lg_pl-3 lg_py-4;
+}
+
+.root_label {
+    --stroke: var(--venia-global-color-gray-600);
+
+    composes: gap-3 from global;
+    composes: grid from global;
+    composes: grid-flow-col from global;
+    composes: items-center from global;
+    composes: justify-items-center from global;
+    composes: leading-normal from global;
+    composes: text-colorDefault from global;
+    grid-template-areas: 'input label';
+    grid-template-columns: min-content 1fr;
+}
+
+.input {
+    composes: appearance-none from global;
+    composes: bg-transparent from global;
+    composes: border-2 from global;
+    composes: border-solid from global;
+    composes: border-transparent from global;
+    composes: cursor-pointer from global;
+    composes: h-[1.5rem] from global;
+    composes: rounded from global;
+    composes: w-[1.5rem] from global;
+    grid-area: input;
+
+    composes: disabled_cursor-not-allowed from global;
+
+    composes: active_enabled_shadow-radioActive from global;
+    composes: active_enabled_outline-0 from global;
+
+    composes: focus_enabled_shadow-radioFocus from global;
+    composes: focus_enabled_outline-0 from global;
+}
+
+.icon {
+    composes: h-[1.5rem] from global;
+    composes: pointer-events-none from global;
+    composes: w-[1.5rem] from global;
+    grid-area: input;
+}
+
+.icon svg {
+    stroke: rgb(var(--stroke));
+}
+
+.input:disabled ~ .label {
+    @apply cursor-default;
+}
+
+.input:checked:enabled + .icon {
+    --stroke: var(--venia-brand-color-1-700);
+}
+
 @media screen(-lg) {
-    .orderNumberContainer {
+    .invoiceNumberContainer {
         grid-column: 1 / span 2;
         grid-row: 1;
     }
