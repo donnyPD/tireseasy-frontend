@@ -26,11 +26,11 @@
     @apply -md_w-max -md_mr-4;
 }
 
-.root > li > div:not(:last-child) {
+.root > li:not(:last-child) {
     @apply -md_border-b -md_border-neutral-lighter;
 }
 
-.root > li > div:not(:last-child) > div {
+.root > li:not(:last-child) > div {
     @apply md_border-b md_border-neutral-lighter;
 }
 

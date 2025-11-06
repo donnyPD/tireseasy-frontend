@@ -25,47 +25,47 @@
 
 .list {
     @apply md_table w-full;
+}
 
-    > li {
-        @apply md_table-row md_items-center
-        -md_flex -md_flex-wrap -md_pb-3 -md_justify-end;
+.list > li {
+    @apply md_table-row md_items-center
+    -md_flex -md_flex-wrap -md_pb-3 -md_justify-end;
+}
 
-        > div {
-            @apply md_table-cell md_w-[15%] md_text-center md_align-middle md_py-4
-            -md_w-full;
+.list > li:not(:last-child) {
+    @apply -md_border-b -md_border-neutral-lighter;
+}
 
-            &:first-child {
-                 @apply md_w-[40%] text-left;
-            }
+.list > li:not(:last-child) > div {
+    @apply md_border-b md_border-neutral-lighter;
+}
 
-            &:nth-child(2),
-            &:nth-child(3),
-            &:nth-child(4) {
-                 @apply -md_w-max -md_mr-4;
-            }
-        }
+.list > li > div {
+    @apply md_table-cell md_w-[15%] md_text-center md_align-middle md_py-4
+    -md_w-full;
+}
 
-        &:not(:last-child) {
-             @apply -md_border-b -md_border-neutral-lighter;
-
-            > div {
-                @apply md_border-b md_border-neutral-lighter;
-            }
-        }
-    }
+.list > li > div:first-child {
+    @apply md_w-[40%] text-left;
+}
+.list > li > div:nth-child(2),
+.list > li > div:nth-child(3),
+.list > li > div:nth-child(4) {
+    @apply -md_w-max -md_mr-4;
 }
 
 .th {
     @apply -md_hidden !important;
+}
 
-    > div {
-        @apply bg-neutral-light text-sm uppercase;
+.th > div {
+    @apply bg-neutral-light text-sm uppercase;
+}
 
-        &:first-child {
-             @apply pl-4 rounded-tl-md;
-        }
-        &:last-child {
-             @apply rounded-tr-md;
-        }
-    }
+.th > div:first-child {
+    @apply pl-4 rounded-tl-md;
+}
+
+.th > div:last-child {
+    @apply rounded-tr-md;
 }

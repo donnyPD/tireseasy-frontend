@@ -14,17 +14,18 @@
     @apply grid border-b -lg_hidden;
     grid-template-columns:
             minmax(40%, 1fr) minmax(22%, 1fr) minmax(22%, 1fr) minmax(16%, 1fr);
+}
 
-    > div {
-        @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
+.th  > div {
+    @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
+}
 
-        &:first-child {
-             @apply pl-4 rounded-tl-md;
-        }
-        &:last-child {
-             @apply rounded-tr-md;
-        }
-    }
+.th  > div:first-child {
+    @apply pl-4 rounded-tl-md;
+}
+
+.th  > div:last-child {
+    @apply rounded-tr-md;
 }
 
 .user {
@@ -36,10 +37,10 @@
     composes: rounded-none from global;
 
     @apply border-0 border-b last_border-0;
+}
 
-    > div {
-        @apply pl-4 py-4 pr-0;
-    }
+.user > div {
+    @apply pl-4 py-4 pr-0;
 }
 
 .editBtn {
@@ -56,38 +57,38 @@
     @apply break-words;
 }
 
-div[id="add_new_user_modal"],
-div[id="delete_user_modal"],
-div[id="edit_user_modal"] {
-    > div {
-        @apply overflow-x-hidden;
-    }
-
-    [class^="dialog-headerText"] {
-        @apply text-lg lg_text-xl font-bold text-text-primary my-2 block;
-    }
-
-    [class^="dialog-cancelButton"] {
-        @apply rounded-md bg-white text-accent-green border-accent-green normal-case text-base p-[10px] transition-all
-        hover_bg-white hover_text-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
-    }
-
-    [class^="dialog-confirmButton"] {
-        @apply rounded-md bg-accent-green border-accent-green normal-case text-base p-[10px] transition-all
-        hover_bg-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
-    }
+div[id="add_new_user_modal"] > div,
+div[id="delete_user_modal"] > div,
+div[id="edit_user_modal"] > div {
+    @apply overflow-x-hidden;
 }
 
-div[id="delete_user_modal"] {
-    [class^="dialog-contents"] {
-        h3 {
-            @apply text-center text-lg lg_text-xl font-bold text-text-primary text-primary-navy mt-4;
+div[id="add_new_user_modal"] [class^="dialog-headerText"],
+div[id="delete_user_modal"] [class^="dialog-headerText"],
+div[id="edit_user_modal"] [class^="dialog-headerText"] {
+    @apply text-lg lg_text-xl font-bold text-text-primary my-2 block;
+}
 
-            span {
-                @apply block mt-4 text-base font-normal text-text-primary break-words;
-            }
-        }
-    }
+div[id="add_new_user_modal"] [class^="dialog-cancelButton"],
+div[id="delete_user_modal"] [class^="dialog-cancelButton"],
+div[id="edit_user_modal"] [class^="dialog-cancelButton"] {
+    @apply rounded-md bg-white text-accent-green border-accent-green normal-case text-base p-[10px] transition-all
+    hover_bg-white hover_text-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
+}
+
+div[id="add_new_user_modal"] [class^="dialog-confirmButton"],
+div[id="delete_user_modal"] [class^="dialog-confirmButton"],
+div[id="edit_user_modal"] [class^="dialog-confirmButton"] {
+    @apply rounded-md bg-accent-green border-accent-green normal-case text-base p-[10px] transition-all
+    hover_bg-accent-green hover_border-accent-green hover_shadow-[0_4px_12px_rgba(74,74,74,0.2)] hover_translate-y-[-2px];
+}
+
+div[id="delete_user_modal"] [class^="dialog-contents"] h3 {
+    @apply text-center text-lg lg_text-xl font-bold text-text-primary text-primary-navy mt-4;
+}
+
+div[id="delete_user_modal"] [class^="dialog-contents"] h3 span {
+    @apply block mt-4 text-base font-normal text-text-primary break-words;
 }
 
 div[id="edit_user_modal"] [for="id"],
@@ -96,7 +97,7 @@ div[id="edit_user_modal"] [for="id"] + span {
 }
 
 .changePassword {
-    @apply inline-block mt-4 underline text-primary-navy transition-all hover_text-accent-orange;
+    @apply inline-block mt-4 underline font-bold text-primary-navy transition-all hover_text-accent-orange;
 }
 
 .changePasswordBlock {
