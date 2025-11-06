@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
     AlertCircle as AlertCircleIcon,
 } from 'react-feather';
@@ -17,6 +17,11 @@ import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 import defaultClasses from './orderHistoryPage.module.css';
 import OrderRow from './orderRow';
+import { Form } from 'informed';
+import Field from '@magento/venia-ui/lib/components/Field';
+import TextInput from '@magento/venia-ui/lib/components/TextInput';
+import Button from '@magento/venia-ui/lib/components/Button';
+import ResetButton from "./resetButton";
 
 const errorIcon = (
     <Icon
@@ -47,6 +52,7 @@ const OrderHistorySection = props => {
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { isHomepage } = props;
+    const { formatMessage } = useIntl();
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -78,15 +84,6 @@ const OrderHistorySection = props => {
         } else {
             return (
                 <div className={isHomepage ? classes.orders_content_section : classes.orders_content}>
-                    <h2
-                        data-cy="CartPage-heading"
-                        className={classes.title_section}
-                    >
-                        <FormattedMessage
-                            id={'order.history.block'}
-                            defaultMessage={'Order History'}
-                        />
-                    </h2>
                     <ul
                         className={classes.orderHistoryTable}
                         data-cy="OrderHistoryPage-orderHistoryTable"
@@ -186,6 +183,120 @@ const OrderHistorySection = props => {
     return (
         <OrderHistoryContextProvider>
             <div className={classes.section}>
+                <h2
+                    data-cy="CartPage-heading"
+                    className={classes.title_section}
+                >
+                    <FormattedMessage
+                        id={'order.history.block'}
+                        defaultMessage={'Order History'}
+                    />
+                </h2>
+                <div className={classes.filterRow}>
+                    <Form className={classes.search} onSubmit={handleSubmit}>
+                        <Field
+                            id={classes.search_field}
+                            label={formatMessage({
+                                id: 'search.history.number',
+                                defaultMessage: 'Confirmation Number'
+                            })}
+                        >
+                            <TextInput
+                                field="search"
+                                id={classes.search}
+                                placeholder={'e.g., DL-000000003'}
+                            />
+                        </Field>
+                        <Field
+                            id={classes.brand_name}
+                            label={formatMessage({
+                                id: 'history.brand.name',
+                                defaultMessage: 'Brand'
+                            })}
+                        >
+                            <TextInput
+                                field="brand"
+                                id={classes.brand}
+                                placeholder={'e.g., Michelin'}
+                            />
+                        </Field>
+                        <Field
+                            id={classes.invoice_field}
+                            label={formatMessage({
+                                id: 'history.invoice',
+                                defaultMessage: 'Invoice Number'
+                            })}
+                        >
+                            <TextInput
+                                field="invoice"
+                                id={classes.invoice}
+                                placeholder={'e.g., 001'}
+                            />
+                        </Field>
+                        <Field
+                            id={classes.mfg_code}
+                            label={formatMessage({
+                                id: 'history.mfg.code',
+                                defaultMessage: 'Product Number'
+                            })}
+                        >
+                            <TextInput
+                                field="mfg_code"
+                                id={classes.code}
+                                placeholder={'e.g., 0123456'}
+                            />
+                        </Field>
+                        <div className={classes.date_container}>
+                            <Field
+                                className={classes.date}
+                                id={classes.date_from}
+                                label={formatMessage({
+                                    id: 'history.date.field',
+                                    defaultMessage: 'Date From'
+                                })}
+                            >
+                                <TextInput
+                                    type="date"
+                                    field="date_from"
+                                    name="calendar"
+                                    id={classes.calendar}
+                                />
+                            </Field>
+                            <Field
+                                className={classes.date}
+                                id={classes.date_to}
+                                label={formatMessage({
+                                    id: 'history.date.field',
+                                    defaultMessage: 'Date To'
+                                })}
+                            >
+                                <TextInput
+                                    type="date"
+                                    field="date_to"
+                                    name="calendar"
+                                    id={classes.calendar}
+                                />
+                            </Field>
+                        </div>
+                        <div className={classes.btnContainer}>
+                            <Button
+                                className={classes.searchButton}
+                                disabled={
+                                    isBackgroundLoading || isLoadingWithoutData
+                                }
+                                priority={'high'}
+                                type="submit"
+                                aria-label="submit"
+                            >
+                                <FormattedMessage
+                                    id={'order.history.search.btn'}
+                                    defaultMessage={'Search'}
+                                />
+                            </Button>
+                            {searchText || brandText || codeText || dateFromText || dateToText || invoiceText ? <ResetButton onReset={handleReset} /> : null}
+                        </div>
+                    </Form>
+                </div>
                 {pageContents}
                 {showMoreButton}
             </div>

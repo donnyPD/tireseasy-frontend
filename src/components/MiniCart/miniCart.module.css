@@ -146,19 +146,19 @@
     grid-column: 1 / span 1;
 
     @apply shadow-[0_4px_12px_rgba(74,74,74,0.2)] transition-all bg-primary-navy hover_bg-primary-deep relative;
+}
 
-    &:hover {
-         transform: translateY(-1px);
-         box-shadow: 0 6px 14px rgba(74,74,74, 0.3);
-    }
+.checkoutButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(74,74,74, 0.3);
 }
 
 .editCartButton {
     @apply text-sm underline mt-2 mb-1 hover_text-accent-orange transition-[color_0.2s_ease-in-out];
+}
 
-    &:hover span {
-        @apply underline;
-    }
+.editCartButton:hover span {
+    @apply underline;
 }
 
 .emptyCart {

@@ -22,10 +22,10 @@
     grid-column: 1 / span 1;
     grid-row: 1 / span 6;
     @apply max-h-[82px];
+}
 
-    img {
-        @apply max-h-[80px] object-contain;
-    }
+.thumbnailContainer img {
+    @apply max-h-[80px] object-contain;
 }
 
 .thumbnail {

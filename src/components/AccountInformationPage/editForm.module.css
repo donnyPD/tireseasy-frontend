@@ -26,10 +26,10 @@
 
 .changePasswordButtonContainer {
     composes: pt-xs from global;
+}
 
-    button {
-        @apply hover_text-accent-orange transition-all;
-    }
+.changePasswordButtonContainer button {
+    @apply hover_text-accent-orange transition-all;
 }
 
 .headerText {

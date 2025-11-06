@@ -79,10 +79,10 @@
 
 .navItem {
     position: relative;
+}
 
-    > .dropdown {
-        @apply -xl_hidden;
-    }
+.navItem > .dropdown {
+    @apply -xl_hidden;
 }
 
 .navLink {
@@ -162,14 +162,15 @@
     display: flex;
     align-items: center;
     gap: 15px;
+}
 
-    a, button {
-        -webkit-tap-highlight-color: transparent;
-    }
+.navActions a,
+.navActions button {
+    -webkit-tap-highlight-color: transparent;
+}
 
-    .logout {
-        color: #ffffff;
-    }
+.navActions .logout {
+    color: #ffffff;
 }
 
 .orderHistoryIcon {
@@ -432,12 +433,8 @@
     color: #1A2C5B; /* Primary Deep Blue */
 }
 
-.navItem {
-    > div > div {
-        .dropdownLink {
-            @apply text-white hover_text-primary-deep;
-        }
-    }
+.navItem > div > div .dropdownLink {
+    @apply text-white hover_text-primary-deep;
 }
 
 /* Mobile responsive */

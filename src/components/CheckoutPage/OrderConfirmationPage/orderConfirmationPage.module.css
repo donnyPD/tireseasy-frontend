@@ -68,11 +68,11 @@
     @apply inline-block border-0 text-white rounded-[33px] py-3 px-[25px] text-base font-bold shadow-[0_4px_12px_rgba(74,74,74,0.2)] transition-all bg-primary-navy hover_bg-primary-deep relative
     md_text-lg md_px-10 md_py-3;
     @apply normal-case !important;
+}
 
-    &:hover {
-         transform: translateY(-2px);
-         box-shadow: 0 6px 14px rgba(74,74,74, 0.3);
-    }
+.link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(74,74,74, 0.3);
 }
 
 .shippingInfoHeading {
@@ -100,12 +100,10 @@
     composes: text;
 }
 
-.itemsReview {
-    > div {
-        @apply p-0 border-0;
+.itemsReview > div {
+    @apply p-0 border-0;
+}
 
-        > div {
-            @apply p-0 border-0;
-        }
-    }
+.itemsReview > div > div {
+    @apply p-0 border-0;
 }

@@ -272,13 +272,13 @@ const OrderHistoryPage = props => {
                                 id={classes.search_field}
                                 label={formatMessage({
                                     id: 'search.history.number',
-                                    defaultMessage: 'Order Number'
+                                    defaultMessage: 'Confirmation Number'
                                 })}
                             >
                                 <TextInput
                                     field="search"
                                     id={classes.search}
-                                    placeholder={'e.g., 003'}
+                                    placeholder={'e.g., DL-000000003'}
                                 />
                             </Field>
                             <Field

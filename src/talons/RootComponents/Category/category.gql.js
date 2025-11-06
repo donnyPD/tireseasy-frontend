@@ -9,6 +9,7 @@ export const GET_CATEGORY = gql`
         $currentPage: Int!
         $filters: ProductAttributeFilterInput!
         $sort: ProductAttributeSortInput
+        $staggeredRequest: StaggeredProductsFilter
     ) {
         categories(filters: { category_uid: { in: [$id] } }) {
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
@@ -22,6 +23,7 @@ export const GET_CATEGORY = gql`
             currentPage: $currentPage
             filter: $filters
             sort: $sort
+            staggeredRequest: $staggeredRequest
         ) {
             ...ProductsFragment
 

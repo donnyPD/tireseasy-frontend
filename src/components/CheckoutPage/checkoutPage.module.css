@@ -50,16 +50,16 @@
 
 .checkout_container {
     @apply bg-white p-6 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)];
+}
 
-    > div > div,
-    > div > div > div,
-    form > div {
-        @apply border-0 p-0;
-    }
+.checkout_container > div > div,
+.checkout_container > div > div > div,
+.checkout_container form > div {
+    @apply border-0 p-0;
+}
 
-    > div {
-        @apply mb-6;
-    }
+.checkout_container > div {
+    @apply mb-6;
 }
 
 .cartLink {
@@ -194,22 +194,22 @@
 .summary_content {
     @apply flex flex-col items-center md_flex-row md_items-start md_justify-end;
     @apply mb-0 !important;
+}
 
-    .summary_button {
-        @apply mt-4 md_mt-0 md_ml-4;
+.summary_content .summary_button {
+    @apply mt-4 md_mt-0 md_ml-4;
+}
 
-        > button {
-            @apply border-0 text-white rounded-[33px] py-3 px-[25px] text-base font-bold shadow-[0_4px_12px_rgba(74,74,74,0.2)] transition-all
-            md_text-lg md_px-10 md_py-3;
-            @apply normal-case !important;
-            background: linear-gradient(135deg, var(--color-accent-green, #4CAF50), var(--color-accent-soft-green, #66CC66));
+.summary_content .summary_button > button {
+    @apply border-0 text-white rounded-[33px] py-3 px-[25px] text-base font-bold shadow-[0_4px_12px_rgba(74,74,74,0.2)] transition-all
+    md_text-lg md_px-10 md_py-3;
+    @apply normal-case !important;
+    background: linear-gradient(135deg, var(--color-accent-green, #4CAF50), var(--color-accent-soft-green, #66CC66));
+}
 
-            &:hover {
-                 transform: translateY(-2px);
-                 box-shadow: 0 6px 14px rgba(74,74,74, 0.3);
-            }
-        }
-    }
+.summary_content .summary_button > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(74,74,74, 0.3);
 }
 
 @media screen(lg) {
@@ -257,31 +257,31 @@
 
 .root_attr {
     @apply mb-4;
+}
 
-    input,
-    textarea {
-        @apply border;
-    }
+.root_attr input,
+.root_attr textarea {
+    @apply border;
+}
 
-    label[for="customer_po_number"] {
-        @apply block;
+.root_attr label[for="customer_po_number"]:after {
+    /*@apply text-primary-red;*/
+    /*content: ' *';*/
+}
 
-        &:after {
-            /*@apply text-primary-red;*/
-            /*content: ' *';*/
-        }
-    }
-
-    label {
-        @apply relative;
-
-        [data-role="tooltipContainer"] {
-            @apply font-normal text-sm text-center normal-case absolute bottom-[28px] left-0 border rounded bg-white min-w-[180px] p-2 transition-all opacity-0 invisible;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        &:hover [data-role="tooltipContainer"] {
-             @apply opacity-100 visible bottom-[30px];
-        }
-    }
+.root_attr label {
+    @apply relative flex justify-start;
+}
+.root_attr label [data-role="tooltipContainer"] {
+    @apply font-normal text-sm text-center normal-case absolute bottom-[28px] left-0 border rounded bg-white min-w-[180px] p-2 transition-all opacity-0 invisible;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.root_attr label [data-role="tooltipContainer"] div {
+    @apply p-0 m-0 !important;
+}
+.root_attr label svg {
+    @apply ml-2;
+}
+.root_attr label svg:hover + [data-role="tooltipContainer"] {
+    @apply opacity-100 visible bottom-[30px];
 }

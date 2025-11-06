@@ -54,16 +54,16 @@
 
 .checkoutButton_container {
     @apply mt-4 md_mt-0 md_ml-4;
+}
 
-    button {
-        @apply border-0 text-white rounded-[33px] py-3 px-[25px] text-base font-bold shadow-[0_4px_12px_rgba(255,140,0,0.3)] transition-all
-        md_text-lg md_px-10 md_py-3;
-        @apply normal-case !important;
-        background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+.checkoutButton_container button {
+    @apply border-0 text-white rounded-[33px] py-3 px-[25px] text-base font-bold shadow-[0_4px_12px_rgba(255,140,0,0.3)] transition-all
+    md_text-lg md_px-10 md_py-3;
+    @apply normal-case !important;
+    background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+}
 
-        &:hover {
-             transform: translateY(-2px);
-             box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
-        }
-    }
+.checkoutButton_container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
 }

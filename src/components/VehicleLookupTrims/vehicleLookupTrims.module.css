@@ -51,15 +51,16 @@
 
 .tireContainer {
     @apply md_flex md_justify-between w-full;
-
-    > div {
-        @apply md_w-[calc(50%-12px)];
-    }
-
-    h3 {
-        @apply text-[18px] font-bold pb-2 border-b mb-4;
-    }
 }
+
+.tireContainer > div {
+    @apply md_w-[calc(50%-12px)];
+}
+
+.tireContainer h3 {
+    @apply text-[18px] font-bold pb-2 border-b mb-4;
+}
+
 
 .tireSizeButton {
     border: 1px solid transparent;
@@ -102,14 +103,14 @@
 
 .tireBoth {
     @apply w-full;
+}
 
-    h4 {
-        @apply text-primary-deep font-bold mb-2;
-    }
+.tireBoth h4 {
+    @apply text-primary-deep font-bold mb-2;
+}
 
-    div {
-        @apply text-sm py-1 flex justify-between w-full last_border-t;
-    }
+.tireBoth div {
+    @apply text-sm py-1 flex justify-between w-full last_border-t;
 }
 
 .tireSize {
@@ -163,16 +164,16 @@
     md_text-lg md_px-10 md_py-3;
     @apply normal-case !important;
     background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+}
 
-    &:hover {
-         transform: translateY(-2px);
-         box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
-    }
+.selectedTiresBtn:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
+}
 
-    &:disabled {
-        @apply opacity-25 cursor-not-allowed transform-none;
-        background: #666666;
-     }
+.selectedTiresBtn:disabled {
+    @apply opacity-25 cursor-not-allowed transform-none;
+    background: #666666;
 }
 
 .infoText {

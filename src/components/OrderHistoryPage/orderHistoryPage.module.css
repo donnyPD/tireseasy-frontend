@@ -56,15 +56,19 @@
     md_text-[1.1rem] md_px-10 md_py-3;
     @apply normal-case !important;
     background: linear-gradient(135deg, var(--color-accent-orange, #FF8C00), var(--color-accent-bright-orange, #FF9933));
+}
 
-    &:hover {
-         transform: translateY(-2px);
-         box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
-    }
+.more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
 }
 
 .section {
     @apply pb-6;
+}
+
+.section .filterRow {
+    @apply bg-white rounded-none p-0 shadow-none mb-10;
 }
 
 .filterRow {
@@ -91,7 +95,7 @@
 
 .title,
 .title_section {
-    @apply text-lg lg_text-xl font-bold text-text-primary mb-3;
+    @apply text-lg lg_text-xl text-left font-bold text-text-primary mb-3;
 }
 
 .title_section {
@@ -102,10 +106,10 @@
     composes: w-full from global;
 
     @apply items-end md_flex flex-wrap justify-start gap-xs;
+}
 
-    > * {
-        @apply w-full md_w-[calc((100%-16px)/2)] lg_w-[calc((100%-32px)/3)]
-    }
+.search > * {
+    @apply w-full md_w-[calc((100%-16px)/2)] lg_w-[calc((100%-32px)/3)]
 }
 
 .searchButton,
@@ -132,18 +136,18 @@
 
 .resetButton {
     @apply ml-2 bg-white text-primary-deep;
+}
 
-    svg {
-        @apply hidden;
-    }
+.resetButton svg {
+    @apply hidden;
 }
 
 input[type="date"] {
     @apply w-full relative pr-6;
+}
 
-    &::-webkit-calendar-picker-indicator {
-        @apply absolute right-0 bg-white pr-2 cursor-pointer;
-    }
+input[type="date"]::-webkit-calendar-picker-indicator {
+    @apply absolute right-0 bg-white pr-2 cursor-pointer;
 }
 
 .date_container {
@@ -156,17 +160,16 @@ input[type="date"] {
         grid-template-columns:
             minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr) minmax(16%, 1fr)
             9rem 1fr;
+    }
 
-    > div {
-           @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
-
-            &:first-child {
-                 @apply pl-4 rounded-tl-md;
-            }
-            &:last-child {
-                 @apply rounded-tr-md;
-            }
-        }
+    .th > div {
+        @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
+    }
+    .th > div:first-child {
+        @apply pl-4 rounded-tl-md;
+    }
+    .th > div:last-child {
+        @apply rounded-tr-md;
     }
 }
 

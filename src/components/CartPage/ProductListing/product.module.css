@@ -72,10 +72,10 @@
 
 .attr {
     @apply text-sm text-text-secondary;
+}
 
-    span {
-        @apply mr-2;
-    }
+.attr span {
+    @apply mr-2;
 }
 
 .price {
@@ -90,18 +90,18 @@
     grid-area: quantity;
 
     composes: sm_justify-items-center from global;
+}
 
-    button {
-        @apply hidden;
-    }
+.quantity button {
+    @apply hidden;
+}
 
-    form > div {
-        @apply block;
+.quantity form > div {
+    @apply block;
+}
 
-        input[aria-label="Item Quantity"] {
-            @apply w-20;
-        }
-    }
+.quantity form > div input[aria-label="Item Quantity"] {
+    @apply w-20;
 }
 
 .price,
@@ -109,22 +109,20 @@
     @apply -md_pt-2;
 }
 
-.action {
-    li {
-        @apply border-0;
+.action li {
+    @apply border-0;
+}
 
-        svg {
-            @apply hidden;
-        }
+.action li svg {
+    @apply hidden;
+}
 
-        button {
-            @apply p-0 inline-block text-center text-primary-red hover_bg-white hover_underline;
+.action li button {
+    @apply p-0 inline-block text-center text-primary-red hover_bg-white hover_underline;
+}
 
-            span {
-                @apply p-0 text-primary-red;
-            }
-        }
-    }
+.action li button span {
+    @apply p-0 text-primary-red;
 }
 
 .kebab {

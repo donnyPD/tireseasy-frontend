@@ -57,13 +57,13 @@ export const useOrderHistoryPage = (props = {}) => {
         }
     });
 
-    const orders = orderData ? orderData.customer.orders.items : [];
+    const orders = orderData && orderData.customer && orderData.customer.orders ? orderData.customer.orders.items : [];
 
     const isLoadingWithoutData = !orderData && orderLoading;
     const isBackgroundLoading = !!orderData && orderLoading;
 
     const pageInfo = useMemo(() => {
-        if (orderData) {
+        if (orderData && orderData.customer) {
             const { total_count } = orderData.customer.orders;
 
             return {
@@ -99,7 +99,7 @@ export const useOrderHistoryPage = (props = {}) => {
     }, []);
 
     const loadMoreOrders = useMemo(() => {
-        if (orderData) {
+        if (orderData && orderData.customer) {
             const { page_info } = orderData.customer.orders;
             const { current_page, total_pages } = page_info;
 

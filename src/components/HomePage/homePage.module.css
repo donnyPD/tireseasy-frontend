@@ -148,12 +148,10 @@ div[data-role="featureCard"] p {
     margin-bottom: 40px;
 
     @apply rounded-xl -md_mx-3;
+}
 
-    .container {
-        > div {
-            @apply p-0 m-0;
-        }
-    }
+.ctaSection .container > div {
+    @apply p-0 m-0;
 }
 
 .ctaTitle,
