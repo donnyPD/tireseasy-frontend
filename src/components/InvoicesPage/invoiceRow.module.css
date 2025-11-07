@@ -92,6 +92,10 @@
     @apply text-text-primary text-sm;
 }
 
+.invoiceDateOverdue {
+    @apply text-primary-red;
+}
+
 .orderNumberLabel {
     @apply hidden;
 }

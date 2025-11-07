@@ -133,10 +133,6 @@ const Header = (props) => {
                             defaultMessage: 'Logout'
                         })}
                     >
-                        {/*<FormattedMessage*/}
-                        {/*    id={'header.logout.button'}*/}
-                        {/*    defaultMessage={'Logout'}*/}
-                        {/*/>*/}
                         <LogOut size={20} />
                     </Link>
                 </>
@@ -220,14 +216,6 @@ const Header = (props) => {
                                     </li>
                                 ))
                             )}
-                            <li className={classes.navItem}>
-                                <Link
-                                    to={resourceUrl('/invoice-page')}
-                                    className={classes.navLink}
-                                >
-                                    Invoices
-                                </Link>
-                            </li>
                         </ul>
                     </nav>
                 </div>

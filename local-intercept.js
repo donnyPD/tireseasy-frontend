@@ -48,7 +48,7 @@ function localIntercept(targets) {
         });
         routes.push({
             name: 'InvoicePage',
-            pattern: '/invoice-page',
+            pattern: '/invoices',
             path: require.resolve('./src/components/InvoicesPage')
         });
         return routes;

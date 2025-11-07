@@ -49,23 +49,22 @@ export const useInvoicePage = (props = {}) => {
         }
     });
 
-    const invoices = invoiceData && invoiceData.invoices || [];
+    const invoices = invoiceData && invoiceData?.customer?.invoices?.items || [];
 
     const isLoadingWithoutData = !invoiceData && invoiceLoading;
     const isBackgroundLoading = !!invoiceData && invoiceLoading;
 
-    // const pageInfo = useMemo(() => {
-    //     if (orderData && orderData.customer) {
-    //         const { total_count } = orderData.customer.orders;
-    //
-    //         return {
-    //             current: pageSize < total_count ? pageSize : total_count,
-    //             total: total_count
-    //         };
-    //     }
-    //
-    //     return null;
-    // }, [orderData, pageSize]);
+    const pageInfo = useMemo(() => {
+        if (invoiceData && invoiceData.customer) {
+            const { total_count } = invoiceData.customer.invoices;
+
+            return {
+                current: pageSize < total_count ? pageSize : total_count,
+                total: total_count
+            };
+        }
+        return null;
+    }, [invoiceData, pageSize]);
 
     const derivedErrorMessage = useMemo(
         () => deriveErrorMessage([getInvoiceError]),
@@ -81,7 +80,6 @@ export const useInvoicePage = (props = {}) => {
     }, [invoiceText]);
 
     const handleSubmit = useCallback((value) => {
-        console.log(value)
         setOrderText(value?.order || '');
         setStatusText(value?.status || '');
         setDateFromText(value?.date_from || '');
@@ -89,18 +87,18 @@ export const useInvoicePage = (props = {}) => {
         setInvoiceText(value?.invoice || '');
     }, []);
 
-    // const loadMoreInvoices = useMemo(() => {
-    //     if (invoiceData && orderData.customer) {
-    //         const { page_info } = orderData.customer.orders;
-    //         const { current_page, total_pages } = page_info;
-    //
-    //         if (current_page < total_pages) {
-    //             return () => setPageSize(current => current + PAGE_SIZE);
-    //         }
-    //     }
-    //
-    //     return null;
-    // }, [orderData]);
+    const loadMoreInvoices = useMemo(() => {
+        if (invoiceData && invoiceData.customer) {
+            const { page_info } = invoiceData.customer.invoices;
+            const { current_page, total_pages } = page_info;
+
+            if (current_page < total_pages) {
+                return () => setPageSize(current => current + PAGE_SIZE);
+            }
+        }
+
+        return null;
+    }, [invoiceData]);
 
     // // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
@@ -113,9 +111,8 @@ export const useInvoicePage = (props = {}) => {
         handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
-        // loadMoreInvoices,
-        // orders,
-        // pageInfo,
+        loadMoreInvoices,
+        pageInfo,
         invoiceText,
         orderText,
         statusText,

@@ -8,7 +8,7 @@ import Price from '@magento/venia-ui/lib/components/Price';
 import Checkbox from './checkbox';
 
 const InvoiceRow = props => {
-    const { invoice, checkedAll } = props;
+    const { invoice, checkedAll, checkedInvoices, setCheckedInvoices } = props;
     const [checked, setChecked] = useState(false);
     const {
         grand_total,
@@ -17,23 +17,21 @@ const InvoiceRow = props => {
         invoice_number,
         payment_due_date
     } = invoice;
-    const grandTotal = grand_total || '';
     const invoiceNumber = invoice_number || '';
     const invoiceDate = created_at || '';
     const paymentDate = payment_due_date || '';
 
     // Convert date to ISO-8601 format so Safari can also parse it
     const isoFormattedDate = invoiceDate.replace(' ', 'T').split('T')[0];
-    const currency = grandTotal.split(' ')[1] || null;
-    const total = grandTotal.split(' ')[0] || null;
+    const { currency, value: invoiceTotal } = grand_total;
 
     useEffect(() => {
         setChecked(checkedAll)
     }, [checkedAll]);
 
     const orderTotalPrice =
-        currency && total ? (
-            <Price currencyCode={currency} value={total} />
+        currency && invoiceTotal ? (
+            <Price currencyCode={currency} value={invoiceTotal} />
         ) : (
             '-'
         );
@@ -46,6 +44,14 @@ const InvoiceRow = props => {
                 ? classes.invoiceStatusOverdue : classes.invoiceStatus;
 
     const handleChecked = () => {
+        if (checked) {
+            if (checkedInvoices.indexOf(invoiceNumber) !== -1) {
+                setCheckedInvoices(checkedInvoices.filter(el => el !== invoiceNumber));
+            }
+        }
+        else {
+            setCheckedInvoices(invoices => [...invoices, invoiceNumber])
+        }
         setChecked(!checked)
     };
 
@@ -79,7 +85,9 @@ const InvoiceRow = props => {
                         defaultMessage={'Payment Due Date'}
                     />
                 </span>
-                <span className={classes.invoiceDate}>{paymentDate}</span>
+                <span className={`${classes.invoiceDate} ${status === 'Overdue' ? classes.invoiceDateOverdue : ''}`}>
+                    {paymentDate}
+                </span>
             </div>
             <div className={classes.invoiceTotalContainer}>
                 <span className={classes.invoiceTotalLabel}>
@@ -120,6 +128,7 @@ InvoiceRow.propTypes = {
         orderTotalLabel: string,
         invoiceNumber: string,
         invoiceDate: string,
+        invoiceDateOverdue: string,
         invoiceTotal: string,
         invoiceStatus: string,
         invoiceStatusPaid: string,

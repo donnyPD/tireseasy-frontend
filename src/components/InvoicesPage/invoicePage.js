@@ -2,14 +2,16 @@ import React, { useMemo, useEffect, useState } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 import {
     AlertCircle as AlertCircleIcon,
-    ArrowRight as SubmitIcon
+    Printer as PrinterIcon,
+    Mail as MailIcon,
+    Download as DownloadIcon,
 } from 'react-feather';
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
+import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
-import { useOrderHistoryPage } from '../../talons/OrderHistoryPage/useOrderHistoryPage';
 import { useInvoicePage } from '../../talons/InvoicePage/useInvoicePage';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
@@ -36,6 +38,10 @@ const errorIcon = (
     />
 );
 
+const printerIcon = <PrinterIcon size={18} />;
+const mailIcon = <MailIcon size={18} />;
+const downloadIcon = <DownloadIcon size={18} />;
+
 const InvoicePage = props => {
     const talonProps = useInvoicePage();
     const [, { addToast }] = useToasts();
@@ -46,12 +52,12 @@ const InvoicePage = props => {
     });
     const {
         errorMessage,
-        // loadMoreOrders,
+        loadMoreInvoices,
         handleReset,
         handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
-        // pageInfo,
+        pageInfo,
         invoiceText,
         orderText,
         statusText,
@@ -61,6 +67,7 @@ const InvoicePage = props => {
     } = talonProps;
 
     const [checkedAll, setCheckedAll] = useState(false);
+    const [checkedInvoices, setCheckedInvoices] = useState([]);
 
     const options = [
         { value: '', label: 'Select status' },
@@ -81,13 +88,70 @@ const InvoicePage = props => {
 
     const invoiceRows = useMemo(() => {
         return invoices.slice().sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)).map(invoice => {
-            return <InvoiceRow key={invoice.invoice_number} invoice={invoice} checkedAll={checkedAll} />;
+            return <InvoiceRow
+                key={invoice.invoice_number}
+                invoice={invoice}
+                checkedAll={checkedAll}
+                checkedInvoices={checkedInvoices}
+                setCheckedInvoices={setCheckedInvoices}
+            />;
         });
-    }, [invoices, checkedAll]);
+    }, [invoices, checkedAll, checkedInvoices]);
 
     const handleChecked = () => {
         setCheckedAll(!checkedAll)
     }
+
+    useEffect(() => {
+        if (checkedAll) {
+            const list = [];
+            invoices.map((el) => list.push(el.invoice_number));
+            setCheckedInvoices(list);
+        } else {
+            setCheckedInvoices([]);
+        }
+    }, [checkedAll]);
+
+    const buttonsBlock = (
+        <div className={classes.buttonsBlock}>
+            <Button
+                classes={classes.printButton}
+                disabled={!checkedInvoices.length}
+            >
+                {printerIcon}
+                <span>
+                    <FormattedMessage
+                        id={'invoicePage.print.btn'}
+                        defaultMessage={'Print'}
+                    />
+                </span>
+            </Button>
+            <Button
+                classes={classes.emailButton}
+                disabled={!checkedInvoices.length}
+            >
+                {mailIcon}
+                <span>
+                    <FormattedMessage
+                        id={'invoicePage.email.btn'}
+                        defaultMessage={'Email'}
+                    />
+                </span>
+            </Button>
+            <Button
+                classes={classes.downloadButton}
+                disabled={!checkedInvoices.length}
+            >
+                {downloadIcon}
+                <span>
+                    <FormattedMessage
+                        id={'invoicePage.download.btn'}
+                        defaultMessage={'Download'}
+                    />
+                </span>
+            </Button>
+        </div>
+    );
 
     const pageContents = useMemo(() => {
         if (isLoadingWithoutData) {
@@ -109,13 +173,14 @@ const InvoicePage = props => {
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
                         id={'orderHistoryPage.emptyDataMessage.new'}
-                        defaultMessage={"You don't have any invoices yet."}
+                        defaultMessage={"You don't have any invoices."}
                     />
                 </h3>
             );
         } else {
             return (
                 <div className={classes.orders_content}>
+                    {buttonsBlock}
                     <ul
                         className={classes.orderHistoryTable}
                         data-cy="InvoicePage-orderHistoryTable"
@@ -177,30 +242,31 @@ const InvoicePage = props => {
         isLoadingWithoutData,
         invoiceRows,
         invoices.length,
-        invoiceText
+        invoiceText,
+        checkedInvoices
     ]);
 
-    // const pageInfoLabel = pageInfo ? (
-    //     <FormattedMessage
-    //         defaultMessage={'Showing {current} of {total}'}
-    //         id={'orderHistoryPage.pageInfo'}
-    //         values={pageInfo}
-    //     />
-    // ) : null;
+    const pageInfoLabel = pageInfo ? (
+        <FormattedMessage
+            defaultMessage={'Showing {current} of {total}'}
+            id={'invoicePage.pageInfo'}
+            values={pageInfo}
+        />
+    ) : null;
 
-    // const loadMoreButton = loadMoreOrders ? (
-    //     <Button
-    //         classes={{ root_lowPriority: classes.loadMoreButton }}
-    //         disabled={isBackgroundLoading || isLoadingWithoutData}
-    //         onClick={loadMoreOrders}
-    //         priority="low"
-    //     >
-    //         <FormattedMessage
-    //             id={'orderHistoryPage.loadMore'}
-    //             defaultMessage={'Load More'}
-    //         />
-    //     </Button>
-    // ) : null;
+    const loadMoreButton = loadMoreInvoices ? (
+        <Button
+            classes={{ root_lowPriority: classes.loadMoreButton }}
+            disabled={isBackgroundLoading || isLoadingWithoutData}
+            onClick={loadMoreInvoices}
+            priority="low"
+        >
+            <FormattedMessage
+                id={'invoicePage.loadMore'}
+                defaultMessage={'Load More'}
+            />
+        </Button>
+    ) : null;
 
     useEffect(() => {
         if (errorMessage) {
@@ -339,10 +405,10 @@ const InvoicePage = props => {
                         </Form>
                     </div>
                     {pageContents}
-                    {/*<div className={classes.pageInfo_container}>*/}
-                    {/*    <span className={classes.pageInfo}>{pageInfoLabel}</span>*/}
-                    {/*</div>*/}
-                    {/*{loadMoreButton}*/}
+                    {!!invoices.length && <div className={classes.pageInfo_container}>
+                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                    </div>}
+                    {loadMoreButton}
                 </div>
             </div>
         </OrderHistoryContextProvider>
@@ -367,6 +433,10 @@ InvoicePage.propTypes = {
         invoiceStatusLabel: string,
         search: string,
         invoiceCheckbox: string,
+        buttonsBlock: string,
+        printButton: string,
+        downloadButton: string,
+        emailButton: string,
         searchButton: string,
         submitIcon: string,
         loadMoreButton: string
