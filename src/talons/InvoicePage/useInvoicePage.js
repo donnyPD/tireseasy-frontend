@@ -22,6 +22,13 @@ export const useInvoicePage = (props = {}) => {
     const [dateToText, setDateToText] = useState('');
     const [invoiceText, setInvoiceText] = useState('');
 
+    const options = [
+        { value: '', label: 'Select status' },
+        { value: 'Open', label: 'Open' },
+        { value: 'Overdue', label: 'Overdue' },
+        { value: 'Paid', label: 'Paid' }
+    ];
+
     const {
         data: invoiceData,
         error: getInvoiceError,
@@ -118,6 +125,7 @@ export const useInvoicePage = (props = {}) => {
         statusText,
         dateFromText,
         dateToText,
-        invoices
+        invoices,
+        options
     };
 };

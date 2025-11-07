@@ -63,18 +63,12 @@ const InvoicePage = props => {
         statusText,
         dateFromText,
         dateToText,
-        invoices
+        invoices,
+        options
     } = talonProps;
 
     const [checkedAll, setCheckedAll] = useState(false);
     const [checkedInvoices, setCheckedInvoices] = useState([]);
-
-    const options = [
-        { value: '', label: 'Select status' },
-        { value: 'Open', label: 'Open' },
-        { value: 'Overdue', label: 'Overdue' },
-        { value: 'Paid', label: 'Paid' }
-    ];
 
     const ordersCountMessage = formatMessage(
         {
@@ -187,7 +181,7 @@ const InvoicePage = props => {
                     >
                         <li className={classes.th}>
                             <div className={classes.invoiceCheckbox}>
-                                <Checkbox checked={checkedAll} handleChange={handleChecked} />
+                                <Checkbox checked={checkedAll} handleChange={handleChecked} label={'Select All'} />
                             </div>
                             <div>
                                 <span className={classes.invoiceDateLabel}>

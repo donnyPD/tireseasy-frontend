@@ -158,7 +158,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 @media screen(-lg) {
-    .th {
+    .th > div:not(:first-child) {
         @apply hidden;
+    }
+
+    .th > div:first-child {
+        @apply flex mb-4;
     }
 }

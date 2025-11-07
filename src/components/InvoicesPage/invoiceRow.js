@@ -70,12 +70,6 @@ const InvoiceRow = props => {
                 <span className={classes.invoiceDate}>{isoFormattedDate}</span>
             </div>
             <div className={classes.invoiceNumberContainer}>
-                <span className={classes.invoiceNumberLabel}>
-                    <FormattedMessage
-                        id={'invoiceRow.invoiceNumberText'}
-                        defaultMessage={'Invoice Number'}
-                    />
-                </span>
                 <span className={classes.invoiceNumber}>{invoiceNumber}</span>
             </div>
             <div className={classes.invoiceDateContainer}>

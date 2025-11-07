@@ -139,11 +139,11 @@
 .invoiceTotalContainer,
 .invoiceItemsContainer,
 .invoiceStatusContainer {
-    @apply pl-4 py-4 pr-0;
+    @apply pl-4 py-4 pr-0 -lg_pl-0 -lg_pt-1;
 }
 
 .invoiceTotalContainer {
-    @apply lg_pl-1 lg_pr-4 text-right;
+    @apply lg_pl-1 lg_pr-4 lg_text-right;
 }
 
 .invoiceNumberContainer,
@@ -154,7 +154,7 @@
 }
 
 .invoiceCheckbox {
-    @apply lg_pl-3 lg_py-4;
+    @apply pt-2 lg_pl-3 lg_py-4;
 }
 
 .root_label {
@@ -209,6 +209,10 @@
 
 .input:checked:enabled + .icon {
     --stroke: var(--venia-brand-color-1-700);
+}
+
+.root_label .label {
+    @apply lg_hidden;
 }
 
 @media screen(-lg) {
