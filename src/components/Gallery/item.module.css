@@ -64,7 +64,7 @@
     @apply min-w-[100px] md_min-w-[130px] m-0;
 }
 
-.actionsContainer button :hover {
+.actionsContainer button:hover {
     background: var(--color-button-primary-hover) !important;
     border-color: var(--color-button-primary-hover) !important;
 }

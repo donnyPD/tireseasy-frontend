@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -54,9 +54,11 @@ const SignIn = props => {
         root: classes.forgotPasswordButton
     };
 
-    if (!isSignedIn && localStorage.getItem('punchout_customer')) {
-        localStorage.removeItem('punchout_customer');
-    }
+    useEffect(() => {
+        if (!isSignedIn && localStorage.getItem('punchout_customer')) {
+            localStorage.removeItem('punchout_customer');
+        }
+    }, []);
 
     return (
         <div className={classes.root_container}>

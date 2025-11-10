@@ -188,6 +188,11 @@ const HomePage = props => {
         const punchoutParam = urlParams.get('punchout') === '1' || urlParams.get('newlocation') === '1';
 
         // Handle JWT authentication first if token and punchout parameters are present
+        if (tokenParam && punchoutParam) {
+            if (urlParams.get('punchout') === '1') {
+                localStorage.setItem('punchout_customer', '1');
+            }
+        }
         if (tokenParam && punchoutParam && !isSignedIn) {
             console.log('Punchout mode detected, attempting JWT authentication');
             handleJwtAuth(tokenParam).then(success => {
@@ -205,9 +210,6 @@ const HomePage = props => {
                     }
                 }
             });
-            if (urlParams.get('punchout') === '1') {
-                localStorage.setItem('punchout_customer', '1');
-            }
             return;
         }
 
