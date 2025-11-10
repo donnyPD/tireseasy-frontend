@@ -230,20 +230,20 @@ const OrderHistorySection = props => {
                             <TextInput
                                 field="invoice"
                                 id={classes.invoice}
-                                placeholder={'e.g., 001'}
+                                placeholder={'e.g., 000000035'}
                             />
                         </Field>
                         <Field
                             id={classes.mfg_code}
                             label={formatMessage({
-                                id: 'history.mfg.code',
-                                defaultMessage: 'Product Number'
+                                id: 'history.po.number',
+                                defaultMessage: 'PO Number'
                             })}
                         >
                             <TextInput
-                                field="mfg_code"
+                                field="po_number"
                                 id={classes.code}
-                                placeholder={'e.g., 0123456'}
+                                placeholder={'e.g., 1234'}
                             />
                         </Field>
                         <div className={classes.date_container}>

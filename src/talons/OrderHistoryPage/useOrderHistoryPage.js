@@ -49,7 +49,7 @@ export const useOrderHistoryPage = (props = {}) => {
                 brand_name: {
                     like: brandText
                 },
-                primary_mfg_code: {
+                po_number: {
                     like: codeText
                 }
             },
@@ -92,7 +92,7 @@ export const useOrderHistoryPage = (props = {}) => {
     const handleSubmit = useCallback((value) => {
         setBrandText(value?.brand || '');
         setSearchText(value?.search || '');
-        setCodeText(value?.mfg_code || '');
+        setCodeText(value?.po_number || '');
         setDateFromText(value?.date_from || '');
         setDateToText(value?.date_to || '');
         setInvoiceText(value?.invoice || '');
