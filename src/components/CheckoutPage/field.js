@@ -20,7 +20,7 @@ const Field = props => {
     return (
         <div className={classes.root}>
             <label className={classes.label} htmlFor={id}>
-                {label}
+                <span>{label}</span>
                 {optionalSymbol}
                 {labelTitle && <>
                     {icon || null}

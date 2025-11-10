@@ -18,6 +18,7 @@ const EditModal = React.lazy(() => import('./editModal'));
 
 const AccountInformationPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
+    const punchoutCustomer = localStorage.getItem('punchout_customer') || null;
 
     const talonProps = useAccountInformationPage({
         ...AccountInformationPageOperations
@@ -106,7 +107,7 @@ const AccountInformationPage = props => {
                         </div>
                     </div>
                     <div className={classes.editButtonContainer}>
-                        <Button
+                        {!punchoutCustomer && <Button
                             className={classes.editInformationButton}
                             disabled={false}
                             onClick={showUpdateMode}
@@ -117,7 +118,7 @@ const AccountInformationPage = props => {
                                 id={'global.editButton.new'}
                                 defaultMessage={'Edit Profile'}
                             />
-                        </Button>
+                        </Button>}
                     </div>
                 </div>}
                 <Suspense fallback={null}>
@@ -162,7 +163,7 @@ const AccountInformationPage = props => {
                 <div className={classes.account_content}>
                     {errorMessage ? errorMessage : pageContent}
                 </div>
-                <div className={classes.account_content}>
+                {!punchoutCustomer && <div className={classes.account_content}>
                     <div className={classes.header}>
                         <span
                             className={classes.headerText}
@@ -174,7 +175,7 @@ const AccountInformationPage = props => {
                         </span>
                     </div>
                     <ManageUsers />
-                </div>
+                </div>}
             </div>
         </div>
     );

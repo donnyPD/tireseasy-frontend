@@ -264,9 +264,9 @@
     @apply border;
 }
 
-.root_attr label[for="customer_po_number"]:after {
-    /*@apply text-primary-red;*/
-    /*content: ' *';*/
+.root_attr label[for="customer_po_number"] > span:first-child:after {
+    @apply text-primary-red;
+    content: ' *';
 }
 
 .root_attr label {

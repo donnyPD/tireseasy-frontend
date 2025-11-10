@@ -16,6 +16,7 @@ import Password from '@magento/venia-ui/lib/components/Password';
 import FormError from '@magento/venia-ui/lib/components/FormError/formError';
 import GoogleRecaptcha from '@magento/venia-ui/lib/components/GoogleReCaptcha';
 import Logo from "../../assets/images/Logo_-_Color.png";
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 const CmsBlock = React.lazy(() => import('@magento/venia-ui/lib/components/CmsBlock'));
 
 const SignIn = props => {
@@ -47,10 +48,15 @@ const SignIn = props => {
         setFormApi,
         recaptchaWidgetProps
     } = talonProps;
+    const [{ isSignedIn }] = useUserContext();
 
     const forgotPasswordClasses = {
         root: classes.forgotPasswordButton
     };
+
+    if (!isSignedIn && localStorage.getItem('punchout_customer')) {
+        localStorage.removeItem('punchout_customer');
+    }
 
     return (
         <div className={classes.root_container}>

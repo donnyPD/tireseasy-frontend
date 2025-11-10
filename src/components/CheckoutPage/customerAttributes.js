@@ -72,8 +72,7 @@ const CustomerAttributes = props => {
                 id="customer_po_number"
                 label={formatMessage({
                     id: 'global.customer.number',
-                    // defaultMessage: 'Customer PO Number (Required)'
-                    defaultMessage: 'Customer PO Number'
+                    defaultMessage: 'Customer PO Number (Required)'
                 })}
                 labelTitle={messageBlock}
                 icon={<Info size={20} />}

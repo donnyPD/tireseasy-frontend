@@ -15,6 +15,7 @@ const LocationList = props => {
     const currentLocation = currentUser?.location_name || null;
     const { locationList, getRedirectUrl } = talonProps;
     const [query, setQuery] = useState('');
+    const punchoutCustomer = localStorage.getItem('punchout_customer') || null;
 
     const {
         elementRef,
@@ -35,9 +36,32 @@ const LocationList = props => {
         ) || [];
     }, [query, locationList]);
 
-    if (!currentLocation || !locationList.length) {
+    if (!currentLocation || !locationList.length && !punchoutCustomer) {
         return (
             <div className={classes.container} />
+        )
+    }
+
+    if (punchoutCustomer) {
+        return (
+            <div className={classes.container}>
+                <span className={classes.locationInfoPunchout}>
+                    <FormattedMessage
+                        id={'locationInfoText.trigger'}
+                        defaultMessage={
+                            currentLocation ? 'Location:' : 'Location: is not defined...'
+                        }
+                    />
+                <strong>
+                    <FormattedMessage
+                        id={'locationInfoText.trigger'}
+                        defaultMessage={
+                            currentLocation || ''
+                        }
+                    />
+                </strong>
+                </span>
+            </div>
         )
     }
 
@@ -120,6 +144,7 @@ LocationList.propTypes = {
         tooltipContainer: string,
         locationIcon: string,
         locationInfo: string,
+        locationInfoPunchout: string,
         locationInfoText: string,
         listContainer: string,
         searchContainer: string,

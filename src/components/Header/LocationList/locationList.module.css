@@ -18,7 +18,12 @@
     @apply cursor-pointer px-4 flex relative;
 }
 
-.locationInfo strong{
+.locationInfoPunchout {
+    @apply px-4 flex relative;
+}
+
+.locationInfo strong,
+.locationInfoPunchout strong{
     @apply ml-2;
 }
 

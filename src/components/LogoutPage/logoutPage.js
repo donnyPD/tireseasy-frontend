@@ -15,6 +15,9 @@ const LogoutPage = () => {
                 if (isSignedIn) {
                     await signOut();
                     await client.clearStore();
+                    if (localStorage.getItem('punchout_customer')) {
+                        localStorage.removeItem('punchout_customer');
+                    }
                 }
             } catch (err) {
                 console.error('Logout error:', err);

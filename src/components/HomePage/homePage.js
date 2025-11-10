@@ -205,6 +205,9 @@ const HomePage = props => {
                     }
                 }
             });
+            if (urlParams.get('punchout') === '1') {
+                localStorage.setItem('punchout_customer', '1');
+            }
             return;
         }
 

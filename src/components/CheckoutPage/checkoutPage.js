@@ -43,6 +43,7 @@ const CheckoutPage = props => {
     const talonProps = useCheckoutPage();
     const [addressFormActive, setAddressFormActive] = useState(false);
     const [placeLoading, setPlaceLoading] = useState(false);
+    const punchoutCustomer = localStorage.getItem('punchout_customer') || null;
 
     const {
         /**
@@ -144,12 +145,15 @@ const CheckoutPage = props => {
     let checkoutContent;
 
     const checkPoAttribute = (keyDown) => {
-        // if (!poAttributeValidation) {
-        //     keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
-        // } else {
-        //     setPoMessageError(true);
-        // }
-        keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
+        if (punchoutCustomer) {
+            keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
+        } else {
+            if (!poAttributeValidation) {
+                keyDown ? handleReviewOrderEnterKeyPress() : handleReviewOrder();
+            } else {
+                setPoMessageError(true);
+            }
+        }
     }
 
     const heading = isGuestCheckout
@@ -381,6 +385,18 @@ const CheckoutPage = props => {
                 ? classes.checkoutContent
                 : classes.checkoutContent_hidden;
 
+        const checkoutAttributes = !punchoutCustomer ? (
+            <Fragment>
+                {placeLoading
+                    ? <LoadingIndicator />
+                    : !isLoading && <CustomerAttributes
+                    poMessageError={poMessageError}
+                    setPoMessageError={setPoMessageError}
+                    setPoAttributeValidation={setPoAttributeValidation}
+                />}
+            </Fragment>
+        ) : null;
+
         const stockStatusMessageElement = (
             <Fragment>
                 <FormattedMessage
@@ -440,13 +456,7 @@ const CheckoutPage = props => {
                         {paymentInformationSection}
                     </div>
                     {priceAdjustmentsSection}
-                    {placeLoading
-                        ? <LoadingIndicator />
-                        : !isLoading && <CustomerAttributes
-                            poMessageError={poMessageError}
-                            setPoMessageError={setPoMessageError}
-                            setPoAttributeValidation={setPoAttributeValidation}
-                    />}
+                    {checkoutAttributes}
                     <div className={classes.summary_content}>
                         {orderSummary}
                         <div className={classes.summary_button}>
