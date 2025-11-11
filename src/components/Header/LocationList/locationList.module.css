@@ -53,7 +53,7 @@
 }
 
 .item {
-    @apply block py-2 px-4 cursor-pointer hover_bg-brand-light hover_text-brand transition-all;
+    @apply block py-2 px-4 cursor-pointer text-left hover_bg-brand-light hover_text-brand transition-all;
 }
 
 .searchContainer {

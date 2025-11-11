@@ -26,6 +26,14 @@ const CartTrigger = props => {
             getItemCountQuery: GET_ITEM_COUNT_QUERY
         }
     });
+    const { isMobileMenuOpen, setIsMobileMenuOpen } = props;
+
+    const triggerClick = () => {
+        if (isMobileMenuOpen) {
+            setIsMobileMenuOpen(!isMobileMenuOpen);
+        }
+        handleTriggerClick();
+    }
 
     const classes = useStyle(defaultClasses, props.classes);
     const { formatMessage } = useIntl();
@@ -55,7 +63,7 @@ const CartTrigger = props => {
                     aria-expanded={miniCartIsOpen}
                     aria-label={buttonAriaLabel}
                     className={classes.trigger}
-                    onClick={handleTriggerClick}
+                    onClick={triggerClick}
                     data-cy="CartTrigger-trigger"
                 >
                     <ShoppingCart size={20} />

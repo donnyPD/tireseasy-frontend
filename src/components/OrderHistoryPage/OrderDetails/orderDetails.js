@@ -74,21 +74,21 @@ const OrderDetails = props => {
                     <OrderTotal data={total} />
                 </ConditionalWrapper>
             </div>
-            <Button
-                className={classes.printButton}
-                onClick={() => {
-                    // TODO will be implemented in PWA-978
-                    console.log('Printing Receipt');
-                }}
-            >
-                <Icon src={Printer} />
-                <span className={classes.printLabel}>
-                    <FormattedMessage
-                        id="orderDetails.printLabel"
-                        defaultMessage="Print Receipt"
-                    />
-                </span>
-            </Button>
+            {/*<Button*/}
+            {/*    className={classes.printButton}*/}
+            {/*    onClick={() => {*/}
+            {/*        // TODO will be implemented in PWA-978*/}
+            {/*        console.log('Printing Receipt');*/}
+            {/*    }}*/}
+            {/*>*/}
+            {/*    <Icon src={Printer} />*/}
+            {/*    <span className={classes.printLabel}>*/}
+            {/*        <FormattedMessage*/}
+            {/*            id="orderDetails.printLabel"*/}
+            {/*            defaultMessage="Print Receipt"*/}
+            {/*        />*/}
+            {/*    </span>*/}
+            {/*</Button>*/}
         </div>
     );
 };

@@ -128,18 +128,18 @@ const OrderConfirmationPage = props => {
                                 />
                             </span>
                         </div>
-                        <div
-                            data-cy="OrderConfirmationPage-additionalText"
-                            className={classes.additionalText}
-                        >
-                            <FormattedMessage
-                                id={'checkoutPage.additionalText.new'}
-                                defaultMessage={
-                                    'A detailed confirmation email with tracking information will be sent to your registered email address shortly.'
-                                }
-                            />
-                        </div>
-                        {createAccountForm}
+                        {/*<div*/}
+                        {/*    data-cy="OrderConfirmationPage-additionalText"*/}
+                        {/*    className={classes.additionalText}*/}
+                        {/*>*/}
+                        {/*    <FormattedMessage*/}
+                        {/*        id={'checkoutPage.additionalText.new'}*/}
+                        {/*        defaultMessage={*/}
+                        {/*            'A detailed confirmation email with tracking information will be sent to your registered email address shortly.'*/}
+                        {/*        }*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                        {/*{createAccountForm}*/}
                     </div>
                     <div className={classes.itemsReview}>
                         <ItemsReview items={cartItems} />

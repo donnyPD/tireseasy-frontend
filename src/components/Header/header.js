@@ -187,7 +187,7 @@ const Header = (props) => {
                         <Link to={resourceUrl('/order-history')} className={classes.orderHistoryIcon} aria-label="Order History">
                             <Clock size={20} />
                         </Link>
-                        <CartTrigger />
+                        <CartTrigger isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
                     </div>
 
                     {/* Main Navigation */}
