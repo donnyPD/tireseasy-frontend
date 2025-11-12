@@ -8,7 +8,6 @@ import {
 } from 'react-feather';
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
-import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 import { useToasts } from '@magento/peregrine/lib/Toasts';
 import OrderHistoryContextProvider from '@magento/peregrine/lib/talons/OrderHistoryPage/orderHistoryContext';
@@ -28,6 +27,7 @@ import QuickLookups from '../QuickLookups';
 import Field from '@magento/venia-ui/lib/components/Field';
 import Select from '@magento/venia-ui/lib/components/Select';
 import Checkbox from './checkbox';
+import Pagination from '../Pagination';
 
 const errorIcon = (
     <Icon
@@ -52,7 +52,6 @@ const InvoicePage = props => {
     });
     const {
         errorMessage,
-        loadMoreInvoices,
         handleReset,
         handleSubmit,
         isBackgroundLoading,
@@ -64,7 +63,11 @@ const InvoicePage = props => {
         dateFromText,
         dateToText,
         invoices,
-        options
+        options,
+        pageControl,
+        optionsSize,
+        pageSize,
+        setPageSize
     } = talonProps;
 
     const [checkedAll, setCheckedAll] = useState(false);
@@ -81,7 +84,7 @@ const InvoicePage = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const invoiceRows = useMemo(() => {
-        return invoices.slice().sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)).map(invoice => {
+        return invoices.map(invoice => {
             return <InvoiceRow
                 key={invoice.invoice_number}
                 invoice={invoice}
@@ -174,7 +177,28 @@ const InvoicePage = props => {
         } else {
             return (
                 <div className={classes.orders_content}>
-                    {buttonsBlock}
+                    <div className="md_flex justify-between">
+                        <div className="flex items-center justify-between mb-4 md_mb-0">
+                            <span className={classes.selectLabel}>
+                                <FormattedMessage
+                                    id={'order.history.selectLabel'}
+                                    defaultMessage={'Show per page'}
+                                />
+                            </span>
+                            <select
+                                className={classes.select}
+                                value={pageSize}
+                                onChange={e => setPageSize(e.target.value)}
+                            >
+                                {optionsSize.map(opt => (
+                                    <option key={opt.label} value={opt.value}>
+                                        {opt.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        {buttonsBlock}
+                    </div>
                     <ul
                         className={classes.orderHistoryTable}
                         data-cy="InvoicePage-orderHistoryTable"
@@ -246,20 +270,6 @@ const InvoicePage = props => {
             id={'invoicePage.pageInfo'}
             values={pageInfo}
         />
-    ) : null;
-
-    const loadMoreButton = loadMoreInvoices ? (
-        <Button
-            classes={{ root_lowPriority: classes.loadMoreButton }}
-            disabled={isBackgroundLoading || isLoadingWithoutData}
-            onClick={loadMoreInvoices}
-            priority="low"
-        >
-            <FormattedMessage
-                id={'invoicePage.loadMore'}
-                defaultMessage={'Load More'}
-            />
-        </Button>
     ) : null;
 
     useEffect(() => {
@@ -402,7 +412,9 @@ const InvoicePage = props => {
                     {!!invoices.length && <div className={classes.pageInfo_container}>
                         <span className={classes.pageInfo}>{pageInfoLabel}</span>
                     </div>}
-                    {loadMoreButton}
+                    <section className={classes.pagination}>
+                        <Pagination pageControl={pageControl} />
+                    </section>
                 </div>
             </div>
         </OrderHistoryContextProvider>

@@ -6,6 +6,7 @@ import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessa
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './invoicePage.gql';
+import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
 const PAGE_SIZE = 10;
 
@@ -16,6 +17,7 @@ export const useInvoicePage = (props = {}) => {
     const [, { actions: { setPageLoading } }] = useAppContext();
 
     const [pageSize, setPageSize] = useState(PAGE_SIZE);
+    const [currentPage, setCurrentPage] = useState(1);
     const [orderText, setOrderText] = useState('');
     const [statusText, setStatusText] = useState('');
     const [dateFromText, setDateFromText] = useState('');
@@ -27,6 +29,13 @@ export const useInvoicePage = (props = {}) => {
         { value: 'Open', label: 'Open' },
         { value: 'Overdue', label: 'Overdue' },
         { value: 'Paid', label: 'Paid' }
+    ];
+
+    const optionsSize = [
+        { value: 10, label: '10' },
+        { value: 25, label: '25' },
+        { value: 50, label: '50' },
+        { value: 100, label: '100' }
     ];
 
     const {
@@ -52,7 +61,7 @@ export const useInvoicePage = (props = {}) => {
                 }
             },
             pageSize,
-            currentPage: 1
+            currentPage
         }
     });
 
@@ -66,7 +75,7 @@ export const useInvoicePage = (props = {}) => {
             const { total_count } = invoiceData.customer.invoices;
 
             return {
-                current: pageSize < total_count ? pageSize : total_count,
+                current: invoiceData.customer.invoices?.items?.length || '',
                 total: total_count
             };
         }
@@ -94,23 +103,35 @@ export const useInvoicePage = (props = {}) => {
         setInvoiceText(value?.invoice || '');
     }, []);
 
-    const loadMoreInvoices = useMemo(() => {
+    const pageControl = useMemo(() => {
         if (invoiceData && invoiceData.customer) {
             const { page_info } = invoiceData.customer.invoices;
             const { current_page, total_pages } = page_info;
 
-            if (current_page < total_pages) {
-                return () => setPageSize(current => current + PAGE_SIZE);
-            }
+            return {
+                currentPage: currentPage !== current_page ? current_page : currentPage,
+                setPage: setCurrentPage,
+                totalPages: total_pages,
+            };
         }
 
-        return null;
-    }, [invoiceData]);
+        return {
+            currentPage: currentPage,
+            setPage: setCurrentPage,
+            totalPages: 1,
+        };
+    }, [invoiceData, pageSize]);
 
     // // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [pageSize]);
+
+    useScrollTopOnChange(currentPage);
 
     return {
         errorMessage: derivedErrorMessage,
@@ -118,7 +139,6 @@ export const useInvoicePage = (props = {}) => {
         handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
-        loadMoreInvoices,
         pageInfo,
         invoiceText,
         orderText,
@@ -126,6 +146,10 @@ export const useInvoicePage = (props = {}) => {
         dateFromText,
         dateToText,
         invoices,
-        options
+        options,
+        pageControl,
+        optionsSize,
+        pageSize,
+        setPageSize
     };
 };

@@ -137,7 +137,7 @@ const OrderHistorySection = props => {
                                     />
                                 </span>
                             </div>
-                            <div></div>
+                            <div />
                         </li>
                         {orderRows}
                     </ul>
@@ -154,8 +154,7 @@ const OrderHistorySection = props => {
         searchText
     ]);
 
-
-    const showMoreButton = loadMoreOrders ? (
+    const showMoreButton = pageInfo && pageInfo.total > pageInfo.current ? (
             <Link
                 to={resourceUrl('/order-history')}
                 className={classes.more}

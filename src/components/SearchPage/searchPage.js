@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 import { useSearchPage } from '../../talons/SearchPage/useSearchPage';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
-import Pagination from '@magento/venia-ui/lib/components/Pagination';
+import Pagination from '../Pagination';
 import { GalleryShimmer } from '@magento/venia-ui/lib/components/Gallery';
 import Gallery from '../Gallery';
 import ProductSort, { ProductSortShimmer } from '@magento/venia-ui/lib/components/ProductSort';

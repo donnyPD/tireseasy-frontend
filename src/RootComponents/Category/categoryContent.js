@@ -13,7 +13,7 @@ import FilterModalOpenButton, {
 } from '@magento/venia-ui/lib/components/FilterModalOpenButton';
 import { FilterSidebarShimmer } from '@magento/venia-ui/lib/components/FilterSidebar';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
-import Pagination from '@magento/venia-ui/lib/components/Pagination';
+import Pagination from '../../components/Pagination';
 import ProductSort, { ProductSortShimmer } from '@magento/venia-ui/lib/components/ProductSort';
 import RichContent from '@magento/venia-ui/lib/components/RichContent';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';

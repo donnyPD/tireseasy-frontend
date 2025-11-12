@@ -6,11 +6,10 @@ import { useStyle } from '@magento/venia-ui/lib/classify';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.module.css';
 import customClasses from './categoryContent.module.css';
-import {Meta, StoreTitle} from '@magento/venia-ui/lib/components/Head';
-import { GET_PAGE_SIZE } from '@magento/venia-ui/lib/RootComponents/Category/category.gql';
+import { Meta, StoreTitle } from '@magento/venia-ui/lib/components/Head';
+import { GET_PAGE_SIZE } from './category.gql';
 import ErrorView from '@magento/venia-ui/lib/components/ErrorView';
 import { useIntl } from 'react-intl';
-import QuickLookups from "../../components/QuickLookups";
 
 const MESSAGES = new Map().set(
     'NOT_FOUND',

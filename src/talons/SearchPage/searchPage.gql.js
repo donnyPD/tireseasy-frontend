@@ -6,6 +6,7 @@ export const GET_PAGE_SIZE = gql`
         storeConfig {
             store_code
             grid_per_page
+            list_per_page_values
         }
     }
 `;

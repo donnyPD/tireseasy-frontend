@@ -3,7 +3,7 @@ import { string } from 'prop-types';
 import { useBrandPage } from '../../talons/useBrandPage';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Gallery from '../../../../../components/Gallery';
-import Pagination from '@magento/venia-ui/lib/components/Pagination';
+import Pagination from '../../../../../components/Pagination';
 import NoProductsFound from '@magento/venia-ui/lib/RootComponents/Category/NoProductsFound';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Title, Meta } from '@magento/venia-ui/lib/components/Head';
@@ -15,7 +15,7 @@ import brandPageClasses from './brandPage.css';
 import { FormattedMessage } from 'react-intl';
 import FilterModalOpenButton from '@magento/venia-ui/lib/components/FilterModalOpenButton';
 import SortedByContainer from '@magento/venia-ui/lib/components/SortedByContainer';
-import QuickLookups from "../../../../../components/QuickLookups";
+import QuickLookups from '../../../../../components/QuickLookups';
 
 const FilterModal = React.lazy(() =>
   import('@magento/venia-ui/lib/components/FilterModal')

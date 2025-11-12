@@ -22,8 +22,9 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import defaultClasses from './orderHistoryPage.module.css';
 import OrderRow from './orderRow';
 import ResetButton from './resetButton';
-import QuickLookups from "../QuickLookups";
-import Field from "@magento/venia-ui/lib/components/Field";
+import QuickLookups from '../QuickLookups';
+import Field from '@magento/venia-ui/lib/components/Field';
+import Pagination from '../Pagination';
 
 const errorIcon = (
     <Icon
@@ -33,13 +34,11 @@ const errorIcon = (
         }}
     />
 );
-const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
     const {
         errorMessage,
-        loadMoreOrders,
         handleReset,
         handleSubmit,
         isBackgroundLoading,
@@ -51,7 +50,11 @@ const OrderHistoryPage = props => {
         codeText,
         dateFromText,
         dateToText,
-        invoiceText
+        invoiceText,
+        pageControl,
+        optionsSize,
+        pageSize,
+        setPageSize
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
@@ -75,7 +78,7 @@ const OrderHistoryPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
 
     const orderRows = useMemo(() => {
-        return orders.slice().sort((a, b) => Date.parse(b.order_date) - Date.parse(a.order_date)).map(order => {
+        return orders.map(order => {
             return <OrderRow key={order.id} order={order} />;
         });
     }, [orders]);
@@ -107,15 +110,36 @@ const OrderHistoryPage = props => {
         } else {
             return (
                 <div className={classes.orders_content}>
-                    <h2
-                        data-cy="CartPage-heading"
-                        className={classes.title}
-                    >
-                        <FormattedMessage
-                            id={'order.history.block'}
-                            defaultMessage={'Recent Orders'}
-                        />
-                    </h2>
+                    <div className="md_flex justify-between">
+                        <h2
+                            data-cy="CartPage-heading"
+                            className={classes.title}
+                        >
+                            <FormattedMessage
+                                id={'order.history.block'}
+                                defaultMessage={'Recent Orders'}
+                            />
+                        </h2>
+                        <div className="flex items-center justify-between mb-4 md_mb-0">
+                            <span className={classes.selectLabel}>
+                                <FormattedMessage
+                                    id={'order.history.selectLabel'}
+                                    defaultMessage={'Show per page'}
+                                />
+                            </span>
+                            <select
+                                className={classes.select}
+                                value={pageSize}
+                                onChange={e => setPageSize(e.target.value)}
+                            >
+                                {optionsSize.map(opt => (
+                                    <option key={opt.label} value={opt.value}>
+                                        {opt.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                     <ul
                         className={classes.orderHistoryTable}
                         data-cy="OrderHistoryPage-orderHistoryTable"
@@ -169,7 +193,7 @@ const OrderHistoryPage = props => {
                                     />
                                 </span>
                             </div>
-                            <div></div>
+                            <div />
                         </li>
                         {orderRows}
                     </ul>
@@ -186,40 +210,12 @@ const OrderHistoryPage = props => {
         searchText
     ]);
 
-    const resetButtonElement = searchText ? (
-        <ResetButton onReset={handleReset} />
-    ) : null;
-
-    const submitIcon = (
-        <Icon
-            src={SubmitIcon}
-            size={24}
-            classes={{
-                icon: classes.submitIcon
-            }}
-        />
-    );
-
     const pageInfoLabel = pageInfo ? (
         <FormattedMessage
             defaultMessage={'Showing {current} of {total}'}
             id={'orderHistoryPage.pageInfo'}
             values={pageInfo}
         />
-    ) : null;
-
-    const loadMoreButton = loadMoreOrders ? (
-        <Button
-            classes={{ root_lowPriority: classes.loadMoreButton }}
-            disabled={isBackgroundLoading || isLoadingWithoutData}
-            onClick={loadMoreOrders}
-            priority="low"
-        >
-            <FormattedMessage
-                id={'orderHistoryPage.loadMore'}
-                defaultMessage={'Load More'}
-            />
-        </Button>
     ) : null;
 
     useEffect(() => {
@@ -375,7 +371,9 @@ const OrderHistoryPage = props => {
                     <div className={classes.pageInfo_container}>
                         <span className={classes.pageInfo}>{pageInfoLabel}</span>
                     </div>
-                    {loadMoreButton}
+                    <section className={classes.pagination}>
+                        <Pagination pageControl={pageControl} />
+                    </section>
                 </div>
             </div>
         </OrderHistoryContextProvider>

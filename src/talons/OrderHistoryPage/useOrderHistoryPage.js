@@ -6,6 +6,7 @@ import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessa
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './orderHistoryPage.gql';
+import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
 const PAGE_SIZE = 10;
 
@@ -13,20 +14,23 @@ export const useOrderHistoryPage = (props = {}) => {
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
     const { getCustomerOrdersQuery } = operations;
 
-    const [
-        ,
-        {
-            actions: { setPageLoading }
-        }
-    ] = useAppContext();
+    const [, { actions: { setPageLoading } }] = useAppContext();
 
     const [pageSize, setPageSize] = useState(PAGE_SIZE);
+    const [currentPage, setCurrentPage] = useState(1);
     const [searchText, setSearchText] = useState('');
     const [brandText, setBrandText] = useState('');
     const [codeText, setCodeText] = useState('');
     const [dateFromText, setDateFromText] = useState('');
     const [dateToText, setDateToText] = useState('');
     const [invoiceText, setInvoiceText] = useState('');
+
+    const optionsSize = [
+        { value: 10, label: '10' },
+        { value: 25, label: '25' },
+        { value: 50, label: '50' },
+        { value: 100, label: '100' }
+    ];
 
     const {
         data: orderData,
@@ -53,7 +57,8 @@ export const useOrderHistoryPage = (props = {}) => {
                     like: codeText
                 }
             },
-            pageSize
+            pageSize,
+            currentPage
         }
     });
 
@@ -67,7 +72,7 @@ export const useOrderHistoryPage = (props = {}) => {
             const { total_count } = orderData.customer.orders;
 
             return {
-                current: pageSize < total_count ? pageSize : total_count,
+                current: orderData.customer.orders?.items?.length || '',
                 total: total_count
             };
         }
@@ -98,23 +103,35 @@ export const useOrderHistoryPage = (props = {}) => {
         setInvoiceText(value?.invoice || '');
     }, []);
 
-    const loadMoreOrders = useMemo(() => {
+    const pageControl = useMemo(() => {
         if (orderData && orderData.customer) {
             const { page_info } = orderData.customer.orders;
             const { current_page, total_pages } = page_info;
 
-            if (current_page < total_pages) {
-                return () => setPageSize(current => current + PAGE_SIZE);
-            }
+            return {
+                currentPage: currentPage !== current_page ? current_page : currentPage,
+                setPage: setCurrentPage,
+                totalPages: total_pages,
+            };
         }
 
-        return null;
-    }, [orderData]);
+        return {
+            currentPage: currentPage,
+            setPage: setCurrentPage,
+            totalPages: 1,
+        };
+    }, [orderData, pageSize]);
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
         setPageLoading(isBackgroundLoading);
     }, [isBackgroundLoading, setPageLoading]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [pageSize]);
+
+    useScrollTopOnChange(currentPage);
 
     return {
         errorMessage: derivedErrorMessage,
@@ -122,7 +139,6 @@ export const useOrderHistoryPage = (props = {}) => {
         handleSubmit,
         isBackgroundLoading,
         isLoadingWithoutData,
-        loadMoreOrders,
         orders,
         pageInfo,
         searchText,
@@ -130,6 +146,10 @@ export const useOrderHistoryPage = (props = {}) => {
         codeText,
         dateFromText,
         dateToText,
-        invoiceText
+        invoiceText,
+        pageControl,
+        optionsSize,
+        pageSize,
+        setPageSize
     };
 };
