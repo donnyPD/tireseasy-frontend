@@ -99,10 +99,11 @@ const ProductListing = props => {
                         </div>
                         <div>
                             <FormattedMessage
-                                id={'productList.title.actions'}
-                                defaultMessage={'Actions'}
+                                id={'productList.title.eta'}
+                                defaultMessage={'Delivery ETA'}
                             />
                         </div>
+                        <div />
                     </li>
                     {productComponents}
                 </ul>

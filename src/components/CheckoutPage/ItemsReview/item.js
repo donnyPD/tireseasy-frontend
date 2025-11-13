@@ -80,6 +80,9 @@ const Item = props => {
                     {total && <Price currencyCode={currency} value={total} />}
                 </span>
             </div>
+            <div className={classes.total}>
+                {item.estimated_delivery && <span>{item.estimated_delivery.estimatedDeliveryDate}</span>}
+            </div>
         </li>
     );
 };

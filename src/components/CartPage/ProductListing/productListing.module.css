@@ -12,7 +12,7 @@
 }
 
 .root > li > div {
-    @apply md_table-cell md_w-[15%] md_text-center md_align-middle md_py-4
+    @apply md_table-cell md_w-[12%] md_text-center md_align-middle md_py-4
     -md_w-full;
 }
 

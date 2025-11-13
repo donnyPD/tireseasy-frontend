@@ -68,6 +68,14 @@ export const ProductListingFragment = gql`
                 }
             }
             quantity
+            ... on SimpleCartItem {
+                estimated_delivery {
+                    estimatedDeliveryDate
+                    shippingMethodId
+                    timeInTransit
+                    cutoff
+                }
+            }
             errors {
                 code
                 message

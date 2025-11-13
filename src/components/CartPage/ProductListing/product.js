@@ -149,6 +149,11 @@ const Product = props => {
                         <Price currencyCode={currency} value={unitPrice * quantity} />
                 </span>
             </div>
+            <div className={classes.total}>
+                <div className={classes.eta_data}>
+                    {item.estimated_delivery && <span>{item.estimated_delivery.estimatedDeliveryDate}</span>}
+                </div>
+            </div>
             <div className={classes.action}>
                 <Section
                     text={formatMessage({

@@ -74,6 +74,12 @@ const ItemsReview = props => {
                                 defaultMessage={'Total'}
                             />
                         </div>
+                        <div>
+                            <FormattedMessage
+                                id={'productList.checkout.eta'}
+                                defaultMessage={'Delivery ETA'}
+                            />
+                        </div>
                     </li>
                     {items}
                 </ul>

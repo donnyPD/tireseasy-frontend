@@ -46,6 +46,14 @@ export const ItemsReviewFragment = gql`
                 }
             }
             quantity
+            ... on SimpleCartItem {
+                estimated_delivery {
+                    estimatedDeliveryDate
+                    shippingMethodId
+                    timeInTransit
+                    cutoff
+                }
+            }
             # eslint-disable-next-line @graphql-eslint/require-id-when-available
             ... on ConfigurableCartItem {
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
