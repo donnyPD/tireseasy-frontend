@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
@@ -57,7 +57,14 @@ export const useSearchPage = (props = {}) => {
         }
     );
 
-    const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
+    const pageSizeList = pageSizeData && pageSizeData.storeConfig.list_per_page_values.split(',');
+    const [pageSize, setPageSize] = useState(pageSizeList && pageSizeList[0] || 10);
+    const optionsSize = pageSizeList && pageSizeList.length ? pageSizeList.map(el => {
+        return {
+            value: Number(el),
+            label: el,
+        }
+    }) : [];
 
     const sortProps = useSort({ sortFromSearch: true });
     const [currentSort] = sortProps;
@@ -310,6 +317,9 @@ export const useSearchPage = (props = {}) => {
         searchCategory,
         searchTerm: inputText,
         sortProps,
-        currentStoreName
+        currentStoreName,
+        pageSize,
+        optionsSize,
+        setPageSize
     };
 };

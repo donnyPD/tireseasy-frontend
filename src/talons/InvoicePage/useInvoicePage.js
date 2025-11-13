@@ -6,17 +6,30 @@ import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessa
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 import DEFAULT_OPERATIONS from './invoicePage.gql';
+import NEW_OPERATIONS from '../SearchPage/searchPage.gql';
 import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
 const PAGE_SIZE = 10;
 
 export const useInvoicePage = (props = {}) => {
-    const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCustomerInvoicesQuery } = operations;
+    const operations = mergeOperations(DEFAULT_OPERATIONS, NEW_OPERATIONS, props.operations);
+    const { getCustomerInvoicesQuery, getPageSize } = operations;
 
     const [, { actions: { setPageLoading } }] = useAppContext();
 
-    const [pageSize, setPageSize] = useState(PAGE_SIZE);
+    const { data: pageSizeData } = useQuery(getPageSize, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+
+    const pageSizeList = pageSizeData && pageSizeData.storeConfig.list_per_page_values.split(',');
+    const [pageSize, setPageSize] = useState(pageSizeList && pageSizeList[0] || PAGE_SIZE);
+    const optionsSize = pageSizeList && pageSizeList.length ? pageSizeList.map(el => {
+        return {
+            value: Number(el),
+            label: el,
+        }
+    }) : [];
     const [currentPage, setCurrentPage] = useState(1);
     const [orderText, setOrderText] = useState('');
     const [statusText, setStatusText] = useState('');
@@ -29,13 +42,6 @@ export const useInvoicePage = (props = {}) => {
         { value: 'Open', label: 'Open' },
         { value: 'Overdue', label: 'Overdue' },
         { value: 'Paid', label: 'Paid' }
-    ];
-
-    const optionsSize = [
-        { value: 10, label: '10' },
-        { value: 25, label: '25' },
-        { value: 50, label: '50' },
-        { value: 100, label: '100' }
     ];
 
     const {

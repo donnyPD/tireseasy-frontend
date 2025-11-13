@@ -137,6 +137,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     @apply -md_hidden;
 }
 
+.selectBlock {
+    @apply flex items-center justify-between mb-4;
+}
+
 .selectLabel {
     @apply mr-2;
 }

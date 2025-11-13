@@ -30,7 +30,8 @@ const FilterSidebar = React.lazy(() =>
 
 import { GalleryShimmer } from '../../components/Gallery';
 import Gallery from '../../components/Gallery';
-import QuickLookups from "../../components/QuickLookups";
+import QuickLookups from '../../components/QuickLookups';
+import SelectSize from '../../components/InvoicesPage/selectSize';
 
 const DISPLAY_MODE = {
     PRODUCTS: 'PRODUCTS',
@@ -45,7 +46,9 @@ const CategoryContent = props => {
         isLoading,
         pageControl,
         sortProps,
-        pageSize
+        pageSize,
+        optionsSize,
+        setPageSize
     } = props;
     const [currentSort] = sortProps;
 
@@ -98,10 +101,18 @@ const CategoryContent = props => {
     ) : null;
 
     const maybeSortButton = shouldShowSortButtons ? (
-        <ProductSort
-            sortProps={sortProps}
-            availableSortMethods={availableSortMethods}
-        />
+        <Fragment>
+            <SelectSize
+                classes={classes}
+                optionsSize={optionsSize}
+                pageSize={pageSize}
+                setPageSize={setPageSize}
+            />
+            <ProductSort
+                sortProps={sortProps}
+                availableSortMethods={availableSortMethods}
+            />
+        </Fragment>
     ) : shouldShowSortShimmer ? (
         <ProductSortShimmer />
     ) : null;
@@ -275,11 +286,11 @@ CategoryContent.propTypes = {
         categoryContent: string,
         heading: string,
         categoryInfo: string,
+        select: string,
         headerButtons: string
     }),
     // sortProps contains the following structure:
     // [{sortDirection: string, sortAttribute: string, sortText: string},
     // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
-    sortProps: array,
-    pageSize: number
+    sortProps: array
 };

@@ -43,6 +43,18 @@
     @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
 }
 
+.selectBlock {
+    @apply flex items-center justify-between mb-0 -lg_ml-2;
+}
+
+.selectBlock > span {
+    @apply -lg_hidden;
+}
+
+.selectBlock select {
+    @apply min-h-[44px] -lg_rounded-button;
+}
+
 /* Responsive Design */
 @media (max-width: 959px) {
     .layoutContainer {

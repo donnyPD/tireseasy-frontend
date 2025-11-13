@@ -28,6 +28,7 @@ import Field from '@magento/venia-ui/lib/components/Field';
 import Select from '@magento/venia-ui/lib/components/Select';
 import Checkbox from './checkbox';
 import Pagination from '../Pagination';
+import SelectSize from './selectSize';
 
 const errorIcon = (
     <Icon
@@ -178,25 +179,11 @@ const InvoicePage = props => {
             return (
                 <div className={classes.orders_content}>
                     <div className="md_flex justify-between">
-                        <div className="flex items-center justify-between mb-4 md_mb-0">
-                            <span className={classes.selectLabel}>
-                                <FormattedMessage
-                                    id={'order.history.selectLabel'}
-                                    defaultMessage={'Show per page'}
-                                />
-                            </span>
-                            <select
-                                className={classes.select}
-                                value={pageSize}
-                                onChange={e => setPageSize(e.target.value)}
-                            >
-                                {optionsSize.map(opt => (
-                                    <option key={opt.label} value={opt.value}>
-                                        {opt.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                        <SelectSize
+                            optionsSize={optionsSize}
+                            pageSize={pageSize}
+                            setPageSize={setPageSize}
+                        />
                         {buttonsBlock}
                     </div>
                     <ul

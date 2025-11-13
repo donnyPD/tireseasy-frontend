@@ -19,6 +19,7 @@ import { FilterSidebarShimmer } from '@magento/venia-ui/lib/components/FilterSid
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 import { Meta, Title } from '@magento/venia-ui/lib/components/Head';
 import QuickLookups from '../QuickLookups';
+import SelectSize from '../InvoicesPage/selectSize';
 
 const FilterModal = React.lazy(() => import('@magento/venia-ui/lib/components/FilterModal'));
 const FilterSidebar = React.lazy(() => import('@magento/venia-ui/lib/components/FilterSidebar'));
@@ -36,7 +37,10 @@ const SearchPage = props => {
         searchCategory,
         searchTerm,
         sortProps,
-        currentStoreName
+        currentStoreName,
+        pageSize,
+        optionsSize,
+        setPageSize
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -148,6 +152,19 @@ const SearchPage = props => {
         <ProductSortShimmer />
     ) : null;
 
+    const maybeSelectSizeBlock = shouldShowSortButtons ? (
+        availableSortMethods && (
+            <SelectSize
+                classes={classes}
+                optionsSize={optionsSize}
+                pageSize={pageSize}
+                setPageSize={setPageSize}
+            />
+        )
+    ) : shouldShowSortShimmer ? (
+        <ProductSortShimmer />
+    ) : null;
+
     const maybeSortContainer = shouldShowSortButtons ? (
         <SortedByContainer currentSort={currentSort} />
     ) : shouldShowSortShimmer ? (
@@ -214,6 +231,7 @@ const SearchPage = props => {
                     </div>
                     <div className={classes.headerButtons}>
                         {maybeFilterButtons}
+                        {maybeSelectSizeBlock}
                         {maybeSortButton}
                     </div>
                     {maybeSortContainer}

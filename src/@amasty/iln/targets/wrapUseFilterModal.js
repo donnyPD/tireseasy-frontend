@@ -84,7 +84,7 @@ const wrapUseFilterModal = original => props => {
             title,
             label,
             value,
-            displayMode: amshopby_filter_data.display_mode_label,
+            displayMode: amshopby_filter_data?.display_mode_label,
             currencyCode,
             locale
           });

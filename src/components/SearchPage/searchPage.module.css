@@ -20,6 +20,10 @@
     composes: lg_justify-end from global;
 }
 
+.headerButtons button {
+    @apply bg-white !important;
+}
+
 .heading {
     composes: flex from global;
     composes: flex-wrap from global;
@@ -43,7 +47,7 @@
     composes: mt-10 from global;
 
     composes: lg_m-0 from global;
-    composes: lg_basis-full from global;
+    @apply lg_basis-[30%] xl_basis-[45%] 3xl_basis-full;
 }
 
 .totalPages {
@@ -73,4 +77,16 @@
 .sidebar div[class^="w-[300px]"] + div,
 .sidebar div[class^="w-[300px]"] + div input {
     @apply lg_w-[240px] !important;
+}
+
+.selectBlock {
+    @apply flex items-center justify-between mb-0 -lg_ml-2;
+}
+
+.selectBlock > span {
+    @apply -lg_hidden;
+}
+
+.selectBlock select {
+    @apply min-h-[44px] -lg_rounded-button;
 }

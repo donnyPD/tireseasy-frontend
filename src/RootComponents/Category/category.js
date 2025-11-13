@@ -35,6 +35,8 @@ const Category = props => {
         pageControl,
         sortProps,
         pageSize,
+        optionsSize,
+        setPageSize,
         categoryNotFound
     } = talonProps;
 
@@ -73,6 +75,8 @@ const Category = props => {
                     pageControl={pageControl}
                     sortProps={sortProps}
                     pageSize={pageSize}
+                    optionsSize={optionsSize}
+                    setPageSize={setPageSize}
                 />
             </main>
         </>

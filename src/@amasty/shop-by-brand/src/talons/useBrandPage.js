@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { usePagination, useSort } from '@magento/peregrine';
 import {
@@ -11,7 +11,7 @@ import { getUrlKey } from '../utils';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 
 export const useBrandPage = (props = {}) => {
-  const { brand } = props;
+  const { brand, isOpen, setIsOpen } = props;
   const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
 
   const {
@@ -26,7 +26,14 @@ export const useBrandPage = (props = {}) => {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first'
   });
-  const pageSize = pageSizeData && pageSizeData.storeConfig.grid_per_page;
+  const pageSizeList = pageSizeData && pageSizeData.storeConfig.list_per_page_values.split(',');
+  const [pageSize, setPageSize] = useState(pageSizeList && pageSizeList[0] || 10);
+  const optionsSize = pageSizeList && pageSizeList.length ? pageSizeList.map(el => {
+    return {
+      value: Number(el),
+      label: el,
+    }
+  }) : [];
 
   const [paginationValues, paginationApi] = usePagination();
   const { currentPage, totalPages } = paginationValues;
@@ -85,6 +92,12 @@ export const useBrandPage = (props = {}) => {
       console.error(introspectionError);
     }
   }, [introspectionError]);
+
+  useEffect(() => {
+    if (isOpen) {
+        setIsOpen(false);
+    }
+  }, [pageSize]);
 
   const filterTypeMap = useMemo(() => {
     const typeMap = new Map();
@@ -235,6 +248,9 @@ export const useBrandPage = (props = {}) => {
     pageTitle: label || '',
     brandDescription: description,
     brandImage: image,
-    totalCount
+    totalCount,
+    pageSize,
+    optionsSize,
+    setPageSize
   };
 };

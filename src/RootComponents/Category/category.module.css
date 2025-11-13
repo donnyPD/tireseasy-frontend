@@ -56,6 +56,8 @@
 
     composes: lg_m-0 from global;
     composes: lg_text-left from global;
+
+    @apply lg_basis-[30%] 3xl_basis-full;
 }
 
 .headerButtons {
@@ -66,6 +68,10 @@
 
     composes: lg_justify-end from global;
     composes: lg_pb-0 from global;
+}
+
+.headerButtons button {
+    @apply bg-white !important;
 }
 
 .contentWrapper {

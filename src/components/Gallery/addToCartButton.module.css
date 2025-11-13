@@ -10,6 +10,10 @@
     @apply sm_min-w-[8rem];
 }
 
+.root > [class^="button-content"] {
+    @apply gap-0;
+}
+
 .icon {
     composes: inline from global;
     composes: stroke-white from global;

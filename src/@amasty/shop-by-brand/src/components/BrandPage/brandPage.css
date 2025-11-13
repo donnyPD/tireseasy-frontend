@@ -32,3 +32,31 @@
 .root_container {
     @apply lg_px-xs;
 }
+
+.selectBlock {
+    @apply flex items-center justify-between mb-0 -lg_ml-2;
+}
+
+.selectBlock > span {
+    @apply -lg_hidden;
+}
+
+.selectBlock select {
+    @apply min-h-[44px] -lg_rounded-button;
+}
+
+.descriptionContainer {
+    @apply overflow-hidden relative;
+}
+
+.descriptionContainer.collapsed:after {
+    @apply [content:''] absolute bottom-0 left-0 right-0 h-12 bg-[linear-gradient(transparent,#f8f8f8)];
+}
+
+.triggerBtn {
+ @apply flex items-center underline text-primary-navy hover_text-accent-orange mt-2 mb-4 transition-all;
+}
+
+.triggerBtn svg {
+    @apply ml-2 mt-1;
+}
