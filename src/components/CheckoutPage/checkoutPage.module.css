@@ -266,11 +266,11 @@
 
 .root_attr label[for="customer_po_number"] > span:first-child:after {
     @apply text-primary-red;
-    content: ' *';
+    content: '*';
 }
 
 .root_attr label {
-    @apply relative flex justify-start;
+    @apply relative flex justify-start -md_text-sm;
 }
 .root_attr label [data-role="tooltipContainer"] {
     @apply font-normal text-sm text-center normal-case absolute bottom-[28px] left-0 border rounded bg-white min-w-[180px] p-2 transition-all opacity-0 invisible;
