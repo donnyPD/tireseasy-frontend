@@ -4,6 +4,7 @@ import { array, number, shape, string } from 'prop-types';
 
 import { useIsInViewport } from '@magento/peregrine/lib/hooks/useIsInViewport';
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
+import { useLocation } from 'react-router-dom';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import classnames from 'classnames';
@@ -70,6 +71,10 @@ const CategoryContent = props => {
         categoryDisplayMode,
         cmsBlockContent
     } = talonProps;
+
+    const location = useLocation();
+    const urlParams = new URLSearchParams(location.search);
+    const modelNameParam = urlParams.get('model_name') || null;
 
     const sidebarRef = useRef(null);
     const classes = useStyle(defaultClasses, props.classes);
@@ -236,7 +241,18 @@ const CategoryContent = props => {
                                             }
                                             data-cy="CategoryContent-categoryTitle"
                                         >
-                                            <div>{categoryTitle}</div>
+                                            <div>
+                                                {categoryTitle}
+                                                {modelNameParam && <span className={classes.categoryTitleName}>
+                                                    <FormattedMessage
+                                                        id={'categoryTitle.modelName'}
+                                                        values={{
+                                                            name: modelNameParam
+                                                        }}
+                                                        defaultMessage={' - {name}'}
+                                                    />
+                                                </span>}
+                                            </div>
                                         </div>
                                     </h1>
                                     {/*{categoryDescriptionElement}*/}
@@ -282,6 +298,7 @@ CategoryContent.propTypes = {
         categoryHeader: string,
         title: string,
         categoryTitle: string,
+        categoryTitleName: string,
         sidebar: string,
         categoryContent: string,
         heading: string,
