@@ -70,6 +70,7 @@ export const GET_OPTIONS = gql`
 export const GET_OPTIONS_BY_VIN = gql`
     query GetOptionsByVin($vin: String!) {
         getOptionsByVin(vin: $vin) {
+            model_name
             items {
                 trim
                 size

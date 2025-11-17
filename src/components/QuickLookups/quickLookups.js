@@ -201,6 +201,7 @@ const QuickLookups = props => {
 
             // Check if we have tire size options
             const vinOptions = result?.data?.getOptionsByVin?.items || [];
+            const modelName = result?.data?.getOptionsByVin?.model_name || null;
 
             if (vinOptions.length === 0) {
                 // No results found
@@ -243,7 +244,8 @@ const QuickLookups = props => {
                 sessionStorage.setItem('vehicleLookupData', JSON.stringify({
                     vehicleInfo,
                     tireSizes,
-                    isVinLookup: true // Flag to indicate this came from VIN lookup
+                    isVinLookup: true, // Flag to indicate this came from VIN lookup
+                    modelName
                 }));
 
                 // Navigate to home page with query parameter to show vehicle lookup results

@@ -30,7 +30,8 @@ const VehicleLookupTrims = props => {
             { size: '245/75R16', selected: false }
         ],
         isVinLookup = false,
-        onTireSizeSelect = () => {}
+        onTireSizeSelect = () => {},
+        modelName
     } = props;
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -42,6 +43,7 @@ const VehicleLookupTrims = props => {
             ? tireSizes.find(tire => tire.selected)?.url
             : ''
     );
+    const vehicleTitle = modelName ? modelName : 'VIN Lookup Results';
 
     /**
      * Handle tire size selection
@@ -125,7 +127,7 @@ const VehicleLookupTrims = props => {
                                 <h2 className={classes.vehicleTitle}>
                                     <FormattedMessage
                                         id="vehicleLookupTrims.vinTitle"
-                                        defaultMessage="VIN Lookup Results"
+                                        defaultMessage={vehicleTitle}
                                     />
                                 </h2>
                                 <p className={classes.vinNumber}>

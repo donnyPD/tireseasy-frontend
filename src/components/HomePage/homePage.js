@@ -51,7 +51,8 @@ const HomePage = props => {
     const [lookupData, setLookupData] = useState({
         vehicleInfo: null,
         tireSizes: [],
-        isVinLookup: false
+        isVinLookup: false,
+        modelName: null
     });
     const [vinProcessing, setVinProcessing] = useState(false);
     const [authProcessing, setAuthProcessing] = useState(false);
@@ -129,6 +130,7 @@ const HomePage = props => {
             // Execute VIN lookup
             const result = await getOptionsByVin(vin);
             const vinOptions = result?.data?.getOptionsByVin?.items || [];
+            const modelName = result?.data?.getOptionsByVin?.model_name || null;
 
             if (vinOptions.length === 0) {
                 // No results found - just log, don't show error to user for auto-lookup
@@ -167,7 +169,8 @@ const HomePage = props => {
                 setLookupData({
                     vehicleInfo,
                     tireSizes,
-                    isVinLookup: true
+                    isVinLookup: true,
+                    modelName
                 });
                 setShowVehicleLookupTrims(true);
             }
@@ -294,6 +297,7 @@ const HomePage = props => {
                         onTireSizeSelect={(size) => {
                             console.log('Selected tire size:', size);
                         }}
+                        modelName={lookupData.modelName}
                     />
                 </Layout>
             </>
