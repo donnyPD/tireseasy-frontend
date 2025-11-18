@@ -85,6 +85,18 @@ function localIntercept(targets) {
                     type: 'bool',
                     desc: 'Disable Enterprise Edition features',
                     default: true
+                },
+                {
+                    name: 'MAGENTO_GRAPHQL_METHOD',
+                    type: 'str',
+                    desc: 'Force GraphQL to use POST instead of GET',
+                    default: 'POST'
+                },
+                {
+                    name: 'MAGENTO_GRAPHQL_PERSISTED_QUERIES',
+                    type: 'bool',
+                    desc: 'Disable persisted queries to avoid long GET URLs',
+                    default: false
                 }
             ]
         });
