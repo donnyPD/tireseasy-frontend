@@ -54,16 +54,6 @@ function localIntercept(targets) {
         return routes;
     });
 
-    const peregrineTargets = targets.of('@magento/peregrine');
-
-    if (peregrineTargets?.apollo) {
-        peregrineTargets.apollo.tap(apollo => {
-            const removePrefetchLink = require('./src/removePrefetchLink');
-            apollo.modifyLinks.tap(links => removePrefetchLink(links));
-            return apollo;
-        });
-    }
-
     const componentOverrideMapping = {
         '@magento/venia-ui/lib/components/CartPage/cartPage.js': './src/components/CartPage/cartPage.js',
         '@magento/venia-ui/lib/components/SearchPage/searchPage.js': './src/components/SearchPage/searchPage.js',
