@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Price from '@magento/venia-ui/lib/components/Price';
-import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
+import { usePriceSummary } from '../../../talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '@magento/venia-ui/lib/components/Button';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './priceSummary.module.css';
@@ -66,6 +66,7 @@ const PriceSummary = props => {
         giftCards,
         giftOptions,
         taxes,
+        fet,
         shipping
     } = flatData;
 
@@ -131,16 +132,33 @@ const PriceSummary = props => {
                                 />
                             </span>
                         </li>
-                        <li className={classes.lineItems}>
-                            <span
-                                className={labelSubClass}
-                            >
-                                <FormattedMessage
-                                    id={'priceSummary.lineItemLabel.checkout'}
-                                    defaultMessage={'Includes estimated shipping & taxes.'}
-                                />
-                            </span>
-                        </li>
+                        {fet ? (
+                            <li className={classes.lineItems}>
+                                <span
+                                    className={labelSubClass}
+                                >
+                                    <FormattedMessage
+                                        id={'priceSummary.lineItemLabel.shipping'}
+                                        defaultMessage={'Federal Excise Tax: '}
+                                    />
+                                    <Price
+                                        value={fet.value}
+                                        currencyCode={fet.currency}
+                                    />
+                                </span>
+                            </li>
+                        ) : (
+                            <li className={classes.lineItems}>
+                                <span
+                                    className={labelSubClass}
+                                >
+                                    <FormattedMessage
+                                        id={'priceSummary.lineItemLabel.checkout'}
+                                        defaultMessage={'Includes estimated shipping & taxes.'}
+                                    />
+                                </span>
+                            </li>
+                        )}
                     </ul>
                 ) : (
                     <ul>
@@ -164,16 +182,33 @@ const PriceSummary = props => {
                                 />
                             </span>
                         </li>
-                        <li className={classes.lineItems}>
-                            <span
-                                className={labelSubClass}
-                            >
-                                <FormattedMessage
-                                    id={'priceSummary.lineItemLabel.shipping'}
-                                    defaultMessage={'Shipping calculated at checkout.'}
-                                />
-                            </span>
-                        </li>
+                        {fet ? (
+                            <li className={classes.lineItems}>
+                                <span
+                                    className={labelSubClass}
+                                >
+                                    <FormattedMessage
+                                        id={'priceSummary.lineItemLabel.shipping'}
+                                        defaultMessage={'Federal Excise Tax: '}
+                                    />
+                                    <Price
+                                        value={fet.value}
+                                        currencyCode={fet.currency}
+                                    />
+                                </span>
+                            </li>
+                        ) : (
+                            <li className={classes.lineItems}>
+                                <span
+                                    className={labelSubClass}
+                                >
+                                    <FormattedMessage
+                                        id={'priceSummary.lineItemLabel.shipping'}
+                                        defaultMessage={'Shipping calculated at checkout.'}
+                                    />
+                                </span>
+                            </li>
+                        )}
                     </ul>
                 )}
 

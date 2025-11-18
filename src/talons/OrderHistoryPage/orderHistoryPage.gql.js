@@ -89,6 +89,10 @@ const CustomerOrdersFragment = gql`
                     currency
                     value
                 }
+                fet_total {
+                    currency
+                    value
+                }
             }
         }
         page_info {

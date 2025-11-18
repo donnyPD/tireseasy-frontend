@@ -14,6 +14,7 @@ const OrderTotal = props => {
         grand_total,
         subtotal,
         total_tax,
+        fet_total,
         total_shipping
     } = data;
     const classes = useStyle(defaultClasses, propClasses);
@@ -72,20 +73,6 @@ const OrderTotal = props => {
                 </span>
             </div>
             {discountRowElement}
-            <div className={classes.tax}>
-                <span>
-                    <FormattedMessage
-                        id="orderDetails.tax"
-                        defaultMessage="Tax"
-                    />
-                </span>
-                <span>
-                    <Price
-                        value={total_tax.value}
-                        currencyCode={total_tax.currency}
-                    />
-                </span>
-            </div>
             <div className={classes.shipping}>
                 <span>
                     <FormattedMessage
@@ -98,6 +85,27 @@ const OrderTotal = props => {
                         value={total_shipping.value}
                         currencyCode={total_shipping.currency}
                     />
+                </span>
+            </div>
+            <div className={classes.tax}>
+                <span>
+                    <FormattedMessage
+                        id="orderDetails.fet"
+                        defaultMessage="FET"
+                    />
+                </span>
+                <span>
+                    {fet_total ? (
+                        <Price
+                            value={fet_total.value}
+                            currencyCode={fet_total.currency}
+                        />
+                    ) : (
+                        <Price
+                            value={0}
+                            currencyCode={subtotal.currency}
+                        />
+                    )}
                 </span>
             </div>
             <div className={classes.total}>
