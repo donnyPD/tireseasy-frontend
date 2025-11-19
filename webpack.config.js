@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 
 const {
     getMediaURL,
@@ -59,31 +58,6 @@ module.exports = async env => {
         },
         env
     });
-
-    if (config.optimization && config.optimization.minimizer) {
-        config.optimization.minimizer.push(
-            new TerserPlugin({
-                terserOptions: {
-                    compress: {
-                        drop_console: false
-                    }
-                }
-            })
-        );
-    } else {
-        config.optimization = {
-            ...config.optimization,
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        compress: {
-                            drop_console: false
-                        }
-                    }
-                })
-            ]
-        };
-    }
 
     const mediaUrl = await getMediaURL();
     const storeConfigData = await getStoreConfigData();
