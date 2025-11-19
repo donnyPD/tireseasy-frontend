@@ -66,7 +66,7 @@
     composes: lg_flex from global;
     composes: lg_self-start from global;
 
-    @apply flex-col lg_mr-6 lg_min-w-[280px] -lg_mt-8;
+    @apply flex-col lg_mr-6 lg_min-w-[280px] lg_w-[280px] -lg_mt-8;
 }
 
 .sidebar > aside {
