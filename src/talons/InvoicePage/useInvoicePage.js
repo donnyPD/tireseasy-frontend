@@ -8,6 +8,7 @@ import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
 import DEFAULT_OPERATIONS from './invoicePage.gql';
 import NEW_OPERATIONS from '../SearchPage/searchPage.gql';
 import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
+import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 const PAGE_SIZE = 10;
 
@@ -36,6 +37,7 @@ export const useInvoicePage = (props = {}) => {
     const [dateFromText, setDateFromText] = useState('');
     const [dateToText, setDateToText] = useState('');
     const [invoiceText, setInvoiceText] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
 
     const options = [
         { value: '', label: 'Select status' },
@@ -99,6 +101,7 @@ export const useInvoicePage = (props = {}) => {
         setDateFromText('');
         setDateToText('');
         setInvoiceText('');
+        setIsSearching(false);
     }, [invoiceText]);
 
     const handleSubmit = useCallback((value) => {
@@ -107,6 +110,10 @@ export const useInvoicePage = (props = {}) => {
         setDateFromText(value?.date_from || '');
         setDateToText(value?.date_to || '');
         setInvoiceText(value?.invoice || '');
+
+        if (!isObjectEmpty(value)) {
+            setIsSearching(true);
+        }
     }, []);
 
     const pageControl = useMemo(() => {
@@ -156,6 +163,7 @@ export const useInvoicePage = (props = {}) => {
         pageControl,
         optionsSize,
         pageSize,
-        setPageSize
+        setPageSize,
+        isSearching
     };
 };

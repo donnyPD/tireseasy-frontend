@@ -55,7 +55,8 @@ const OrderHistoryPage = props => {
         pageControl,
         optionsSize,
         pageSize,
-        setPageSize
+        setPageSize,
+        isSearching
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
@@ -87,15 +88,12 @@ const OrderHistoryPage = props => {
     const pageContents = useMemo(() => {
         if (isLoadingWithoutData) {
             return <LoadingIndicator />;
-        } else if (!isBackgroundLoading && searchText && !orders.length) {
+        } else if (!isBackgroundLoading && isSearching && !orders.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
                         id={'orderHistoryPage.invalidOrderNumber.new'}
-                        defaultMessage={`Order was not found.`}
-                        values={{
-                            number: searchText
-                        }}
+                        defaultMessage={'There were no results matching your criteria'}
                     />
                 </h3>
             );
@@ -355,12 +353,14 @@ const OrderHistoryPage = props => {
                         </Form>
                     </div>
                     {pageContents}
-                    <div className={classes.pageInfo_container}>
-                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
-                    </div>
-                    <section className={classes.pagination}>
-                        <Pagination pageControl={pageControl} />
-                    </section>
+                    {!!orders.length && <>
+                        <div className={classes.pageInfo_container}>
+                            <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                        </div>
+                        <section className={classes.pagination}>
+                            <Pagination pageControl={pageControl} />
+                        </section>
+                    </>}
                 </div>
             </div>
         </OrderHistoryContextProvider>

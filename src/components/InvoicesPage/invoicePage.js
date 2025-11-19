@@ -68,7 +68,8 @@ const InvoicePage = props => {
         pageControl,
         optionsSize,
         pageSize,
-        setPageSize
+        setPageSize,
+        isSearching
     } = talonProps;
 
     const [checkedAll, setCheckedAll] = useState(false);
@@ -154,12 +155,12 @@ const InvoicePage = props => {
     const pageContents = useMemo(() => {
         if (isLoadingWithoutData) {
             return <LoadingIndicator />;
-        } else if (!isBackgroundLoading && invoiceText && !invoices.length) {
+        } else if (!isBackgroundLoading && isSearching && !invoices.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
                         id={'orderHistoryPage.invalidOrderNumber.new'}
-                        defaultMessage={`Order was not found.`}
+                        defaultMessage={`There were no results matching your criteria`}
                         values={{
                             number: invoiceText
                         }}
@@ -171,7 +172,7 @@ const InvoicePage = props => {
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
                         id={'orderHistoryPage.emptyDataMessage.new'}
-                        defaultMessage={"You don't have any invoices."}
+                        defaultMessage={"You don't have any invoices yet."}
                     />
                 </h3>
             );
@@ -396,12 +397,14 @@ const InvoicePage = props => {
                         </Form>
                     </div>
                     {pageContents}
-                    {!!invoices.length && <div className={classes.pageInfo_container}>
-                        <span className={classes.pageInfo}>{pageInfoLabel}</span>
-                    </div>}
-                    <section className={classes.pagination}>
-                        <Pagination pageControl={pageControl} />
-                    </section>
+                    {!!invoices.length && <>
+                        <div className={classes.pageInfo_container}>
+                            <span className={classes.pageInfo}>{pageInfoLabel}</span>
+                        </div>
+                        <section className={classes.pagination}>
+                            <Pagination pageControl={pageControl} />
+                        </section>
+                    </>}
                 </div>
             </div>
         </OrderHistoryContextProvider>

@@ -48,7 +48,8 @@ const OrderHistorySection = props => {
         codeText,
         dateFromText,
         dateToText,
-        invoiceText
+        invoiceText,
+        isSearching
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { isHomepage } = props;
@@ -65,15 +66,12 @@ const OrderHistorySection = props => {
     const pageContents = useMemo(() => {
         if (isLoadingWithoutData) {
             return <LoadingIndicator />;
-        } else if (!isBackgroundLoading && searchText && !orders.length) {
+        } else if (!isBackgroundLoading && isSearching && !orders.length) {
             return (
                 <h3 className={classes.emptyHistoryMessage}>
                     <FormattedMessage
                         id={'orderHistoryPage.invalidOrderNumber.new'}
-                        defaultMessage={`Order was not found.`}
-                        values={{
-                            number: searchText
-                        }}
+                        defaultMessage={'There were no results matching your criteria'}
                     />
                 </h3>
             );
