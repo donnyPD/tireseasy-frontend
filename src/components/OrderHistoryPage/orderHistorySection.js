@@ -236,7 +236,7 @@ const OrderHistorySection = props => {
                             id={classes.mfg_code}
                             label={formatMessage({
                                 id: 'history.po.number',
-                                defaultMessage: 'PO Number'
+                                defaultMessage: 'Customer PO #'
                             })}
                         >
                             <TextInput

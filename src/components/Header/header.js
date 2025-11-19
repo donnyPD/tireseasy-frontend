@@ -182,11 +182,8 @@ const Header = (props) => {
                         </form>
                     </div>
 
-                    {/* Order History and Cart Icons */}
+                    {/* Cart Icons */}
                     <div className={classes.navActions}>
-                        <Link to={resourceUrl('/order-history')} className={classes.orderHistoryIcon} aria-label="Order History">
-                            <Clock size={20} />
-                        </Link>
                         <CartTrigger isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
                     </div>
 

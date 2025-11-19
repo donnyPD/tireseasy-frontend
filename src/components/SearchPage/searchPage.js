@@ -20,6 +20,7 @@ import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 import { Meta, Title } from '@magento/venia-ui/lib/components/Head';
 import QuickLookups from '../QuickLookups';
 import SelectSize from '../InvoicesPage/selectSize';
+import Breadcrumbs from './breadcrumbs';
 
 const FilterModal = React.lazy(() => import('@magento/venia-ui/lib/components/FilterModal'));
 const FilterSidebar = React.lazy(() => import('@magento/venia-ui/lib/components/FilterSidebar'));
@@ -212,37 +213,40 @@ const SearchPage = props => {
         .join(' - ');
 
     return (
-        <article className={classes.root} data-cy="SearchPage-root">
-            <div className={classes.sidebar}>
-                <QuickLookups />
-                <Suspense fallback={<FilterSidebarShimmer />}>
-                    {maybeSidebar}
-                </Suspense>
-            </div>
-            <div className={classes.searchContent}>
-                <div className={classes.heading}>
-                    <div
-                        aria-live="polite"
-                        aria-atomic="true"
-                        className={classes.searchInfo}
-                    >
-                        {searchResultsHeading}
-                        {itemCountHeading}
-                    </div>
-                    <div className={classes.headerButtons}>
-                        {maybeFilterButtons}
-                        {maybeSelectSizeBlock}
-                        {maybeSortButton}
-                    </div>
-                    {maybeSortContainer}
+        <div className={classes.root_container}>
+            <Breadcrumbs currentTerms={searchTerm || ''} />
+            <article className={classes.root} data-cy="SearchPage-root">
+                <div className={classes.sidebar}>
+                    <QuickLookups />
+                    <Suspense fallback={<FilterSidebarShimmer />}>
+                        {maybeSidebar}
+                    </Suspense>
                 </div>
-                {content}
-                <Suspense fallback={null}>{maybeFilterModal}</Suspense>
-            </div>
-            <Title>{metaTitle}</Title>
-            <Meta name="title" content={metaTitle} />
-            <Meta name="description" content={metaLabel} />
-        </article>
+                <div className={classes.searchContent}>
+                    <div className={classes.heading}>
+                        <div
+                            aria-live="polite"
+                            aria-atomic="true"
+                            className={classes.searchInfo}
+                        >
+                            {searchResultsHeading}
+                            {itemCountHeading}
+                        </div>
+                        <div className={classes.headerButtons}>
+                            {maybeFilterButtons}
+                            {maybeSelectSizeBlock}
+                            {maybeSortButton}
+                        </div>
+                        {maybeSortContainer}
+                    </div>
+                    {content}
+                    <Suspense fallback={null}>{maybeFilterModal}</Suspense>
+                </div>
+                <Title>{metaTitle}</Title>
+                <Meta name="title" content={metaTitle} />
+                <Meta name="description" content={metaLabel} />
+            </article>
+        </div>
     );
 };
 
@@ -252,6 +256,7 @@ SearchPage.propTypes = {
     classes: shape({
         noResult: string,
         root: string,
+        root_container: string,
         totalPages: string
     })
 };

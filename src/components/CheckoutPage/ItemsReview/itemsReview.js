@@ -45,7 +45,7 @@ const ItemsReview = props => {
                 >
                     <FormattedMessage
                         id={'checkoutPage.itemsInYourOrder.new'}
-                        defaultMessage={'Order details'}
+                        defaultMessage={'Order Details'}
                     />
                 </h2>
                 <ul className={classes.list}>

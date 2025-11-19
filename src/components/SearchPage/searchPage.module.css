@@ -6,6 +6,10 @@
     @apply -lg_flex-col-reverse;
 }
 
+.root_container {
+    composes: lg_px-xs from global;
+}
+
 .noResult {
     composes: flex from global;
 }
@@ -61,7 +65,6 @@
 .sidebar {
     composes: lg_flex from global;
     composes: lg_self-start from global;
-    composes: lg_pt-[76px] from global;
 
     @apply flex-col lg_mr-6 lg_min-w-[280px] -lg_mt-8;
 }
