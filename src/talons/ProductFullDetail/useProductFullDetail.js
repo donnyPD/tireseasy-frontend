@@ -486,7 +486,7 @@ export const useProductFullDetail = props => {
                 }
 
                 try {
-                    await addProductToCart({ variables });
+                    const addToCart = await addProductToCart({ variables });
 
                     const selectedOptionsLabels =
                         selectedOptionsArray?.map((uid, i) => ({
@@ -511,7 +511,9 @@ export const useProductFullDetail = props => {
                             quantity
                         }
                     });
-                    openCustomMiniCart();
+                    if (addToCart && !addToCart?.data?.addProductsToCart?.user_errors[0]) {
+                        openCustomMiniCart();
+                    }
                 } catch {
                     return;
                 }

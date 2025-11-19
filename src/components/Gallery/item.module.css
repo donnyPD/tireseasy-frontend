@@ -131,3 +131,11 @@
 .maxMessage {
     @apply text-xs text-text-secondary mt-1;
 }
+
+.formErrors {
+    @apply px-4 pt-[6px] pb-2 border border-primary-red text-primary-red rounded my-[10px];
+}
+
+.formErrors span {
+    @apply text-primary-red !important;
+}

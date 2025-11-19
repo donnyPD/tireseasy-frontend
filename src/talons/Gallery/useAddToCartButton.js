@@ -1,12 +1,13 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
 import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
-import operations from '@magento/peregrine/lib/talons/Gallery/addToCart.gql';
+import operations from './addToCart.gql';
 import { useMiniCustomCart } from '../../context/MiniCartContext';
+import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 
 /**
  * @param {String} props.item.uid - uid of item
@@ -31,7 +32,7 @@ const UNSUPPORTED_PRODUCT_TYPES = [
 ];
 
 export const useAddToCartButton = props => {
-    const { item, urlSuffix } = props;
+    const { item, urlSuffix, setErrors } = props;
 
     const [, { dispatch }] = useEventingContext();
 
@@ -57,7 +58,7 @@ export const useAddToCartButton = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [addToCart] = useMutation(operations.ADD_ITEM);
+    const [addToCart, { data: addToCartResponseData, error: errorAddToCart} ] = useMutation(operations.ADD_ITEM);
 
     const handleAddToCart = useCallback(async (qty) => {
         try {
@@ -65,9 +66,10 @@ export const useAddToCartButton = props => {
                 setIsLoading(true);
 
                 const quantity = qty || 1;
+                let addToCartVar;
 
                 if (item.uid) {
-                    await addToCart({
+                    addToCartVar = await addToCart({
                         variables: {
                             cartId,
                             cartItem: {
@@ -83,7 +85,7 @@ export const useAddToCartButton = props => {
                         }
                     });
                 } else {
-                    await addToCart({
+                    addToCartVar = await addToCart({
                         variables: {
                             cartId,
                             cartItem: {
@@ -116,7 +118,9 @@ export const useAddToCartButton = props => {
                         quantity
                     }
                 });
-                openCustomMiniCart();
+                if (addToCartVar && !addToCartVar?.data?.addProductsToCart?.user_errors[0]) {
+                    openCustomMiniCart();
+                }
                 setIsLoading(false);
             } else if (
                 productType === 'ConfigurableProduct' ||
@@ -134,6 +138,16 @@ export const useAddToCartButton = props => {
             console.error(error);
         }
     }, [productType, addToCart, cartId, item, dispatch, history, urlSuffix]);
+
+    const derivedErrorMessage = useMemo(
+        () =>
+            setErrors([
+                ...(addToCartResponseData?.addProductsToCart?.user_errors || [])
+            ]),
+        [
+            addToCartResponseData
+        ]
+    );
 
     return {
         handleAddToCart,

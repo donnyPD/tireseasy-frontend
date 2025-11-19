@@ -18,6 +18,7 @@ import customClasses from './item.module.css';
 
 import AddToCartButton from './addToCartButton';
 import Icon from '@magento/venia-ui/lib/components/Icon';
+import FormError from "@magento/venia-ui/lib/components/FormError";
 // eslint-disable-next-line no-unused-vars
 // import Rating from '../Rating';
 
@@ -40,6 +41,7 @@ const GalleryItem = props => {
     } = useGalleryItem(props);
 
     const [itemQty, setItemQty] = useState(1);
+    const [errors, setErrors] = useState([]);
 
     const { storeConfig } = props;
 
@@ -137,6 +139,7 @@ const GalleryItem = props => {
             urlSuffix={productUrlSuffix}
             qty={itemQty}
             isDisabledByQty={isDisabledByQuantity()}
+            setErrors={setErrors}
         />
     ) : (
         <div className={classes.unavailableContainer}>
@@ -201,6 +204,12 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
                 {renderAttr()}
+                <FormError
+                    classes={{
+                        root: classes.formErrors
+                    }}
+                    errors={errors}
+                />
             </Link>
             <div className={classes.attributes}>
                 {item?.available_quantity_label && <div className={classes.attrs__item}><b>{'Local Inv:'}</b> <span>{item?.available_quantity_label}</span></div>}

@@ -190,6 +190,14 @@
     @apply mb-2;
 }
 
+.formErrors {
+    @apply px-4 pt-[6px] pb-2 border border-primary-red text-primary-red rounded my-[10px];
+}
+
+.formErrors span {
+    @apply text-primary-red !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .descriptionContent.collapsed {
