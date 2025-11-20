@@ -22,7 +22,7 @@ import SortedByContainer, {
     SortedByContainerShimmer
 } from '@magento/venia-ui/lib/components/SortedByContainer';
 import defaultClasses from './category.module.css';
-import NoProductsFound from '@magento/venia-ui/lib/RootComponents/Category/NoProductsFound';
+import NoProductsFound from './NoProductsFound';
 
 const FilterModal = React.lazy(() => import('@magento/venia-ui/lib/components/FilterModal'));
 const FilterSidebar = React.lazy(() =>

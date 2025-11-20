@@ -4,7 +4,7 @@ import { useBrandPage } from '../../talons/useBrandPage';
 import LoadingIndicator from '@magento/venia-ui/lib/components/LoadingIndicator';
 import Gallery from '../../../../../components/Gallery';
 import Pagination from '../../../../../components/Pagination';
-import NoProductsFound from '@magento/venia-ui/lib/RootComponents/Category/NoProductsFound';
+import NoProductsFound from '../../../../../RootComponents/Category/NoProductsFound';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { Title, Meta } from '@magento/venia-ui/lib/components/Head';
 import ProductSort from '@magento/venia-ui/lib/components/ProductSort';
@@ -71,6 +71,15 @@ const BrandPage = props => {
 
   const maybeFilterButtons = shouldShowFilterButtons ? (
     <FilterModalOpenButton filters={filters} />
+  ) : null;
+
+  const maybeSelectSize = shouldShowFilterButtons ? (
+    <SelectSize
+      classes={classes}
+      optionsSize={optionsSize}
+      pageSize={pageSize}
+      setPageSize={setPageSize}
+    />
   ) : null;
 
   const filtersModal = shouldShowFilterButtons ? (
@@ -184,12 +193,7 @@ const BrandPage = props => {
               </div>
               <div className={classes.headerButtons}>
                 {maybeFilterButtons}
-                <SelectSize
-                  classes={classes}
-                  optionsSize={optionsSize}
-                  pageSize={pageSize}
-                  setPageSize={setPageSize}
-                />
+                {maybeSelectSize}
                 {maybeSortButton}
               </div>
               {maybeSortContainer}

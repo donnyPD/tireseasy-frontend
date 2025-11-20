@@ -21,6 +21,8 @@ import { Meta, Title } from '@magento/venia-ui/lib/components/Head';
 import QuickLookups from '../QuickLookups';
 import SelectSize from '../InvoicesPage/selectSize';
 import Breadcrumbs from './breadcrumbs';
+import noProductsFound from '../../RootComponents/Category/NoProductsFound/noProductsFound.png';
+import Image from '@magento/venia-ui/lib/components/Image';
 
 const FilterModal = React.lazy(() => import('@magento/venia-ui/lib/components/FilterModal'));
 const FilterSidebar = React.lazy(() => import('@magento/venia-ui/lib/components/FilterSidebar'));
@@ -86,10 +88,17 @@ const SearchPage = props => {
                     className={classes.noResult}
                     data-cy="SearchPage-noResult"
                 >
-                    <FormattedMessage
-                        id={'searchPage.noResultImportant'}
-                        defaultMessage={'No results found!'}
+                    <Image
+                        alt={'No results found!'}
+                        classes={{ image: classes.image, root: classes.imageContainer }}
+                        src={noProductsFound}
                     />
+                    <h2 className={classes.title}>
+                        <FormattedMessage
+                            id={'searchPage.noResultImportant'}
+                            defaultMessage={'No results found!'}
+                        />
+                    </h2>
                 </div>
             );
         } else {
