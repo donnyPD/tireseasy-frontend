@@ -26,6 +26,7 @@ import QuickLookups from '../QuickLookups';
 import Field from '@magento/venia-ui/lib/components/Field';
 import Pagination from '../Pagination';
 import SelectSize from '../InvoicesPage/selectSize';
+import BrandSearch from './BrandSearch/brandSearch';
 
 const errorIcon = (
     <Icon
@@ -56,7 +57,10 @@ const OrderHistoryPage = props => {
         optionsSize,
         pageSize,
         setPageSize,
-        isSearching
+        isSearching,
+        brandList,
+        brandTextHandle,
+        setBrandTextHandle
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { formatMessage } = useIntl();
@@ -264,15 +268,16 @@ const OrderHistoryPage = props => {
                             </Field>
                             <Field
                                 id={classes.brand_name}
+                                name="brand"
                                 label={formatMessage({
                                     id: 'history.brand.name',
                                     defaultMessage: 'Brand'
                                 })}
                             >
-                                <TextInput
-                                    field="brand"
-                                    id={classes.brand}
-                                    placeholder={'e.g., Michelin'}
+                                <BrandSearch
+                                    brandList={brandList}
+                                    brandTextHandle={brandTextHandle}
+                                    setBrandTextHandle={setBrandTextHandle}
                                 />
                             </Field>
                             <Field

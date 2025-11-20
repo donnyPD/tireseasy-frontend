@@ -164,6 +164,28 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     @apply w-[90px] max-w-[90px] bg-no-repeat bg-[calc(100%-7px)_50%];
 }
 
+.brand {
+    composes: input from '@magento/venia-ui/lib/components/TextInput/textInput.module.css';
+    @apply block w-full;
+}
+
+.listContainer {
+    @apply relative;
+}
+
+.listContainer ul {
+    @apply hidden absolute top-[40px] left-0 right-0 border bg-white  p-0 max-h-[400px] overflow-y-auto z-10;
+    box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
+}
+
+.listContainer.open ul {
+    @apply block;
+}
+
+.listContainer .item {
+    @apply block py-2 px-4 cursor-pointer m-0 text-left hover_bg-brand-light2 hover_text-brand transition-all;
+}
+
 @media screen(lg) {
     .th {
         @apply grid border-b;

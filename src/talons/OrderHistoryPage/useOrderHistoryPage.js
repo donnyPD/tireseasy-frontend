@@ -40,6 +40,7 @@ export const useOrderHistoryPage = (props = {}) => {
     const [dateToText, setDateToText] = useState('');
     const [invoiceText, setInvoiceText] = useState('');
     const [isSearching, setIsSearching] = useState(false);
+    const [brandTextHandle, setBrandTextHandle] = useState('');
 
     const {
         data: orderData,
@@ -72,6 +73,7 @@ export const useOrderHistoryPage = (props = {}) => {
     });
 
     const orders = orderData && orderData.customer && orderData.customer.orders ? orderData.customer.orders.items : [];
+    const brandList = orderData && orderData.customer && orderData.customer.orders.brand_list ? orderData.customer.orders.brand_list : [];
 
     const isLoadingWithoutData = !orderData && orderLoading;
     const isBackgroundLoading = !!orderData && orderLoading;
@@ -101,11 +103,12 @@ export const useOrderHistoryPage = (props = {}) => {
         setDateFromText('');
         setDateToText('');
         setInvoiceText('');
+        setBrandTextHandle('')
         setIsSearching(false);
     }, [searchText]);
 
     const handleSubmit = useCallback((value) => {
-        setBrandText(value?.brand || '');
+        setBrandText(brandTextHandle || '');
         setSearchText(value?.search || '');
         setCodeText(value?.po_number || '');
         setDateFromText(value?.date_from || '');
@@ -115,7 +118,7 @@ export const useOrderHistoryPage = (props = {}) => {
         if (!isObjectEmpty(value)) {
             setIsSearching(true);
         }
-    }, []);
+    }, [brandTextHandle]);
 
     const pageControl = useMemo(() => {
         if (orderData && orderData.customer) {
@@ -165,6 +168,9 @@ export const useOrderHistoryPage = (props = {}) => {
         optionsSize,
         pageSize,
         setPageSize,
-        isSearching
+        isSearching,
+        brandList,
+        brandTextHandle,
+        setBrandTextHandle
     };
 };

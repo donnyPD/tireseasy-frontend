@@ -33,7 +33,7 @@
 
 .tooltipContainer {
     @apply text-center normal-case absolute bottom-[22px] right-[-20px] border rounded bg-white min-w-[180px] p-2 transition-all opacity-0 invisible;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
 }
 
 .locationTooltip {
@@ -53,7 +53,7 @@
 }
 
 .item {
-    @apply block py-2 px-4 cursor-pointer text-left hover_bg-brand-light hover_text-brand transition-all;
+    @apply block py-2 px-4 cursor-pointer text-left hover_bg-brand-light2 hover_text-brand transition-all;
 }
 
 .searchContainer {

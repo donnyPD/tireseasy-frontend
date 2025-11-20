@@ -113,6 +113,7 @@ const LocationList = props => {
                     <div className={classes.searchContainer}>
                         <input
                             type="text"
+                            name="SearchLocation"
                             className={classes.search}
                             placeholder={"Search..."}
                             value={query}
