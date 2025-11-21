@@ -268,7 +268,6 @@ const OrderHistoryPage = props => {
                             </Field>
                             <Field
                                 id={classes.brand_name}
-                                name="brand"
                                 label={formatMessage({
                                     id: 'history.brand.name',
                                     defaultMessage: 'Brand'

@@ -21,7 +21,8 @@ import { Form } from 'informed';
 import Field from '@magento/venia-ui/lib/components/Field';
 import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import Button from '@magento/venia-ui/lib/components/Button';
-import ResetButton from "./resetButton";
+import ResetButton from './resetButton';
+import BrandSearch from './BrandSearch/brandSearch';
 
 const errorIcon = (
     <Icon
@@ -49,7 +50,10 @@ const OrderHistorySection = props => {
         dateFromText,
         dateToText,
         invoiceText,
-        isSearching
+        isSearching,
+        brandList,
+        brandTextHandle,
+        setBrandTextHandle
     } = talonProps;
     const [, { addToast }] = useToasts();
     const { isHomepage } = props;
@@ -211,10 +215,10 @@ const OrderHistorySection = props => {
                                 defaultMessage: 'Brand'
                             })}
                         >
-                            <TextInput
-                                field="brand"
-                                id={classes.brand}
-                                placeholder={'e.g., Michelin'}
+                            <BrandSearch
+                                brandList={brandList}
+                                brandTextHandle={brandTextHandle}
+                                setBrandTextHandle={setBrandTextHandle}
                             />
                         </Field>
                         <Field

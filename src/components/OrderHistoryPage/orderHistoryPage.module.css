@@ -166,7 +166,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .brand {
     composes: input from '@magento/venia-ui/lib/components/TextInput/textInput.module.css';
-    @apply block w-full;
+    @apply block w-full pr-8;
 }
 
 .listContainer {
@@ -184,6 +184,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .listContainer .item {
     @apply block py-2 px-4 cursor-pointer m-0 text-left hover_bg-brand-light2 hover_text-brand transition-all;
+}
+
+.closeBtn {
+    @apply block absolute top-[9px] right-2 w-[22px] h-[22px] cursor-pointer flex items-center justify-center;
 }
 
 @media screen(lg) {
