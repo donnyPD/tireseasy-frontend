@@ -125,6 +125,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     @apply md_flex md_justify-between md_gap-x-2;
 }
 
+.total_container {
+    @apply flex justify-between gap-x-2;
+}
+
+.total_container > div:nth-child(2) label {
+    @apply text-[0] min-h-[36px];
+}
+
 .buttonsBlock {
     @apply flex flex-row justify-end mb-6 gap-2;
 }
@@ -149,6 +157,31 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     composes: input from '@magento/venia-ui/lib/components/Select/select.module.css';
     background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJpY29uLWljb24tUDFsIj48cG9seWxpbmUgcG9pbnRzPSI2IDkgMTIgMTUgMTggOSI+PC9wb2x5bGluZT48L3N2Zz4K);
     @apply w-[90px] max-w-[90px] bg-no-repeat bg-[calc(100%-7px)_50%];
+}
+
+.date_container > div {
+    @apply block md_w-1/2;
+}
+
+.date_container label {
+    @apply inline-block w-auto;
+}
+
+.info {
+     @apply inline-block relative ml-1 top-1;
+}
+
+.info svg {
+    @apply cursor-pointer text-primary-navy;
+}
+
+.info_content {
+    @apply font-normal text-sm text-left normal-case absolute bottom-[18px] left-[50%] border rounded bg-white min-w-[180px] p-2 transition-all opacity-0 invisible translate-x-[-50%];
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info:hover .info_content {
+    @apply opacity-100 visible bottom-[20px];
 }
 
 @media screen(lg) {

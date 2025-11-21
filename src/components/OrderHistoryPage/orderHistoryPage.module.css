@@ -154,6 +154,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     @apply md_flex md_justify-between md_gap-x-2;
 }
 
+.date_container > div {
+    @apply md_w-1/2;
+}
+
 .selectLabel {
     @apply mr-2;
 }

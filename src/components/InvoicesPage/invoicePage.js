@@ -5,6 +5,7 @@ import {
     Printer as PrinterIcon,
     Mail as MailIcon,
     Download as DownloadIcon,
+    Info as InfoIcon,
 } from 'react-feather';
 import { shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -59,17 +60,14 @@ const InvoicePage = props => {
         isLoadingWithoutData,
         pageInfo,
         invoiceText,
-        orderText,
-        statusText,
-        dateFromText,
-        dateToText,
         invoices,
         options,
         pageControl,
         optionsSize,
         pageSize,
         setPageSize,
-        isSearching
+        isSearching,
+        isResetBtn
     } = talonProps;
 
     const [checkedAll, setCheckedAll] = useState(false);
@@ -341,6 +339,15 @@ const InvoicePage = props => {
                                         defaultMessage: 'Date From'
                                     })}
                                 >
+                                    <span className={classes.info}>
+                                        <InfoIcon size={18} />
+                                        <span className={classes.info_content}>
+                                            <FormattedMessage
+                                                id={'order.history.info.text'}
+                                                defaultMessage={'Filter includes Invoice and Payment Due Dates'}
+                                            />
+                                        </span>
+                                    </span>
                                     <TextInput
                                         type="date"
                                         field="date_from"
@@ -353,9 +360,18 @@ const InvoicePage = props => {
                                     id={classes.date_to}
                                     label={formatMessage({
                                         id: 'invoice.date.field',
-                                        defaultMessage: 'Date To'
+                                        defaultMessage: 'To'
                                     })}
                                 >
+                                    <span className={classes.info}>
+                                        <InfoIcon size={18} />
+                                        <span className={classes.info_content}>
+                                            <FormattedMessage
+                                                id={'order.history.info.text'}
+                                                defaultMessage={'Filter includes Invoice and Payment Due Dates'}
+                                            />
+                                        </span>
+                                    </span>
                                     <TextInput
                                         type="date"
                                         field="date_to"
@@ -377,6 +393,34 @@ const InvoicePage = props => {
                                     items={options}
                                 />
                             </Field>
+                            <div className={classes.total_container}>
+                                <Field
+                                    id={classes.total}
+                                    label={formatMessage({
+                                        id: 'invoice.total.from',
+                                        defaultMessage: 'Total $'
+                                    })}
+                                >
+                                    <TextInput
+                                        field="total_from"
+                                        id={classes.search}
+                                        placeholder={'From: e.g., 145'}
+                                    />
+                                </Field>
+                                <Field
+                                    id={classes.total}
+                                    label={formatMessage({
+                                        id: 'invoice.total.to',
+                                        defaultMessage: 'To'
+                                    })}
+                                >
+                                    <TextInput
+                                        field="total_to"
+                                        id={classes.search}
+                                        placeholder={'To: e.g., 3000'}
+                                    />
+                                </Field>
+                            </div>
                             <div className={classes.btnContainer}>
                                 <Button
                                     className={classes.searchButton}
@@ -392,7 +436,7 @@ const InvoicePage = props => {
                                         defaultMessage={'Search'}
                                     />
                                 </Button>
-                                {invoiceText || orderText || dateFromText || dateToText || statusText ? <ResetButton onReset={handleReset} /> : null}
+                                {isResetBtn ? <ResetButton onReset={handleReset} /> : null}
                             </div>
                         </Form>
                     </div>
@@ -435,6 +479,12 @@ InvoicePage.propTypes = {
         emailButton: string,
         searchButton: string,
         submitIcon: string,
-        loadMoreButton: string
+        loadMoreButton: string,
+        total_container: string,
+        info_content: string,
+        btnContainer: string,
+        info: string,
+        info_container: string,
+        filterRow: string
     })
 };

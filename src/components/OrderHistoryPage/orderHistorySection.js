@@ -23,6 +23,7 @@ import TextInput from '@magento/venia-ui/lib/components/TextInput';
 import Button from '@magento/venia-ui/lib/components/Button';
 import ResetButton from './resetButton';
 import BrandSearch from './BrandSearch/brandSearch';
+import Select from '@magento/venia-ui/lib/components/Select';
 
 const errorIcon = (
     <Icon
@@ -45,13 +46,10 @@ const OrderHistorySection = props => {
         orders,
         pageInfo,
         searchText,
-        brandText,
-        codeText,
-        dateFromText,
-        dateToText,
-        invoiceText,
+        isResetBtn,
         isSearching,
         brandList,
+        selectOptions,
         brandTextHandle,
         setBrandTextHandle
     } = talonProps;
@@ -221,19 +219,34 @@ const OrderHistorySection = props => {
                                 setBrandTextHandle={setBrandTextHandle}
                             />
                         </Field>
-                        <Field
-                            id={classes.invoice_field}
-                            label={formatMessage({
-                                id: 'history.invoice',
-                                defaultMessage: 'Invoice Number'
-                            })}
-                        >
-                            <TextInput
-                                field="invoice"
-                                id={classes.invoice}
-                                placeholder={'e.g., 000000035'}
-                            />
-                        </Field>
+                        <div className={classes.date_container}>
+                            <Field
+                                id={classes.status}
+                                label={formatMessage({
+                                    id: 'status.code',
+                                    defaultMessage: 'Status'
+                                })}
+                            >
+                                <Select
+                                    field="status"
+                                    id={classes.select}
+                                    items={selectOptions}
+                                />
+                            </Field>
+                            <Field
+                                id={classes.invoice_field}
+                                label={formatMessage({
+                                    id: 'history.invoice',
+                                    defaultMessage: 'Invoice Number'
+                                })}
+                            >
+                                <TextInput
+                                    field="invoice"
+                                    id={classes.invoice}
+                                    placeholder={'e.g., 000000035'}
+                                />
+                            </Field>
+                        </div>
                         <Field
                             id={classes.mfg_code}
                             label={formatMessage({
@@ -294,7 +307,7 @@ const OrderHistorySection = props => {
                                     defaultMessage={'Search'}
                                 />
                             </Button>
-                            {searchText || brandText || codeText || dateFromText || dateToText || invoiceText ? <ResetButton onReset={handleReset} /> : null}
+                            {isResetBtn ? <ResetButton onReset={handleReset} /> : null}
                         </div>
                     </Form>
                 </div>

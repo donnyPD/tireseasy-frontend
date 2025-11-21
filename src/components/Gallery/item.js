@@ -62,13 +62,14 @@ const GalleryItem = props => {
     // eslint-disable-next-line no-unused-vars
     const { name, price_range, small_image, url_key,
         rating_summary,
+        fet_amount,
         size_label,
         load_index_label,
         speed_index_label,
         load_range_ply_rating_label,
         brand_name_label,
         mileage_warranty_label} = item;
-
+    console.log(item)
 
     function convertSnakeCaseToTitle(str) {
         return str
@@ -204,6 +205,15 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
                 {renderAttr()}
+                <div className={classes.attrs__item}>
+                    {fet_amount && <span>
+                        <FormattedMessage
+                            id={'product.list.fet'}
+                            defaultMessage={'FET: '}
+                        />
+                        <Price currencyCode={currencyCode} value={fet_amount} />
+                    </span>}
+                </div>
                 <FormError
                     classes={{
                         root: classes.formErrors

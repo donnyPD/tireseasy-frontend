@@ -32,6 +32,13 @@ export const useOrderHistoryPage = (props = {}) => {
         }
     }) : [];
 
+    const selectOptions = [
+        { value: '', label: 'Select status' },
+        { value: 'CREATED', label: 'Created' },
+        { value: 'CONFIRMED', label: 'Confirmed' },
+        { value: 'SHIPPED', label: 'Shipped' }
+    ];
+
     const [currentPage, setCurrentPage] = useState(1);
     const [searchText, setSearchText] = useState('');
     const [brandText, setBrandText] = useState('');
@@ -41,6 +48,8 @@ export const useOrderHistoryPage = (props = {}) => {
     const [invoiceText, setInvoiceText] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [brandTextHandle, setBrandTextHandle] = useState('');
+    const [statusText, setStatusText] = useState('');
+    const [isResetBtn, setIsResetBtn] = useState(false);
 
     const {
         data: orderData,
@@ -65,6 +74,9 @@ export const useOrderHistoryPage = (props = {}) => {
                 },
                 po_number: {
                     like: codeText
+                },
+                te_order_status: {
+                    eq: statusText
                 }
             },
             pageSize,
@@ -103,7 +115,8 @@ export const useOrderHistoryPage = (props = {}) => {
         setDateFromText('');
         setDateToText('');
         setInvoiceText('');
-        setBrandTextHandle('')
+        setBrandTextHandle('');
+        setStatusText('');
         setIsSearching(false);
     }, [searchText]);
 
@@ -114,6 +127,7 @@ export const useOrderHistoryPage = (props = {}) => {
         setDateFromText(value?.date_from || '');
         setDateToText(value?.date_to || '');
         setInvoiceText(value?.invoice || '');
+        setStatusText(value?.status || '')
 
         if (!isObjectEmpty(value)) {
             setIsSearching(true);
@@ -148,6 +162,28 @@ export const useOrderHistoryPage = (props = {}) => {
         setCurrentPage(1);
     }, [pageSize]);
 
+    useEffect(() => {
+        if (searchText
+            || brandText
+            || codeText
+            || dateFromText
+            || dateToText
+            || invoiceText
+            || statusText) {
+            setIsResetBtn(true);
+        } else {
+            setIsResetBtn(false);
+        }
+    }, [
+        searchText,
+        brandText,
+        codeText,
+        dateFromText,
+        dateToText,
+        invoiceText,
+        statusText,
+    ]);
+
     useScrollTopOnChange(currentPage);
 
     return {
@@ -169,7 +205,9 @@ export const useOrderHistoryPage = (props = {}) => {
         pageSize,
         setPageSize,
         isSearching,
+        isResetBtn,
         brandList,
+        selectOptions,
         brandTextHandle,
         setBrandTextHandle
     };
