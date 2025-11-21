@@ -64,7 +64,7 @@ const CustomerOrdersFragment = gql`
             }
             shipping_method
             status
-            external_order_status
+            te_order_status
             state
             total {
                 discounts {

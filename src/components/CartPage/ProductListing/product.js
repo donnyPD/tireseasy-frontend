@@ -115,6 +115,15 @@ const Product = props => {
                         <div className={classes.attr}>
                             {item.product.size_label && <span>{'Size: ' + item.product.size_label}</span>}
                             {item.product.brand_name_label && <span>{'Brand: ' + item.product.brand_name_label}</span>}
+                            <div className={classes.fet}>
+                                {item.product.fet_amount && <span>
+                                    <FormattedMessage
+                                        id={'product.cart.fet'}
+                                        defaultMessage={'FET: '}
+                                    />
+                                    <Price currencyCode={currency} value={item.product.fet_amount} />
+                                </span>}
+                            </div>
                         </div>
                         <ProductOptions
                             options={options}

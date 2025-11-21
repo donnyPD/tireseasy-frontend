@@ -55,6 +55,7 @@ const ProductFullDetail = props => {
         load_range_ply_rating_label: 'Ply',
         available_quantity_label: 'Local Inventory',
         national_quantity_label: 'National Inventory',
+        fet_amount: 'Federal Excise Tax',
     };
 
     const {
@@ -65,7 +66,8 @@ const ProductFullDetail = props => {
         load_range_ply_rating_label,
         brand_name_label,
         mileage_warranty_label,
-        available_quantity_label
+        available_quantity_label,
+        fet_amount
     } = product;
 
     const attrs= [
@@ -76,11 +78,19 @@ const ProductFullDetail = props => {
         {speed_index_label},
         {mileage_warranty_label},
         {load_range_ply_rating_label},
-        {available_quantity_label}]
+        {available_quantity_label},
+        {fet_amount}]
 
     const availableQuantity = product && product.available_quantity_label
         ? parseInt(product.available_quantity_label, 10)
         : null;
+
+    const fetPrice = (value) => {
+        return <Price
+            currencyCode={productDetails.price.currency}
+            value={value}
+        />
+    }
 
     const renderAttr = () => {
 
@@ -95,6 +105,14 @@ const ProductFullDetail = props => {
                         const key = Object.keys(attr)[0];
                         const value = attr[key];
                         const displayKey = labelAttrList[key] ? labelAttrList[key] : convertSnakeCaseToTitle(key);
+
+                        if (key === 'fet_amount') {
+                            return (
+                                <div className={classes.attrs__item} key={index}>
+                                    <b>{displayKey}:</b> {fetPrice(value)}
+                                </div>
+                            );
+                        }
 
                         return (
                             <div className={classes.attrs__item} key={index}>

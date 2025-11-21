@@ -82,6 +82,10 @@
     @apply mr-2;
 }
 
+.attr .fet span {
+    @apply mr-0;
+}
+
 .price span {
     @apply text-sm;
 }

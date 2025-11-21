@@ -24,6 +24,7 @@ const Item = props => {
     const total = item?.prices?.row_total?.value || null;
     const size = item.product.size_label || null;
     const brandName = item.product.brand_name_label || null;
+    const fet = item.product.fet_amount || null;
 
     const classes = useStyle(defaultClasses, propClasses);
     const className = isHidden ? classes.root_hidden : classes.root_visible;
@@ -51,6 +52,15 @@ const Item = props => {
                         <div className={classes.attr}>
                             {size && <span>{'Size: ' + size}</span>}
                             {brandName && <span>{'Brand: ' + brandName}</span>}
+                            <div className={classes.fet}>
+                                {fet && <span>
+                                    <FormattedMessage
+                                        id={'product.checkout.fet'}
+                                        defaultMessage={'FET: '}
+                                    />
+                                    <Price currencyCode={currency} value={fet} />
+                                </span>}
+                            </div>
                         </div>
                         <ProductOptions
                             options={configurable_options}

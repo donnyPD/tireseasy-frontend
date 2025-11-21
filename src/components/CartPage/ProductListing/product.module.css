@@ -78,6 +78,10 @@
     @apply mr-2;
 }
 
+.attr .fet span {
+    @apply mr-0;
+}
+
 .price {
     composes: text-sm from global;
     grid-area: price;

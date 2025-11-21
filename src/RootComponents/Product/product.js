@@ -9,10 +9,9 @@ import mapProduct from '@magento/venia-ui/lib/util/mapProduct';
 
 import ProductFullDetail from '../../components/ProductFullDetail/productFullDetail';
 import ProductShimmer from './product.shimmer';
-import QuickLookups from "../../components/QuickLookups";
+import QuickLookups from '../../components/QuickLookups';
 import defaultClasses from './product.module.css';
-import {useStyle} from "@magento/venia-ui/lib/classify";
-import resourceUrl from "@magento/peregrine/lib/util/makeUrl";
+import { useStyle } from '@magento/venia-ui/lib/classify';
 
 const Product = props => {
 

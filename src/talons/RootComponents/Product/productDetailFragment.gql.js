@@ -42,6 +42,7 @@ export const ProductDetailsFragment = gql`
             brand_name_label
             mileage_warranty_label
             available_quantity_label
+            fet_amount
         }
         meta_description
         name

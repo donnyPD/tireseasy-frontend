@@ -35,6 +35,7 @@ export const ProductListingFragment = gql`
                     brand_name_label
                     mileage_warranty_label
                     available_quantity_label
+                    fet_amount
                 }
                 # eslint-disable-next-line @graphql-eslint/require-id-when-available
                 ... on ConfigurableProduct {
