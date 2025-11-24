@@ -18,7 +18,7 @@ const OrderRow = props => {
         items,
         number: orderNumber,
         order_date: orderDate,
-        status,
+        te_order_status,
         state,
         total,
         po_number,
@@ -40,8 +40,7 @@ const OrderRow = props => {
         }
     );
 
-    const derivedStatus = status;
-    const derivedProgress = state;
+    const derivedStatus = te_order_status || null;
 
     const talonProps = useOrderRow({ items });
     const { loading, isOpen, handleContentToggle, imagesData } = talonProps;
@@ -116,9 +115,9 @@ const OrderRow = props => {
                 <div className={classes.orderTotal}>{orderTotalPrice}</div>
             </div>
             <div className={classes.orderStatusContainer}>
-                <span className={classes.orderStatusBadge}>
+                {derivedStatus && <span className={classes.orderStatusBadge}>
                     {derivedStatus}
-                </span>
+                </span>}
             </div>
             <button
                 className={classes.contentToggleContainer}

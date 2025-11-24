@@ -40,17 +40,13 @@ export const useOrderHistoryPage = (props = {}) => {
     ];
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [searchText, setSearchText] = useState('');
-    const [brandText, setBrandText] = useState('');
-    const [codeText, setCodeText] = useState('');
     const [dateFromText, setDateFromText] = useState('');
     const [dateToText, setDateToText] = useState('');
-    const [invoiceText, setInvoiceText] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [brandTextHandle, setBrandTextHandle] = useState('');
-    const [statusText, setStatusText] = useState('');
     const [isResetBtn, setIsResetBtn] = useState(false);
-
+    const [formData, setFormData] = useState({});
+    console.log(formData);
     const {
         data: orderData,
         error: getOrderError,
@@ -60,23 +56,23 @@ export const useOrderHistoryPage = (props = {}) => {
         variables: {
             filter: {
                 number: {
-                    match: searchText
+                    match: formData?.search || ''
                 },
                 created_at: {
-                    from: dateFromText,
-                    to: dateToText
+                    from: formData?.date_from || '',
+                    to: formData?.date_to || ''
                 },
                 invoice_number: {
-                    like: invoiceText
+                    like: formData?.invoice || ''
                 },
                 brand_name: {
-                    like: brandText
+                    like: formData?.brand || ''
                 },
                 po_number: {
-                    like: codeText
+                    like: formData?.po_number || ''
                 },
                 te_order_status: {
-                    eq: statusText
+                    eq: formData?.status || ''
                 }
             },
             pageSize,
@@ -109,30 +105,29 @@ export const useOrderHistoryPage = (props = {}) => {
     );
 
     const handleReset = useCallback(() => {
-        setSearchText('');
-        setBrandText('');
-        setCodeText('');
+        setBrandTextHandle('');
         setDateFromText('');
         setDateToText('');
-        setInvoiceText('');
-        setBrandTextHandle('');
-        setStatusText('');
         setIsSearching(false);
-    }, [searchText]);
+        setFormData({});
+    }, [formData]);
 
     const handleSubmit = useCallback((value) => {
-        setBrandText(brandTextHandle || '');
-        setSearchText(value?.search || '');
-        setCodeText(value?.po_number || '');
-        setDateFromText(value?.date_from || '');
-        setDateToText(value?.date_to || '');
-        setInvoiceText(value?.invoice || '');
-        setStatusText(value?.status || '')
+        console.log(value)
+        const data = {};
+        value?.search ? data.search = value?.search : null;
+        value?.po_number ? data.po_number = value?.po_number : null;
+        value?.invoice ? data.invoice = value?.invoice : null;
+        value?.status ? data.status = value?.status : null;
+        dateFromText ? data.date_from = dateFromText : null;
+        dateToText ? data.date_to = dateToText : null;
+        brandTextHandle ? data.brand = brandTextHandle : null;
 
+        setFormData(data);
         if (!isObjectEmpty(value)) {
             setIsSearching(true);
         }
-    }, [brandTextHandle]);
+    }, [brandTextHandle, dateFromText, dateToText]);
 
     const pageControl = useMemo(() => {
         if (orderData && orderData.customer) {
@@ -163,26 +158,12 @@ export const useOrderHistoryPage = (props = {}) => {
     }, [pageSize]);
 
     useEffect(() => {
-        if (searchText
-            || brandText
-            || codeText
-            || dateFromText
-            || dateToText
-            || invoiceText
-            || statusText) {
+        if (!isObjectEmpty(formData)) {
             setIsResetBtn(true);
         } else {
             setIsResetBtn(false);
         }
-    }, [
-        searchText,
-        brandText,
-        codeText,
-        dateFromText,
-        dateToText,
-        invoiceText,
-        statusText,
-    ]);
+    }, [formData]);
 
     useScrollTopOnChange(currentPage);
 
@@ -194,12 +175,10 @@ export const useOrderHistoryPage = (props = {}) => {
         isLoadingWithoutData,
         orders,
         pageInfo,
-        searchText,
-        brandText,
-        codeText,
         dateFromText,
+        setDateFromText,
         dateToText,
-        invoiceText,
+        setDateToText,
         pageControl,
         optionsSize,
         pageSize,

@@ -28,6 +28,8 @@ import Pagination from '../Pagination';
 import SelectSize from '../InvoicesPage/selectSize';
 import BrandSearch from './BrandSearch/brandSearch';
 import Select from '@magento/venia-ui/lib/components/Select';
+import DateRangePicker from './DatePicker/datePicker';
+import { getFormattedDate } from '../../talons/OrderHistoryPage/helper';
 
 const errorIcon = (
     <Icon
@@ -48,7 +50,10 @@ const OrderHistoryPage = props => {
         isLoadingWithoutData,
         orders,
         pageInfo,
-        searchText,
+        dateFromText,
+        setDateFromText,
+        dateToText,
+        setDateToText,
         isResetBtn,
         pageControl,
         optionsSize,
@@ -78,6 +83,15 @@ const OrderHistoryPage = props => {
         },
         { count: orders.length }
     );
+
+    const handleDateChange = ({ startDate, endDate }) => {
+        if (startDate) {
+            setDateFromText(getFormattedDate(startDate))
+        }
+        if (endDate) {
+            setDateToText(getFormattedDate(endDate))
+        }
+    };
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -193,8 +207,7 @@ const OrderHistoryPage = props => {
         isBackgroundLoading,
         isLoadingWithoutData,
         orderRows,
-        orders.length,
-        searchText
+        orders.length
     ]);
 
     const pageInfoLabel = pageInfo ? (
@@ -318,35 +331,51 @@ const OrderHistoryPage = props => {
                                     placeholder={'e.g., 1234'}
                                 />
                             </Field>
-                            <div className={classes.date_container}>
+                            {/*<div className={classes.date_container}>*/}
+                            {/*    <Field*/}
+                            {/*        className={classes.date}*/}
+                            {/*        id={classes.date_from}*/}
+                            {/*        label={formatMessage({*/}
+                            {/*            id: 'history.date.field',*/}
+                            {/*            defaultMessage: 'Date From'*/}
+                            {/*        })}*/}
+                            {/*    >*/}
+                            {/*        <TextInput*/}
+                            {/*            type="date"*/}
+                            {/*            field="date_from"*/}
+                            {/*            name="calendar"*/}
+                            {/*            id={classes.calendar}*/}
+                            {/*        />*/}
+                            {/*    </Field>*/}
+                            {/*    <Field*/}
+                            {/*        className={classes.date}*/}
+                            {/*        id={classes.date_to}*/}
+                            {/*        label={formatMessage({*/}
+                            {/*            id: 'history.date.field',*/}
+                            {/*            defaultMessage: 'Date To'*/}
+                            {/*        })}*/}
+                            {/*    >*/}
+                            {/*        <TextInput*/}
+                            {/*            type="date"*/}
+                            {/*            field="date_to"*/}
+                            {/*            name="calendar"*/}
+                            {/*            id={classes.calendar}*/}
+                            {/*        />*/}
+                            {/*    </Field>*/}
+                            {/*</div>*/}
+                            <div>
                                 <Field
                                     className={classes.date}
-                                    id={classes.date_from}
+                                    id={classes.date}
                                     label={formatMessage({
                                         id: 'history.date.field',
-                                        defaultMessage: 'Date From'
+                                        defaultMessage: 'Date'
                                     })}
                                 >
-                                    <TextInput
-                                        type="date"
-                                        field="date_from"
-                                        name="calendar"
-                                        id={classes.calendar}
-                                    />
-                                </Field>
-                                <Field
-                                    className={classes.date}
-                                    id={classes.date_to}
-                                    label={formatMessage({
-                                        id: 'history.date.field',
-                                        defaultMessage: 'Date To'
-                                    })}
-                                >
-                                    <TextInput
-                                        type="date"
-                                        field="date_to"
-                                        name="calendar"
-                                        id={classes.calendar}
+                                    <DateRangePicker
+                                        dateFromText={dateFromText}
+                                        dateToText={dateToText}
+                                        onChange={handleDateChange}
                                     />
                                 </Field>
                             </div>

@@ -1,0 +1,12 @@
+.container {
+    @apply relative;
+}
+
+.input {
+    @apply min-h-[40px] bg-accent-green;
+}
+
+.range {
+    @apply absolute left-0 top-[40px] border bg-white z-10;
+    box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
+}

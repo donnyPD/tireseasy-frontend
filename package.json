@@ -32,7 +32,9 @@
     "@amasty/shop-by-brand": "link:src/@amasty/shop-by-brand",
     "@magento/experience-platform-connector": "~1.0.10",
     "@magento/pwa-buildpack": "~11.5.3",
-    "dompurify": "~3.2.4"
+    "date-fns": "2.30.0",
+    "dompurify": "~3.2.4",
+    "react-date-range": "1.4.0"
   },
   "devDependencies": {
     "@adobe/apollo-link-mutation-queue": "~1.0.2",
