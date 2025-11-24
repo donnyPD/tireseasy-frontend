@@ -47,16 +47,6 @@ const DateRangePicker = (props) => {
         }
     }, [expanded, dateFromText, dateToText]);
 
-    const handleChange = (e) => {
-        // setQuery(e.target.value);
-        // setBrandTextHandle(e.target.value);
-    }
-
-    const reset = () => {
-        // setQuery('');
-        // setBrandTextHandle('');
-    }
-
     return (
         <div
             className={`${classes.container} ${expanded ? classes.open : ''}`}
@@ -67,8 +57,18 @@ const DateRangePicker = (props) => {
                 onClick={handleTriggerClick}
                 ref={triggerRef}
             >
-                <h3>{dateFromText}</h3>
-                <h3>{dateToText}</h3>
+                <input
+                    type="text"
+                    name="date"
+                    placeholder={'From'}
+                    value={dateFromText}
+                />
+                <input
+                    type="text"
+                    name="date"
+                    placeholder={'To'}
+                    value={dateToText}
+                />
             </div>
             {expanded && <DateRange
                 className={classes.range}

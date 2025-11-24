@@ -3,10 +3,20 @@
 }
 
 .input {
-    @apply min-h-[40px] bg-accent-green;
+    composes: input from '@magento/venia-ui/lib/components/TextInput/textInput.module.css';
+    @apply flex gap-x-2 w-full min-h-[40px] cursor-pointer;
+}
+
+.input input {
+    @apply w-[calc(50%-4px)] text-sm pointer-events-none;
+    @apply outline-none !important;
 }
 
 .range {
     @apply absolute left-0 top-[40px] border bg-white z-10;
     box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
+}
+
+.container [class="rdrDateDisplayWrapper"] {
+    @apply sr-only;
 }
