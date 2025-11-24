@@ -6,6 +6,7 @@ import headerQueries from './headerQueries';
 export const useCustomHeader = () => {
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
+    const contact_hash = localStorage.getItem('customerContactHash') || null;
 
     // Get customer data if user is signed in
     const { data: customerData, loading: customerLoading } = useQuery(
@@ -14,6 +15,9 @@ export const useCustomHeader = () => {
             fetchPolicy: 'cache-and-network',
             nextFetchPolicy: 'cache-first',
             skip: !isSignedIn,
+            variables: {
+                contactHash: contact_hash || ''
+            },
             errorPolicy: 'all'
         }
     );
