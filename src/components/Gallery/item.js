@@ -69,7 +69,6 @@ const GalleryItem = props => {
         load_range_ply_rating_label,
         brand_name_label,
         mileage_warranty_label} = item;
-    console.log(item)
 
     function convertSnakeCaseToTitle(str) {
         return str

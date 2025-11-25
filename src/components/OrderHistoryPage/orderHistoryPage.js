@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 import {
     Search as SearchIcon,
@@ -75,6 +75,7 @@ const OrderHistoryPage = props => {
         id: 'orderHistoryPage.search',
         defaultMessage: 'Search by Order Number'
     });
+    const [isSearchClick, setIsSearchClick] = useState(false);
 
     const ordersCountMessage = formatMessage(
         {
@@ -86,11 +87,19 @@ const OrderHistoryPage = props => {
 
     const handleDateChange = ({ startDate, endDate }) => {
         if (startDate) {
-            setDateFromText(getFormattedDate(startDate))
+            setDateFromText(getFormattedDate(startDate));
         }
         if (endDate && getFormattedDate(endDate) !== getFormattedDate(startDate)) {
-            setDateToText(getFormattedDate(endDate))
+            setDateToText(getFormattedDate(endDate));
         }
+        if (endDate && getFormattedDate(endDate) === getFormattedDate(startDate)) {
+            setDateToText('');
+        }
+    };
+
+    const resetDate = () => {
+        setDateFromText('')
+        setDateToText('');
     };
 
     const classes = useStyle(defaultClasses, props.classes);
@@ -343,6 +352,9 @@ const OrderHistoryPage = props => {
                                     dateFromText={dateFromText}
                                     dateToText={dateToText}
                                     onChange={handleDateChange}
+                                    resetDate={resetDate}
+                                    isSearchClick={isSearchClick}
+                                    setIsSearchClick={setIsSearchClick}
                                 />
                             </Field>
                             <div className={classes.btnContainer}>
@@ -354,6 +366,7 @@ const OrderHistoryPage = props => {
                                     priority={'high'}
                                     type="submit"
                                     aria-label="submit"
+                                    onClick={() => setIsSearchClick(true)}
                                 >
                                     <FormattedMessage
                                         id={'order.history.search.btn'}

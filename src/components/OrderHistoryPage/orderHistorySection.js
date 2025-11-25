@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import {
     AlertCircle as AlertCircleIcon,
@@ -24,6 +24,8 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import ResetButton from './resetButton';
 import BrandSearch from './BrandSearch/brandSearch';
 import Select from '@magento/venia-ui/lib/components/Select';
+import DateRangePicker from './DatePicker/datePicker';
+import { getFormattedDate } from '../../talons/OrderHistoryPage/helper';
 
 const errorIcon = (
     <Icon
@@ -45,7 +47,10 @@ const OrderHistorySection = props => {
         isLoadingWithoutData,
         orders,
         pageInfo,
-        searchText,
+        dateFromText,
+        setDateFromText,
+        dateToText,
+        setDateToText,
         isResetBtn,
         isSearching,
         brandList,
@@ -56,6 +61,25 @@ const OrderHistorySection = props => {
     const [, { addToast }] = useToasts();
     const { isHomepage } = props;
     const { formatMessage } = useIntl();
+
+    const [isSearchClick, setIsSearchClick] = useState(false);
+
+    const handleDateChange = ({ startDate, endDate }) => {
+        if (startDate) {
+            setDateFromText(getFormattedDate(startDate));
+        }
+        if (endDate && getFormattedDate(endDate) !== getFormattedDate(startDate)) {
+            setDateToText(getFormattedDate(endDate));
+        }
+        if (endDate && getFormattedDate(endDate) === getFormattedDate(startDate)) {
+            setDateToText('');
+        }
+    };
+
+    const resetDate = () => {
+        setDateFromText('')
+        setDateToText('');
+    };
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -150,8 +174,7 @@ const OrderHistorySection = props => {
         isBackgroundLoading,
         isLoadingWithoutData,
         orderRows,
-        orders.length,
-        searchText
+        orders.length
     ]);
 
     const showMoreButton = pageInfo && pageInfo.total > pageInfo.current ? (
@@ -260,38 +283,23 @@ const OrderHistorySection = props => {
                                 placeholder={'e.g., 1234'}
                             />
                         </Field>
-                        <div className={classes.date_container}>
-                            <Field
-                                className={classes.date}
-                                id={classes.date_from}
-                                label={formatMessage({
-                                    id: 'history.date.field',
-                                    defaultMessage: 'Date From'
-                                })}
-                            >
-                                <TextInput
-                                    type="date"
-                                    field="date_from"
-                                    name="calendar"
-                                    id={classes.calendar}
-                                />
-                            </Field>
-                            <Field
-                                className={classes.date}
-                                id={classes.date_to}
-                                label={formatMessage({
-                                    id: 'history.date.field',
-                                    defaultMessage: 'Date To'
-                                })}
-                            >
-                                <TextInput
-                                    type="date"
-                                    field="date_to"
-                                    name="calendar"
-                                    id={classes.calendar}
-                                />
-                            </Field>
-                        </div>
+                        <Field
+                            className={classes.date}
+                            id={classes.date}
+                            label={formatMessage({
+                                id: 'history.date.field',
+                                defaultMessage: 'Date'
+                            })}
+                        >
+                            <DateRangePicker
+                                dateFromText={dateFromText}
+                                dateToText={dateToText}
+                                onChange={handleDateChange}
+                                resetDate={resetDate}
+                                isSearchClick={isSearchClick}
+                                setIsSearchClick={setIsSearchClick}
+                            />
+                        </Field>
                         <div className={classes.btnContainer}>
                             <Button
                                 className={classes.searchButton}
@@ -301,6 +309,7 @@ const OrderHistorySection = props => {
                                 priority={'high'}
                                 type="submit"
                                 aria-label="submit"
+                                onClick={() => setIsSearchClick(true)}
                             >
                                 <FormattedMessage
                                     id={'order.history.search.btn'}

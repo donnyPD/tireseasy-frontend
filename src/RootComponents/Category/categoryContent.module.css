@@ -43,10 +43,6 @@
     @apply font-bold text-primary-deep text-xl lg_text-2xl mb-4;
 }
 
-.categoryTitleName {
-    @apply capitalize;
-}
-
 .selectBlock {
     @apply flex items-center justify-between mb-0 -lg_ml-2;
 }

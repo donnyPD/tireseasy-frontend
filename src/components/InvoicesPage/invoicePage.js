@@ -30,6 +30,8 @@ import Select from '@magento/venia-ui/lib/components/Select';
 import Checkbox from './checkbox';
 import Pagination from '../Pagination';
 import SelectSize from './selectSize';
+import { getFormattedDate } from '../../talons/OrderHistoryPage/helper';
+import DateRangePicker from '../OrderHistoryPage/DatePicker/datePicker';
 
 const errorIcon = (
     <Icon
@@ -59,7 +61,10 @@ const InvoicePage = props => {
         isBackgroundLoading,
         isLoadingWithoutData,
         pageInfo,
-        invoiceText,
+        dateFromText,
+        setDateFromText,
+        dateToText,
+        setDateToText,
         invoices,
         options,
         pageControl,
@@ -72,6 +77,7 @@ const InvoicePage = props => {
 
     const [checkedAll, setCheckedAll] = useState(false);
     const [checkedInvoices, setCheckedInvoices] = useState([]);
+    const [isSearchClick, setIsSearchClick] = useState(false);
 
     const ordersCountMessage = formatMessage(
         {
@@ -80,6 +86,23 @@ const InvoicePage = props => {
         },
         { count: invoices.length }
     );
+
+    const handleDateChange = ({ startDate, endDate }) => {
+        if (startDate) {
+            setDateFromText(getFormattedDate(startDate));
+        }
+        if (endDate && getFormattedDate(endDate) !== getFormattedDate(startDate)) {
+            setDateToText(getFormattedDate(endDate));
+        }
+        if (endDate && getFormattedDate(endDate) === getFormattedDate(startDate)) {
+            setDateToText('');
+        }
+    };
+
+    const resetDate = () => {
+        setDateFromText('')
+        setDateToText('');
+    };
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -159,9 +182,6 @@ const InvoicePage = props => {
                     <FormattedMessage
                         id={'orderHistoryPage.invalidOrderNumber.new'}
                         defaultMessage={`There were no results matching your criteria`}
-                        values={{
-                            number: invoiceText
-                        }}
                     />
                 </h3>
             );
@@ -246,7 +266,6 @@ const InvoicePage = props => {
         isLoadingWithoutData,
         invoiceRows,
         invoices.length,
-        invoiceText,
         checkedInvoices
     ]);
 
@@ -330,69 +349,6 @@ const InvoicePage = props => {
                                     placeholder={'e.g., DL-000000003'}
                                 />
                             </Field>
-                            <div className={classes.date_container}>
-                                <Field
-                                    className={classes.date}
-                                    id={classes.date_from}
-                                    label={formatMessage({
-                                        id: 'invoice.date.field',
-                                        defaultMessage: 'Date From'
-                                    })}
-                                >
-                                    <span className={classes.info}>
-                                        <InfoIcon size={18} />
-                                        <span className={classes.info_content}>
-                                            <FormattedMessage
-                                                id={'order.history.info.text'}
-                                                defaultMessage={'Filter includes Invoice and Payment Due Dates'}
-                                            />
-                                        </span>
-                                    </span>
-                                    <TextInput
-                                        type="date"
-                                        field="date_from"
-                                        name="calendar"
-                                        id={classes.calendar}
-                                    />
-                                </Field>
-                                <Field
-                                    className={classes.date}
-                                    id={classes.date_to}
-                                    label={formatMessage({
-                                        id: 'invoice.date.field',
-                                        defaultMessage: 'To'
-                                    })}
-                                >
-                                    <span className={classes.info}>
-                                        <InfoIcon size={18} />
-                                        <span className={classes.info_content}>
-                                            <FormattedMessage
-                                                id={'order.history.info.text'}
-                                                defaultMessage={'Filter includes Invoice and Payment Due Dates'}
-                                            />
-                                        </span>
-                                    </span>
-                                    <TextInput
-                                        type="date"
-                                        field="date_to"
-                                        name="calendar"
-                                        id={classes.calendar}
-                                    />
-                                </Field>
-                            </div>
-                            <Field
-                                id={classes.status}
-                                label={formatMessage({
-                                    id: 'status.code',
-                                    defaultMessage: 'Status'
-                                })}
-                            >
-                                <Select
-                                    field="status"
-                                    id={classes.select}
-                                    items={options}
-                                />
-                            </Field>
                             <div className={classes.total_container}>
                                 <Field
                                     id={classes.total}
@@ -421,6 +377,47 @@ const InvoicePage = props => {
                                     />
                                 </Field>
                             </div>
+                            <Field
+                                id={classes.status}
+                                label={formatMessage({
+                                    id: 'status.code',
+                                    defaultMessage: 'Status'
+                                })}
+                            >
+                                <Select
+                                    field="status"
+                                    id={classes.select}
+                                    items={options}
+                                />
+                            </Field>
+                            <div className={classes.date_container}>
+                                <Field
+                                    className={classes.date}
+                                    id={classes.date}
+                                    label={formatMessage({
+                                        id: 'invoice.date.field',
+                                        defaultMessage: 'Date'
+                                    })}
+                                >
+                                    <span className={classes.info}>
+                                        <InfoIcon size={18} />
+                                        <span className={classes.info_content}>
+                                            <FormattedMessage
+                                                id={'order.history.info.text'}
+                                                defaultMessage={'Filter includes Invoice and Payment Due Dates'}
+                                            />
+                                        </span>
+                                    </span>
+                                    <DateRangePicker
+                                        dateFromText={dateFromText}
+                                        dateToText={dateToText}
+                                        onChange={handleDateChange}
+                                        resetDate={resetDate}
+                                        isSearchClick={isSearchClick}
+                                        setIsSearchClick={setIsSearchClick}
+                                    />
+                                </Field>
+                            </div>
                             <div className={classes.btnContainer}>
                                 <Button
                                     className={classes.searchButton}
@@ -430,6 +427,7 @@ const InvoicePage = props => {
                                     priority={'high'}
                                     type="submit"
                                     aria-label="submit"
+                                    onClick={() => setIsSearchClick(true)}
                                 >
                                     <FormattedMessage
                                         id={'order.history.search.btn'}

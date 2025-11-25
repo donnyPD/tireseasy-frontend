@@ -134,6 +134,10 @@
     @apply flex -md_mt-4;
 }
 
+.btnContainer button {
+    @apply min-w-0;
+}
+
 .resetButton {
     @apply ml-2 bg-white text-primary-deep;
 }

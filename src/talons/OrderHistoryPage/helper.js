@@ -5,3 +5,13 @@ export const getFormattedDate = (date) => {
 
     return year + '-' + month + '-' + day;
 }
+
+export const getVisualDate = (date) => {
+    if (date === '') {
+        return date;
+    }
+
+    const el = date.split('-');
+
+    return el[1] + '/' + el[2] + '/' + el[0];
+}

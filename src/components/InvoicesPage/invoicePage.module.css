@@ -160,7 +160,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .date_container > div {
-    @apply block md_w-1/2;
+    @apply block;
 }
 
 .date_container label {

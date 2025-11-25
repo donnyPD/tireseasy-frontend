@@ -32,15 +32,11 @@ export const useInvoicePage = (props = {}) => {
         }
     }) : [];
     const [currentPage, setCurrentPage] = useState(1);
-    const [orderText, setOrderText] = useState('');
-    const [statusText, setStatusText] = useState('');
     const [dateFromText, setDateFromText] = useState('');
     const [dateToText, setDateToText] = useState('');
-    const [invoiceText, setInvoiceText] = useState('');
     const [isSearching, setIsSearching] = useState(false);
-    const [totalFromText, setTotalFromText] = useState('');
-    const [totalToText, setTotalToText] = useState('');
     const [isResetBtn, setIsResetBtn] = useState(false);
+    const [formData, setFormData] = useState({});
 
     const options = [
         { value: '', label: 'Select status' },
@@ -58,21 +54,21 @@ export const useInvoicePage = (props = {}) => {
         variables: {
             filter: {
                 order_number: {
-                    like: orderText
+                    like: formData?.order || ''
                 },
                 created_at: {
-                    from: dateFromText,
-                    to: dateToText
+                    from: formData?.date_from || '',
+                    to: formData?.date_to || ''
                 },
                 invoice_number: {
-                    like: invoiceText
+                    like: formData?.invoice || ''
                 },
                 status: {
-                    eq: statusText
+                    eq: formData?.status || ''
                 },
                 grand_total: {
-                    from: totalFromText,
-                    to: totalToText
+                    from: formData?.total_from || '',
+                    to: formData?.total_to || ''
                 }
             },
             pageSize,
@@ -103,30 +99,27 @@ export const useInvoicePage = (props = {}) => {
     );
 
     const handleReset = useCallback(() => {
-        setOrderText('');
-        setStatusText('');
         setDateFromText('');
         setDateToText('');
-        setInvoiceText('');
-        setTotalFromText('');
-        setTotalToText('');
         setIsSearching(false);
-    }, [invoiceText]);
+        setFormData({});
+    }, [formData]);
 
     const handleSubmit = useCallback((value) => {
-        console.log(value)
-        setOrderText(value?.order || '');
-        setStatusText(value?.status || '');
-        setDateFromText(value?.date_from || '');
-        setDateToText(value?.date_to || '');
-        setInvoiceText(value?.invoice || '');
-        setTotalFromText(value?.total_from || '');
-        setTotalToText(value?.total_to || '');
+        const data = {};
+        value?.order ? data.order = value?.order : null;
+        value?.status ? data.status = value?.status : null;
+        value?.invoice ? data.invoice = value?.invoice : null;
+        value?.total_from ? data.total_from = value?.total_from : null;
+        value?.total_to ? data.total_to = value?.total_to : null;
+        dateFromText ? data.date_from = dateFromText : null;
+        dateToText ? data.date_to = dateToText : null;
 
+        setFormData(data);
         if (!isObjectEmpty(value)) {
             setIsSearching(true);
         }
-    }, []);
+    }, [dateFromText, dateToText]);
 
     const pageControl = useMemo(() => {
         if (invoiceData && invoiceData.customer) {
@@ -157,26 +150,12 @@ export const useInvoicePage = (props = {}) => {
     }, [pageSize]);
 
     useEffect(() => {
-        if (invoiceText
-            || orderText
-            || statusText
-            || dateFromText
-            || dateToText
-            || totalFromText
-            || totalToText) {
-            setIsResetBtn(true);
-        } else {
+        if (isObjectEmpty(formData)) {
             setIsResetBtn(false);
+        } else {
+            setIsResetBtn(true);
         }
-    }, [
-        invoiceText,
-        orderText,
-        statusText,
-        dateFromText,
-        dateToText,
-        totalFromText,
-        totalToText
-    ]);
+    }, [formData]);
 
     useScrollTopOnChange(currentPage);
 
@@ -187,7 +166,10 @@ export const useInvoicePage = (props = {}) => {
         isBackgroundLoading,
         isLoadingWithoutData,
         pageInfo,
-        invoiceText,
+        dateFromText,
+        setDateFromText,
+        dateToText,
+        setDateToText,
         invoices,
         options,
         pageControl,

@@ -46,7 +46,7 @@ export const useOrderHistoryPage = (props = {}) => {
     const [brandTextHandle, setBrandTextHandle] = useState('');
     const [isResetBtn, setIsResetBtn] = useState(false);
     const [formData, setFormData] = useState({});
-    console.log(formData);
+
     const {
         data: orderData,
         error: getOrderError,
@@ -113,7 +113,6 @@ export const useOrderHistoryPage = (props = {}) => {
     }, [formData]);
 
     const handleSubmit = useCallback((value) => {
-        console.log(value)
         const data = {};
         value?.search ? data.search = value?.search : null;
         value?.po_number ? data.po_number = value?.po_number : null;
@@ -158,10 +157,10 @@ export const useOrderHistoryPage = (props = {}) => {
     }, [pageSize]);
 
     useEffect(() => {
-        if (!isObjectEmpty(formData)) {
-            setIsResetBtn(true);
-        } else {
+        if (isObjectEmpty(formData)) {
             setIsResetBtn(false);
+        } else {
+            setIsResetBtn(true);
         }
     }, [formData]);
 
