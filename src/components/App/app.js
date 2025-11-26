@@ -10,7 +10,7 @@ import globalCSS from '@magento/venia-ui/lib/index.module.css';
 import { HeadProvider, StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import Main from '../Main';
 import Mask from '@magento/venia-ui/lib/components/Mask';
-import Navigation from '@magento/venia-ui/lib/components/Navigation';
+import Navigation from '../Navigation';
 import Routes from '@magento/venia-ui/lib/components/Routes';
 import ToastContainer from '@magento/venia-ui/lib/components/ToastContainer';
 import Icon from '@magento/venia-ui/lib/components/Icon';
