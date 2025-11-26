@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 
 export const GET_CUSTOMER_HEADER = gql`
-    query GetCustomerForHeader {
+    query GetCustomerForHeader($contactHash: String!) {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        customer {
+        customer(contact_hash: $contactHash) {
             email
             firstname
             lastname

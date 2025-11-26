@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useAccountInformationPage } from '@magento/peregrine/lib/talons/AccountInformationPage/useAccountInformationPage';
+import { useAccountInformationPage } from '../../talons/AccountInformationPage/useAccountInformationPage';
 
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import Button from '@magento/venia-ui/lib/components/Button';

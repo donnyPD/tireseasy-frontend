@@ -28,9 +28,9 @@ export const CHANGE_CUSTOMER_PASSWORD = gql`
 `;
 
 export const GET_CUSTOMER_INFORMATION = gql`
-    query GetCustomerInformation {
+    query GetCustomerInformation($contactHash: String!) {
         # eslint-disable-next-line @graphql-eslint/require-id-when-available
-        customer {
+        customer(contact_hash: $contactHash) {
             ...AccountInformationPageFragment
         }
     }
