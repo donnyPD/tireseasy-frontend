@@ -97,7 +97,7 @@ const Header = (props) => {
                     {category.children.map((child) => (
                         <li key={child.uid} className={classes.dropdownItem}>
                             <Link
-                                to={`/${child.url_path}`}
+                                to={resourceUrl(`/${child.url_path}`)}
                                 className={classes.dropdownLink}
                             >
                                 {child.name}
@@ -200,7 +200,6 @@ const Header = (props) => {
                                 menuCategories.map((category) => (
                                     <li key={category.uid} className={classes.navItem}>
                                         <Link
-                                            shouldPrefetch={true}
                                             to={resourceUrl(`/${category.url_path}`)}
                                             className={classes.navLink}
                                             onClick={() => setIsMobileMenuOpen(false)}
