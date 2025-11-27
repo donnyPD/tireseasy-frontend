@@ -199,20 +199,13 @@ const Header = (props) => {
                             ) : (
                                 menuCategories.map((category) => (
                                     <li key={category.uid} className={classes.navItem}>
-                                        <a
-                                            href={resourceUrl(`/${category.url_path}`)}
+                                        <Link
+                                            to={resourceUrl(`/${category.url_path}`)}
                                             className={classes.navLink}
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
                                             {category.name}
-                                        </a>
-                                        {/*<Link*/}
-                                        {/*    to={resourceUrl(`/${category.url_path}`)}*/}
-                                        {/*    className={classes.navLink}*/}
-                                        {/*    onClick={() => setIsMobileMenuOpen(false)}*/}
-                                        {/*>*/}
-                                        {/*    {category.name}*/}
-                                        {/*</Link>*/}
+                                        </Link>
                                         <MobileSubmenu
                                             subCategory={renderCategoryDropdown(category)}
                                         />
