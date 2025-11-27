@@ -107,7 +107,6 @@ const Header = (props) => {
                                 <Link
                                     to={resourceUrl(`/${child.url_path}`)}
                                     className={classes.dropdownLink}
-                                    onClick={() => handleCategoryClick()}
                                 >
                                     {child.name}
                                 </Link>
@@ -221,7 +220,7 @@ const Header = (props) => {
                                             <Link
                                                 to={resourceUrl(`/${category.url_path}`)}
                                                 className={classes.navLink}
-                                                onClick={() => clickMainMenu()}
+                                                onClick={() => setIsMobileMenuOpen(false)}
                                             >
                                                 {category.name}
                                             </Link>
