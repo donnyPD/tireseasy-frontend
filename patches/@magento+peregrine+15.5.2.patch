@@ -1,0 +1,15 @@
+diff --git a/node_modules/@magento/peregrine/lib/Apollo/links/index.js b/node_modules/@magento/peregrine/lib/Apollo/links/index.js
+index 1a6bf48..a85b7fb 100644
+--- a/node_modules/@magento/peregrine/lib/Apollo/links/index.js
++++ b/node_modules/@magento/peregrine/lib/Apollo/links/index.js
+@@ -44,8 +44,8 @@ const getLinks = apiBase => {
+     // terminates. For Magento Cloud & Fastly, 8kb is the maximum by default.
+     // https://docs.fastly.com/en/guides/resource-limits#request-and-response-limits
+     const httpLink = createHttpLink({
+-        fetch: customFetchToShrinkQuery,
+-        useGETForQueries: true,
++        fetch: globalThis.fetch,
++        useGETForQueries: false,
+         uri: apiBase
+     });
+ 
