@@ -15,7 +15,7 @@ import LinkButton from '@magento/venia-ui/lib/components/LinkButton';
 import Password from '@magento/venia-ui/lib/components/Password';
 import FormError from '@magento/venia-ui/lib/components/FormError/formError';
 import GoogleRecaptcha from '@magento/venia-ui/lib/components/GoogleReCaptcha';
-import Logo from "../../assets/images/Logo_-_Color.png";
+import Logo from '../../assets/images/Logo_-_Color.png';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 const CmsBlock = React.lazy(() => import('@magento/venia-ui/lib/components/CmsBlock'));
 
@@ -57,6 +57,15 @@ const SignIn = props => {
     useEffect(() => {
         if (!isSignedIn && localStorage.getItem('punchout_customer')) {
             localStorage.removeItem('punchout_customer');
+        }
+        if (!isSignedIn && localStorage.getItem('categoryPrimary')) {
+            if (localStorage.getItem('categoryPrimaryLocation')) {
+                setTimeout(() => {
+                    localStorage.removeItem('categoryPrimaryLocation');
+                }, 5000);
+            } else {
+                localStorage.removeItem('categoryPrimary');
+            }
         }
     }, []);
 

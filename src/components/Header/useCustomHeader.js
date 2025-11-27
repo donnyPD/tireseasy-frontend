@@ -7,6 +7,7 @@ export const useCustomHeader = () => {
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
     const contact_hash = localStorage.getItem('customerContactHash') || null;
+    const categoryPrimary = localStorage.getItem('categoryPrimary') || null;
 
     // Get customer data if user is signed in
     const { data: customerData, loading: customerLoading } = useQuery(
@@ -41,6 +42,12 @@ export const useCustomHeader = () => {
             errorPolicy: 'all'
         }
     );
+
+    const handleCategoryClick = () => {
+        if (!categoryPrimary) {
+            localStorage.setItem('categoryPrimary', '1');
+        }
+    };
 
     // Debug store config data
     if (storeConfigData?.storeConfig) {
@@ -86,6 +93,8 @@ export const useCustomHeader = () => {
         cartId,
         storeConfig,
         loading: customerLoading || categoriesLoading || storeConfigLoading,
-        hasError: !!categoriesError
+        hasError: !!categoriesError,
+        categoryPrimary,
+        handleCategoryClick
     };
 };

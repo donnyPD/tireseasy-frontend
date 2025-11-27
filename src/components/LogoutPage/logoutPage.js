@@ -8,6 +8,7 @@ const LogoutPage = () => {
     const client = useApolloClient();
     const history = useHistory();
     const location = useLocation();
+    const urlParams = new URLSearchParams(location.search);
 
     useEffect(() => {
         const logout = async () => {
@@ -17,6 +18,13 @@ const LogoutPage = () => {
                     await client.clearStore();
                     if (localStorage.getItem('punchout_customer')) {
                         localStorage.removeItem('punchout_customer');
+                    }
+                    if (localStorage.getItem('categoryPrimary')) {
+                        if (!urlParams.get('newlocation')) {
+                            localStorage.removeItem('categoryPrimary');
+                        } else {
+                            localStorage.setItem('categoryPrimaryLocation', '1');
+                        }
                     }
                 }
             } catch (err) {

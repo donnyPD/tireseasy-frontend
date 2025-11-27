@@ -24,11 +24,18 @@ const Header = (props) => {
         cartId,
         storeConfig,
         loading,
-        hasError
+        hasError,
+        categoryPrimary,
+        handleCategoryClick
     } = useCustomHeader();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const clickMainMenu = () => {
+        setIsMobileMenuOpen(false);
+        handleCategoryClick();
     };
 
     const handleSearchSubmit = (e) => {
@@ -96,12 +103,23 @@ const Header = (props) => {
                 <ul className={classes.dropdownList}>
                     {category.children.map((child) => (
                         <li key={child.uid} className={classes.dropdownItem}>
-                            <Link
-                                to={resourceUrl(`/${child.url_path}`)}
-                                className={classes.dropdownLink}
-                            >
-                                {child.name}
-                            </Link>
+                            {categoryPrimary ? (
+                                <Link
+                                    to={resourceUrl(`/${child.url_path}`)}
+                                    className={classes.dropdownLink}
+                                    onClick={() => handleCategoryClick()}
+                                >
+                                    {child.name}
+                                </Link>
+                            ) : (
+                                <a
+                                    href={resourceUrl(`/${child.url_path}`)}
+                                    className={classes.dropdownLink}
+                                    onClick={() => handleCategoryClick()}
+                                >
+                                    {child.name}
+                                </a>
+                            )}
                         </li>
                     ))}
                 </ul>
@@ -199,13 +217,23 @@ const Header = (props) => {
                             ) : (
                                 menuCategories.map((category) => (
                                     <li key={category.uid} className={classes.navItem}>
-                                        <Link
-                                            to={resourceUrl(`/${category.url_path}`)}
-                                            className={classes.navLink}
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            {category.name}
-                                        </Link>
+                                        {categoryPrimary || category?.children?.length === 0 ? (
+                                            <Link
+                                                to={resourceUrl(`/${category.url_path}`)}
+                                                className={classes.navLink}
+                                                onClick={() => clickMainMenu()}
+                                            >
+                                                {category.name}
+                                            </Link>
+                                        ) : (
+                                            <a
+                                                href={resourceUrl(`/${category.url_path}`)}
+                                                className={classes.navLink}
+                                                onClick={() => clickMainMenu()}
+                                            >
+                                                {category.name}
+                                            </a>
+                                        )}
                                         <MobileSubmenu
                                             subCategory={renderCategoryDropdown(category)}
                                         />
