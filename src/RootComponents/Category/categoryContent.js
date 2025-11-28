@@ -49,7 +49,8 @@ const CategoryContent = props => {
         sortProps,
         pageSize,
         optionsSize,
-        setPageSize
+        setPageSize,
+        etaList
     } = props;
     const [currentSort] = sortProps;
 
@@ -162,7 +163,7 @@ const CategoryContent = props => {
         }
 
         const gallery = totalPagesFromData ? (
-            <Gallery items={items} />
+            <Gallery items={items} etaList={etaList} />
         ) : (
             <GalleryShimmer items={items} />
         );

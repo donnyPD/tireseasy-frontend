@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLazyQuery, useQuery } from '@apollo/client';
 
@@ -15,6 +15,7 @@ import { getCustomFiltersFromSearch, getCustomFilterInput } from './helpers';
 import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 import DEFAULT_OPERATIONS from './category.gql';
+const SKU_SIZE_REQUEST = 10;
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
@@ -44,7 +45,8 @@ export const useCategory = props => {
     } = props;
 
     const operations = mergeOperations(DEFAULT_OPERATIONS, props.operations);
-    const { getCategoryQuery, getFilterInputsQuery } = operations;
+    const { getCategoryQuery, getFilterInputsQuery, getEstimatedDeliveryQuery } = operations;
+    const [etaList, setEtaList] = useState([]);
 
     const { data: pageSizeData } = useQuery(getPageSize, {
         fetchPolicy: 'cache-and-network',
@@ -83,6 +85,10 @@ export const useCategory = props => {
     ] = useAppContext();
 
     const [runQuery, queryResponse] = useLazyQuery(getCategoryQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
+    const [runEstimatedDelivery] = useLazyQuery(getEstimatedDeliveryQuery, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
@@ -232,6 +238,53 @@ export const useCategory = props => {
         (categoryLoading && !data) ||
         introspectionLoading;
 
+    const chunkArray = (arr, size) => {
+        const result = [];
+        for (let i = 0; i < arr.length; i += size) {
+            result.push(arr.slice(i, i + size));
+        }
+        return result;
+    };
+
+    const skuList = useMemo(() => {
+        if (!categoryData || !categoryData?.products?.items.length) {
+            return [];
+        }
+        const list = [];
+        categoryData?.products?.items.map((el) => el.sku ? list.push(el.sku) : null );
+        return list;
+    }, [data]);
+
+    const estimatedDeliveryData = async (list) => {
+        try {
+            const chunks = chunkArray(list, SKU_SIZE_REQUEST);
+            for (const item of chunks) {
+                const result = await runEstimatedDelivery({
+                    variables: {
+                        skus: item
+                    }
+                });
+                result?.data?.estimatedDelivery && setEtaList(items => [
+                    ...items, ...result?.data?.estimatedDelivery
+                ]);
+            }
+        } catch (err) {
+            console.error(
+                'An error occurred during when getting ETA delivery',
+                err
+            );
+        }
+    };
+
+    useEffect(() => {
+        if (skuList.length) {
+            estimatedDeliveryData(skuList);
+        }
+        if (categoryLoading || !skuList.length) {
+            setEtaList([]);
+        }
+    }, [skuList]);
+
     useScrollTopOnChange(currentPage);
 
     return {
@@ -244,6 +297,7 @@ export const useCategory = props => {
         pageSize,
         categoryNotFound,
         optionsSize,
-        setPageSize
+        setPageSize,
+        etaList
     };
 };

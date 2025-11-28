@@ -43,7 +43,8 @@ const GalleryItem = props => {
     const [itemQty, setItemQty] = useState(1);
     const [errors, setErrors] = useState([]);
 
-    const { storeConfig } = props;
+    const { storeConfig, etaList } = props;
+    const etaDate = etaList.filter(el => el.sku === item.sku)[0] || null;
 
     const productUrlSuffix = storeConfig && storeConfig.product_url_suffix;
 
@@ -213,6 +214,17 @@ const GalleryItem = props => {
                         <Price currencyCode={currencyCode} value={fet_amount} />
                     </span>}
                 </div>
+                {etaDate && <div className={classes.attrs__item}>
+                    <span>
+                        <FormattedMessage
+                            id={'product.list.fet'}
+                            defaultMessage={'Estimated Delivery Time: {date}'}
+                            values={{
+                                date: etaDate.date
+                            }}
+                        />
+                    </span>
+                </div>}
                 <FormError
                     classes={{
                         root: classes.formErrors

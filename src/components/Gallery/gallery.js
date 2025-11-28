@@ -15,7 +15,7 @@ import { useGallery } from '@magento/peregrine/lib/talons/Gallery/useGallery';
  * @params {Array} props.items an array of items to render
  */
 const Gallery = props => {
-    const { items } = props;
+    const { items, etaList } = props;
     const classes = useStyle(defaultClasses, props.classes, customClasses);
     const talonProps = useGallery();
     const { storeConfig } = talonProps;
@@ -27,13 +27,14 @@ const Gallery = props => {
                 }
                 return (
                     <GalleryItem
+                        etaList={etaList}
                         key={item.id}
                         item={item}
                         storeConfig={storeConfig}
                     />
                 );
             }),
-        [items, storeConfig]
+        [items, storeConfig, etaList]
     );
 
     return (

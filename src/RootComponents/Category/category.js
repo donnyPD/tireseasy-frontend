@@ -37,6 +37,7 @@ const Category = props => {
         pageSize,
         optionsSize,
         setPageSize,
+        etaList,
         categoryNotFound
     } = talonProps;
 
@@ -77,6 +78,7 @@ const Category = props => {
                     pageSize={pageSize}
                     optionsSize={optionsSize}
                     setPageSize={setPageSize}
+                    etaList={etaList}
                 />
             </main>
         </>

@@ -46,7 +46,17 @@ export const GET_FILTER_INPUTS = gql`
     }
 `;
 
+export const GET_ESTIMATED_DELIVERY = gql`
+    query EstimatedDelivery($skus: [String!]!) {
+        estimatedDelivery(skus: $skus) {
+            sku
+            date
+        }
+    }
+`;
+
 export default {
     getCategoryQuery: GET_CATEGORY,
-    getFilterInputsQuery: GET_FILTER_INPUTS
+    getFilterInputsQuery: GET_FILTER_INPUTS,
+    getEstimatedDeliveryQuery: GET_ESTIMATED_DELIVERY
 };
