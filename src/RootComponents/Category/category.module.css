@@ -4,7 +4,6 @@
 
 .title {
     composes: font-normal from global;
-    composes: px-2xs from global;
     composes: py-0 from global;
     composes: text-xl from global;
 }
