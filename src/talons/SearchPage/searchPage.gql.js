@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { GET_ESTIMATED_DELIVERY } from '../RootComponents/Category/category.gql';
 
 export const GET_PAGE_SIZE = gql`
     query getPageSize {
@@ -95,6 +96,7 @@ export const PRODUCT_SEARCH = gql`
                     brand_name_label
                     mileage_warranty_label
                     available_quantity_label
+                    fet_amount
                 }
             }
             page_info {
@@ -137,5 +139,6 @@ export default {
     getSearchTermData: GET_SEARCH_TERM_DATA,
     getProductFiltersBySearchQuery: GET_PRODUCT_FILTERS_BY_SEARCH,
     getSearchAvailableSortMethods: GET_SEARCH_AVAILABLE_SORT_METHODS,
-    productSearchQuery: PRODUCT_SEARCH
+    productSearchQuery: PRODUCT_SEARCH,
+    getEstimatedDeliveryQuery: GET_ESTIMATED_DELIVERY
 };

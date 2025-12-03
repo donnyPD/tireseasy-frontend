@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 import { useStoreSwitcher } from '@magento/peregrine/lib/talons/Header/useStoreSwitcher';
@@ -12,6 +12,8 @@ import { getFiltersFromSearch, getFilterInput } from '@magento/peregrine/lib/tal
 
 import DEFAULT_OPERATIONS from './searchPage.gql';
 import { useEventingContext } from '@magento/peregrine/lib/context/eventing';
+import { chunkArray } from '../RootComponents/Category/helpers';
+const SKU_SIZE_REQUEST = 10;
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -29,14 +31,18 @@ export const useSearchPage = (props = {}) => {
         getSearchTermData,
         getProductFiltersBySearchQuery,
         getSearchAvailableSortMethods,
-        productSearchQuery
+        productSearchQuery,
+        getEstimatedDeliveryQuery
     } = operations;
 
     const { data: pageSizeData } = useQuery(getPageSize, {
         fetchPolicy: 'cache-and-network',
         nextFetchPolicy: 'cache-first'
     });
-
+    const [runEstimatedDelivery] = useLazyQuery(getEstimatedDeliveryQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first'
+    });
     const [getSearchTermMethod, { data: SearchTermQueryData }] = useLazyQuery(
         getSearchTermData
     );
@@ -57,6 +63,7 @@ export const useSearchPage = (props = {}) => {
         }
     );
 
+    const [etaList, setEtaList] = useState([]);
     const pageSizeList = pageSizeData && pageSizeData.storeConfig.list_per_page_values.split(',');
     const [pageSize, setPageSize] = useState(pageSizeList && pageSizeList[0] || 10);
     const optionsSize = pageSizeList && pageSizeList.length ? pageSizeList.map(el => {
@@ -149,6 +156,45 @@ export const useSearchPage = (props = {}) => {
     });
 
     const isBackgroundLoading = !!data && searchLoading;
+
+    const skuList = useMemo(() => {
+        if (!data || !data?.products?.items.length) {
+            return [];
+        }
+        const list = [];
+        data?.products?.items.map((el) => el.sku ? list.push(el.sku) : null );
+        return list;
+    }, [data]);
+
+    const estimatedDeliveryData = async (list) => {
+        try {
+            const chunks = chunkArray(list, SKU_SIZE_REQUEST);
+            for (const item of chunks) {
+                const result = await runEstimatedDelivery({
+                    variables: {
+                        skus: item
+                    }
+                });
+                result?.data?.estimatedDelivery && setEtaList(items => [
+                    ...items, ...result?.data?.estimatedDelivery
+                ]);
+            }
+        } catch (err) {
+            console.error(
+                'An error occurred during when getting ETA delivery',
+                err
+            );
+        }
+    };
+
+    useEffect(() => {
+        if (skuList.length) {
+            estimatedDeliveryData(skuList);
+        }
+        if (searchLoading || !skuList.length) {
+            setEtaList([]);
+        }
+    }, [skuList]);
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
@@ -320,6 +366,7 @@ export const useSearchPage = (props = {}) => {
         currentStoreName,
         pageSize,
         optionsSize,
-        setPageSize
+        setPageSize,
+        etaList
     };
 };

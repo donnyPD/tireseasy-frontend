@@ -20,10 +20,10 @@ import SelectSize from '../../../../../components/InvoicesPage/selectSize';
 import { ChevronUp, ChevronDown } from 'react-feather';
 
 const FilterModal = React.lazy(() =>
-  import('@magento/venia-ui/lib/components/FilterModal')
+  import('../../../../../components/FilterModal')
 );
 const FilterSidebar = React.lazy(() =>
-  import('@magento/venia-ui/lib/components/FilterSidebar')
+  import('../../../../../components/FilterSidebar')
 );
 
 const BrandPage = props => {
@@ -47,7 +47,8 @@ const BrandPage = props => {
     totalCount,
     pageSize,
     optionsSize,
-    setPageSize
+    setPageSize,
+    etaList
   } = talonProps;
 
   useEffect(() => {
@@ -114,7 +115,7 @@ const BrandPage = props => {
       return (
         <Fragment>
           <section className={classes.gallery}>
-            <Gallery items={items} />
+            <Gallery items={items} etaList={etaList} />
           </section>
           <div className={classes.pagination}>
             <Pagination pageControl={pageControl} />

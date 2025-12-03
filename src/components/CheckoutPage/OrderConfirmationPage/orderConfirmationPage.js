@@ -109,7 +109,7 @@ const OrderConfirmationPage = props => {
                         <span className={classes.text}>
                             <FormattedMessage
                                 id={'checkoutPage.thankYou.text'}
-                                defaultMessage={'Your order has been successfully and is now being processed.'}
+                                defaultMessage={'Your order has been successfully placed and is now being processed.'}
                             />
                         </span>
                         <div

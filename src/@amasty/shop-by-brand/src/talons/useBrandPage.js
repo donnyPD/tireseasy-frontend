@@ -9,6 +9,8 @@ import { useLocation } from 'react-router-dom';
 import DEFAULT_OPERATIONS from './brands.gql';
 import { getUrlKey } from '../utils';
 import mergeOperations from '@magento/peregrine/lib/util/shallowMerge';
+import { chunkArray } from '../../../../talons/RootComponents/Category/helpers';
+const SKU_SIZE_REQUEST = 10;
 
 export const useBrandPage = (props = {}) => {
   const { brand, isOpen, setIsOpen } = props;
@@ -19,13 +21,19 @@ export const useBrandPage = (props = {}) => {
     productSearchQuery,
     allBrandsPageQuery,
     getFilterInputsQuery,
-    getProductFiltersByBrandQuery
+    getProductFiltersByBrandQuery,
+    getEstimatedDeliveryQuery
   } = operations;
 
   const { data: pageSizeData } = useQuery(getPageSize, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first'
   });
+  const [runEstimatedDelivery] = useLazyQuery(getEstimatedDeliveryQuery, {
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first'
+  });
+  const [etaList, setEtaList] = useState([]);
   const pageSizeList = pageSizeData && pageSizeData.storeConfig.list_per_page_values.split(',');
   const [pageSize, setPageSize] = useState(pageSizeList && pageSizeList[0] || 10);
   const optionsSize = pageSizeList && pageSizeList.length ? pageSizeList.map(el => {
@@ -154,6 +162,45 @@ export const useBrandPage = (props = {}) => {
 
   const totalPagesFromData = data ? data.products.page_info.total_pages : null;
 
+  const skuList = useMemo(() => {
+    if (!data || !data?.products?.items.length) {
+        return [];
+    }
+    const list = [];
+    data?.products?.items.map((el) => el.sku ? list.push(el.sku) : null );
+    return list;
+  }, [data]);
+
+  const estimatedDeliveryData = async (list) => {
+    try {
+        const chunks = chunkArray(list, SKU_SIZE_REQUEST);
+        for (const item of chunks) {
+            const result = await runEstimatedDelivery({
+                variables: {
+                    skus: item
+                }
+            });
+            result?.data?.estimatedDelivery && setEtaList(items => [
+                ...items, ...result?.data?.estimatedDelivery
+            ]);
+        }
+    } catch (err) {
+        console.error(
+            'An error occurred during when getting ETA delivery',
+            err
+        );
+    }
+  };
+
+  useEffect(() => {
+    if (skuList.length) {
+        estimatedDeliveryData(skuList);
+    }
+    if (loading || !skuList.length) {
+        setEtaList([]);
+    }
+  }, [skuList]);
+
   useEffect(() => {
     setTotalPages(totalPagesFromData);
 
@@ -251,6 +298,7 @@ export const useBrandPage = (props = {}) => {
     totalCount,
     pageSize,
     optionsSize,
-    setPageSize
+    setPageSize,
+    etaList
   };
 };

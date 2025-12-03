@@ -15,7 +15,7 @@ import SortedByContainer, {
 import FilterModalOpenButton, {
     FilterModalOpenButtonShimmer
 } from '@magento/venia-ui/lib/components/FilterModalOpenButton';
-import { FilterSidebarShimmer } from '@magento/venia-ui/lib/components/FilterSidebar';
+import { FilterSidebarShimmer } from '../FilterSidebar';
 import Shimmer from '@magento/venia-ui/lib/components/Shimmer';
 import { Meta, Title } from '@magento/venia-ui/lib/components/Head';
 import QuickLookups from '../QuickLookups';
@@ -24,8 +24,8 @@ import Breadcrumbs from './breadcrumbs';
 import noProductsFound from '../../RootComponents/Category/NoProductsFound/noProductsFound.png';
 import Image from '@magento/venia-ui/lib/components/Image';
 
-const FilterModal = React.lazy(() => import('@magento/venia-ui/lib/components/FilterModal'));
-const FilterSidebar = React.lazy(() => import('@magento/venia-ui/lib/components/FilterSidebar'));
+const FilterModal = React.lazy(() => import('../FilterModal'));
+const FilterSidebar = React.lazy(() => import('../FilterSidebar'));
 
 const SearchPage = props => {
     const classes = useStyle(defaultClasses, props.classes);
@@ -43,7 +43,8 @@ const SearchPage = props => {
         currentStoreName,
         pageSize,
         optionsSize,
-        setPageSize
+        setPageSize,
+        etaList
     } = talonProps;
 
     const { formatMessage } = useIntl();
@@ -105,7 +106,7 @@ const SearchPage = props => {
             return (
                 <Fragment>
                     <section className={classes.gallery}>
-                        <Gallery items={data.products.items} />
+                        <Gallery items={data.products.items} etaList={etaList} />
                     </section>
                     <section className={classes.pagination}>
                         <Pagination pageControl={pageControl} />

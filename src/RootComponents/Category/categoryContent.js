@@ -12,7 +12,7 @@ import Breadcrumbs from '@magento/venia-ui/lib/components/Breadcrumbs';
 import FilterModalOpenButton, {
     FilterModalOpenButtonShimmer
 } from '@magento/venia-ui/lib/components/FilterModalOpenButton';
-import { FilterSidebarShimmer } from '@magento/venia-ui/lib/components/FilterSidebar';
+import { FilterSidebarShimmer } from '../../components/FilterSidebar';
 import { StoreTitle } from '@magento/venia-ui/lib/components/Head';
 import Pagination from '../../components/Pagination';
 import ProductSort, { ProductSortShimmer } from '@magento/venia-ui/lib/components/ProductSort';
@@ -24,9 +24,9 @@ import SortedByContainer, {
 import defaultClasses from './category.module.css';
 import NoProductsFound from './NoProductsFound';
 
-const FilterModal = React.lazy(() => import('@magento/venia-ui/lib/components/FilterModal'));
+const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 const FilterSidebar = React.lazy(() =>
-    import('@magento/venia-ui/lib/components/FilterSidebar')
+    import('../../components/FilterSidebar')
 );
 
 import { GalleryShimmer } from '../../components/Gallery';

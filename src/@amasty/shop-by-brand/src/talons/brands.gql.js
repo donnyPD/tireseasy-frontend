@@ -5,6 +5,7 @@ import {
   GET_PAGE_SIZE
 } from '../../../../talons/SearchPage/searchPage.gql';
 import { GET_PRODUCT_FILTERS_BY_BRAND } from './productFilters.gql';
+import { GET_ESTIMATED_DELIVERY } from '../../../../talons/RootComponents/Category/category.gql';
 
 export const GET_BRAND_LIST = gql`
   query getBrandList(
@@ -80,5 +81,6 @@ export default {
   productSearchQuery: PRODUCT_SEARCH,
   brandConfigQuery: GET_BRAND_CONFIG,
   brandsSliderQuery: GET_BRANDS_SLIDER,
-  getPageSize: GET_PAGE_SIZE
+  getPageSize: GET_PAGE_SIZE,
+  getEstimatedDeliveryQuery: GET_ESTIMATED_DELIVERY
 };

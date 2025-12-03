@@ -13,7 +13,12 @@ const wrapUseFilterBlock = original => props => {
 
   const { filterApi, group, filterState } = props;
 
-  const filterBlockSettings = useMemo(() => filterApi.getAmFilterData(group), [
+  const filterBlockSettings = useMemo(() => filterApi && filterApi.getAmFilterData(group)
+      || {
+      is_expanded: null,
+          is_multiselect: null,
+          display_mode_label: null
+      }, [
     group,
     filterApi
   ]);

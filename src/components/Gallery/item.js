@@ -205,15 +205,15 @@ const GalleryItem = props => {
             >
                 <span>{name}</span>
                 {renderAttr()}
-                <div className={classes.attrs__item}>
-                    {fet_amount && <span>
+                {fet_amount && <div className={classes.attrs__item}>
+                    <span>
                         <FormattedMessage
                             id={'product.list.fet'}
                             defaultMessage={'FET: '}
                         />
-                        <Price currencyCode={currencyCode} value={fet_amount} />
-                    </span>}
-                </div>
+                        <Price currencyCode={currencyCode} value={+fet_amount} />
+                    </span>
+                </div>}
                 {etaDate && <div className={classes.attrs__item}>
                     <span>
                         <FormattedMessage

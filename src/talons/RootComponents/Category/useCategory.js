@@ -11,7 +11,7 @@ import {
     getFiltersFromSearch,
     getFilterInput
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
-import { getCustomFiltersFromSearch, getCustomFilterInput } from './helpers';
+import { getCustomFiltersFromSearch, getCustomFilterInput, chunkArray } from './helpers';
 import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 import DEFAULT_OPERATIONS from './category.gql';
@@ -237,14 +237,6 @@ export const useCategory = props => {
         (introspectionCalled && !categoryCalled) ||
         (categoryLoading && !data) ||
         introspectionLoading;
-
-    const chunkArray = (arr, size) => {
-        const result = [];
-        for (let i = 0; i < arr.length; i += size) {
-            result.push(arr.slice(i, i + size));
-        }
-        return result;
-    };
 
     const skuList = useMemo(() => {
         if (!categoryData || !categoryData?.products?.items.length) {
