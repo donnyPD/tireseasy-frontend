@@ -34,15 +34,10 @@ export const useOrderHistoryPage = (props = {}) => {
 
     const selectOptions = [
         { value: '', label: 'Select status' },
-        { value: 'CREATED', label: 'Created' },
-        { value: 'CONFIRMED', label: 'Confirmed' },
-        { value: 'PARTIALLY_CONFIRMED', label: 'Partially Confirmed' },
-        { value: 'SHIPPED', label: 'Shipped' },
-        { value: 'PARTIALLY_SHIPPED', label: 'Partially Shipped' },
-        { value: 'DELIVERED', label: 'Delivered' },
-        { value: 'PARTIALLY_DELIVERED', label: 'Partially Delivered' },
-        { value: 'CANCELLED', label: 'Cancelled' },
-        { value: 'PARTIALLY_CANCELLED', label: 'Partially Cancelled' },
+        { value: 'Received', label: 'Received' },
+        { value: 'Processing', label: 'Processing' },
+        { value: 'Shipped', label: 'Shipped' },
+        { value: 'Delivered', label: 'Delivered' },
     ];
 
     const [currentPage, setCurrentPage] = useState(1);
