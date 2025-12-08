@@ -59,7 +59,6 @@ export const GET_QUOTE_DETAILS = gql`
     query {
         getQuoteDetails {
             po_number
-            estimated_delivery_date
             customer_comment
             items {
                 sku
@@ -86,7 +85,6 @@ export const SET_CHECKOUT_CUSTOM_FIELDS = gql`
             message
             quote {
                 po_number
-                estimated_delivery_date
                 customer_comment
                 items {
                     sku
