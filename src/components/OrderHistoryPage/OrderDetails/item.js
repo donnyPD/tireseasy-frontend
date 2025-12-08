@@ -19,7 +19,8 @@ const Item = props => {
         product_url_key,
         quantity_ordered,
         selected_options,
-        thumbnail
+        thumbnail,
+        shipments
     } = props;
     const { currency, value: unitPrice } = product_sale_price;
 
@@ -34,7 +35,54 @@ const Item = props => {
             })),
         [selected_options]
     );
+    const deliveredAt = shipments[0]?.delivered_at || null;
+    const shippedAt = shipments[0]?.shipped_at || null;
+    const trackingNumber = shipments[0]?.tracking_number || null;
     const classes = useStyle(defaultClasses, props.classes);
+
+    const trackingElement = trackingNumber ? (
+        <div className={classes.attrContainer}>
+            <span className={classes.trackingRow}>
+                <FormattedMessage
+                    id="orderDetails.trackingInformation.new"
+                    defaultMessage="<strong>Tracking number:</strong> {number}"
+                    values={{
+                        number: trackingNumber,
+                        strong: chunks => <strong>{chunks}</strong>
+                    }}
+                />
+            </span>
+        </div>
+    ) : null;
+
+    const deliverElement = deliveredAt || shippedAt ? (
+        <>
+            {shippedAt && <div className={classes.attrContainer}>
+                <span className={classes.trackingRow}>
+                    <FormattedMessage
+                        id="orderDetails.shippedAt"
+                        defaultMessage="<strong>Shipped At:</strong> {shippedAt}"
+                        values={{
+                            shippedAt,
+                            strong: chunks => <strong>{chunks}</strong>
+                        }}
+                    />
+                </span>
+            </div>}
+            {deliveredAt && <div className={classes.attrContainer}>
+                <span className={classes.trackingRow}>
+                    <FormattedMessage
+                        id="orderDetails.deliveredAt"
+                        defaultMessage="<strong>Delivered At:</strong> {deliveredAt}"
+                        values={{
+                            deliveredAt,
+                            strong: chunks => <strong>{chunks}</strong>
+                        }}
+                    />
+                </span>
+            </div>}
+        </>
+    ) : null;
 
     const thumbnailProps = {
         alt: product_name,
@@ -73,18 +121,8 @@ const Item = props => {
             <div className={classes.price}>
                 <Price currencyCode={currency} value={unitPrice} />
             </div>
-            <Button
-                onClick={() => {
-                    // TODO will be implemented in PWA-979
-                    console.log('Buying Again');
-                }}
-                className={classes.buyAgainButton}
-            >
-                <FormattedMessage
-                    id="orderDetails.buyAgain"
-                    defaultMessage="Buy Again"
-                />
-            </Button>
+            {trackingElement}
+            {deliverElement}
         </div>
     );
 };
@@ -100,6 +138,7 @@ Item.propTypes = {
         options: string,
         quantity: string,
         price: string,
+        attrContainer: string,
         buyAgainButton: string
     }),
     product_name: string.isRequired,

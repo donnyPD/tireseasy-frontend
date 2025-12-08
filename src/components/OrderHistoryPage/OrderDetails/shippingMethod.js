@@ -8,40 +8,8 @@ import defaultClasses from './shippingMethod.module.css';
 
 const ShippingMethod = props => {
     const { data, classes: propsClasses } = props;
-    const { shipments, shippingMethod } = data;
+    const { shippingMethod } = data;
     const classes = useStyle(defaultClasses, propsClasses);
-    let trackingElement;
-
-    if (shipments.length) {
-        trackingElement = shipments.map(shipment => {
-            const { tracking: trackingCollection } = shipment;
-            if (trackingCollection.length) {
-                return trackingCollection.map(tracking => {
-                    const { number } = tracking;
-
-                    return (
-                        <span className={classes.trackingRow} key={number}>
-                            <FormattedMessage
-                                id="orderDetails.trackingInformation"
-                                defaultMessage="<strong>Tracking number:</strong> {number}"
-                                values={{
-                                    number,
-                                    strong: chunks => <strong>{chunks}</strong>
-                                }}
-                            />
-                        </span>
-                    );
-                });
-            }
-        });
-    } else {
-        trackingElement = (
-            <FormattedMessage
-                id="orderDetails.waitingOnTracking"
-                defaultMessage="Waiting for tracking information"
-            />
-        );
-    }
 
     return (
         <div
@@ -55,7 +23,6 @@ const ShippingMethod = props => {
                 />
             </div>
             <div className={classes.method}>{shippingMethod}</div>
-            <div className={classes.tracking}>{trackingElement}</div>
         </div>
     );
 };

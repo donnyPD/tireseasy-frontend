@@ -54,8 +54,8 @@ const OrderTotal = props => {
         <div className={classes.root}>
             <div className={classes.heading}>
                 <FormattedMessage
-                    id="orderDetails.orderTotal"
-                    defaultMessage="Order Total"
+                    id="orderDetails.orderTotal.new"
+                    defaultMessage="Order Total:"
                 />
             </div>
             <div className={classes.subTotal}>

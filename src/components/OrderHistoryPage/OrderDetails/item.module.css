@@ -2,10 +2,14 @@
     composes: grid from global;
     composes: grid-cols-autoFirst from global;
     composes: grid-rows-autoFirst from global;
-    composes: gap-y-2 from global;
+    composes: gap-y-1 from global;
     composes: gap-x-4 from global;
 
-    composes: lg_gap-y-1.5 from global;
+    composes: lg_gap-y-1 from global;
+}
+
+.root > div:not(.nameContainer) {
+    @apply text-sm;
 }
 
 @media screen(lg) {
@@ -22,6 +26,15 @@
 .nameContainer {
     composes: font-bold from global;
     grid-column: 2 / -1;
+}
+
+.attrContainer {
+    grid-column: 2 / -1;
+    @apply text-sm;
+}
+
+.quantity {
+    @apply text-sm;
 }
 
 .buyAgainButton {

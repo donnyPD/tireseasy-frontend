@@ -52,18 +52,6 @@ const OrderDetails = props => {
                     <ShippingMethod data={shippingMethodData} />
                 </ConditionalWrapper>
             </div>
-            {/*<div className={classes.billingInformationContainer}>*/}
-            {/*    <ConditionalWrapper condition={billing_address}>*/}
-            {/*        <BillingInformation data={billing_address} />*/}
-            {/*    </ConditionalWrapper>*/}
-            {/*</div>*/}
-            {/*<div className={classes.paymentMethodContainer}>*/}
-            {/*    <ConditionalWrapper*/}
-            {/*        condition={payment_methods && payment_methods.length}*/}
-            {/*    >*/}
-            {/*        <PaymentMethod data={payment_methods} />*/}
-            {/*    </ConditionalWrapper>*/}
-            {/*</div>*/}
             <div className={classes.itemsContainer}>
                 <ConditionalWrapper condition={items && items.length}>
                     <Items data={{ imagesData: imagesArray, items }} />
@@ -74,21 +62,6 @@ const OrderDetails = props => {
                     <OrderTotal data={total} />
                 </ConditionalWrapper>
             </div>
-            {/*<Button*/}
-            {/*    className={classes.printButton}*/}
-            {/*    onClick={() => {*/}
-            {/*        // TODO will be implemented in PWA-978*/}
-            {/*        console.log('Printing Receipt');*/}
-            {/*    }}*/}
-            {/*>*/}
-            {/*    <Icon src={Printer} />*/}
-            {/*    <span className={classes.printLabel}>*/}
-            {/*        <FormattedMessage*/}
-            {/*            id="orderDetails.printLabel"*/}
-            {/*            defaultMessage="Print Receipt"*/}
-            {/*        />*/}
-            {/*    </span>*/}
-            {/*</Button>*/}
         </div>
     );
 };

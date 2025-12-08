@@ -24,6 +24,11 @@ const CustomerOrdersFragment = gql`
                 product_name
                 brand_name
                 primary_mfg_code
+                shipments {
+                    tracking_number
+                    shipped_at
+                    delivered_at
+                }
                 product_sale_price {
                     currency
                     value
