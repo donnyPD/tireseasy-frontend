@@ -40,6 +40,8 @@
     composes: lg_m-0 from global;
     composes: lg_max-w-[25rem] from global;
     composes: lg_min-w-[22rem] from global;
+
+    @apply lg_flex lg_justify-end;
 }
 
 .printButton {

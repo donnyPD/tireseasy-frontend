@@ -6,11 +6,13 @@
     composes: py-xs from global;
     composes: rounded-none from global;
 
-    composes: lg_border-2 from global;
+    composes: lg_border from global;
     composes: lg_border-solid from global;
     composes: lg_border-subtle from global;
     composes: lg_p-4 from global;
     composes: lg_rounded-box from global;
+
+    @apply gap-1 lg_max-w-[250px] lg_w-[250px];
 }
 
 .heading {
