@@ -35,52 +35,52 @@ const Item = props => {
             })),
         [selected_options]
     );
-    const deliveredAt = shipments[0]?.delivered_at || null;
-    const shippedAt = shipments[0]?.shipped_at || null;
-    const trackingNumber = shipments[0]?.tracking_number || null;
     const classes = useStyle(defaultClasses, props.classes);
 
-    const trackingElement = trackingNumber ? (
-        <div className={classes.attrContainer}>
-            <span className={classes.trackingRow}>
-                <FormattedMessage
-                    id="orderDetails.trackingInformation.new"
-                    defaultMessage="<strong>Tracking number:</strong> {number}"
-                    values={{
-                        number: trackingNumber,
-                        strong: chunks => <strong>{chunks}</strong>
-                    }}
-                />
-            </span>
-        </div>
-    ) : null;
-
-    const deliverElement = deliveredAt || shippedAt ? (
+    const shipmentsElements = shipments && shipments.length > 0 ? (
         <>
-            {shippedAt && <div className={classes.attrContainer}>
-                <span className={classes.trackingRow}>
-                    <FormattedMessage
-                        id="orderDetails.shippedAt"
-                        defaultMessage="<strong>Shipped At:</strong> {shippedAt}"
-                        values={{
-                            shippedAt,
-                            strong: chunks => <strong>{chunks}</strong>
-                        }}
-                    />
-                </span>
-            </div>}
-            {deliveredAt && <div className={classes.attrContainer}>
-                <span className={classes.trackingRow}>
-                    <FormattedMessage
-                        id="orderDetails.deliveredAt"
-                        defaultMessage="<strong>Delivered At:</strong> {deliveredAt}"
-                        values={{
-                            deliveredAt,
-                            strong: chunks => <strong>{chunks}</strong>
-                        }}
-                    />
-                </span>
-            </div>}
+            {shipments.map(item => {
+                return (
+                    <div key={item.tracking_number} className={classes.attrContainer}>
+                        {item.tracking_number && <div>
+                            <span className={classes.trackingRow}>
+                                <FormattedMessage
+                                    id="orderDetails.trackingInformation.new"
+                                    defaultMessage="<strong>Tracking number:</strong> {number}"
+                                    values={{
+                                        number: item.tracking_number,
+                                        strong: chunks => <strong>{chunks}</strong>
+                                    }}
+                                />
+                            </span>
+                        </div>}
+                        {item.shipped_at && <div>
+                            <span className={classes.trackingRow}>
+                                <FormattedMessage
+                                    id="orderDetails.shipped_at"
+                                    defaultMessage="<strong>Shipped At:</strong> {shipped}"
+                                    values={{
+                                        shipped: item.shipped_at,
+                                        strong: chunks => <strong>{chunks}</strong>
+                                    }}
+                                />
+                            </span>
+                        </div>}
+                        {item.delivered_at && <div>
+                            <span className={classes.trackingRow}>
+                                <FormattedMessage
+                                    id="orderDetails.delivered_at"
+                                    defaultMessage="<strong>Delivered At:</strong> {delivered}"
+                                    values={{
+                                        delivered: item.delivered_at,
+                                        strong: chunks => <strong>{chunks}</strong>
+                                    }}
+                                />
+                            </span>
+                        </div>}
+                    </div>
+                );
+            })}
         </>
     ) : null;
 
@@ -121,8 +121,7 @@ const Item = props => {
             <div className={classes.price}>
                 <Price currencyCode={currency} value={unitPrice} />
             </div>
-            {trackingElement}
-            {deliverElement}
+            {shipmentsElements}
         </div>
     );
 };
