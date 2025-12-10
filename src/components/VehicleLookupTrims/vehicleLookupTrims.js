@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useStyle } from '@magento/venia-ui/lib/classify';
 import { Link } from 'react-router-dom';
-import Button from '@magento/venia-ui/lib/components/Button';
 import defaultClasses from './vehicleLookupTrims.module.css';
+import { useCustomHeader } from '../Header/useCustomHeader';
+import resourceUrl from '@magento/peregrine/lib/util/makeUrl';
 
 /**
  * VehicleLookupTrims component for displaying tire size options
@@ -33,6 +34,11 @@ const VehicleLookupTrims = props => {
         onTireSizeSelect = () => {},
         modelName
     } = props;
+
+    const {
+        categoryPrimary,
+        handleCategoryClick
+    } = useCustomHeader();
 
     const classes = useStyle(defaultClasses, props.classes);
     const [selectedTireSize, setSelectedTireSize] = useState(
@@ -189,17 +195,32 @@ const VehicleLookupTrims = props => {
 
                 {/* Information Section */}
                 <section className={classes.infoSection}>
-                    <Link
-                        className={classes.selectedTiresBtn}
-                        disabled={selectedTireSizeUrl === ''}
-                        to={selectedTireSizeUrl}
-                        type="button"
-                    >
-                        <FormattedMessage
-                            id="vehicleLookupTrims.button.infoText"
-                            defaultMessage="View Tires for Selected Size"
-                        />
-                    </Link>
+                    {categoryPrimary ? (
+                        <Link
+                            className={classes.selectedTiresBtn}
+                            disabled={selectedTireSizeUrl === ''}
+                            to={selectedTireSizeUrl}
+                            type="button"
+                        >
+                            <FormattedMessage
+                                id="vehicleLookupTrims.button.infoText"
+                                defaultMessage="View Tires for Selected Size"
+                            />
+                        </Link>
+                    ) : (
+                        <a
+                            href={resourceUrl(selectedTireSizeUrl)}
+                            className={classes.selectedTiresBtn}
+                            disabled={selectedTireSizeUrl === ''}
+                            onClick={() => handleCategoryClick()}
+                            type="button"
+                        >
+                            <FormattedMessage
+                                id="vehicleLookupTrims.button.infoText"
+                                defaultMessage="View Tires for Selected Size"
+                            />
+                        </a>
+                    )}
                 </section>
             </div>
         </div>
