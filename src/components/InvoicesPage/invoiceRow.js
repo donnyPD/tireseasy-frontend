@@ -92,11 +92,11 @@ const InvoiceRow = props => {
                 </span>
                 <div className={classes.invoiceTotal}>{orderTotalPrice}</div>
             </div>
-            <div className={classes.invoiceStatusContainer}>
-                <span className={statusClasses}>
-                    {status}
-                </span>
-            </div>
+            {/*<div className={classes.invoiceStatusContainer}>*/}
+            {/*    <span className={statusClasses}>*/}
+            {/*        {status}*/}
+            {/*    </span>*/}
+            {/*</div>*/}
         </li>
     );
 };

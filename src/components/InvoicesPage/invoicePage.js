@@ -245,14 +245,14 @@ const InvoicePage = props => {
                                     />
                                 </span>
                             </div>
-                            <div>
-                                <span className={classes.invoiceStatusLabel}>
-                                    <FormattedMessage
-                                        id={'invoiceRow.orderStatusText'}
-                                        defaultMessage={'Status'}
-                                    />
-                                </span>
-                            </div>
+                            {/*<div>*/}
+                            {/*    <span className={classes.invoiceStatusLabel}>*/}
+                            {/*        <FormattedMessage*/}
+                            {/*            id={'invoiceRow.orderStatusText'}*/}
+                            {/*            defaultMessage={'Status'}*/}
+                            {/*        />*/}
+                            {/*    </span>*/}
+                            {/*</div>*/}
                         </li>
                         {invoiceRows}
                     </ul>
@@ -377,19 +377,19 @@ const InvoicePage = props => {
                                     />
                                 </Field>
                             </div>
-                            <Field
-                                id={classes.status}
-                                label={formatMessage({
-                                    id: 'status.code',
-                                    defaultMessage: 'Status'
-                                })}
-                            >
-                                <Select
-                                    field="status"
-                                    id={classes.select}
-                                    items={options}
-                                />
-                            </Field>
+                            {/*<Field*/}
+                            {/*    id={classes.status}*/}
+                            {/*    label={formatMessage({*/}
+                            {/*        id: 'status.code',*/}
+                            {/*        defaultMessage: 'Status'*/}
+                            {/*    })}*/}
+                            {/*>*/}
+                            {/*    <Select*/}
+                            {/*        field="status"*/}
+                            {/*        id={classes.select}*/}
+                            {/*        items={options}*/}
+                            {/*    />*/}
+                            {/*</Field>*/}
                             <div className={classes.date_container}>
                                 <Field
                                     className={classes.date}

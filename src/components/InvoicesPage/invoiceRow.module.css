@@ -11,8 +11,10 @@
 
 @media screen(lg) {
     .root {
+        /*grid-template-columns:*/
+        /*    4rem 1fr minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr);*/
         grid-template-columns:
-            4rem 1fr minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr);
+            4rem 1fr minmax(20%, 1fr) minmax(20%, 1fr) minmax(20%, 1fr);
     }
 
     .invoiceNumberLabel,
@@ -148,7 +150,7 @@
 
 .invoiceNumberContainer,
 .invoiceDateContainer,
-.invoiceTotalContainer,
+/*.invoiceTotalContainer,*/
 .invoiceItemsContainer {
     @apply -lg_pb-0;
 }
