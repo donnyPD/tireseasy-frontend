@@ -203,16 +203,16 @@ const InvoicePage = props => {
                             pageSize={pageSize}
                             setPageSize={setPageSize}
                         />
-                        {/*{buttonsBlock}*/}
+                        {buttonsBlock}
                     </div>
                     <ul
                         className={classes.orderHistoryTable}
                         data-cy="InvoicePage-orderHistoryTable"
                     >
                         <li className={classes.th}>
-                            {/*<div className={classes.invoiceCheckbox}>*/}
-                            {/*    <Checkbox checked={checkedAll} handleChange={handleChecked} label={'Select All'} />*/}
-                            {/*</div>*/}
+                            <div className={classes.invoiceCheckbox}>
+                                <Checkbox checked={checkedAll} handleChange={handleChecked} label={'Select All'} />
+                            </div>
                             <div>
                                 <span className={classes.invoiceDateLabel}>
                                     <FormattedMessage

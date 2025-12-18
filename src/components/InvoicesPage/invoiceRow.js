@@ -57,9 +57,9 @@ const InvoiceRow = props => {
 
     return (
         <li className={classes.root}>
-            {/*<div className={classes.invoiceCheckbox}>*/}
-            {/*    <Checkbox checked={checked} handleChange={handleChecked} />*/}
-            {/*</div>*/}
+            <div className={classes.invoiceCheckbox}>
+                <Checkbox checked={checked} handleChange={handleChecked} />
+            </div>
             <div className={classes.invoiceDateContainer}>
                 <span className={classes.invoiceDateLabel}>
                     <FormattedMessage
