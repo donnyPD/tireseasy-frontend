@@ -190,7 +190,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         /*grid-template-columns:*/
         /*    4rem 1fr minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr) minmax(15%, 1fr);*/
         grid-template-columns:
-            4rem 1fr minmax(20%, 1fr) minmax(20%, 1fr) minmax(20%, 1fr);
+            minmax(20%, 1fr) minmax(20%, 1fr) minmax(20%, 1fr) minmax(20%, 1fr);
     }
     .th > div {
         @apply bg-neutral-light text-sm uppercase pl-4 py-4 pr-0;
