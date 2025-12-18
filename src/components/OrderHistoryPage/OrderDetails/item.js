@@ -26,7 +26,7 @@ const Item = props => {
 
     const orderHistoryState = useOrderHistoryContext();
     const { productURLSuffix } = orderHistoryState;
-    const itemLink = `${product_url_key}${productURLSuffix}`;
+    const itemLink = `${product_url_key}${productURLSuffix ? productURLSuffix : ''}`;
     const mappedOptions = useMemo(
         () =>
             selected_options.map(option => ({
